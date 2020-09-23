@@ -36,6 +36,8 @@
 
 * #### 방 소개
 
+- jquery를 활용한 롤링 배너만들기
+
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/59947533/93965795-f9270c00-fd9d-11ea-9219-42a5c3efe529.gif)
 
 
