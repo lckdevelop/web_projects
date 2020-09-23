@@ -47,3 +47,13 @@ public class MemberForm {
 ```
 
 ![image](https://user-images.githubusercontent.com/59947533/94014297-4af38480-fde6-11ea-93c5-1aa24a246b28.png)
+
+> 상품 주문
+
+##### 재고가 변동되는 경우
+1. 주문할 때
+2. 주문 취소할 때
+3. 수정할 때
+
+![image](https://user-images.githubusercontent.com/59947533/94014800-fdc3e280-fde6-11ea-8fec-385ba0e1cdf4.png)
+
