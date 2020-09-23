@@ -31,5 +31,4 @@
 2. 해당 날짜와 방에 예약이 되어있으면 고객 이름이 표시되며,
    관리자는 FullName으로 볼 수 있으나 그 외는 처리를 하였다
 
-
-![1](https://user-images.githubusercontent.com/59947533/93966831-a3a02e80-fda0-11ea-97d7-b1f2c07de02f.png)
+![1](https://user-images.githubusercontent.com/59947533/93966883-c6cade00-fda0-11ea-8e34-953ecb8fb4e6.jpg)
