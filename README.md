@@ -14,6 +14,20 @@
 ![image](https://user-images.githubusercontent.com/59947533/93965197-781b4500-fd9c-11ea-8d62-bb745e9821ab.png)
 
 
+##### 관리자 로그인 화면
+
+관리자 기능(세션 체크)
+1. 예약 달력에서 고객의 이름을 FullName으로 볼 수 있다.
+2. 고객의 이름을 클릭하면 예약 수정, 삭제가 가능하다.
+3. 관리자는 고객들과 달리 달력에서 전체 날짜가보여 예약날짜에 제약이 없다.
+4. 공지사항은 관리자만 쓸 수 있다.
+5. 게시글 관련 수정, 삭제 기능은 관리자만 가능하다.
+    (고객과 방문자는 버튼이 보이지 않는다.)
+
+
+![image](https://user-images.githubusercontent.com/59947533/93968920-b0735100-fda5-11ea-96c0-381ba40e436e.png)
+![image](https://user-images.githubusercontent.com/59947533/93968884-96d20980-fda5-11ea-8aa6-92149413b2e2.png)
+
 ##### 방 소개
 
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/59947533/93965795-f9270c00-fd9d-11ea-9219-42a5c3efe529.gif)
@@ -51,7 +65,3 @@
 
 ![image](https://user-images.githubusercontent.com/59947533/93967696-c4698380-fda2-11ea-9902-448c73b33075.png)
 
-##### 로그인 화면
-
-![image](https://user-images.githubusercontent.com/59947533/93968920-b0735100-fda5-11ea-96c0-381ba40e436e.png)
-![image](https://user-images.githubusercontent.com/59947533/93968884-96d20980-fda5-11ea-8aa6-92149413b2e2.png)
