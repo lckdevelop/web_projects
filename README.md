@@ -26,9 +26,8 @@
 
 ##### 리조트 예약 기능 
 
-1. 고객은 관리자와 달리 오늘로부터 30일 후 까지만 달력에 객실이 출력된다.
+1. 고객 예약페이지는 관리자와 달리 오늘로부터 30일 후 까지만 달력에 객실이 출력된다.(관리자 로그인을 하면 전체 날짜가 보인다.)
 
-2. 해당 날짜와 방에 예약이 되어있으면 고객 이름이 표시되며,
-   관리자는 FullName으로 볼 수 있으나 그 외는 처리를 하였다
+2. 해당 날짜와 방에 예약이 되어있으면 고객 이름이 표시되며, 관리자는 FullName으로 볼 수 있으나 고객화면은 *처리를 하였다.
    
-![1](https://user-images.githubusercontent.com/59947533/93967102-6c7e4d00-fda1-11ea-8e03-f4a79cb9839f.JPG) ![image](https://user-images.githubusercontent.com/59947533/93967205-ac453480-fda1-11ea-88ed-b99c602946dc.png)
+![1](https://user-images.githubusercontent.com/59947533/93967102-6c7e4d00-fda1-11ea-8e03-f4a79cb9839f.JPG)     ![image](https://user-images.githubusercontent.com/59947533/93967205-ac453480-fda1-11ea-88ed-b99c602946dc.png)
