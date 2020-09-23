@@ -32,4 +32,4 @@
    관리자는 FullName으로 볼 수 있으나 그 외는 처리를 하였다
 
 
-![image](https://user-images.githubusercontent.com/59947533/93966686-40ae9780-fda0-11ea-896d-9389851c8d38.png)
+![1](https://user-images.githubusercontent.com/59947533/93966831-a3a02e80-fda0-11ea-97d7-b1f2c07de02f.png)
