@@ -1,0 +1,232 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0" />
+	<!-- 한글 -->
+	<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+	<!-- 영어 -->
+	<link href="https://fonts.googleapis.com/css2?family=Recursive:wght@700&display=swap" rel="stylesheet">
+		<title>홈페이지테스트</title>
+		<!-- 한 번 클릭하면 색상 변하게하는 css코드  -->
+		<style type='text/css'>
+	@media screen and (min-width: 768px) {
+	/* Remove the padding we set earlier */
+	.div {
+		padding-left: 0;
+		padding-right: 0;
+		overflow:hidden;
+ 		scroll=no;
+	}
+	body {
+		overflow: hidden
+	}
+	td {
+		font-size: 18;
+		font-family: 'Recursive', sans-serif;
+		text-align: center;
+	}
+	td1 {
+		font-size: 12;
+		font-family: 'Recursive', sans-serif;
+	}
+	a:link {
+		text-decoration: none;
+	}
+	a:visited {
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: none;
+	}
+	a:acvite {
+		text-decoration: none;
+	}
+}
+</style>
+		<script language='javascript' type='text/javascript'>
+			var muCnt = 5; // 5개의 상위메뉴
+			// pos는 마우스 포지션을 매개변수로 받는것이다.
+			function fncShow(pos) {
+				var i = 0;
+				// 메뉴의 개수만큼 반복문을 돌린다.
+				for (i; i < muCnt; i++) {
+					var obj = document.getElementById("menu" + i); //하위menu번호 지정
+					var obj2 = document.getElementById("m" + i); // 상위menu번호 지정
+					
+					// 마우스의 위치와 i번째가 같을 때
+					if (i == pos) {
+						// 상위메뉴의 스타일이 어떻게 보일지 지정
+						obj.style.display ='';
+						obj2.style.color="#3b7cff"; // 파란색
+					} else {
+						// 그 외우 경우 하위메뉴는 아무것도 하지 않고(뜨는 것이 없다)
+						obj.style.display = 'none';
+						obj2.style.color = "#000000";						
+					}
+				}
+			}
+			
+			function fncHide(pos) {
+				var obj = document.getElementById("menu" + pos);
+				obj.style.display = 'none';
+			}
+		</script>
+	</head>
+
+	<body bgcolor="#ffffff">
+		<div align=right>
+			<table>
+				<tr>
+					<td>
+						<a href='adm_allview.jsp' target=main> <font size=2 color=#ff8c8c>|
+							Administration </font>
+						</a> <a href='adm_logout.jsp' target=main> <font size=2 color=#ff8c8c>|
+							Logout |</font>
+						</a>
+					</td>  				
+				</tr>			
+			</table>
+		</div>
+		<div align=center>
+				<!-- 로고 이미지를 클릭하면 main.jsp화면이  main부문에 보임 -->
+				<tr>
+					<td><a href='main.jsp' target=main>
+						<img src="./img/cotton.png" width='190' height='50' style="padding-bottom: 25px;"></a></td>
+					<td>
+				</tr>
+				<tr>
+					<div style="top-margin:20px;"></div>
+				</tr>
+				<tr>
+					<td>
+						
+					<td>
+				</tr>
+			<!-- 하나의 큰 테이블 지정 -->
+			<table cellpadding='0' cellspacing='1' border='0' width='750'>
+					<!-- 대메뉴부터 하위메뉴까지 메뉴들을 통트는 하나의 테이블 생성 -->
+					<table cellpadding='0' cellspacing='1' border='0' width=600
+						height='50' style=background-color:#defffd>
+						<!-- 대메뉴 5개  -->
+						<tr height='30'>
+							<td width=100 onmouseover='fncShow(0);' id='m0'><b>
+									About Us </b></td>
+							<td width=100 onmouseover='fncShow(1);' id='m1'><b>
+									Destination </b></td>
+							<td width=100 onmouseover='fncShow(2);' id='m2'><b>
+									Facility </b></td>
+							<td width=100 onmouseover='fncShow(3);' id='m3'><b>
+									Reservation </b></td>
+							<td width=100 onmouseover='fncShow(4);' id='m4'><b>
+									Notice </b></td>
+						</tr>
+					</table>
+					
+						<!-- 메뉴 정렬을 위한 요소들 tr ~ td -->
+						<tr height='30'>
+							<td colspan='6'>
+							
+								<!-- menu0번(하위메뉴) -->
+								<table id='menu0' style='display: none;' cellpadding='0'
+									cellspacing='0' border='0' width='600' height='30'>
+									<tr>
+										<td width='10'></td>
+										<td width='590' style='text-align: left;'><a
+											href='aboutUs.html' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>| Cotton
+													Resort</span>
+										</a> <a href='a_01.html' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>| PoolRoom</span>
+										</a> <a href='a_02.html' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>| SeaViewRoom</span>
+										</a> <a href='a_03.html' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>|
+													DeluxRoom |</span>
+										</a></td>
+									</tr>
+								</table>
+								
+								<!-- menu1번(하위메뉴) -->
+								<table id='menu1' style='display: none;' cellpadding='0'
+									cellspacing='0' border='0' width='600' height='30'>
+									<tr>
+										<td width='120'></td>
+										<td width='480' style='text-align: left;'><a
+											href='b_01.html' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>| 
+												Location </span>
+										</a> <a href='b_02.html' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>|
+													Transportation </span>
+										</a> 
+										</td>
+									</tr>
+								</table>
+								
+								<!-- menu2번(하위메뉴) -->
+								<table id='menu2' style='display: none;' cellpadding='0'
+									cellspacing='0' border='0' width='600' height='30'>
+									<tr>
+										<td width='260'></td>
+										<td width='340' style='text-align: left;'><a
+											href='c_01.html' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>| Infinity Pool</span>
+										</a> <a href='c_02.html' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>|
+													Wedding</span>
+										</a> <a href='c_03.html' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>| Dining |</span>
+										</a></td>
+									</tr>
+								</table>
+	
+								<!-- menu3번(하위메뉴) -->
+								<table id='menu3' style='display: none;' cellpadding='0'
+									cellspacing='0' border='0' width='600' height='30'>
+									<tr>
+										<td width='360'></td>
+										<td width='240' style='text-align: left;'><a
+											href='d_01.jsp' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>| Reservation </span>
+										</a> <a href='d_02.jsp' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>| ReserveToday |</span>
+										</a> 
+										</td>
+									</tr>
+								</table>
+							</div>
+	
+								<!-- menu4번(하위메뉴) -->
+								<table id='menu4' style='display: none;' cellpadding='0'
+									cellspacing='0' border='0' width='800' height='30'align=center>
+									<tr>
+										<td width='770'></td>
+										<td width='230' style='text-align: left;'><a
+											href='e_01.jsp' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>|
+													Resort </span>
+										</a> <a href='e_02.jsp' target=main> <span
+												onmouseover=this.style.color=
+												'#ff0000' onmouseout=this.style.color='#000000'><font size=2>| Customer </span>
+										</a></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+				</td>				
+			</table>
+	</body>
+</html>
