@@ -57,3 +57,12 @@ public class MemberForm {
 
 ![image](https://user-images.githubusercontent.com/59947533/94014800-fdc3e280-fde6-11ea-8fec-385ba0e1cdf4.png)
 
+> 상품 등록 및 수정
+
+![image](https://user-images.githubusercontent.com/59947533/94014965-395eac80-fde7-11ea-96e3-ede950567c65.png)
+
+> 주문 내역 & 취소 & 검색
+
+![image](https://user-images.githubusercontent.com/59947533/94015073-58f5d500-fde7-11ea-9613-840951d3327f.png)
+
+
