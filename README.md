@@ -66,3 +66,53 @@ public class MemberForm {
 ![image](https://user-images.githubusercontent.com/59947533/94015073-58f5d500-fde7-11ea-9613-840951d3327f.png)  
 
 
+> JpaRepository 인터페이스를 이용한 페이지네이션
+
+1. Entity클래스와 id타입을 매개변수로 갖는 JpaRepository를 상속받기
+
+```
+package com.chaeky.jpashop.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.chaeky.jpashop.domain.Item;
+
+public interface PagingItemRepo extends JpaRepository<Item, Long> {
+   
+}
+```
+
+2. Pageable객체를 통해 페이징과 정렬을 위한 파라미터를 전달
+
+```
+public class ItemService {
+  public Page<Item> findAll(Pageable pageable) {
+        // page는 index 처럼 0부터 시작
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        // 페이지는 10개씩 보인다, id에 의해 내림차순정렬해서 보인다.
+        pageable = PageRequest.of(page, 10, Sort.by("id").descending()); 
+
+        // 페이징처리를위한 인터페이스 itemRepo 호출
+        return pagingItemRepo.findAll(pageable);
+     }
+
+     public Item findOne(Long itemId) {
+        return itemRepository.findOne(itemId);
+     }
+ }
+```
+
+3. view에서 Pageable 입력 매개변수를 받아온다. 실행하면 Page타입으로 반환한다.
+
+```
+// 상품 목록
+   @GetMapping(value = "/items")
+   public String list(@PageableDefault Pageable pageable, Model model) {
+      
+      Page<Item> items = itemService.findAll(pageable);
+      
+       model.addAttribute("items", items );
+       
+      return "items/itemList";
+   }
+```
