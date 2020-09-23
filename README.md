@@ -31,3 +31,16 @@
 2. 해당 날짜와 방에 예약이 되어있으면 고객 이름이 표시되며, 관리자는 FullName으로 볼 수 있으나 고객화면은 *처리를 하였다.
    
 ![1](https://user-images.githubusercontent.com/59947533/93967102-6c7e4d00-fda1-11ea-8e03-f4a79cb9839f.JPG)     ![image](https://user-images.githubusercontent.com/59947533/93967205-ac453480-fda1-11ea-88ed-b99c602946dc.png)
+
+##### 고객 리뷰 게시판
+
+사용한 댓글 로직
+1. 원문의 댓글인 경우 먼저 쓸수록 위쪽에 위치
+2. 댓글의 댓글들인 경우 나중에 쓸수록 위쪽에 위치
+
+추가 기능
+1. 시스템 시간으로 당일 작성된 글은 [NEW]가 표시 된다.
+2. 파일이 첨부된 게시글은 파일 이미지가 나타난다.
+
+
+![image](https://user-images.githubusercontent.com/59947533/93967575-676dcd80-fda2-11ea-8de7-8da9a6d6b428.png)
