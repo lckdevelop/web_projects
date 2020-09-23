@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style>
+.fieldError {
+	/* 오류나면 빨간색 표시 */
+	border-color: #bd2130;
+}
+</style>
+<body>
+	<div class="container">
+		<div th:replace="fragments/bodyHeader :: bodyHeader" />
+		<div class="jumbotron" style="text-align:left">
+		<!-- MemberController로부터 th:object=memberForm을 받았다. -->
+		<!-- th:field=memberForm클래스의 필드에 접근. -->
+		<!-- th:field는 id랑 name을 다 맞춰준다 -->
+		<form role="form" action="/members/new" th:object="${memberForm}" 
+			method="post">
+			<div class="form-group">
+				<label th:for="name">이름</label> <input type="text"
+					th:field="*{name}" class="form-control" placeholder="이름을 입력하세요"
+					th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+					<!-- result(=#fields)가 넘어왔을 때 실행할 부분 바로윗줄 -->
+					<!-- 오류가 있으면 아래칸에 에러메세지를 출력한다. -->
+				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="font-size: 1em;"></p>
+			</div>
+			<div class="form-group">
+				<label th:for="city">도시</label> <input type="text"
+					th:field="*{city}" class="form-control" placeholder="도시를 입력하세요">
+			</div>
+			<div class="form-group">
+				<label th:for="street">거리</label> <input type="text"
+					th:field="*{street}" class="form-control" placeholder="거리를 입력하세요">
+			</div>
+			<div class="form-group">
+				<label th:for="zipcode">우편번호</label> <input type="text"
+					th:field="*{zipcode}" class="form-control"
+					placeholder="우편번호를 입력하세요">
+			</div>
+			<button type="submit" class="btn btn-primary" style="padding: 5px 10px; font-size: 14px">Submit</button>
+		</form>
+		<div th:replace="fragments/footer :: footer" />
+	</div>
+	</div>
+	<!-- /container -->
+</body>
+</html>

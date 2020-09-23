@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<body>
+	<div class="container">
+		<div th:replace="fragments/bodyHeader :: bodyHeader" />
+			<div class="jumbotron" style="text-align:left">
+				<div>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>이름</th>
+								<th>도시</th>
+								<th>주소</th>
+								<th>우편번호</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- members는 list이므로 for each로 풀어줄 수 있다. -->
+							<tr th:each="member : ${members}">
+								<td th:text="${member.id}"></td>
+								<td th:text="${member.name}"></td>
+								<td th:text="${member.address?.city}"></td> <!-- ?는 null이면 안뿌린다 -->
+								<td th:text="${member.address?.street}"></td>
+								<td th:text="${member.address?.zipcode}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			
+			<nav style="text-align: center;">
+				<ul class="pagination"
+					th:with="start=${T(Math).floor(members.number/10)*10 + 1},
+                    last=(${start + 9 < members.totalPages ? start + 9 : members.totalPages})">
+					<li><a th:href="@{/members(page=1)}" aria-label="First"> <span
+							aria-hidden="true">First</span>
+					</a></li>
+
+					<li th:class="${members.first} ? 'disabled'"><a
+						th:href="${members.first} ? '#' :@{/members(page=${members.number})}"
+						aria-label="Previous"> <span aria-hidden="true">&lt;</span>
+					</a></li>
+
+					<li th:each="page: ${#numbers.sequence(start, last)}"
+						th:class="${page == members.number + 1} ? 'active'"><a
+						th:text="${page}" th:href="@{/members(page=${page})}"></a></li>
+
+					<li th:class="${members.last} ? 'disabled'"><a
+						th:href="${members.last} ? '#' : @{/members(page=${members.number + 2})}"
+						aria-label="Next"> <span aria-hidden="true">&gt;</span>
+					</a></li>
+
+					<li><a th:href="@{/members(page=${members.totalPages})}"
+						aria-label="Last"> <span aria-hidden="true">Last</span>
+					</a></li>
+				</ul>
+			</nav>
+		<div th:replace="fragments/footer :: footer" />
+		</div>
+	</div>
+	<!-- /container -->
+</body>
+</html>
