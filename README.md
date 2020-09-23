@@ -19,6 +19,18 @@
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/59947533/93965795-f9270c00-fd9d-11ea-9219-42a5c3efe529.gif)
 
 
-#### 카카오톡 지도 open api
+##### 카카오톡 지도 open api
 
 ![image](https://user-images.githubusercontent.com/59947533/93965914-39868a00-fd9e-11ea-9954-848b31416414.png)
+
+
+##### 리조트 예약 기능 
+
+1. 고객은 관리자와 달리 오늘로부터 30일 후 까지만 달력에 객실이 출력된다.
+
+2. 해당 날짜와 방에 예약이 되어있으면 고객 이름이 표시되며,
+   관리자는 FullName으로 볼 수 있으나 그 외는 처리를 하였다
+
+![image](https://user-images.githubusercontent.com/59947533/93966605-10ff8f80-fda0-11ea-96f0-b1894e6eccb7.png)
+
+![image](https://user-images.githubusercontent.com/59947533/93966564-fa593880-fd9f-11ea-882f-5ffdd013ff84.png)
