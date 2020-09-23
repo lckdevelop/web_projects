@@ -53,4 +53,5 @@
 
 ##### 로그인 화면
 
-![image](https://user-images.githubusercontent.com/59947533/93968746-478bd900-fda5-11ea-898b-c79e6f73b816.png)
+![image](https://user-images.githubusercontent.com/59947533/93968920-b0735100-fda5-11ea-96c0-381ba40e436e.png)
+![image](https://user-images.githubusercontent.com/59947533/93968884-96d20980-fda5-11ea-8aa6-92149413b2e2.png)
