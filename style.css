@@ -1,4 +1,4 @@
-/* Global */
+/* All */
 :root {
   /* Color */
   --color-white: #ffffff;
@@ -42,6 +42,7 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
+  font-family: 'Jua', sans-serif;
   margin: 0;
 }
 
@@ -83,6 +84,13 @@ h2 {
 
 h3 {
   font-size: var(--font-regular);
+  font-weight: var(--font-regular);
+  color: var(--color-black);
+  margin: 8px 0;
+}
+
+h4 {
+  font-size: var(--font-micro);
   font-weight: var(--font-regular);
   color: var(--color-black);
   margin: 8px 0;
@@ -164,12 +172,12 @@ p {
   width: 250px;
   height: 250px;
   border-radius: 50%;
-  border: 2px solid var(--color-light-white);
+  border: 2px solid var(--color-yellow);
 }
 
 .home__title,
 .home__description {
-  color: var(--color-white);
+  color: var(--color-black);
 }
 
 .home__contact {
@@ -246,7 +254,7 @@ p {
 .job__name,
 .job__period,
 .job__description {
-  color: var(--color-light-grey);
+  color: var(--color-black);
 }
 
 .job__name,
@@ -256,6 +264,10 @@ p {
 
 .job__period {
   font-size: var(--font-micro);
+}
+
+.job__description {
+  margin-top: 30px;
 }
 
 /* Skill */
@@ -476,7 +488,7 @@ p {
 }
 
 .contact__rights {
-  color: var(--color-black);
+  color: var(--color-white);
 }
 
 .contact__title {
