@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.developia.h.model.MemberDAO">
+	<insert id="insertMember" parameterType="memberDTO">
+		INSERT INTO member
+		(id, loginid, loginpassword, name, birthdate, country, tel, email)
+		VALUES 
+		(
+		member_id_seq.NEXTVAL, #{loginId}, #{loginPassword}, #{name}
+		,#{birthdate}, #{country}, #{tel}, #{email}
+		)
+	</insert>
+	
+	<select id="loginCheck" parameterType="memberDTO" resultType="long">
+		SELECT count(*)
+	  	FROM member
+	 	WHERE loginid = #{loginId} 
+	  	AND loginpassword = #{loginPassword}
+	</select>
+	
+	<select id="getMemberId" parameterType="String" resultType="long">
+		SELECT id
+		FROM member
+		WHERE loginid = #{loginId}
+	 </select>
+	 
+	 <select id="idDuplicateCheck" parameterType="String" resultType="boolean">
+		SELECT decode(count(*), 1, 'true', 'false') as result from member
+		WHERE loginid = #{id}
+	 </select>
+	 
+	 <select id="emDuplicateCheck" parameterType="String" resultType="boolean">
+		SELECT decode(count(*), 1, 'true', 'false') as result from member
+		WHERE email = #{email}
+	 </select>
+</mapper>
