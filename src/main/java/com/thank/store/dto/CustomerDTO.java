@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CustomerDTO extends AccountDTO{
+public class CustomerDTO extends MemberDTO{
 	private long customerno;
 	private long point;
 	//private List<PurchaseListDTO> purchaselist;
