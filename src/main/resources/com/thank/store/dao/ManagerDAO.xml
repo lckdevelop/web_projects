@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thank.store.dao.ManagerDAO">
+	<select id="getManagerInfo" parameterType="long" resultType="ManagerDTO" >
+		select m.no as managerno, 
+			   c.no as cvsno,
+			   a.name, 
+			   c.name as spot,
+			   c.brand,
+			   m.storecode, 
+			   m.profit
+		from manager m 
+		join account a on m.account_no = a.no 
+		join cvstore c on m.no = c.manager_no
+		where m.no = #{no}
+	</select>
+	
+	<select id="getAllProductList" parameterType="long" resultType="CvsProductDTO" >
+		select p.*
+		from cvstore c, productlist P
+		where c.no = #{cvsno}
+	</select>
+	
+</mapper>

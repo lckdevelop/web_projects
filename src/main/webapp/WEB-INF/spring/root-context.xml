@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		p:location="/WEB-INF/spring/database.properties" />
+	
+	<bean 
+		id="dataSource"
+		class="com.zaxxer.hikari.HikariDataSource"
+		p:username="${username}"
+		p:password="${password}"
+		p:jdbcUrl="${url}"
+		p:driverClassName="${driver}"
+		p:maximumPoolSize="20" />
+		
+	<bean
+		id="examSqlSession" class="org.mybatis.spring.SqlSessionFactoryBean" 
+		p:dataSource-ref="dataSource"
+		p:typeAliasesPackage="com.thank.store.dto"
+		/>
+	
+	<bean id="examDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" 
+		p:sqlSessionFactory-ref="examSqlSession"
+		p:mapperInterface="com.thank.store.dao.ExamDAO" />
+		
+	
+	<bean
+		id="managerSqlSession" class="org.mybatis.spring.SqlSessionFactoryBean" 
+		p:dataSource-ref="dataSource"
+		p:typeAliasesPackage="com.thank.store.dto"
+		/>
+	
+	<bean id="mangerDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" 
+		p:sqlSessionFactory-ref="managerSqlSession"
+		p:mapperInterface="com.thank.store.dao.ManagerDAO" />
+		
+		
+</beans>
