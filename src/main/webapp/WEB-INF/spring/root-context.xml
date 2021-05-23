@@ -29,7 +29,7 @@
 		p:sqlSessionFactory-ref="examSqlSession"
 		p:mapperInterface="com.thank.store.dao.ExamDAO" />
 		
-	
+	<!-- ManagerDAO start -->	
 	<bean
 		id="managerSqlSession" class="org.mybatis.spring.SqlSessionFactoryBean" 
 		p:dataSource-ref="dataSource"
@@ -39,6 +39,7 @@
 	<bean id="mangerDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" 
 		p:sqlSessionFactory-ref="managerSqlSession"
 		p:mapperInterface="com.thank.store.dao.ManagerDAO" />
+	<!-- ManagerDAO end -->		
 	
 	<!-- 작성자: 김수빈
 		작성일자: 2021/05/23 13:00 -->
@@ -54,5 +55,20 @@
 		p:mapperInterface="com.thank.store.dao.AccountDAO" />
 	
 	<!-- AccountDAO end -->		
+	
+		<!-- 작성자: 방지훈
+		작성일자: 2021/05/23 16:10 -->
+	<!-- CustomerDAO start -->	
+	<bean
+		id="customerSqlSession" class="org.mybatis.spring.SqlSessionFactoryBean" 
+		p:dataSource-ref="dataSource"
+		p:typeAliasesPackage="com.thank.store.dto"
+		/>
+	
+	<bean id="customerDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" 
+		p:sqlSessionFactory-ref="customerSqlSession"
+		p:mapperInterface="com.thank.store.dao.CustomerDAO" />
+	
+	<!-- CustomerDAO end -->		
 	
 </beans>

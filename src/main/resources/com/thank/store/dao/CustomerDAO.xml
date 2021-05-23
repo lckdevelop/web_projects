@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thank.store.dao.CustomerDAO">
+	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/23 16:50
+	 -->
+	<select id="getCustomerInfo" parameterType="long" resultType="CustomerDTO" >
+		select c.no as customerno, 
+			   m.name, 
+			   m.accountno,
+			   c.point
+		from customer c 
+		join member m on c.member_no = m.no 
+		join purchaselist p on c.no = p.customer_no
+		where c.no = #{no}
+	</select>
+	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/23 16:50
+	 -->
+	<select id="getPurchaseCount" parameterType="long" resultType="long">
+		select count(*)
+		from purchaselist
+		where customer_no = #{no}
+	</select>
+	
+</mapper>
