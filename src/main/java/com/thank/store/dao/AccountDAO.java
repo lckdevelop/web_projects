@@ -1,9 +1,9 @@
 package com.thank.store.dao;
 
-import com.thank.store.dto.AccountDTO;
+import com.thank.store.dto.MemberDTO;
 
 public interface AccountDAO {
 
-	AccountDTO getAccount(AccountDTO accountDTO) throws Exception;
+	MemberDTO getAccount(MemberDTO accountDTO) throws Exception;
 	
 }

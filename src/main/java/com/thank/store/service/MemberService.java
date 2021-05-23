@@ -3,25 +3,25 @@ package com.thank.store.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.thank.store.dao.AccountDAO;
-import com.thank.store.dto.AccountDTO;
+import com.thank.store.dao.MemberDAO;
+import com.thank.store.dto.MemberDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class AccountService {
+public class MemberService {
 	@Autowired
-	private AccountDAO accountDAO;
+	private MemberDAO memberDAO;
 	
-	public AccountDTO getAccount(AccountDTO accountDTO) throws Exception{
+	public MemberDTO getMember(MemberDTO memberDTO) throws Exception{
 		try {
-			AccountDTO accountInfo = accountDAO.getAccount(accountDTO);
+			MemberDTO memberInfo = memberDAO.getMember(memberDTO);
 			System.out.println();
-			if(accountInfo==null) {
+			if(memberInfo==null) {
 				throw new RuntimeException("아이디 혹은 비밀번호 틀림.");
 			}
-			return accountInfo;
+			return memberInfo;
 		}catch(Exception e) {
 			log.info(e.getMessage());
 			throw e;
