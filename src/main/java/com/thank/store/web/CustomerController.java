@@ -1,5 +1,7 @@
 package com.thank.store.web;
 
+
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thank.store.dto.CustomerDTO;
-import com.thank.store.dto.PurchaseListDTO;
-import com.thank.store.service.CustomerService;
 
 import com.thank.store.dto.MemberDTO;
+import com.thank.store.service.CustomerService;
 import com.thank.store.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,15 +42,15 @@ public class CustomerController {
 	}
 	
 	//작성자 : 방지훈
-	//작성일자: 2021/05/23 16:50
+	//작성일자: 2021/05/23 20:50
 	@GetMapping("/home")
-	public String home(@ModelAttribute CustomerDTO customerDTO ,Model model) {
-		long no = 1;
+	public String home(@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
+		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		customerDTO = new CustomerDTO();
 		long purchasecount = 0;
 		try {
-			customerDTO = customerService.getCustomerInfo(no);
-			purchasecount = customerService.getPurchaseCount(no);
+			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
 			
 			model.addAttribute("customerDTO", customerDTO);
 			model.addAttribute("purchasecount",purchasecount);
@@ -57,6 +59,7 @@ public class CustomerController {
 		}
 		return "customer/home";
 	}
+			
 	
 	
 	/*
