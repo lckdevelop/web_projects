@@ -92,9 +92,9 @@
 	<!-- 김수빈이 작성한 manager의 no를 불러오는 select 문-->
 	<select id= "getManagerNoFromMember" parameterType="MemberDTO" resultType="long">
 	select
-	manager.no
+	no
 	from manager
-	where manager.member_no=#{no}
+	where manager.member_no= (select no from member where name=#{name})
 	</select>
 	
 </mapper>
