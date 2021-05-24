@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #box-right {
 	flex: 3.9;
-	text-align: center;
+	/* text-align: center; */
 }
 
 /* 프로필 */
@@ -135,4 +135,12 @@ h1, h2, h3, h4, h5, h6 {
 
 #list-link li a{
 	text-decoration: none;
+}
+
+/* 상품 리스트 박스 */
+#product-search-box{
+	margin: 40px 0px 40px 50px;
+}
+#list-box{
+	padding:40px 0px 40px 20px;
 }
