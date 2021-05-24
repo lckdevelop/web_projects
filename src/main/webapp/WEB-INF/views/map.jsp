@@ -317,6 +317,38 @@
 </script>
 <!-- 내 위치 받아오는 js end-->
 
+<!-- ajax 영역 -->
+<script type="text/javascript">
+	$(function() {
+		var productListAjax = $.ajax({
+			type:"get",
+	        datatype:"json",
+	        url:"${app}/manager/allList/",
+	        success:function (data){
+	        	var v_loadPage ="";
+	        	//document.getElementById('loadUrl').setAttribute("action", "${app}/manager/test");
+	            for(var i in data){
+		            v_loadPage += "<hr><div class='col-sm-5'>";
+		            v_loadPage += "<img src='${app}/resources/manager/img/favicon.png' alt='havetochange' />";
+			    	v_loadPage += "</div>";
+			    	v_loadPage += "<div class='col-sm-5'>";
+			    	v_loadPage += "상품명: " + data[i].name+"<br>";
+			    	v_loadPage += "상풍코드: " + data[i].productcode+"<br>";
+			    	v_loadPage += "세부분류: " + data[i].subcategory+"<br>";
+			    	v_loadPage += "유통기간: " + data[i].productperiod+"<br>";
+		    		v_loadPage += "할인가: " + data[i].price+"<br>";
+		    		v_loadPage += "<input type='submit' />";
+			    	v_loadPage += "</div>";
+	            }
+	            
+	            $("#cvsProductList").html(v_loadPage);
+	        }
+		});
+	});
+</script>
+
+
+<!-- ajax 영역end -->
 <!--===================================================================================
 										JS영역 END
 ====================================================================================-->
