@@ -19,7 +19,7 @@ public class cvStoreDTO {
 	private String storecode;
 	private String name;
 	private double latitude;
-	private double longtitude;
+	private double longitude;
 	private String address;
 	private String brand;
 }

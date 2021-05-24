@@ -1,5 +1,8 @@
 package com.thank.store.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +23,10 @@ public class MapServiceImpl implements MapService{
 	private MapDAO mapDAO;
 	
 	@Override
-	public cvStoreDTO getCvStore() throws Exception {
-		return null;
+	public List<cvStoreDTO> getCvStore() throws Exception {
+		List<cvStoreDTO> list = new ArrayList();
+		list = mapDAO.getCvStore();
+		return list;
 	}
 
 }

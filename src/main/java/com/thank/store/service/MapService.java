@@ -1,5 +1,7 @@
 package com.thank.store.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.thank.store.dao.MapDAO;
@@ -11,5 +13,5 @@ import com.thank.store.dto.cvStoreDTO;
  */
 public interface MapService {
 	
-	cvStoreDTO getCvStore() throws Exception;
+	List<cvStoreDTO> getCvStore() throws Exception;
 }

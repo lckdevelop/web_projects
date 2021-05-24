@@ -2,6 +2,7 @@ package com.thank.store.dao;
 
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.thank.store.dto.cvStoreDTO;
 /*
@@ -10,5 +11,5 @@ import com.thank.store.dto.cvStoreDTO;
  */
 public interface MapDAO {
 	
-	cvStoreDTO getCvStore() throws SQLException;
+	List<cvStoreDTO> getCvStore() throws SQLException;
 }
