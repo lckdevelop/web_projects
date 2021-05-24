@@ -13,9 +13,9 @@ a {
 }
 
 a:hover {
-  color: #37b3ed;
+  /* color: #37b3ed;
   text-decoration: none;
-  cursor: pointer;
+  cursor: pointer; */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -142,5 +142,43 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 40px 0px 40px 50px;
 }
 #list-box{
-	padding:40px 0px 40px 20px;
+	/* padding:1px 0px 10px 1px; */
+	padding-left:10px;
+}
+
+/* 상품 등록.취소 */
+.btn_enroll{
+	background-color:rgba(79, 126, 255, 0.7);
+	border: 1px solid #ffffff;
+	color: #ffffff;
+	border-radius:10px;
+	font-size:16px; 
+	padding:10px 20px;
+	margin-top:95px;
+	font-weight: 300;
+}
+
+.btn_enroll:hover{
+	color:rgba(79, 126, 255, 0.7);
+	background-color: #ffffff;
+	border: 1px solid rgba(79, 126, 255, 0.7);
+	font-weight: 300;
+}
+
+.btn_cancel{
+	background-color:rgba(237, 123, 123);
+	border: 1px solid #ffffff;
+	color: #ffffff;
+	border-radius:10px;
+	font-size:16px; 
+	padding:10px 20px;
+	margin-top:95px;
+	font-weight: 300;
+}
+
+.btn_cancel:hover{
+	color:rgba(237, 123, 123);
+	background-color: #ffffff;
+	border: 1px solid rgba(237, 123, 123);
+	font-weight: 300;
 }

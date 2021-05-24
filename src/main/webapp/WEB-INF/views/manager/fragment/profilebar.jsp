@@ -39,11 +39,11 @@
 		
 <div id="box-center-list">
 	<ul id="list-link">
-		<li  class="list-link-to"><a href="${app}/manager/home" id="allList">마이점포 전상품 리스트
+		<li class="list-link-to"><a href="${app}/manager/home" id="allList">마이점포 전상품
 			</a></li>
-		<li  class="list-link-to"><a id="" >폐기임박상품 등록 리스트
+		<li class="list-link-to"><a href="${app}/manager/enrolled" id="" >등록된 임박 상품
 			</a></li>
-		<li  class="list-link-to"><a id="" >폐기임박상품 리스트 
+		<li class="list-link-to"><a href="${app}/manager/enroll" id="" >임박상품 등록 
 			</a></li>
 	</ul>
 </div>

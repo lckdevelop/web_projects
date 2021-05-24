@@ -1,6 +1,5 @@
 package com.thank.store.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,12 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thank.store.dto.CvsProductDTO;
@@ -48,7 +44,7 @@ public class ManagerController {
 				       @ModelAttribute ManSearchDTO searchDTO,
 				       Model model) {
 		long managerNo = 1; // 세션 매니저번호
-		long cvsNo = 1; // 세션 매니저지점번호
+		long cvsNo = 40; // 세션 매니저지점번호
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -60,17 +56,92 @@ public class ManagerController {
 		
 		searchDTO.setPagingDTO(new ManPagingDTO(pg));
 		searchDTO.setCvstore_no(cvsNo);
+
 		try {
 			List<CvsProductDTO> allList = managerService.getAllProductList(searchDTO);
 			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
 			model.addAttribute("allList", allList);
 			model.addAttribute("pagingDTO", pagingDTO);
+			
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
 		
 		return "manager/home";
 	}
+	
+	/*
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/24 
+	 */
+	@GetMapping("/enrolled")
+	public String enrolled(@ModelAttribute ManagerDTO managerDTO, 
+		       @RequestParam(defaultValue="1") long pg, 
+		       @ModelAttribute ManSearchDTO searchDTO,
+		       Model model) {
+		long managerNo = 1; // 세션 매니저번호
+		long cvsNo = 40; // 세션 매니저지점번호
+		managerDTO = new ManagerDTO();
+		
+		try {
+			managerDTO = managerService.getManagerInfo(managerNo);
+			model.addAttribute("managerDTO", managerDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		searchDTO.setPagingDTO(new ManPagingDTO(pg));
+		searchDTO.setCvstore_no(cvsNo);
+
+		try {
+			List<CvsProductDTO> enrolledList = managerService.getEnrolledProductList(searchDTO);
+			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
+			model.addAttribute("enrolledList", enrolledList);
+			model.addAttribute("pagingDTO", pagingDTO);
+			
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		return "manager/enrolledPage";
+	}
+	
+	/*
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/24
+	 */
+	@GetMapping("/enroll")
+	public String enrollAvail(@ModelAttribute ManagerDTO managerDTO, 
+		       @RequestParam(defaultValue="1") long pg, 
+		       @ModelAttribute ManSearchDTO searchDTO,
+		       Model model) {
+		long managerNo = 1; // 세션 매니저번호
+		long cvsNo = 40; // 세션 매니저지점번호
+		managerDTO = new ManagerDTO();
+		
+		try {
+			managerDTO = managerService.getManagerInfo(managerNo);
+			model.addAttribute("managerDTO", managerDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		searchDTO.setPagingDTO(new ManPagingDTO(pg));
+		searchDTO.setCvstore_no(cvsNo);
+
+		try {
+			List<CvsProductDTO> enrollAvailList = managerService.getEnrolAvaiProductList(searchDTO);
+			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
+			model.addAttribute("enrollAvailList", enrollAvailList);
+			model.addAttribute("pagingDTO", pagingDTO);
+			
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		return "manager/enrollPage";
+	}
+	
 	
 	/*
 	 * 작성자: 김수빈
