@@ -29,6 +29,11 @@ public class CustomerController {
 	@Autowired
 	private MemberService memberService;
 	
+	@GetMapping()
+	public String login2() {
+		return "/customer/login";
+	}
+	
 	//작성자 : 방지훈
 	//작성일자: 2021/05/23 16:50
 	@GetMapping("/home")
@@ -62,11 +67,11 @@ public class CustomerController {
 			MemberDTO memberInfo = memberService.getMember(memberDTO);
 			session.setAttribute("memberInfo", memberInfo);
 			//return "redirect:../customer/customer";
-			return "redirect:../customer";
+			return "redirect:./customer/home";
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
-			model.addAttribute("url", "../customer");
+			model.addAttribute("url", "./customer");
 			return "result";
 		}
 	}
@@ -85,5 +90,30 @@ public class CustomerController {
 				 "(" + memberInfo.getName() + ")님이 로그아웃 하였습니다.");
 		mav.addObject("url", "./");
 		return mav;
+	}
+	
+	
+	/*
+	 * 작성자: 김수빈
+	 * 작성일자: 2021/05/24 09:28
+	 */
+	@PostMapping(value="/signup")
+	public String signUp(
+			@ModelAttribute MemberDTO memberDTO,
+			Model model,
+			HttpSession session) {
+		log.info(memberDTO.toString());
+		try {
+			MemberDTO memberInfo = memberService.getMember(memberDTO);
+			log.info(memberInfo.toString());
+			
+			session.setAttribute("memberInfo", memberInfo);
+			return "redirect:../home";
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			model.addAttribute("msg",e.getMessage());
+			model.addAttribute("url", "./");
+			return "result";
+		}
 	}
 }

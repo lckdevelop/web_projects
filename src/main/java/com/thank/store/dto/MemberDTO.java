@@ -18,7 +18,7 @@ public class MemberDTO {
 	private int accountType; // **0 = member **  ** 1= manager **
 	
 	//이거 하면 안되는건가?
-	public void setPassword(String password) {
-		this.password = DigestUtils.sha512Hex(password);
-	}
+//	public void setPassword(String password) {
+//		this.password = DigestUtils.sha512Hex(password);
+//	}
 }
