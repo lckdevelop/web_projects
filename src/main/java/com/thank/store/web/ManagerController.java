@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thank.store.dto.CvsProductDTO;
+import com.thank.store.dto.ManPagingDTO;
+import com.thank.store.dto.ManSearchDTO;
 import com.thank.store.dto.ManagerDTO;
 import com.thank.store.dto.MemberDTO;
 import com.thank.store.service.ManagerService;
@@ -31,6 +34,43 @@ import lombok.extern.slf4j.Slf4j;
 public class ManagerController {
 	@Autowired
 	private ManagerService managerService;
+	@Autowired
+	private MemberService memberService;
+	
+	
+	/*
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/23 
+	 */
+	@GetMapping("/home")
+	public String home(@ModelAttribute ManagerDTO managerDTO, 
+				       @RequestParam(defaultValue="1") long pg, 
+				       @ModelAttribute ManSearchDTO searchDTO,
+				       Model model) {
+		long managerNo = 1; // 세션 매니저번호
+		long cvsNo = 1; // 세션 매니저지점번호
+		managerDTO = new ManagerDTO();
+		
+		try {
+			managerDTO = managerService.getManagerInfo(managerNo);
+			model.addAttribute("managerDTO", managerDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		searchDTO.setPagingDTO(new ManPagingDTO(pg));
+		searchDTO.setCvstore_no(cvsNo);
+		try {
+			List<CvsProductDTO> allList = managerService.getAllProductList(searchDTO);
+			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
+			model.addAttribute("allList", allList);
+			model.addAttribute("pagingDTO", pagingDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		return "manager/home";
+	}
 	
 	/*
 	 * 작성자: 김수빈
@@ -50,48 +90,6 @@ public class ManagerController {
 		return "/manager/signup";
 	}
 	
-	/*
-	 * 작성자: 김수빈
-	 * 작성일자: 2021/05/24 10:50
-	 */
-	@Autowired
-	private MemberService memberService;
-	
-	@GetMapping("/home")
-	public String home(@ModelAttribute ManagerDTO managerDTO, Model model) {
-		long no = 1;
-		managerDTO = new ManagerDTO();
-		
-		try {
-			managerDTO = managerService.getManagerInfo(no);
-			model.addAttribute("managerDTO", managerDTO);
-		} catch (Exception e) {
-			log.info(e.getMessage());
-		}
-		log.info(managerDTO.getManagerno() + ": MANAGERNO");
-		log.info(managerDTO.getCvsno() + ": CVSNO");
-		return "manager/home";
-	}
-	
-	@GetMapping("/exam")
-	public String exam() {
-		return "manager/home";
-	}
-	
-	@RequestMapping(value="/allList/{cvsno}", method=RequestMethod.GET, produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public List<CvsProductDTO> allList(@PathVariable long cvsno) {
-		List<CvsProductDTO> allList = new ArrayList<>();
-		log.info(cvsno + ": cvsnono닷" );
-		try {
-			allList = managerService.getAllProductList(cvsno);
-			log.info("나 호출");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return allList;
-	}
 	
 	/*
 	 * 작성자: 김수빈

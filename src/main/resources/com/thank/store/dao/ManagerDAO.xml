@@ -2,24 +2,91 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.thank.store.dao.ManagerDAO">
-	<select id="getManagerInfo" parameterType="long" resultType="ManagerDTO" >
-		select m.no as managerno, 
-			   c.no as cvsno,
-			   a.name, 
-			   c.name as spot,
-			   c.brand,
-			   m.storecode, 
-			   m.profit
-		from manager m 
-		join account a on m.account_no = a.no 
-		join cvstore c on m.no = c.manager_no
-		where m.no = #{no}
+	<sql id="cvspNo">
+		<where>			
+			cvsp.cvstore_no = #{cvstore_no}			
+		</where>
+	</sql>
+	
+	<sql id="searchType">
+		<where>
+			<choose>
+				<when test="searchCondition == 'name'">
+					p.name like '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchCondition == 'maincategory'">
+					p.maincategory like '%' || #{searchKeyword} || '%'
+				</when>
+				<when test="searchCondition == 'subcategory'">
+					p.subcategory like '%' || #{searchKeyword} || '%'
+				</when>
+			</choose>
+		</where>
+	</sql>
+	
+	<select id="getManagerInfo" parameterType="long" resultType="ManagerDTO" >		
+		select ma.no as managerno, 
+			   c.no as cvsno, 
+			   me.name, 
+			   c.name as spot, 
+			   c.brand, 
+			   ma.storecode, 
+			   ma.profit
+		from manager ma 
+		join member me on ma.member_no = me.no 
+		join cvstore c on ma.no = c.manager_no
+		where ma.no = #{no}
 	</select>
 	
-	<select id="getAllProductList" parameterType="long" resultType="CvsProductDTO" >
+	<!-- <select id="getAllProductList" parameterType="long" resultType="CvsProductDTO" >
 		select p.*
 		from cvstore c, productlist P
 		where c.no = #{cvsno}
+	</select> -->
+	
+	<!-- 되는거 -->
+	<!-- <select id="getAllProductList" parameterType="ManSearchDTO" resultType="CvsProductDTO">
+	<![CDATA[
+		select B.* 
+		from (select rownum as rnum, A.* 
+		      from (select  p.no, p.productcode, p.name, p.price , cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate
+                    from cvstore cvs
+                    join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+                    join productlist p on cvsp.productlist_no = p.no
+                    where cvsp.cvstore_no = #{cvstore_no}
+					order by cvsp.expirationdate) A 
+		     ) B 
+		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
+	]]>
+	</select> -->
+	
+<select id="getAllProductList" parameterType="ManSearchDTO" resultType="CvsProductDTO">
+<![CDATA[
+	select B.*
+	from (select rownum as rnum, A.*
+	      from (select  p.no, p.productcode, p.name, p.price , cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate
+                   from cvstore cvs
+                   join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+                   join productlist p on cvsp.productlist_no = p.no
+                   where cvsp.cvstore_no = #{cvstore_no}
+]]>
+                   <include refid="searchType" />
+                   order by cvsp.expirationdate) A 
+		     ) B 
+		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
+</select>
+	
+	
+	<select id="getTotalRecord" parameterType="ManSearchDTO" resultType="long">
+	<![CDATA[
+		select count(*) as cnt
+		from cvstore cvs
+		join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+		join productlist p on cvsp.productlist_no = p.no
+		where cvsp.cvstore_no = #{cvstore_no}
+	]]>
 	</select>
+<!-- 			<include refid="cvspNo" />
+	      	<include refid="searchType" /> -->
 	
 </mapper>
