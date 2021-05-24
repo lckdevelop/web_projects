@@ -39,7 +39,7 @@
 		
 <div id="box-center-list">
 	<ul id="list-link">
-		<li  class="list-link-to"><a id="allList">마이점포 전상품 리스트
+		<li  class="list-link-to"><a href="${app}/manager/home" id="allList">마이점포 전상품 리스트
 			</a></li>
 		<li  class="list-link-to"><a id="" >폐기임박상품 등록 리스트
 			</a></li>
