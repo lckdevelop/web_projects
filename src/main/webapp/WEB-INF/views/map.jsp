@@ -17,9 +17,11 @@
 
 <style>
 	body{background-color :lightyellow;}
-	#container{text-align: center;}
+	#container_1{text-align: center;}
+	#container_2{text-align: center;}
 	#map{display: inline-block;}
-	#headline{text-align: center;}
+	#headline_1{text-align: center;}
+	#headline_2{text-align: center;}
 
 
 
@@ -41,9 +43,22 @@
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaokey }"></script>
 <body>
-	<h1 id="headline">카카오맵</h1>
-	<div id=container>
+	<h1 id="headline_1">카카오맵</h1>
+	<div id=container_1>
 		<div id="map" style="width:100%; height:400px;"></div>
+	</div>
+	<div id="container_2">
+		<div id="cvsProductList">
+			<h1 id="headline_2">cvsProductList</h1>
+			
+		</div>
+	</div>
+	
+	<div>
+		<p>
+		    <button onclick="hideMarkers()">마커 감추기</button>
+		    <button onclick="showMarkers()">마커 보이기</button>
+		</p> 
 	</div>
 	
 	<div>
@@ -66,8 +81,8 @@
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	mapOption = { 
 			//내위치로 지도 표시 할 것
-	    center: new kakao.maps.LatLng(37.68181, 127.04474), // 지도의 중심좌표
-	    level: 5 // 지도의 확대 레벨
+	    center: new kakao.maps.LatLng(37.65465,	127.04563), // 지도의 중심좌표
+	    level: 6// 지도의 확대 레벨
 	};
 
 	//커스텀 오버레이에 표시할 컨텐츠 입니다
@@ -107,37 +122,16 @@
     		 
     	 },
     	 {
-    		 name :'GS25 창동사랑점',
+    		 name :'GS25 창동시티점',
     		 address : '도봉구 덕릉로 250'
     		 
     	 },
     	 {
-    		 name :'GS25 창동시티점',
+    		 name :'GS25 창동사랑점',
     		 address : '도봉구 노해로69길 26' 
     	 }
      ];
 	
- 	var content = '<div class="wrap">' + 
-    '    <div class="info">' + 
-    '        <div class="title">' + 
-    '            카카오 스페이스닷원' + 
-    '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-    '        </div>' + 
-    '        <div class="body">' + 
-    '            <div class="img">' +
-    '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-    '           </div>' + 
-    '            <div class="desc">' + 
-    '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' + 
-    '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
-    '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
-    '            </div>' + 
-    '        </div>' + 
-    '    </div>' +    
-    '</div>';
-     
-
-
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
 
@@ -178,7 +172,12 @@
 		}
 	];
 	
+	
+	
 	// 마커
+	
+	//marker 담는 배열
+	var  markerArr = new Array();
 
 	for (var i = 0; i < positions.length; i ++) {
 		// 마커를 생성합니다
@@ -186,6 +185,10 @@
 		    map: map, // 마커를 표시할 지도
 		    position: positions[i].latlng // 마커의 위치
 		});
+		
+		//마커를 배열에 삽입
+		markerArr[i] = marker;
+		
 		
 		// 마커에 표시할 인포윈도우를 생성합니다 
 		var infowindow = new kakao.maps.InfoWindow({
@@ -198,6 +201,9 @@
 		kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 		kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	}
+	 
+	
+	
 	
 	// 인포윈도우
 
@@ -218,6 +224,9 @@
 	
 	// 커스텀오버레이
 	
+	// 커스텀오버레이 담는배열
+	var  overlayArr = new Array();
+	
 	// 마커 위에 커스텀오버레이를 표시합니다
 	// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
 
@@ -227,7 +236,7 @@
 	    '    <div class="info">' + 
 	    '        <div class="title">' + 
 	                   contents[i].name  + 
-	    '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+	    '            <div class="close" onclick="closeOverlay('+ i +')" title="닫기"></div>' + 
 	    '        </div>' + 
 	    '        <div class="body">' + 
 	    '            <div class="img">' +
@@ -235,8 +244,7 @@
 	    '           </div>' + 
 	    '            <div class="desc">' + 
 	    '                <div class="ellipsis">'+ contents[i].address +'</div>' + 
-	    '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
-	    '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' + 
+	    '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">상품바로가기</a></div>' + 
 	    '            </div>' + 
 	    '        </div>' + 
 	    '    </div>' +    
@@ -245,21 +253,48 @@
 		var overlay = new kakao.maps.CustomOverlay({
 		    content: content,
 		    map: map,
-		    position: marker.getPosition()       
+		    position: markerArr[i].getPosition()       
 		});
-	    
-	    
+		
+		//커스텀오버레이 배열에 삽입 
+		overlayArr[i] = overlay;
+		
+		// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+		kakao.maps.event.addListener(markerArr[i],'click',openOverlay(overlay,map))
+		
+	}
+	
+	// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+	function openOverlay(overlay,map){
+		return function(){
+			overlay.setMap(map);
+		}
+		
+	}
+	
+	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+	function closeOverlay(idx) {
+	    overlayArr[idx].setMap(null);     
+	}
+	
+	
+	<!-- 마커 보이기/감추기 -->
+	
+	// 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
+	function setMarkers(map) {
+	    for (var i = 0; i < markerArr.length; i++) {
+	    	markerArr[i].setMap(map);
+	    }            
+	}
+	
+	//"마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
+	function showMarkers() {
+	    setMarkers(map)    
 	}
 
-
-	// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-	kakao.maps.event.addListener(marker, 'click', function() {
-	    overlay.setMap(map);
-	});
-
-	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-	function closeOverlay() {
-	    overlay.setMap(null);     
+	// "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
+	function hideMarkers() {
+	    setMarkers(null);    
 	}
 
 </script>
