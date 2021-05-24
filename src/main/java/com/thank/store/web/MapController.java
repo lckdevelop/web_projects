@@ -1,5 +1,7 @@
 package com.thank.store.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +25,16 @@ public class MapController {
 	 * @작성일자 : 0524
 	 * @작성이유 : map띄울때 편의점정보 가져오기
 	 */
-	@GetMapping("/map")
+	@GetMapping("/maptest")
 	public ModelAndView map() {
 		
 		cvStoreDTO cvStoreDTO = new cvStoreDTO();
 		ModelAndView mav = new ModelAndView();
 		
 		try {
-			cvStoreDTO = mapService.getCvStore();
-			mav.addObject("cvStoreDTO", cvStoreDTO);
+			
+			List<cvStoreDTO> list = mapService.getCvStore();
+			mav.addObject("cvStoreDTO", list);
 			mav.setViewName("map");
 		} catch (Exception e) {
 			e.printStackTrace();

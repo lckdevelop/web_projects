@@ -6,8 +6,12 @@
 <mapper namespace="com.thank.store.dao.MapDAO">
 
 	<select id="getCvStore" resultType="cvStoreDTO">
-		select * 
+	<![CDATA[
+		select storecode, name,latitude,longitude,address,brand
 		from cvstore
+		
+		]]>
+		
 	</select>
 
 
