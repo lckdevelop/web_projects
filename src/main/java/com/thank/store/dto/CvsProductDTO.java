@@ -1,5 +1,7 @@
 package com.thank.store.dto;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,5 +16,9 @@ public class CvsProductDTO {
 	private String maincategory;
 	private String subcategory;
 	private long price;
-	private int productperiod; // 바꿔야 함
+	private long enrollment;
+	private Date expirationdate;
+	private Date warehousingdate;
+	private long leftDay;
+	private long leftTime;
 }
