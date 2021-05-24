@@ -89,4 +89,12 @@
 <!-- 			<include refid="cvspNo" />
 	      	<include refid="searchType" /> -->
 	
+	<!-- 김수빈이 작성한 manager의 no를 불러오는 select 문-->
+	<select id= "getManagerNoFromMember" parameterType="MemberDTO" resultType="long">
+	select
+	manager.no
+	from manager
+	where manager.member_no=#{no}
+	</select>
+	
 </mapper>
