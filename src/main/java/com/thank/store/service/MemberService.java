@@ -27,4 +27,32 @@ public class MemberService {
 			throw e;
 		}
 	}
+	
+	public int checkMemberExist(MemberDTO memberDTO) throws Exception{
+		try {
+			return memberDAO.checkMemberExist(memberDTO);
+		}catch(Exception e) {
+			log.info(e.getMessage());
+			throw e;
+		}
+	}
+	
+	public void addManager(MemberDTO memberDTO) throws Exception{
+		try {
+			memberDAO.addManager(memberDTO);
+		}catch(Exception e) {
+			log.info(e.getMessage());
+			throw e;
+		}
+	}
+
+	public void addCustomer(MemberDTO memberDTO) {
+		try {
+			memberDAO.addCustomer(memberDTO);
+		}catch(Exception e) {
+			log.info(e.getMessage());
+			throw e;
+		}
+		
+	}
 }

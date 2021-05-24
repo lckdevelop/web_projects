@@ -10,7 +10,7 @@
 <body>
 <form method="post">
 <table>
-	<caption>로그인</caption>
+	<caption>사용자 로그인</caption>
 <tr>
 	<th>아이디</th>
 	<td><input type="text" name="id" autofocus="autofocus" required="required"/></td>
@@ -22,7 +22,7 @@
 <tr>
 	<td colspan="2" align="center">
 		<input type="submit" value="로그인" />
-		<input type="button" value="회원가입" onclick="location.href='signup' " />
+		<input type="button" value="회원가입" onclick="location.href='customer/signup' " />
 	</td>
 </tr>
 </table>
