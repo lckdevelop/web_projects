@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>사용자 로그인</title>
 </head>
 <body>
 <form method="post">
@@ -27,14 +27,8 @@
 		<th>계좌번호</th>
 		<td><input type="text" name="accountno" required="required"/></td>
 	</tr>
-	<tr>
-		<th>계좌번호</th>
-		<td><input type="text" name="accounttype" required="required" value=0/></td>
-	<tr>
 		<td colspan="2" align="center">
-			<input type="submit" value="로그인" />
-			<input type="button" value="회원가입" 
-			onclick="location.href='regist'" />
+			<input type="submit" value="회원가입"/>
 		</td>
 	</tr>
 </table>

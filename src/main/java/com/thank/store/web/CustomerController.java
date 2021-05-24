@@ -34,6 +34,11 @@ public class CustomerController {
 		return "/customer/login";
 	}
 	
+	@GetMapping("/signup")
+	public String signup() {
+		return "/customer/signup";
+	}
+	
 	//작성자 : 방지훈
 	//작성일자: 2021/05/23 16:50
 	@GetMapping("/home")
@@ -100,15 +105,13 @@ public class CustomerController {
 	@PostMapping(value="/signup")
 	public String signUp(
 			@ModelAttribute MemberDTO memberDTO,
-			Model model,
-			HttpSession session) {
-		log.info(memberDTO.toString());
+			Model model) {
 		try {
-			MemberDTO memberInfo = memberService.getMember(memberDTO);
-			log.info(memberInfo.toString());
-			
-			session.setAttribute("memberInfo", memberInfo);
-			return "redirect:../home";
+			if(memberService.checkMemberExist(memberDTO)==0) {
+				memberService.addCustomer(memberDTO);
+			}
+
+			return "redirect:./login";
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
