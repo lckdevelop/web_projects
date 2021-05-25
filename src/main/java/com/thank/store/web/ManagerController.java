@@ -164,8 +164,8 @@ public class ManagerController {
 	
 	/*
 	 * 작성자: 김수빈
-	 * 작성일자: 2021/05/24 16:20
-	 * 로그인 시 받아온 MemberDTO값의 no (pk) 를 이용하여 그 pk를 member_no로 가지는 manager 테이블의 no(pk) 로 세션 보내기
+	 * 작성일자: 2021/05/25 10:54
+	 * 세션으로 받아온 id/pw로 해당 member의 no 받고, 그 no로 member_no 얻어서 managerDTO의 no 리턴
 	 */
 	@PostMapping()
 	public String login(@ModelAttribute MemberDTO memberDTO, 
@@ -174,7 +174,8 @@ public class ManagerController {
 		log.info(memberDTO.toString());
 		try {
 			//여기서 memberDTO를 이용해서 맞는 mangerDTO 받아와야함
-			int managerNoFromMember= managerService.getManagerNoFromMember(memberDTO);
+			long managerNoFromMember= managerService.getManagerNoFromMember(memberDTO);
+			System.out.println("멤버의 no와 manager의 member_no가 같은 "+managerNoFromMember);
 			ManagerDTO managerInfo = managerService.getManagerInfo(managerNoFromMember);
 			session.setAttribute("managerInfo", managerInfo);
 

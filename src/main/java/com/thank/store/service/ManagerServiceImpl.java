@@ -133,9 +133,15 @@ public class ManagerServiceImpl implements ManagerService {
 		
 		return pagingDTO;
 	}
-
+	
+	
+	/*
+	 * 작성자: 김수빈
+	 * 작성일자: 2021/05/25 10:54
+	 * memberDTO 이용해서 manager의 no 리턴하기
+	 */
 	@Override
-	public int getManagerNoFromMember(MemberDTO memberDTO) throws Exception {
+	public long getManagerNoFromMember(MemberDTO memberDTO) throws Exception {
 		try {
 			return mangerDAO.getManagerNoFromMember(memberDTO);
 		} catch (Exception e) {
