@@ -24,26 +24,27 @@
 <script type="text/javascript"
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 
-<!-- 아코디언  -->
-<link rel="stylesheet" type="text/css" href="/META-INF/resources/webjars/jquery-ui/1.12.1/jquery-ui.min.css" />
-<script type="text/javascript" src="/META-INF/resources/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
-<!-- 아코디언 끝 -->
 	
-<!-- accordion -->
+
 <script>
-  $( function() {
-    $( "#accordion" ).accordion({
-    	header: "> h3",
-        collapsible: false,
-        active: 0
-    });
-    	
-    
-  } );
+
   
-  function mainCategoryChange(mainCategory){
-	  
-  }
+/* 중분류 <option> 태그 */
+$(mainCategory).on("change",function(){
+	
+	let selectVal = $(this).find("option:selected").val();	
+	
+	cateSelect2.children().remove();
+	
+	cateSelect2.append("<option value='none'>선택</option>");
+	
+	for(let i = 0; i < cate2Array.length; i++){
+		if(selectVal1 === cate2Array[i].cateParent){
+			cateSelect2.append("<option value='"+cate2Array[i].cateCode+"'>" + cate2Array[i].cateName + "</option>");	
+		}
+	}// for
+	
+});
 </script>
 </head>
 <body>
@@ -63,13 +64,13 @@
  		<div id="product-search-box">
    			<div class="row">
 	   			<c:if test="${searchDTO.mainCategory != '' && searchDTO.mainCategory != null}">
-	   			<div class="col-md-10">
+	   			<div class="col-md-11">
 	    			<h3>${searchDTO.mainCategory} 카테고리 조회</h3>
 	       		</div>
 	   			</c:if>
 	   			<c:if test="${searchDTO.searchKeyword != '' && searchDTO.searchKeyword != null}">
-	   			<div class="col-md-10">
-	    			<h3>${searchDTO.searchKeyword} 연관 검색결과</h3>
+	   			<div class="col-md-11">
+	    			<h3>[${searchDTO.searchKeyword}] 검색결과</h3>
 	       		</div>
 	   			</c:if>
 	   			
@@ -77,27 +78,27 @@
 	       		<!-- 대분류 -->
 	       		<div class="col-md-2">
 	       		<span>대분류</span>
-	       		<select name="mainCategory">
+	       		<select name="mainCategory" id="mainCategory">
 	       		<option value=""
 					<c:if test="${searchDTO.mainCategory == '' || searchDTO.mainCategory == null}"> selected </c:if>
 				>전체</option>
 				<option value="김밥류"
-					<c:if test="${searchDTO.mainCategory == '김밥류'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '김밥류'}">  selected</c:if>
 				>김밥류</option>
 				<option value="도시락류"
-					<c:if test="${searchDTO.mainCategory == '도시락류'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '도시락류'}">  selected </c:if>
 				>도시락류</option>
 				<option value="빵류"
-					<c:if test="${searchDTO.mainCategory == '빵류'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '빵류'}">  selected </c:if>
 				>빵류</option>
 				<option value="즉석요리"
-					<c:if test="${searchDTO.mainCategory == '즉석요리'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '즉석요리'}">  selected </c:if>
 				>즉석요리</option>
 				<option value="완제품"
-					<c:if test="${searchDTO.mainCategory == '완제품'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '완제품'}">  selected </c:if>
 				>완제품</option>
 				<option value="유제품류"
-					<c:if test="${searchDTO.mainCategory == '유제품류'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '유제품류'}">  selected </c:if>
 				>유제품</option>
 				</select>
 	       		</div>
@@ -207,7 +208,7 @@
 	       		<div class="col-md-3">
 	    			<input type="text" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search" />
 	    		</div>
-	    		<div class="col-md-2">
+	    		<div class="col-md-1">
 	       			<input type="submit" class="btn btn-default" value="submit"></input>
 	     		</div>
      		</div>
@@ -253,7 +254,7 @@
 	   		</div>
     		<hr>
     	</c:forEach> --%>
-    	<div class="row">
+    	<%-- <div class="row">
     		<div class='col-md-5'></div>
    			<div class='col-md-5'>
 				<c:if test="${pagingDTO.startPage == 1}">
@@ -280,7 +281,7 @@
 				<a href="home?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${pagingDTO.endPage+1}" class="btn btn-default">Next</a>
 				</c:if>
 			</div>
-		</div>
+		</div> --%>
    		
     </div>
 </div>

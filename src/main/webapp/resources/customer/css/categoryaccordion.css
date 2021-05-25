@@ -16,7 +16,7 @@ h2 {
   font-weight: normal;
 }
 
-input {
+input.mainCategoryradio {
   position: absolute;
   opacity: 0;
   z-index: -1;
