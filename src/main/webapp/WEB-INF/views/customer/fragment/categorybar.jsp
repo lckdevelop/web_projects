@@ -52,6 +52,7 @@
 		
 	});
 </script>
+
 </head>
 <body>
 <h3>category</h3>
@@ -59,13 +60,36 @@
 <!-- 검색기능 틀 -->
 
 <form action="/store/customer/searchresult">
+	<input type="hidden" name="mainCategory" value="${searchDTO.mainCategory }"/>
+	<input type="hidden" name="subCategory" value="${searchDTO.subCategory }"/>
 	<div class="col-md-3">
 	<input type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search" />
+		<input type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search"/>
 	</div>
 	<div class="col-md-2">
 	    <input type="submit" class="btn btn-default" value="검색"></input>
 	</div>
 	
+</form>
+<form action="/store/customer/searchresult">
+	<input type="hidden" name="mainCategory" value="${searchDTO.mainCategory }"/>
+	<input type="hidden" name="subCategory" value="${searchDTO.subCategory }"/>
+	<input type="hidden" name="searchKeyword" value="${searchDTO.searchKeyword}"/>
+	<button class="maincategory" name="mainCategory" value="김밥류" >김밥류</button>
+     	<div class="panel">
+           <button class="subCategory" name="subCategory" value="삼각김밥" >삼각김밥</button>
+         </div>
+         <div class="panel">
+           <button class="subCategory" name="subCategory" value="줄김밥">줄김밥</button>
+         </div>
+         <div class="panel">
+           <p>Hello World!</p>
+         </div>
+       
+       <button class="mainCategory">Section 2</button>
+         <div class="panel">
+           <p>Hello World~~~</p>
+         </div>
 	
 	
 	

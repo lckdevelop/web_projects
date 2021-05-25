@@ -62,9 +62,17 @@
     <form>
  		<div id="product-search-box">
    			<div class="row">
+	   			<c:if test="${searchDTO.mainCategory != '' && searchDTO.mainCategory != null}">
+	   			<div class="col-md-5">
+	    			<h3>${searchDTO.mainCategory} 카테고리 조회</h3>
+	       		</div>
+	   			</c:if>
+	   			<c:if test="${searchDTO.searchKeyword != '' && searchDTO.searchKeyword != null}">
 	   			<div class="col-md-5">
 	    			<h3>${searchDTO.searchKeyword} 연관 검색결과</h3>
 	       		</div>
+	   			</c:if>
+	   			
 	       		
 	       		<!-- 대분류 -->
 	       		<div class="col-md-2">
@@ -168,6 +176,9 @@
 					<option value="핫도그"
 						<c:if test="${searchDTO.subCategory == '핫도그'}"> selected </c:if>
 					>핫도그</option>
+					<option value="샌드위치"
+						<c:if test="${searchDTO.subCategory == '샌드위치'}"> selected </c:if>
+					>샌드위치</option>
 	       		</c:if>
 	       		<c:if test="${searchDTO.mainCategory == '즉석요리'}">
 	       			<option value="튀김"
