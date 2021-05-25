@@ -173,7 +173,7 @@
 
 	for(var i = 0; i < contents.length; i++){
 		
-	 	var content = '<div class="wrap">' + 
+		var content = '<div class="wrap">' + 
 	    '    <div class="info">' + 
 	    '        <div class="title">' + 
 	                   contents[i].name  + 
@@ -191,27 +191,55 @@
 	    '    </div>' +    
 	    '</div>';
 	    
-		var overlay = new kakao.maps.CustomOverlay({
+	    var overlay = new kakao.maps.CustomOverlay({
 		    content: content,
-		    map: map,
+		    map: null,
 		    position: markerArr[i].getPosition()       
 		});
-		
-		//커스텀오버레이 배열에 삽입 
+	    
+	  	//커스텀오버레이 배열에 삽입 
 		overlayArr[i] = overlay;
-		
+		//initOverlay();
+	    
+	    
 		// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-		kakao.maps.event.addListener(markerArr[i],'click',openOverlay(overlay,map))
+		//kakao.maps.event.addListener(markerArr[i],'click',createOverlay(i, map))
 		
+		kakao.maps.event.addListener(markerArr[i],'click',openOverlay(overlay,map))
 	}
-	
+
 	// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
 	function openOverlay(overlay,map){
 		return function(){
 			overlay.setMap(map);
 		}
+	}
+		
+	
+	function createOverlay(i, map){
+		var content = '<div class="wrap">' + 
+	    '    <div class="info">' + 
+	    '        <div class="title">' + 
+	                   contents[i].name  + 
+	    '            <div class="close" onclick="closeOverlay('+ i +')" title="닫기"></div>' + 
+	    '        </div>' + 
+	    '        <div class="body">' + 
+	    '            <div class="img">' +
+	    '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+	    '           </div>' + 
+	    '            <div class="desc">' + 
+	    '                <div class="ellipsis">'+ contents[i].address +'</div>' + 
+	    '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">상품바로가기</a></div>' + 
+	    '            </div>' + 
+	    '        </div>' + 
+	    '    </div>' +    
+	    '</div>';
+	    
+	    
+	
 		
 	}
+	
 	
 	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 	function closeOverlay(idx) {
@@ -237,6 +265,24 @@
 	function hideMarkers() {
 	    setMarkers(null);    
 	}
+	
+	<!-- init오버레이 감추기 -->
+	
+	//함수를 이용해서 처음 overlay감춘다.
+	function initOverlay(){
+		for(var i = 0; i<OverlayArr.length; i++){
+			OverlayArr[i].setMap(null);
+		}
+	}
+	
+	//함수를 이용해서 오버레이를 표시해준다.
+	function openOverlay2(i, map){
+		for(var i = 0; i<OverlayArr.length; i++){
+			OverlayArr[i].setMap(map);
+		}
+	}
+	
+	
 
 </script>
 <!-- 카카오api 기본 설정 end -->
