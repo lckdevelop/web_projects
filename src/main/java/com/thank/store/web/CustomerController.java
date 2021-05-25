@@ -103,7 +103,7 @@ public class CustomerController {
 		try {
 			MemberDTO memberInfo = memberService.getMember(memberDTO);
 			session.setAttribute("memberInfo", memberInfo);
-			//return "redirect:../customer/customer";
+
 			return "redirect:./customer/home";
 		} catch (Exception e) {
 			log.info(e.getMessage());
@@ -125,7 +125,7 @@ public class CustomerController {
 		ModelAndView mav = new ModelAndView("result");
 		mav.addObject("msg", memberInfo.getId() + 
 				 "(" + memberInfo.getName() + ")님이 로그아웃 하였습니다.");
-		mav.addObject("url", "./");
+		mav.addObject("url", "../");
 		return mav;
 	}
 	

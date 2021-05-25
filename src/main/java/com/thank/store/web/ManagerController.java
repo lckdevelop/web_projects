@@ -184,7 +184,7 @@ public class ManagerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
-			model.addAttribute("url", "./manager");
+			model.addAttribute("url", "../manager");
 			return "result";
 		}
 	}
