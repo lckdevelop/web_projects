@@ -27,7 +27,8 @@
 	    		 alert("올바른 금액을 입력하세요");
 	    		 return;
 	    	 }
-	    	 var agree = confirm(point+'원을 등록된 계좌에서 충전 하시겠습니까?');
+	    	 var accountno = '${dto.accountno}';
+	    	 var agree = confirm(point+'원을 등록된 '+accountno+' 계좌에서 충전 하시겠습니까?');
 	    	 if(agree == false){
 	    		 return;
 	    	 }
@@ -35,14 +36,14 @@
 	    		 url: "recharge",
 	    		 method: "POST",
 	    		 data: {"point": point},
-	    		 dataType: "json",
-	    		 async: false,
-	    		 success:function(){
+	    		 datatype: "json",
+	    		 success:function(data){
 	    	     	alert("충전에 성공했습니다.");
+	    	     	$("#point").text(data.point);
 	    		 },
-	    	     error:function(){
-	    	         alert("에러가 발생했습니다.");
-	    	     }
+	    		 error:function(){
+	    		    alert("충전실패");
+	    		 }
 	    	 });
 	    });
 	  });
@@ -58,10 +59,11 @@
 
 				<%-- <h3 class="text-light">${dto.name}회원님 안녕하세요.</h3> --%>
 				<h3 class="text-light">${sessionScope.memberInfo.name}회원님 안녕하세요.</h3>
-
-				<h3 class="text-light">
-					폐기머니 : ${dto.point} <!-- 시간되면 결제내역 -->
-				</h3>
+	
+					<h3 class="text-light">
+						폐기머니 : <label id="point">${dto.point}</label> <!-- 시간되면 결제내역 -->
+					</h3>
+				
 				<h3 class="text-light">
 					<a href="purchaseList">내가 구입한 물품 (${purchasecount})</a>
 				</h3>
