@@ -55,7 +55,10 @@
  		<div class="profile">
 			<img src="${app}/resources/customer/img/profile-img.jpg" alt=""
 				class="img-fluid rounded-circle">
-				<h3 class="text-light">${dto.name} 회원님 안녕하세요.</h3>
+
+				<%-- <h3 class="text-light">${dto.name}회원님 안녕하세요.</h3> --%>
+				<h3 class="text-light">${sessionScope.memberInfo.name}회원님 안녕하세요.</h3>
+
 				<h3 class="text-light">
 					폐기머니 : ${dto.point} <!-- 시간되면 결제내역 -->
 				</h3>

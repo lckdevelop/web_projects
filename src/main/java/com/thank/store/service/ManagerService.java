@@ -6,6 +6,7 @@ import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.ManPagingDTO;
 import com.thank.store.dto.ManSearchDTO;
 import com.thank.store.dto.ManagerDTO;
+import com.thank.store.dto.MemberDTO;
 
 public interface ManagerService {
 	
@@ -18,6 +19,8 @@ public interface ManagerService {
 	List<CvsProductDTO> getEnrolAvaiProductList(ManSearchDTO searchDTO) throws Exception;
 
 	ManPagingDTO getPagingInfo(ManSearchDTO searchDTO) throws Exception;
+
+	int getManagerNoFromMember(MemberDTO memberDTO) throws Exception;
 	
 	long getDiscountPrice(long price, int discountRate) throws Exception;
 	

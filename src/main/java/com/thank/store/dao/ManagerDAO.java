@@ -6,6 +6,7 @@ import java.util.List;
 import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.ManSearchDTO;
 import com.thank.store.dto.ManagerDTO;
+import com.thank.store.dto.MemberDTO;
 
 public interface ManagerDAO {
 
@@ -16,6 +17,8 @@ public interface ManagerDAO {
 	List<CvsProductDTO> getEnrolledProductList(ManSearchDTO searchDTO) throws SQLException;
 	
 	List<CvsProductDTO> getEnrolAvaiProductList(ManSearchDTO searchDTO) throws SQLException;
+
+	int getManagerNoFromMember(MemberDTO memberDTO) throws SQLException;
 
 	long getTotalRecord(ManSearchDTO searchDTO) throws SQLException;
 }

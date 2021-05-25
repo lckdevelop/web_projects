@@ -164,7 +164,8 @@ public class ManagerController {
 	
 	/*
 	 * 작성자: 김수빈
-	 * 작성일자: 2021/05/24 10:50
+	 * 작성일자: 2021/05/24 16:20
+	 * 로그인 시 받아온 MemberDTO값의 no (pk) 를 이용하여 그 pk를 member_no로 가지는 manager 테이블의 no(pk) 로 세션 보내기
 	 */
 	@PostMapping()
 	public String login(@ModelAttribute MemberDTO memberDTO, 
@@ -172,9 +173,11 @@ public class ManagerController {
 			HttpSession session) {
 		log.info(memberDTO.toString());
 		try {
-			MemberDTO memberInfo = memberService.getMember(memberDTO);
-			session.setAttribute("memberInfo", memberInfo);
-			//return "redirect:../customer/customer";
+			//여기서 memberDTO를 이용해서 맞는 mangerDTO 받아와야함
+			int managerNoFromMember= managerService.getManagerNoFromMember(memberDTO);
+			ManagerDTO managerInfo = managerService.getManagerInfo(managerNoFromMember);
+			session.setAttribute("managerInfo", managerInfo);
+
 			return "redirect:./manager/home";
 		} catch (Exception e) {
 			log.info(e.getMessage());

@@ -11,6 +11,7 @@ import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.ManPagingDTO;
 import com.thank.store.dto.ManSearchDTO;
 import com.thank.store.dto.ManagerDTO;
+import com.thank.store.dto.MemberDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -134,6 +135,15 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
+	public int getManagerNoFromMember(MemberDTO memberDTO) throws Exception {
+		try {
+			return mangerDAO.getManagerNoFromMember(memberDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			throw e;
+		}
+	}
+	
 	public long getDiscountPrice(long price, int discountRate) throws Exception {
 		long discountPrice = price * (100 - discountRate) / 100;
 		
