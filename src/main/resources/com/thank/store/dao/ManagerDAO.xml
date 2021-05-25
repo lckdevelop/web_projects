@@ -129,12 +129,25 @@
 <!-- 			<include refid="cvspNo" />
 	      	<include refid="searchType" /> -->
 	
-	<!-- 김수빈이 작성한 manager의 no를 불러오는 select 문-->
+	<!-- 
+	작성자 : 김수빈
+	작성일자 : 2021/05/25 12:28
+	작성내용 : 로그인 시 manager의 no 를 세션으로 전달하기 위한 sql
+	-->
 	<select id= "getManagerNoFromMember" parameterType="MemberDTO" resultType="long">
 	select
 	no
 	from manager
-	where manager.member_no= (select no from member where name=#{name})
+	where manager.member_no= (select no from member where id=#{id})
 	</select>
+	
+	<!-- 
+	작성자 : 김수빈
+	작성일자 : 2021/05/25 12:28
+	작성내용 : 매니저 회원 가입 시 입력한 storecode를 갖고 있는 cvstore의 manager_no 를 업데이트
+	-->
+	<update id="updateStorecode" parameterType="ManagerDTO">
+	update manager set storecode=#{storecode} where no=#{managerno}
+	</update>
 	
 </mapper>

@@ -45,6 +45,15 @@ public class CustomerController {
 		return "/customer/signup";
 	}
 	
+	/*
+	 * 작성자: 김수빈
+	 * 작성일자: 2021/05/25 14:14
+	 */
+	@GetMapping("/purchaselist")
+	public String qrcode() {
+		return "/customer/purchaselist";
+	}
+	
 	//작성자 : 방지훈
 	//작성일자: 2021/05/23 20:50
 	@GetMapping("/home")
@@ -101,7 +110,7 @@ public class CustomerController {
 		try {
 			MemberDTO memberInfo = memberService.getMember(memberDTO);
 			session.setAttribute("memberInfo", memberInfo);
-			//return "redirect:../customer/customer";
+
 			return "redirect:./customer/home";
 		} catch (Exception e) {
 			log.info(e.getMessage());
@@ -123,7 +132,7 @@ public class CustomerController {
 		ModelAndView mav = new ModelAndView("result");
 		mav.addObject("msg", memberInfo.getId() + 
 				 "(" + memberInfo.getName() + ")님이 로그아웃 하였습니다.");
-		mav.addObject("url", "./");
+		mav.addObject("url", "../");
 		return mav;
 	}
 	

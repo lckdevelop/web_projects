@@ -18,7 +18,9 @@ public interface ManagerDAO {
 	
 	List<CvsProductDTO> getEnrolAvaiProductList(ManSearchDTO searchDTO) throws SQLException;
 
-	int getManagerNoFromMember(MemberDTO memberDTO) throws SQLException;
+	long getManagerNoFromMember(MemberDTO memberDTO) throws SQLException;
 
 	long getTotalRecord(ManSearchDTO searchDTO) throws SQLException;
+
+	void updateStorecode(ManagerDTO managerDTO);
 }
