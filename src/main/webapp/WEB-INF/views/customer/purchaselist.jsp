@@ -10,6 +10,8 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>ThankStore 메인</title>
 <!-- Google Fonts -->
+
+<!-- *************** CSS START *************** -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet">
@@ -18,10 +20,23 @@
 <link
 	href="${app}/resources/customer/css/bootstrap.min.css"
 	rel="stylesheet">
+<!-- accordion css -->
+<link 
+	href="${app}/resources/customer/css/accordion.css" rel="stylesheet">
+	
+<!-- *************** CSS END *************** -->
+
+<!-- *************** JavaScript START *************** -->
 <!-- jquery 경로 -->
+
 <script type="text/javascript"
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" 
+	src="${app}/resources/customer/js/accordion.js"></script>	
+
+<!-- *************** JavaScript End *************** -->
 </head>
+
 <body>
 <!-- 전체 컨테이너 입니다.  -->
 <div id='container'>
@@ -34,8 +49,27 @@
 		<jsp:include page="/WEB-INF/views/customer/fragment/profilebar.jsp" flush="true" />
     </div>
     <div id='box-right'>
-    수정
+	    <button class="accordion">Section 1</button>
+			<div class="panel">
+				    <!-- chl={데이터}+{}+{} 이런식으로 수정하면 됨 -->
+				<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=customername+storecode+ProductName&choe=UTF-8"/>
+			  	<p>Hello World!</p>
+			</div>
+	    
+	    <button class="accordion">Section 2</button>
+			<div class="panel">
+			  	<p>Hello World~~~</p>
+			</div>
+			
+	    <button class="accordion">Section 3</button>
+			<div class="panel">
+			  <p>왜안돼</p>
+			</div>
+
+	    
     </div>
 </div>
+
+
 </body>
 </html>

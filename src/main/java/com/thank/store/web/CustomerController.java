@@ -45,6 +45,15 @@ public class CustomerController {
 		return "/customer/signup";
 	}
 	
+	/*
+	 * 작성자: 김수빈
+	 * 작성일자: 2021/05/25 14:14
+	 */
+	@GetMapping("/purchaselist")
+	public String qrcode() {
+		return "/customer/purchaselist";
+	}
+	
 	//작성자 : 방지훈
 	//작성일자: 2021/05/23 20:50
 	@GetMapping("/home")
