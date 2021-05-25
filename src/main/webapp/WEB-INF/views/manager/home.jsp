@@ -89,11 +89,11 @@ $(function() {
 	    							<h6 style="color:blue">등록여부 : o<br/></h6>
 	    						</c:otherwise>
 		    				</c:choose>
-		    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy/MM/dd" /><br/></h6>
-		    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy/MM/dd" /><br/></h6>
-		    				<h6 style="color:blue">남은일수/남은시간 : ${product.leftDay}일 / ${product.countTime}시간<br/></h6>
+		    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
+		    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
+		    				<h6 style="color:blue">남은일수/남은시간 : ${product.leftDay}일 / ${product.leftTime}시간<br/></h6>
 		    				<h6>원가 : ${product.price}원<br/></h6>
-		    				<c:if test='${product.leftTime <= 24}'>
+		    				<c:if test='${product.countTime <= 24}'>
 			    				<h6 style="color:red">할인가 : ${product.discountPrice}원<br/></h6>
 			    				<h6 style="color:red">할인률 : ${product.discountRate}%<br/></h6>
 		    				</c:if>

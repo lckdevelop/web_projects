@@ -38,23 +38,21 @@ public class ManagerServiceImpl implements ManagerService {
 			list = managerDAO.getAllProductList(searchDTO);
 			
 			for (CvsProductDTO cvsProductDTO : list) {
-				long leftTime = (cvsProductDTO.getCountTime());
-				long leftDay = leftTime / 24;
-				long countTime = 0;
-				
-				if (leftTime % 24 == 0) {
-					countTime = 0;
+				long countTime = (cvsProductDTO.getCountTime());
+				long leftDay = countTime / 24;
+				long leftTime = 0;
+
+				if (countTime % 24 == 0) {
+					leftTime = 0;
 				} else {
-					countTime = leftTime % 24;
+					leftTime = countTime % 24;
 				}
-				
 				cvsProductDTO.setLeftDay(leftDay);
 				cvsProductDTO.setLeftTime(leftTime);
 				cvsProductDTO.setCountTime(countTime);
 				
-				
-				if (leftTime <= 24) {
-					int discountRate = getDiscountRate(leftTime);
+				if (countTime <= 24) {
+					int discountRate = getDiscountRate(countTime);
 					cvsProductDTO.setDiscountRate(discountRate);
 					cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
 				}
@@ -110,10 +108,8 @@ public class ManagerServiceImpl implements ManagerService {
 			
 			for (CvsProductDTO cvsProductDTO : list) {
 				long countTime = (cvsProductDTO.getCountTime());
-				
 				int discountRate = getDiscountRate(countTime);
 				cvsProductDTO.setDiscountRate(discountRate);
-				
 				cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
 			}
 			
@@ -133,6 +129,23 @@ public class ManagerServiceImpl implements ManagerService {
 		
 		return pagingDTO;
 	}
+	
+	@Override
+	public ManPagingDTO getEnrolledPagingInfo(ManSearchDTO searchDTO) throws Exception {
+		long totalRecord = managerDAO.getTotalEnrolledRecord(searchDTO);
+		ManPagingDTO pagingDTO = new ManPagingDTO(searchDTO.getPagingDTO().getPg(), totalRecord);
+		
+		return pagingDTO;
+	}
+
+	@Override
+	public ManPagingDTO getAvailPagingInfo(ManSearchDTO searchDTO) throws Exception {
+		long totalRecord = managerDAO.getTotalAvailRecord(searchDTO);
+		ManPagingDTO pagingDTO = new ManPagingDTO(searchDTO.getPagingDTO().getPg(), totalRecord);
+		
+		return pagingDTO;
+	}
+	
 	
 	
 	/*

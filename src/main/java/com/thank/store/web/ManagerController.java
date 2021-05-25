@@ -44,7 +44,7 @@ public class ManagerController {
 				       @ModelAttribute ManSearchDTO searchDTO,
 				       Model model) {
 		long managerNo = 1; // 세션 매니저번호
-		long cvsNo = 40; // 세션 매니저지점번호
+		long cvsNo = 1; // 세션 매니저지점번호
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -116,7 +116,7 @@ public class ManagerController {
 		       @ModelAttribute ManSearchDTO searchDTO,
 		       Model model) {
 		long managerNo = 1; // 세션 매니저번호
-		long cvsNo = 40; // 세션 매니저지점번호
+		long cvsNo = 1; // 세션 매니저지점번호
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -131,7 +131,7 @@ public class ManagerController {
 
 		try {
 			List<CvsProductDTO> enrollAvailList = managerService.getEnrolAvaiProductList(searchDTO);
-			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
+			ManPagingDTO pagingDTO = managerService.getAvailPagingInfo(searchDTO);
 			model.addAttribute("enrollAvailList", enrollAvailList);
 			model.addAttribute("pagingDTO", pagingDTO);
 			

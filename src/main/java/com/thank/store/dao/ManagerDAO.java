@@ -21,6 +21,10 @@ public interface ManagerDAO {
 	long getManagerNoFromMember(MemberDTO memberDTO) throws SQLException;
 
 	long getTotalRecord(ManSearchDTO searchDTO) throws SQLException;
+	
+	long getTotalAvailRecord(ManSearchDTO searchDTO) throws SQLException;
+
+	long getTotalEnrolledRecord(ManSearchDTO searchDTO) throws SQLException;
 
 	void updateStorecode(ManagerDTO managerDTO);
 }

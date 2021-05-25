@@ -19,7 +19,11 @@ public interface ManagerService {
 	List<CvsProductDTO> getEnrolAvaiProductList(ManSearchDTO searchDTO) throws Exception;
 
 	ManPagingDTO getPagingInfo(ManSearchDTO searchDTO) throws Exception;
-
+	
+	ManPagingDTO getAvailPagingInfo(ManSearchDTO searchDTO) throws Exception;
+	
+	ManPagingDTO getEnrolledPagingInfo(ManSearchDTO searchDTO) throws Exception;
+	
 	long getManagerNoFromMember(MemberDTO memberDTO) throws Exception;
 	
 	long getDiscountPrice(long price, int discountRate) throws Exception;
