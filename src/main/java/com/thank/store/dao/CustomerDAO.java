@@ -16,7 +16,7 @@ public interface CustomerDAO {
 
 	List<CvstoreDTO> searchCvstoreList(CusSearchDTO searchDTO) throws SQLException;
 
-	List<CvsProductDTO> searchCvsProductList(long no) throws SQLException;
+	List<CvsProductDTO> searchCvsProductList(CusSearchDTO searchDTO) throws SQLException;
 
 	long rechargePoint(CustomerDTO customerDTO) throws SQLException;
 

@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public List<CvstoreDTO> searchCvstoreList(CusSearchDTO searchDTO) throws Exception {
 		List<CvstoreDTO> cvstoreList = customerDAO.searchCvstoreList(searchDTO);
 		for(CvstoreDTO cvstore:cvstoreList) {
-			cvstore.setCvsProductList(customerDAO.searchCvsProductList(cvstore.getNo()));
+			cvstore.setCvsProductList(customerDAO.searchCvsProductList(searchDTO));
 		}
 		return cvstoreList;
 	}
