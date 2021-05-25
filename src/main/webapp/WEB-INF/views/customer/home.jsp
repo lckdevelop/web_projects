@@ -34,6 +34,7 @@
 		<jsp:include page="/WEB-INF/views/customer/fragment/profilebar.jsp" flush="true" />
     </div>
     <div id='box-right'>
+    수정
     </div>
 </div>
 </body>
