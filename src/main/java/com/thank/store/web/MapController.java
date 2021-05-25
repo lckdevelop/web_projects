@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.thank.store.dto.cvStoreDTO;
+import com.thank.store.dto.CvstoreDTO;
 import com.thank.store.service.MapService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,12 +28,12 @@ public class MapController {
 	@GetMapping("/maptest")
 	public ModelAndView map() {
 		
-		cvStoreDTO cvStoreDTO = new cvStoreDTO();
+		CvstoreDTO cvStoreDTO = new CvstoreDTO();
 		ModelAndView mav = new ModelAndView();
 		
 		try {
 			
-			List<cvStoreDTO> list = mapService.getCvStore();
+			List<CvstoreDTO> list = mapService.getCvStore();
 			mav.addObject("cvStoreDTO", list);
 			mav.setViewName("map");
 		} catch (Exception e) {

@@ -18,6 +18,35 @@
 <link
 	href="${app}/resources/customer/css/bootstrap.min.css"
 	rel="stylesheet">
+	
+<script type="text/javascript">
+	$( function() {
+	    $('#rechargeBtn').click(function(){
+	    	 var point=prompt('충전할 금액을 입력하세요');
+	    	 if(point==null || point <= 0){
+	    		 alert("올바른 금액을 입력하세요");
+	    		 return;
+	    	 }
+	    	 var agree = confirm(point+'원을 등록된 계좌에서 충전 하시겠습니까?');
+	    	 if(agree == false){
+	    		 return;
+	    	 }
+	    	 $.ajax({
+	    		 url: "recharge",
+	    		 method: "POST",
+	    		 data: {"point": point},
+	    		 dataType: "json",
+	    		 async: false,
+	    		 success:function(){
+	    	     	alert("충전에 성공했습니다.");
+	    		 },
+	    	     error:function(){
+	    	         alert("에러가 발생했습니다.");
+	    	     }
+	    	 });
+	    });
+	  });
+</script>
 </head>
 <body>
 <header id="header">
@@ -26,10 +55,12 @@
  		<div class="profile">
 			<img src="${app}/resources/customer/img/profile-img.jpg" alt=""
 				class="img-fluid rounded-circle">
+
 				<%-- <h3 class="text-light">${dto.name}회원님 안녕하세요.</h3> --%>
 				<h3 class="text-light">${sessionScope.memberInfo.name}회원님 안녕하세요.</h3>
+
 				<h3 class="text-light">
-					<a href="index.html">폐기머니:${dto.point}</a>
+					폐기머니 : ${dto.point} <!-- 시간되면 결제내역 -->
 				</h3>
 				<h3 class="text-light">
 					<a href="purchaseList">내가 구입한 물품 (${purchasecount})</a>
@@ -40,11 +71,11 @@
 </header>
 		
 <div>
-	<input class="btn btn-secondary" type="button" value="충전하기" onclick="alert('${dto.accountno}')"/>
+	<input class="btn btn-secondary" type="button" value="충전하기" id="rechargeBtn"/>
 </div>
 
 <div style="margin-top:10px;">
-	<input class="btn btn-secondary" type="button" value="로그아웃" onclick="alert('로그아웃')"/>
+	<input class="btn btn-secondary" type="button" value="로그아웃" onclick="location.href='/store/customer/logout'"/>
 </div>
 </body>
 </html>
