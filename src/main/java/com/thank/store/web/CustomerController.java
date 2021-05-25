@@ -93,6 +93,7 @@ public class CustomerController {
 			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
+			log.info("에러");
 		}
 		return "customer/searchresult";
 	}
