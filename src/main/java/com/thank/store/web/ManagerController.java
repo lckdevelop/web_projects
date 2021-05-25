@@ -209,6 +209,7 @@ public class ManagerController {
 	/*
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/24 10:50
+	 * 작성내용: 회원가입 시 cvstore 테이블의 manager_no 업데이트
 	 */
 	@PostMapping(value="/signup")
 	public String signUp(
