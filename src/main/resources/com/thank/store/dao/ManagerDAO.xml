@@ -140,4 +140,8 @@
 	where manager.member_no= (select no from member where id=#{id})
 	</select>
 	
+	<update id="updateStorecode" parameterType="ManagerDTO">
+	update manager set storecode=#{storecode} where no=#{managerno}
+	</update>
+	
 </mapper>

@@ -218,7 +218,10 @@ public class ManagerController {
 		try {
 			if(memberService.checkMemberExist(memberDTO)==0) {
 				memberService.addManager(memberDTO);
-				System.out.println("storecode");
+				ManagerDTO managerDTO = new ManagerDTO();
+				managerDTO.setManagerno(managerService.getManagerNoFromMember(memberDTO));
+				managerDTO.setStorecode(storecode);
+				managerService.updateStorecode(managerDTO);
 			}
 
 			return "redirect:./";

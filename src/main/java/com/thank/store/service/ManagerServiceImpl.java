@@ -19,12 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ManagerServiceImpl implements ManagerService {
 	@Autowired
-	private ManagerDAO mangerDAO;
+	private ManagerDAO managerDAO;
 	
 	@Override
 	public ManagerDTO getManagerInfo(long no) throws Exception {
 		try {
-			return mangerDAO.getManagerInfo(no);
+			return managerDAO.getManagerInfo(no);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			throw e;
@@ -35,7 +35,7 @@ public class ManagerServiceImpl implements ManagerService {
 	public List<CvsProductDTO> getAllProductList(ManSearchDTO searchDTO) throws Exception {
 		List<CvsProductDTO> list = new ArrayList<>();
 		try {
-			list = mangerDAO.getAllProductList(searchDTO);
+			list = managerDAO.getAllProductList(searchDTO);
 			
 			for (CvsProductDTO cvsProductDTO : list) {
 				long leftTime = (cvsProductDTO.getCountTime());
@@ -72,7 +72,7 @@ public class ManagerServiceImpl implements ManagerService {
 	public List<CvsProductDTO> getEnrolledProductList(ManSearchDTO searchDTO) throws Exception {
 		List<CvsProductDTO> list = new ArrayList<>();
 		try {
-			list = mangerDAO.getEnrolledProductList(searchDTO);
+			list = managerDAO.getEnrolledProductList(searchDTO);
 			
 			for (CvsProductDTO cvsProductDTO : list) {
 				long tmpTime = cvsProductDTO.getExpirationdate().getTime() - cvsProductDTO.getWarehousingdate().getTime();
@@ -106,7 +106,7 @@ public class ManagerServiceImpl implements ManagerService {
 	public List<CvsProductDTO> getEnrolAvaiProductList(ManSearchDTO searchDTO) throws Exception {
 		List<CvsProductDTO> list = new ArrayList<>();
 		try {
-			list = mangerDAO.getEnrolAvaiProductList(searchDTO);
+			list = managerDAO.getEnrolAvaiProductList(searchDTO);
 			
 			for (CvsProductDTO cvsProductDTO : list) {
 				long countTime = (cvsProductDTO.getCountTime());
@@ -128,7 +128,7 @@ public class ManagerServiceImpl implements ManagerService {
 	
 	@Override
 	public ManPagingDTO getPagingInfo(ManSearchDTO searchDTO) throws Exception {
-		long totalRecord = mangerDAO.getTotalRecord(searchDTO);
+		long totalRecord = managerDAO.getTotalRecord(searchDTO);
 		ManPagingDTO pagingDTO = new ManPagingDTO(searchDTO.getPagingDTO().getPg(), totalRecord);
 		
 		return pagingDTO;
@@ -143,7 +143,7 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public long getManagerNoFromMember(MemberDTO memberDTO) throws Exception {
 		try {
-			return mangerDAO.getManagerNoFromMember(memberDTO);
+			return managerDAO.getManagerNoFromMember(memberDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			throw e;
@@ -177,5 +177,15 @@ public class ManagerServiceImpl implements ManagerService {
 		return discountRate;
 	}
 
+	@Override
+	public void updateStorecode(ManagerDTO managerDTO) throws Exception {
+		try {
+			managerDAO.updateStorecode(managerDTO);
+		}catch (Exception e) {
+			log.info(e.getMessage());
+			throw e;
+		}
+
+	}
 }
 
