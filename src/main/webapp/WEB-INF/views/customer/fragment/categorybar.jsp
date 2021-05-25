@@ -25,7 +25,9 @@
 	rel="stylesheet">
 <link 
 	href="${app}/resources/customer/css/accordion.css" rel="stylesheet">
-	
+<link 
+	href="${app}/resources/customer/css/categoryaccordion.css" rel="stylesheet">
+
 <script type="text/javascript">
 	function categorySearch(f){
 		$("#searchKeyword").val("");
@@ -58,75 +60,111 @@
 
 <form action="/store/customer/searchresult">
 	<div class="col-md-3">
-		<input type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search" />
+	<input type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search" />
 	</div>
 	<div class="col-md-2">
 	    <input type="submit" class="btn btn-default" value="검색"></input>
 	</div>
 	
-	<button class="accordion" name="maincategory" value="${searchDTO.mainCategory}">김밥류</button>
-         <div class="panel">
-           <button name="subCategory" value="삼각김밥" onclick="categorySearch(this.form)">삼각김밥</button>
-         </div>
-         <div class="panel">
-           <button name="subCategory" value="줄김밥" onclick="categorySearch(this.form)">줄김밥</button>
-         </div>
-         <div class="panel">
-           <p>Hello World!</p>
-         </div>
-       
-       <button class="accordion">Section 2</button>
-         <div class="panel">
-           <p>Hello World~~~</p>
-         </div>
 	
-	<!-- <ul id="category-box">
-		<li class="main-category"><a href="/store/customer/searchresult">도시락</a></li>
-		<li class="main-category"><a href="/store/customer/searchresult">김밥</a></li>
-		<li class="main-category"><a href="/store/customer/searchresult">샌드위치</a></li>
-		<li class="main-category"><a href="/store/customer/searchresult">햄버거</a></li>
-		<li class="main-category"><a href="/store/customer/searchresult">샐러드</a></li>
-		<li class="main-category"><a href="/store/customer/searchresult">유제품</a></li>
-		<li class="main-category"><a href="/store/customer/searchresult">제과</a></li>
-		<li class="main-category"><a href="/store/customer/searchresult">기타</a></li>
-	</ul> -->
+	
+	
 </form>
 
-<button class="accordion">김밥</button>
-			<div class="panel">
-			  	<p>Hello World!</p>
-			</div>
-	    
-	    <button class="accordion">샌드위치</button>
-			<div class="panel">
-			  	<p>Hello World~~~</p>
-			</div>
-			
-	    <button class="accordion">햄버거</button>
-			<div class="panel">
-			  <p>왜안돼</p>
-			</div>
-		
-		<button class="accordion">샐러드</button>
-			<div class="panel">
-			  <p>왜안돼</p>
-			</div>
-			
-		<button class="accordion">유제품</button>
-			<div class="panel">
-			  <p>왜안돼</p>
-			</div>
-			
-		<button class="accordion">제과</button>
-			<div class="panel">
-			  <p>왜안돼</p>
-			</div>
+ <div class="col">
+    <h2>Open <b>one</b></h2>
+    <div class="tabs">
+      <div class="tab">
+        <input type="radio" id="rd1" name="rd">
+        <label class="tab-label" for="rd1">김밥류</label>
+        <div class="tab-content">
+          <button class="accordionbutton" name="subCategory" value="삼각김밥">삼각김밥</button>
+          <button name="subCategory" value="줄김밥">줄김밥</button>
+	      <button name="subCategory" value="주먹밥">주먹밥</button>
+        </div>
+      </div>
+	      
+	  <div class="tab">
+        <input type="radio" id="rd1" name="rd">
+        <label class="tab-label" for="rd1">도시락류</label>
+        <div class="tab-content">
+          <button name="subCategory" value="도시락일반">도시락일반</button>
+          <button name="subCategory" value="도시락샐러드">도시락샐러드</button>
+        </div>
+      </div>
+      
+      <div class="tab">
+        <input type="radio" id="rd1" name="rd">
+        <label class="tab-label" for="rd1">빵류</label>
+        <div class="tab-content">
+          <button name="subCategory" value="일반빵">일반빵</button>
+          <button name="subCategory" value="핫도그">핫도그</button>
+          <button name="subCategory" value="샌드위치">샌드위치</button>
+        </div>
+      </div>
+      
+      <div class="tab">
+        <input type="radio" id="rd1" name="rd">
+        <label class="tab-label" for="rd1">즉석요리</label>
+        <div class="tab-content">
+          <button name="subCategory" value="튀김">튀김</button>
+        </div>
+      </div>
+      
+      <div class="tab">
+        <input type="radio" id="rd1" name="rd">
+        <label class="tab-label" for="rd1">완제품</label>
+        <div class="tab-content">
+          <button name="subCategory" value="박스류">박스류</button>
+        </div>
+      </div>
+      
+      <div class="tab">
+        <input type="radio" id="rd1" name="rd">
+        <label class="tab-label" for="rd1">유제품류</label>
+        <div class="tab-content">
+          <button name="subCategory" value="우유">우유</button>
+          <button name="subCategory" value="요거트">요거트</button>
+          <button name="subCategory" value="요구르트">요구르트</button>
+        </div>
+      </div>
+      
+      
+      <div class="tab">
+        <input type="radio" id="rd3" name="rd">
+        <label for="rd3" class="tab-close">닫기 &times;</label>
+      </div>
+    </div>
+  </div>
 
-		<button class="accordion">기타</button>
-			<div class="panel">
-			  <p>왜안돼</p>
-			</div>
+<!--
+		<button class="accordion" name="maincategory">빵</button>
+	         <div class="panel">
+	           <button name="subCategory" value="일반빵">일반빵</button>
+
+	           <button name="subCategory" value="핫도그">핫도그</button>
+
+	           <button name="subCategory" value="샌드위치">샌드위치</button>
+	         </div>
 		
+		<button class="accordion" name="maincategory">즉석요리</button>
+			<div class="panel">
+	           <button name="subCategory" value="튀김">튀김</button>
+	         </div>
+	         
+		<button class="accordion" name="maincategory">완제품</button>
+	         <div class="panel">
+	           <button name="subCategory" value="박스류">박스류</button>
+	         </div>
+	         	         	         	 
+		<button class="accordion" name="maincategory">유제품류</button>
+	         <div class="panel">
+	           <button name="subCategory" value="우유">우유</button>
+
+	           <button name="subCategory" value="요거트">요거트</button>
+
+	           <button name="subCategory" value="요구르트">요구르트</button>
+	         </div>	  -->  
 <!-- 
 <ul id="category-box">
 	<li class="main-category" name="maincategory" value="도시락류"><a href="./searchresult/${maincategory}">도시락</a></li>
