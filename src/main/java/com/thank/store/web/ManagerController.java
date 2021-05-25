@@ -162,6 +162,7 @@ public class ManagerController {
 	}
 	
 	
+	
 	/*
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/25 10:54
@@ -211,14 +212,16 @@ public class ManagerController {
 	 */
 	@PostMapping(value="/signup")
 	public String signUp(
+			@RequestParam("storecode")String storecode,
 			@ModelAttribute MemberDTO memberDTO,
 			Model model) {
 		try {
 			if(memberService.checkMemberExist(memberDTO)==0) {
 				memberService.addManager(memberDTO);
+				System.out.println("storecode");
 			}
 
-			return "redirect:./login";
+			return "redirect:./";
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
