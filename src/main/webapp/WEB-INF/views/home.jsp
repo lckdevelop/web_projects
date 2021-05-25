@@ -583,6 +583,7 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <!-- 여기 잠깐 주석처리 -->
+		<script src="resources/home/js/scripts.js"></script>
     </body>
 </html>

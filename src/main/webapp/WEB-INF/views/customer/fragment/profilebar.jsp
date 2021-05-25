@@ -63,7 +63,7 @@
 					폐기머니 : ${dto.point} <!-- 시간되면 결제내역 -->
 				</h3>
 				<h3 class="text-light">
-					<a href="purchaseList">내가 구입한 물품 (${purchasecount})</a>
+					<a href="purchaselist">내가 구입한 물품 (${purchasecount})</a>
 				</h3>
 			</div>
 		</div>
