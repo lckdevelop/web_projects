@@ -25,26 +25,28 @@
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 
 	
-
+<%-- '<c:set targe="${searchDTO}" property="mainCategory" value=data.mainCategory/>' --%>
 <script>
-
-  
-/* 중분류 <option> 태그 */
-$(mainCategory).on("change",function(){
-	
-	let selectVal = $(this).find("option:selected").val();	
-	
-	cateSelect2.children().remove();
-	
-	cateSelect2.append("<option value='none'>선택</option>");
-	
-	for(let i = 0; i < cate2Array.length; i++){
-		if(selectVal1 === cate2Array[i].cateParent){
-			cateSelect2.append("<option value='"+cate2Array[i].cateCode+"'>" + cate2Array[i].cateName + "</option>");	
-		}
-	}// for
-	
+$( function() {
+	$("#mainCategory").change(function(){
+	    var mainCategory =  $(this).val();
+	    var searchKeyword = '${searchDTO.searchKeyword}';
+	    $.ajax({
+   		 url: "changeCategory",
+   		 method: "POST",
+   		 data: {"mainCategory": mainCategory,"searchKeyword":searchKeyword},
+   		 datatype: "json",
+   		 success:function(data){
+   			
+   		 },
+   		 error:function(){
+   		    alert("실패");
+   		 }
+   	 });
+	});
 });
+
+
 </script>
 </head>
 <body>
@@ -106,7 +108,7 @@ $(mainCategory).on("change",function(){
 	       		<!-- 세분류 -->
 	       		<div class="col-md-2">
 	       		<span>세분류</span>
-	       		<select name="subCategory">
+	       		<select name="subCategory" id="subCategoryParent">
 	       		<c:if test="${searchDTO.mainCategory == '' || searchDTO.mainCategory == null }">
 	       			<option value=""
 					<c:if test="${searchDTO.subCategory == '' || searchDTO.subCategory == null}"> selected </c:if>

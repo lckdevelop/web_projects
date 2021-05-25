@@ -181,4 +181,24 @@ public class CustomerController {
 		}
 		return changeCustomerDTO;
 	}
+	
+	/*
+	 * 작성자: 방지훈
+	 * 작성일자: 2021/05/25 20:30
+	 */
+	@PostMapping(value="changeCategory", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public CusSearchDTO recharge(@ModelAttribute CustomerDTO customerDTO,@ModelAttribute CusSearchDTO changeSearchDTO, HttpSession session, Model model) {
+		MemberDTO memberInfo = (MemberDTO)session.getAttribute("memberInfo");
+		long purchasecount;
+		log.info("카테고리 현황 : "+changeSearchDTO.toString());
+		try {
+			customerDTO =  customerService.getCustomerInfo(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			model.addAttribute("searchDTO",changeSearchDTO);
+		}catch(Exception e) {
+			log.info(e.getMessage());
+		}
+		return changeSearchDTO;
+	}
 }
