@@ -11,13 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvstoreDTO;
 import com.thank.store.dto.MemberDTO;
@@ -75,30 +75,28 @@ public class CustomerController {
 		}
 		return "customer/home";
 	}
-			
+	
 	//작성자 : 방지훈
-	//작성일자: 2021/05/24 15:00
-	@GetMapping("/searchresult/{maincategory}/{subcategory}/{searchKeyword}")
-	public String searchresult(@PathVariable String searchKeyword,@PathVariable String maincategory, @PathVariable String subcategory,@ModelAttribute CustomerDTO customerDTO,Model model, HttpSession session) {
-		log.info("검색결과 : "+maincategory);
-		log.info("검색결과 : "+subcategory);
-		log.info("검색결과 : "+searchKeyword);
+	//작성일자: 2021/05/25 10:48
+	@GetMapping("/searchresult")
+	public String selectMaincategory(@ModelAttribute CusSearchDTO searchDTO, @ModelAttribute CustomerDTO customerDTO,Model model, HttpSession session) {
+		log.info(searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
-		customerDTO = new CustomerDTO();
 		long purchasecount = 0;
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
-			List<CvstoreDTO> cvstoreList= customerService.searchCvstoreList(searchKeyword);				
+			List<CvstoreDTO> cvstoreList= customerService.searchCvstoreList(searchDTO);	
 			model.addAttribute("customerDTO", customerDTO);				
 			model.addAttribute("purchasecount",purchasecount);
 			model.addAttribute("cvstoreList", cvstoreList);
-			model.addAttribute("searchKeyword", searchKeyword);
+			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
 		return "customer/searchresult";
 	}
+	
 	
 	/*
 	 * 작성자: 김수빈
@@ -163,21 +161,23 @@ public class CustomerController {
 	
 	/*
 	 * 작성자: 방지훈
-	 * 작성일자: 2021/05/24 19:00
+	 * 작성일자: 2021/05/25 12:00
 	 */
-	@PostMapping(value="recharge")
+	@PostMapping(value="recharge", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public void recharge(@RequestParam long point, HttpSession session, Model model) {
+	public CustomerDTO recharge(@ModelAttribute CustomerDTO changeCustomerDTO, @RequestParam long point, HttpSession session, Model model) {
 		MemberDTO memberInfo = (MemberDTO)session.getAttribute("memberInfo");
-		CustomerDTO customerDTO = new CustomerDTO();
+		long purchasecount;
 		try {
-			customerDTO =  customerService.getCustomerInfo(memberInfo.getNo());
-			customerDTO.setPoint(point);
-			long result = customerService.rechargePoint(customerDTO);
+			changeCustomerDTO =  customerService.getCustomerInfo(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			changeCustomerDTO.setPoint(point);
+			long result = customerService.rechargePoint(changeCustomerDTO);
+			changeCustomerDTO =  customerService.getCustomerInfo(memberInfo.getNo());
 			log.info("포인트충전 결과 : "+result);
 		}catch(Exception e) {
 			log.info(e.getMessage());
 		}
-		
+		return changeCustomerDTO;
 	}
 }
