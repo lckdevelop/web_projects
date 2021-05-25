@@ -3,10 +3,10 @@ package com.thank.store.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.CvstoreDTO;
-import com.thank.store.dto.PurchaseListDTO;
 
 public interface CustomerDAO {
 
@@ -14,7 +14,7 @@ public interface CustomerDAO {
 
 	long getPurchaseCount(long no) throws SQLException;
 
-	List<CvstoreDTO> searchCvstoreList(String searchKeyword) throws SQLException;
+	List<CvstoreDTO> searchCvstoreList(CusSearchDTO searchDTO) throws SQLException;
 
 	List<CvsProductDTO> searchCvsProductList(long no) throws SQLException;
 
