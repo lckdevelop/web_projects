@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="kakaokey" value="d5d4850376504cbcd111fa1f434f605e"/>
-<c:set var="quizboardDTO" value="${quizboardDTO }"></c:set>
+<c:set var="cvStoreDTO" value="${cvStoreDTO }"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +50,11 @@
 	<div id="container_2">
 		<div id="cvsProductList">
 			<h1 id="headline_2">cvsProductList</h1>
-			
+			<!-- 
+			<c:forEach var ="cvStoreDTO" items="${cvStoreDTO }">
+				<p><c:out value="${cvStoreDTO.name }" /></p>
+			</c:forEach> 
+			-->
 		</div>
 	</div>
 	
@@ -60,7 +64,6 @@
 		    <button onclick="showMarkers()">마커 보이기</button>
 		</p> 
 	</div>
-	
 	<div>
 		<button onclick="myGeoLocation()" >내 위치받기</button>
 	    <ul>
@@ -88,90 +91,31 @@
 	//커스텀 오버레이에 표시할 컨텐츠 입니다
 	//커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
 	//별도의 이벤트 메소드를 제공하지 않습니다 
-
-	         
-     var contents=[
-    	 {
-    		 name : 'GS25 방학효성점',
-    		 address : '도봉구 방학로 171'
-    		 
-    	 },
-    	 {
-    		 name :'GS25 도봉북서울점',
-    		 address : '도봉구 도봉로177길 26'
-    		 
-    	 },
-    	 {
-    		 name :'GS25 도봉창동점',
-    		 address : '도봉구 노해로 269'
-    		 
-    	 },
-    	 {
-    		 name :'GS25 방학로',
-    		 address : '도봉구 방학로 33'
-    		 
-    	 },
-    	 {
-    		 name :'GS25 쌍문선덕점',
-    		 address : '도봉구 해등로 255'
-    		 
-    	 },
-    	 {
-    		 name :'GS25 창동그린',
-    		 address : '도봉구 노해로63다길 41'
-    		 
-    	 },
-    	 {
-    		 name :'GS25 창동시티점',
-    		 address : '도봉구 덕릉로 250'
-    		 
-    	 },
-    	 {
-    		 name :'GS25 창동사랑점',
-    		 address : '도봉구 노해로69길 26' 
-    	 }
-     ];
 	
+	var contents=[
+		 <c:forEach items="${cvStoreDTO}" var="cvStoreDTO">
+		 	{
+		 		name : '${cvStoreDTO.name }',
+		 		address : '${cvStoreDTO.address }'
+		 	},
+		 	
+		 </c:forEach>
+    ]
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
 
 	//마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 	//cvsotre에서 데이터를 가져와 
-	var positions = [
-		{
-		    content: '<div>GS25 방학효성점</div>', 
-		    latlng: new kakao.maps.LatLng(37.66213, 127.03323)
-		},
-		{
-		    content: '<div>GS25 도봉북서울점</div>', 
-		    latlng: new kakao.maps.LatLng(37.68181, 127.04474)
-		},
-		{
-		    content: '<div>GS25 도봉창동점	</div>', 
-		    latlng: new kakao.maps.LatLng(37.65162,	127.03798)
-		},
-		{
-		    content: '<div>GS25 방학로	</div>', 
-		    latlng: new kakao.maps.LatLng(37.6621,	127.04855)
-		},
-		{
-		    content: '<div>GS25 쌍문선덕점	</div>', 
-		    latlng: new kakao.maps.LatLng(37.65733,	127.02821)
-		},
-		{
-		    content: '<div>GS25 쌍문한솔점	</div>', 
-		    latlng: new kakao.maps.LatLng(37.65231,	127.03453)
-		},
-		{
-		    content: '<div>GS25 창동그린	</div>', 
-		    latlng: new kakao.maps.LatLng(37.65465,	127.04563)
-		},
-		{
-		    content: '<div>GS25 창동사랑점	</div>', 
-		    latlng: new kakao.maps.LatLng(37.6397,	127.03934)
-		}
-	];
 	
+	var positions=[
+		 <c:forEach items="${cvStoreDTO}" var="cvStoreDTO">
+		 	{
+		 		content : '<div> ${cvStoreDTO.name } </div>',
+		 		latlng : new kakao.maps.LatLng(${cvStoreDTO.latitude}, ${cvStoreDTO.longitude})
+		 	},
+		 	
+		 </c:forEach>
+    	]
+
 	
 	
 	// 마커
@@ -202,9 +146,6 @@
 		kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	}
 	 
-	
-	
-	
 	// 인포윈도우
 
 	//인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -314,9 +255,46 @@
             alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
         }
     }
+    
+  
 </script>
 <!-- 내 위치 받아오는 js end-->
 
+<!-- ajax 영역 -->
+<script type="text/javascript">
+<!-- 
+	$(function() {
+		var productListAjax = $.ajax({
+			type:"get",
+	        datatype:"json",
+	        url:"${app}/manager/allList/",
+	        success:function (data){
+	        	var v_loadPage ="";
+	        	//document.getElementById('loadUrl').setAttribute("action", "${app}/manager/test");
+	            for(var i in data){
+		            v_loadPage += "<hr><div class='col-sm-5'>";
+		            v_loadPage += "<img src='${app}/resources/manager/img/favicon.png' alt='havetochange' />";
+			    	v_loadPage += "</div>";
+			    	v_loadPage += "<div class='col-sm-5'>";
+			    	v_loadPage += "상품명: " + data[i].name+"<br>";
+			    	v_loadPage += "상풍코드: " + data[i].productcode+"<br>";
+			    	v_loadPage += "세부분류: " + data[i].subcategory+"<br>";
+			    	v_loadPage += "유통기간: " + data[i].productperiod+"<br>";
+		    		v_loadPage += "할인가: " + data[i].price+"<br>";
+		    		v_loadPage += "<input type='submit' />";
+			    	v_loadPage += "</div>";
+	            }
+	            
+	            $("#cvsProductList").html(v_loadPage);
+	        }
+		});
+	});
+	-->
+</script>
+
+
+
+<!-- ajax 영역end -->
 <!--===================================================================================
 										JS영역 END
 ====================================================================================-->

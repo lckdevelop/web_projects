@@ -11,7 +11,6 @@
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>지점 관리 화면</title>
-<!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet">
@@ -23,6 +22,14 @@
 <!-- jquery 경로 -->
 <script type="text/javascript"
 	src="${app}/resources/manager/js/jquery-3.6.0.min.js"></script>
+	
+<script type="text/javascript">
+$(function() {
+	
+	
+
+});
+</script>
 </head>
 <body>
 <!-- 전체 컨테이너 입니다.  -->
@@ -63,25 +70,40 @@
 	     		</div>
      		</div>
    		</div>
+ 	</form>
    		<hr style="border: solid 3px #1b4af5;">
-  		<c:forEach var="product" items="${list}">
+  		<c:forEach var="product" items="${list}" varStatus="status">
 	    	<div id="list-box">
 	    		<div class="row">
 	    			<div class='col-sm-4'>
 	  					<img src='${app}/resources/manager/img/favicon.png' alt='havetochange' />
 	  				</div>
-	  				<div class='col-sm-5'>
-		    				상품명 : ${product.name}<br/>
-		    				상품코드 : ${product.productcode}<br/>
-		    				등록여부 : ${product.enrollment}<br/>
-		    				제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy/MM/dd" /><br/>
-		    				유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy/MM/dd" /><br/>
-		    				남은일수/남은시간 : ${product.leftDay}일 / ${product.leftTime}시간<br/>
-		    				원가 : ${product.price}<br/>
+	  				<div class='col-sm-6'>
+		    				<h6>상품명 : ${product.name}<br/></h6>
+		    				<h6>상품코드 : ${product.productcode}<br/></h6>
+		    				<c:choose>
+		    					<c:when test='${product.enrollment == 0}'>
+		    						<h6 style="color:blue">등록여부 : x<br/></h6>
+		    					</c:when>
+	    						<c:otherwise>
+	    							<h6 style="color:blue">등록여부 : o<br/></h6>
+	    						</c:otherwise>
+		    				</c:choose>
+		    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy/MM/dd" /><br/></h6>
+		    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy/MM/dd" /><br/></h6>
+		    				<h6 style="color:blue">남은일수/남은시간 : ${product.leftDay}일 / ${product.countTime}시간<br/></h6>
+		    				<h6>원가 : ${product.price}원<br/></h6>
+		    				<c:if test='${product.leftTime <= 24}'>
+			    				<h6 style="color:red">할인가 : ${product.discountPrice}원<br/></h6>
+			    				<h6 style="color:red">할인률 : ${product.discountRate}%<br/></h6>
+		    				</c:if>
 		    		</div>
-		    		<div class='col-sm-3'>
+		    		<div class='col-sm-2'>
+		    			<c:if test='${(product.countTime <= 24) && (product.enrollment == 0)}'>
+		    				<a href="home?pg=${page}&productNo=${product.no}" ><input type="submit" value="등록" class="btn_enroll"/></a>
+		    			</c:if>
 		    			<c:if test='${product.enrollment == 1}'>
-		    				<input type="submit" name="btn_enrollment" value="등록"/>
+		    				<a href="home?pg=${page}&productNo=${product.no}" ><input type="submit" value="취소" class="btn_cancel"/></a>
 		    			</c:if>
 		    		</div>
 	    		</div>
@@ -92,31 +114,31 @@
     		<div class='col-md-5'></div>
    			<div class='col-md-5'>
 				<c:if test="${pagingDTO.startPage == 1}">
-				<a>Previous</a>
+				<a class="btn btn-default">Previous</a>
 				</c:if>
 				<c:if test="${pagingDTO.startPage != 1}">
-				<a href="home?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${pagingDTO.startPage-1}">Previous</a>
+				<a href="home?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${pagingDTO.startPage-1}" class="btn btn-default">Previous</a>
 				</c:if>
 				
 				<c:forEach var="i" begin="${pagingDTO.startPage}" end="${pagingDTO.endPage}">
 				<c:if test="${pagingDTO.pg == i}">
-				<a href="#">${i}</a>
+				<a href="#" class="btn btn-warning">${i}</a>
 				</c:if>
 				<c:if test="${pagingDTO.pg != i}">
-				<a href="home?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${i}">${i}</a>
+				<a href="home?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${i}" class="btn btn-warning">${i}</a>
 				</c:if>
 				</c:forEach>
 				
 				
 				<c:if test="${pagingDTO.endPage == pagingDTO.totalPage}">
-				<a>Next</a>
+				<a class="btn btn-default">Next</a>
 				</c:if>
 				<c:if test="${pagingDTO.endPage != pagingDTO.totalPage}">
-				<a href="home?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${pagingDTO.endPage+1}">Next</a>
+				<a href="home?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${pagingDTO.endPage+1}" class="btn btn-default">Next</a>
 				</c:if>
 			</div>
 		</div>
-   	</form>
+   		
     </div>
 </div>
 </body>

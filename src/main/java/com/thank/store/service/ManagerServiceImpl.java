@@ -31,16 +31,6 @@ public class ManagerServiceImpl implements ManagerService {
 		}
 	}
 
-//	@Override
-//	public List<CvsProductDTO> getAllProductList(long cvsno) throws Exception {
-//		try {
-//			return mangerDAO.getAllProductList(cvsno);
-//		} catch (Exception e) {
-//			log.info(e.getMessage());
-//			throw e;
-//		}
-//	}
-
 	@Override
 	public List<CvsProductDTO> getAllProductList(ManSearchDTO searchDTO) throws Exception {
 		List<CvsProductDTO> list = new ArrayList<>();
@@ -48,14 +38,26 @@ public class ManagerServiceImpl implements ManagerService {
 			list = mangerDAO.getAllProductList(searchDTO);
 			
 			for (CvsProductDTO cvsProductDTO : list) {
-				long tmpTime = cvsProductDTO.getExpirationdate().getTime() - cvsProductDTO.getWarehousingdate().getTime();
-				log.info(tmpTime / (24*60*60*1000) + "차이나는 일수" );
-				log.info(tmpTime / (60*60*1000) + "차이나는 시간" );
-				long leftDay = tmpTime / (24*60*60*1000);
-				long leftTime = (tmpTime / (60*60*1000)) - (leftDay * 24);
+				long leftTime = (cvsProductDTO.getCountTime());
+				long leftDay = leftTime / 24;
+				long countTime = 0;
+				
+				if (leftTime % 24 == 0) {
+					countTime = 0;
+				} else {
+					countTime = leftTime % 24;
+				}
 				
 				cvsProductDTO.setLeftDay(leftDay);
 				cvsProductDTO.setLeftTime(leftTime);
+				cvsProductDTO.setCountTime(countTime);
+				
+				
+				if (leftTime <= 24) {
+					int discountRate = getDiscountRate(leftTime);
+					cvsProductDTO.setDiscountRate(discountRate);
+					cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
+				}
 			}
 			
 			return list;
@@ -65,7 +67,65 @@ public class ManagerServiceImpl implements ManagerService {
 			throw e;
 		}
 	}
-
+	
+	@Override
+	public List<CvsProductDTO> getEnrolledProductList(ManSearchDTO searchDTO) throws Exception {
+		List<CvsProductDTO> list = new ArrayList<>();
+		try {
+			list = mangerDAO.getEnrolledProductList(searchDTO);
+			
+			for (CvsProductDTO cvsProductDTO : list) {
+				long tmpTime = cvsProductDTO.getExpirationdate().getTime() - cvsProductDTO.getWarehousingdate().getTime();
+				log.info(tmpTime / (24*60*60*1000) + "차이나는 일수" );
+				log.info(tmpTime / (60*60*1000) + "차이나는 시간" );
+				long leftDay = tmpTime / (24*60*60*1000);
+				long leftTime = (tmpTime / (60*60*1000)) - (leftDay * 24);
+				long countTime = (tmpTime / (60*60*1000));
+				
+				cvsProductDTO.setLeftDay(leftDay);
+				cvsProductDTO.setLeftTime(leftTime);
+				cvsProductDTO.setCountTime(countTime);
+				
+				int discountRate = getDiscountRate(countTime);
+				cvsProductDTO.setDiscountRate(discountRate);
+				
+				if (countTime <= 24) {
+					cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
+				}
+			}
+			
+			return list;
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			
+			throw e;
+		}
+	}
+	
+	@Override
+	public List<CvsProductDTO> getEnrolAvaiProductList(ManSearchDTO searchDTO) throws Exception {
+		List<CvsProductDTO> list = new ArrayList<>();
+		try {
+			list = mangerDAO.getEnrolAvaiProductList(searchDTO);
+			
+			for (CvsProductDTO cvsProductDTO : list) {
+				long countTime = (cvsProductDTO.getCountTime());
+				
+				int discountRate = getDiscountRate(countTime);
+				cvsProductDTO.setDiscountRate(discountRate);
+				
+				cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
+			}
+			
+			return list;
+			
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			
+			throw e;
+		}
+	}
+	
 	@Override
 	public ManPagingDTO getPagingInfo(ManSearchDTO searchDTO) throws Exception {
 		long totalRecord = mangerDAO.getTotalRecord(searchDTO);
@@ -84,5 +144,32 @@ public class ManagerServiceImpl implements ManagerService {
 		}
 	}
 	
+	public long getDiscountPrice(long price, int discountRate) throws Exception {
+		long discountPrice = price * (100 - discountRate) / 100;
+		
+		return discountPrice;
+	}
+
+	@Override
+	public int getDiscountRate(long countTime) throws Exception {
+		int discountRate = 0;
+		
+		if(countTime <= 4) {
+			discountRate = 60;
+		} else if(countTime <= 8) {
+			discountRate = 50;
+		} else if(countTime <= 12) {
+			discountRate = 40;
+		} else if(countTime <= 16) {
+			discountRate = 30;
+		} else if(countTime <= 20){
+			discountRate = 20;
+		} else {
+			discountRate = 10;
+		}
+		
+		return discountRate;
+	}
+
 }
 

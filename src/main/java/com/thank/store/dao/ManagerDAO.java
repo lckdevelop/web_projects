@@ -12,12 +12,13 @@ public interface ManagerDAO {
 
 	ManagerDTO getManagerInfo(long no) throws SQLException;
 
-	List<CvsProductDTO> getAllProductList(long cvsno) throws SQLException;
-
 	List<CvsProductDTO> getAllProductList(ManSearchDTO searchDTO) throws SQLException;
 	
-	long getTotalRecord(ManSearchDTO searchDTO) throws SQLException;
+	List<CvsProductDTO> getEnrolledProductList(ManSearchDTO searchDTO) throws SQLException;
+	
+	List<CvsProductDTO> getEnrolAvaiProductList(ManSearchDTO searchDTO) throws SQLException;
 
 	int getManagerNoFromMember(MemberDTO memberDTO) throws SQLException;
 
+	long getTotalRecord(ManSearchDTO searchDTO) throws SQLException;
 }

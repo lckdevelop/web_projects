@@ -21,4 +21,7 @@ public class CvsProductDTO {
 	private Date warehousingdate;
 	private long leftDay;
 	private long leftTime;
+	private long countTime;
+	private long discountPrice;
+	private int discountRate;
 }

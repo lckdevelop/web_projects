@@ -2,12 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.thank.store.dao.ManagerDAO">
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/22
+	 -->
 	<sql id="cvspNo">
 		<where>			
 			cvsp.cvstore_no = #{cvstore_no}			
 		</where>
 	</sql>
 	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/22
+	 -->
 	<sql id="searchType">
 		<where>
 			<choose>
@@ -24,6 +32,10 @@
 		</where>
 	</sql>
 	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/22
+	 -->
 	<select id="getManagerInfo" parameterType="long" resultType="ManagerDTO" >		
 		select ma.no as managerno, 
 			   c.no as cvsno, 
@@ -38,45 +50,73 @@
 		where ma.no = #{no}
 	</select>
 	
-	<!-- <select id="getAllProductList" parameterType="long" resultType="CvsProductDTO" >
-		select p.*
-		from cvstore c, productlist P
-		where c.no = #{cvsno}
-	</select> -->
-	
-	<!-- 되는거 -->
-	<!-- <select id="getAllProductList" parameterType="ManSearchDTO" resultType="CvsProductDTO">
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/22
+	 -->
+	<select id="getAllProductList" parameterType="ManSearchDTO" resultType="CvsProductDTO">
 	<![CDATA[
-		select B.* 
-		from (select rownum as rnum, A.* 
-		      from (select  p.no, p.productcode, p.name, p.price , cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate
-                    from cvstore cvs
-                    join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
-                    join productlist p on cvsp.productlist_no = p.no
-                    where cvsp.cvstore_no = #{cvstore_no}
-					order by cvsp.expirationdate) A 
-		     ) B 
-		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
+		select B.*
+		from (select rownum as rnum, A.*
+		      from (select  p.no, p.productcode, p.name, p.price , cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate, ROUND((sysdate - expirationdate) * 24) as countTime
+					from cvstore cvs
+					join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+					join productlist p on cvsp.productlist_no = p.no
+	                where cvsp.cvstore_no = #{cvstore_no}
 	]]>
-	</select> -->
-	
-<select id="getAllProductList" parameterType="ManSearchDTO" resultType="CvsProductDTO">
-<![CDATA[
-	select B.*
-	from (select rownum as rnum, A.*
-	      from (select  p.no, p.productcode, p.name, p.price , cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate
-                   from cvstore cvs
-                   join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
-                   join productlist p on cvsp.productlist_no = p.no
-                   where cvsp.cvstore_no = #{cvstore_no}
-]]>
-                   <include refid="searchType" />
-                   order by cvsp.expirationdate) A 
-		     ) B 
+	                   <include refid="searchType" />
+	                order by countTime) A
+			  ) B 
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
-</select>
+	</select>
 	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/24
+	 -->
+	<select id="getEnrolledProductList" parameterType="ManSearchDTO" resultType="CvsProductDTO">
+	<![CDATA[
+		select B.*
+		from (select rownum as rnum, A.*
+		      from (select  p.no, p.productcode, p.name, p.price , cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate
+					from cvstore cvs
+					join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+					join productlist p on cvsp.productlist_no = p.no
+					where cvsp.cvstore_no = #{cvstore_no}
+					and cvsp.enrollment = 1	
+	]]>
+	                   <include refid="searchType" />
+	                order by cvsp.expirationdate) A 
+			  ) B 
+		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
+	</select>
 	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/24
+	 -->
+	<select id="getEnrolAvaiProductList" parameterType="ManSearchDTO" resultType="CvsProductDTO">
+	<![CDATA[
+		select B.*
+		from (select rownum as rnum, A.*
+		      from (select  p.no, p.productcode, p.name, p.price , cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate, ROUND((sysdate - expirationdate) * 24) as countTime
+					from cvstore cvs
+					join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+					join productlist p on cvsp.productlist_no = p.no
+					where cvsp.cvstore_no = 40
+					and cvsp.enrollment = 0
+					and ROUND((sysdate - expirationdate) * 24) <= 24
+	]]>
+	                   <include refid="searchType" />
+	                order by countTime) A 
+			  ) B
+		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
+	</select>
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/22
+	 -->
 	<select id="getTotalRecord" parameterType="ManSearchDTO" resultType="long">
 	<![CDATA[
 		select count(*) as cnt
