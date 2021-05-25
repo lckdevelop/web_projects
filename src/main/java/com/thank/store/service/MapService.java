@@ -2,10 +2,7 @@ package com.thank.store.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.thank.store.dao.MapDAO;
-import com.thank.store.dto.cvStoreDTO;
+import com.thank.store.dto.CvstoreDTO;
 
 /*
  * 작성자 : 이효범
@@ -13,5 +10,5 @@ import com.thank.store.dto.cvStoreDTO;
  */
 public interface MapService {
 	
-	List<cvStoreDTO> getCvStore() throws Exception;
+	List<CvstoreDTO> getCvStore() throws Exception;
 }

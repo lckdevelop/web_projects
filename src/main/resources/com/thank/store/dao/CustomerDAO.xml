@@ -8,14 +8,15 @@
 	작성일자: 2021/05/23 16:50
 	 -->
 	<select id="getCustomerInfo" parameterType="long" resultType="CustomerDTO" >
-		select c.no as customerno, 
-			   m.name, 
-			   m.accountno,
-			   c.point
+		select m.no as no,
+				c.no as customerno, 
+			   m.name as name, 
+			   m.accountno as accountno,
+			   c.point as point
 		from customer c 
 		join member m on c.member_no = m.no 
-		join purchaselist p on c.no = p.customer_no
-		where c.no = #{no}
+		<!-- join purchaselist p on c.no = p.customer_no -->
+		where m.no = #{no}
 	</select>
 	
 	<!-- 
@@ -28,4 +29,49 @@
 		where customer_no = #{no}
 	</select>
 	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/24 16:20
+	 -->
+	<select id="searchCvstoreList" parameterType="String" resultType="CvstoreDTO">
+		select c.no,
+				c.name,
+				c.latitude,
+				c.longitude,
+				c.address,
+				c.brand
+		from cvstore c
+		join cvstoreproduct cv on c.no = cv.cvstore_no
+		join productlist p on  p.no = cv.productlist_no
+		where p.name like '%'||#{searchKeyword}||'%'
+	</select>
+	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/24 16:20
+	 -->
+	<select id="searchCvsProductList" parameterType="long" resultType="CvsProductDTO">
+		select p.name as name,
+				p.no as productcode,
+				p.maincategory as maincategory,
+				p.subcategory as subcategory,
+				p.price as price,
+				c.no as no,
+				c.enrollment as enrollment,
+				c.warehousingdate as warehousingdate,
+				c.expirationdate as expirationdate
+		from cvstoreproduct c
+		join productlist p on c.productlist_no = p.no
+		join cvstore cvs on  c.cvssotre_no = cvs.no
+		where c.no = #{no}
+	</select>
+	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/24 18:40
+	 -->
+	<update id="rechargePoint" parameterType="CustomerDTO">
+		update customer set point = point + #{point}
+		where member_no = #{no}
+	</update>
 </mapper>

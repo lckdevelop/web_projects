@@ -24,19 +24,21 @@
 <!-- 검색기능 틀 -->
 <form>
 	<div>
-		<input type="text" id="searchKeyword" name="searchKeyword"/>
-		<input class="btn btn-primary" type="submit" value="검색"/>
+		<input type="text" name="searchKeyword" value="${searchKeyword}"/>
+		<input class="btn btn-primary" type="button" value="검색" onclick="location.href='./searchresult/${maincategory}/${subcategory}/${searchKeyword}"/>
 	</div>
 </form>
 
 <ul id="category-box">
-	<li class="main-category"><a>카1</a></li>
-	<li class="main-category"><a>카2</a></li>
-	<li class="main-category"><a>카3</a></li>
-	<li class="main-category"><a>카4</a></li>
-	<li class="main-category"><a>카5</a></li>
-	<li class="main-category"><a>카6</a></li>
-	<li class="main-category"><a>카7</a></li>
+	<li class="main-category" name="maincategory" value="도시락류"><a href="./searchresult/${maincategory}">도시락</a></li>
+	<li class="main-category"><a href="./searchresult/${maincategory}">김밥</a></li>
+	<li class="main-category"><a href="./searchresult/${maincategory}">샌드위치</a></li>
+	<li class="main-category"><a href="./searchresult/${maincategory}">햄버거</a></li>
+	<li class="main-category"><a href="./searchresult/${maincategory}">샐러드</a></li>
+	<li class="main-category"><a href="./searchresult/${maincategory}">유제품</a></li>
+	<li class="main-category"><a href="./searchresult/${maincategory}">제과</a></li>
+	<li class="main-category"><a href="./searchresult/${maincategory}">기타</a></li>
 </ul>
+
 </body>
 </html>

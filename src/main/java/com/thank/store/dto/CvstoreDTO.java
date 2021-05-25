@@ -1,25 +1,25 @@
 package com.thank.store.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
-
-/*
- * 작성자 : 이효범
- * 작성일자 : 0524
- * 작성이유 : cvstore데이터 사용위해
- */
+//작성자 : 방지훈
+//작성일자 : 05/25 10:14
 @Getter
 @Setter
 @ToString
-public class cvStoreDTO {
-
-	private String storecode;
+public class CvstoreDTO {
+	private long no;
 	private String name;
+	private String storecode;
 	private double latitude;
 	private double longitude;
 	private String address;
 	private String brand;
+	private long member_no;
+	private long manager_no;
+	private List<CvsProductDTO> cvsProductList;
 }
