@@ -71,7 +71,6 @@
 		</div>
 	</div>
 </header>
-		
 <div>
 	<input class="btn btn-secondary" type="button" value="충전하기" id="rechargeBtn"/>
 </div>

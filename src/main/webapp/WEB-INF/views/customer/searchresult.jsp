@@ -24,26 +24,27 @@
 <script type="text/javascript"
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 
-<!-- 아코디언  -->
-<link rel="stylesheet" type="text/css" href="/META-INF/resources/webjars/jquery-ui/1.12.1/jquery-ui.min.css" />
-<script type="text/javascript" src="/META-INF/resources/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
-<!-- 아코디언 끝 -->
 	
-<!-- accordion -->
+
 <script>
-  $( function() {
-    $( "#accordion" ).accordion({
-    	header: "> h3",
-        collapsible: false,
-        active: 0
-    });
-    	
-    
-  } );
+
   
-  function mainCategoryChange(mainCategory){
-	  
-  }
+/* 중분류 <option> 태그 */
+$(mainCategory).on("change",function(){
+	
+	let selectVal = $(this).find("option:selected").val();	
+	
+	cateSelect2.children().remove();
+	
+	cateSelect2.append("<option value='none'>선택</option>");
+	
+	for(let i = 0; i < cate2Array.length; i++){
+		if(selectVal1 === cate2Array[i].cateParent){
+			cateSelect2.append("<option value='"+cate2Array[i].cateCode+"'>" + cate2Array[i].cateName + "</option>");	
+		}
+	}// for
+	
+});
 </script>
 </head>
 <body>
@@ -63,13 +64,13 @@
  		<div id="product-search-box">
    			<div class="row">
 	   			<c:if test="${searchDTO.mainCategory != '' && searchDTO.mainCategory != null}">
-	   			<div class="col-md-5">
+	   			<div class="col-md-11">
 	    			<h3>${searchDTO.mainCategory} 카테고리 조회</h3>
 	       		</div>
 	   			</c:if>
 	   			<c:if test="${searchDTO.searchKeyword != '' && searchDTO.searchKeyword != null}">
-	   			<div class="col-md-5">
-	    			<h3>${searchDTO.searchKeyword} 연관 검색결과</h3>
+	   			<div class="col-md-11">
+	    			<h3>[${searchDTO.searchKeyword}] 검색결과</h3>
 	       		</div>
 	   			</c:if>
 	   			
@@ -77,27 +78,27 @@
 	       		<!-- 대분류 -->
 	       		<div class="col-md-2">
 	       		<span>대분류</span>
-	       		<select name="mainCategory">
+	       		<select name="mainCategory" id="mainCategory">
 	       		<option value=""
 					<c:if test="${searchDTO.mainCategory == '' || searchDTO.mainCategory == null}"> selected </c:if>
 				>전체</option>
 				<option value="김밥류"
-					<c:if test="${searchDTO.mainCategory == '김밥류'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '김밥류'}">  selected</c:if>
 				>김밥류</option>
 				<option value="도시락류"
-					<c:if test="${searchDTO.mainCategory == '도시락류'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '도시락류'}">  selected </c:if>
 				>도시락류</option>
 				<option value="빵류"
-					<c:if test="${searchDTO.mainCategory == '빵류'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '빵류'}">  selected </c:if>
 				>빵류</option>
 				<option value="즉석요리"
-					<c:if test="${searchDTO.mainCategory == '즉석요리'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '즉석요리'}">  selected </c:if>
 				>즉석요리</option>
 				<option value="완제품"
-					<c:if test="${searchDTO.mainCategory == '완제품'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '완제품'}">  selected </c:if>
 				>완제품</option>
 				<option value="유제품류"
-					<c:if test="${searchDTO.mainCategory == '유제품류'}"> selected </c:if>
+					<c:if test="${searchDTO.mainCategory == '유제품류'}">  selected </c:if>
 				>유제품</option>
 				</select>
 	       		</div>
@@ -207,16 +208,81 @@
 	       		<div class="col-md-3">
 	    			<input type="text" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search" />
 	    		</div>
-	    		<div class="col-md-2">
+	    		<div class="col-md-1">
 	       			<input type="submit" class="btn btn-default" value="submit"></input>
 	     		</div>
      		</div>
    		</div>
  	</form>
     	
-    	<div id="accordion">
-    		
-    	</div>
+    	<hr style="border: solid 3px #1b4af5;">
+  		<%-- <c:forEach var="product" items="${list}" varStatus="status">
+	    	<div id="list-box">
+	    		<div class="row">
+	    			<div class='col-sm-4'>
+	  					<img src='${app}/resources/customer/img/favicon.png' alt='havetochange' />
+	  				</div>
+	  				<div class='col-sm-6'>
+		    				<h6>상품명 : ${product.name}<br/></h6>
+		    				<h6>상품코드 : ${product.productcode}<br/></h6>
+		    				<c:choose>
+		    					<c:when test='${product.enrollment == 0}'>
+		    						<h6 style="color:blue">등록여부 : x<br/></h6>
+		    					</c:when>
+	    						<c:otherwise>
+	    							<h6 style="color:blue">등록여부 : o<br/></h6>
+	    						</c:otherwise>
+		    				</c:choose>
+		    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy/MM/dd" /><br/></h6>
+		    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy/MM/dd" /><br/></h6>
+		    				<h6 style="color:blue">남은일수/남은시간 : ${product.leftDay}일 / ${product.countTime}시간<br/></h6>
+		    				<h6>원가 : ${product.price}원<br/></h6>
+		    				<c:if test='${product.leftTime <= 24}'>
+			    				<h6 style="color:red">할인가 : ${product.discountPrice}원<br/></h6>
+			    				<h6 style="color:red">할인률 : ${product.discountRate}%<br/></h6>
+		    				</c:if>
+		    		</div>
+		    		<div class='col-sm-2'>
+		    			<c:if test='${(product.countTime <= 24) && (product.enrollment == 0)}'>
+		    				<a href="home?pg=${page}&productNo=${product.no}" ><input type="submit" value="등록" class="btn_enroll"/></a>
+		    			</c:if>
+		    			<c:if test='${product.enrollment == 1}'>
+		    				<a href="home?pg=${page}&productNo=${product.no}" ><input type="submit" value="취소" class="btn_cancel"/></a>
+		    			</c:if>
+		    		</div>
+	    		</div>
+	   		</div>
+    		<hr>
+    	</c:forEach> --%>
+    	<%-- <div class="row">
+    		<div class='col-md-5'></div>
+   			<div class='col-md-5'>
+				<c:if test="${pagingDTO.startPage == 1}">
+				<a class="btn btn-default">Previous</a>
+				</c:if>
+				<c:if test="${pagingDTO.startPage != 1}">
+				<a href="home?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${pagingDTO.startPage-1}" class="btn btn-default">Previous</a>
+				</c:if>
+				
+				<c:forEach var="i" begin="${pagingDTO.startPage}" end="${pagingDTO.endPage}">
+				<c:if test="${pagingDTO.pg == i}">
+				<a href="#" class="btn btn-warning">${i}</a>
+				</c:if>
+				<c:if test="${pagingDTO.pg != i}">
+				<a href="home?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${i}" class="btn btn-warning">${i}</a>
+				</c:if>
+				</c:forEach>
+				
+				
+				<c:if test="${pagingDTO.endPage == pagingDTO.totalPage}">
+				<a class="btn btn-default">Next</a>
+				</c:if>
+				<c:if test="${pagingDTO.endPage != pagingDTO.totalPage}">
+				<a href="home?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${pagingDTO.endPage+1}" class="btn btn-default">Next</a>
+				</c:if>
+			</div>
+		</div> --%>
+   		
     </div>
 </div>
 </body>

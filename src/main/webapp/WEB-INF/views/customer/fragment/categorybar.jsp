@@ -29,28 +29,8 @@
 	href="${app}/resources/customer/css/categoryaccordion.css" rel="stylesheet">
 
 <script type="text/javascript">
-	function categorySearch(f){
-		$("#searchKeyword").val("");
-		f.submit();
-		
-	}
 	
-	/* 중분류 <option> 태그 */
-	$(cateSelect1).on("change",function(){
-		
-		let selectVal1 = $(this).find("option:selected").val();	
-		
-		cateSelect2.children().remove();
-		
-		cateSelect2.append("<option value='none'>선택</option>");
-		
-		for(let i = 0; i < cate2Array.length; i++){
-			if(selectVal1 === cate2Array[i].cateParent){
-				cateSelect2.append("<option value='"+cate2Array[i].cateCode+"'>" + cate2Array[i].cateName + "</option>");	
-			}
-		}// for
-		
-	});
+	
 </script>
 
 </head>
@@ -60,18 +40,18 @@
 <!-- 검색기능 틀 -->
 
 <form action="/store/customer/searchresult">
-	<input type="hidden" name="mainCategory" value="${searchDTO.mainCategory }"/>
-	<input type="hidden" name="subCategory" value="${searchDTO.subCategory }"/>
-	<div class="col-md-3">
+<div class="col">
+	<input type="hidden" name="mainCategory" value=""/>
+	<input type="hidden" name="subCategory" value=""/>
+	<div class="col">
 	<input type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search" />
-		<input type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search"/>
 	</div>
-	<div class="col-md-2">
-	    <input type="submit" class="btn btn-default" value="검색"></input>
+	<div class="col">
+	    <input type="submit" class="btn btn-primary" value="검색"></input>
 	</div>
-	
+</div>
 </form>
-<form action="/store/customer/searchresult">
+<%-- <form action="/store/customer/searchresult">
 	<input type="hidden" name="mainCategory" value="${searchDTO.mainCategory }"/>
 	<input type="hidden" name="subCategory" value="${searchDTO.subCategory }"/>
 	<input type="hidden" name="searchKeyword" value="${searchDTO.searchKeyword}"/>
@@ -85,32 +65,24 @@
          <div class="panel">
            <p>Hello World!</p>
          </div>
-       
-       <button class="mainCategory">Section 2</button>
-         <div class="panel">
-           <p>Hello World~~~</p>
-         </div>
-	
-	
-	
-</form>
-
+</form> --%>
+<form action="/store/customer/searchresult">
+<input type="hidden" name="searchKeyword" value=""/>
  <div class="col">
-    <h2>Open <b>one</b></h2>
     <div class="tabs">
       <div class="tab">
-        <input type="radio" id="rd1" name="rd">
-        <label class="tab-label" for="rd1">김밥류</label>
+        <input class="mainCategoryradio" type="radio" id="maincategory1" name="mainCategory" value="김밥류">
+        <label class="tab-label" for="maincategory1">김밥류</label>
         <div class="tab-content">
-          <button class="accordionbutton" name="subCategory" value="삼각김밥">삼각김밥</button>
+          <button name="subCategory" value="삼각김밥">삼각김밥</button>
           <button name="subCategory" value="줄김밥">줄김밥</button>
 	      <button name="subCategory" value="주먹밥">주먹밥</button>
         </div>
       </div>
 	      
 	  <div class="tab">
-        <input type="radio" id="rd1" name="rd">
-        <label class="tab-label" for="rd1">도시락류</label>
+        <input class="mainCategoryradio" type="radio" id="maincategory2" name="mainCategory" value="도시락류">
+        <label class="tab-label" for="maincategory2">도시락류</label>
         <div class="tab-content">
           <button name="subCategory" value="도시락일반">도시락일반</button>
           <button name="subCategory" value="도시락샐러드">도시락샐러드</button>
@@ -118,8 +90,8 @@
       </div>
       
       <div class="tab">
-        <input type="radio" id="rd1" name="rd">
-        <label class="tab-label" for="rd1">빵류</label>
+        <input class="mainCategoryradio" type="radio" id="maincategory3" name="mainCategory" value="빵류">
+        <label class="tab-label" for="maincategory3">빵류</label>
         <div class="tab-content">
           <button name="subCategory" value="일반빵">일반빵</button>
           <button name="subCategory" value="핫도그">핫도그</button>
@@ -128,24 +100,24 @@
       </div>
       
       <div class="tab">
-        <input type="radio" id="rd1" name="rd">
-        <label class="tab-label" for="rd1">즉석요리</label>
+        <input class="mainCategoryradio" type="radio" id="maincategory4" name="mainCategory" value="즉석요리">
+        <label class="tab-label" for="maincategory4">즉석요리</label>
         <div class="tab-content">
           <button name="subCategory" value="튀김">튀김</button>
         </div>
       </div>
       
       <div class="tab">
-        <input type="radio" id="rd1" name="rd">
-        <label class="tab-label" for="rd1">완제품</label>
+        <input class="mainCategoryradio" type="radio" id="maincategory5" name="mainCategory" value="완제품">
+        <label class="tab-label" for="maincategory5">완제품</label>
         <div class="tab-content">
           <button name="subCategory" value="박스류">박스류</button>
         </div>
       </div>
       
       <div class="tab">
-        <input type="radio" id="rd1" name="rd">
-        <label class="tab-label" for="rd1">유제품류</label>
+        <input class="mainCategoryradio" type="radio" id="maincategory6" name="mainCategory" value="유제품류">
+        <label class="tab-label" for="maincategory6">유제품류</label>
         <div class="tab-content">
           <button name="subCategory" value="우유">우유</button>
           <button name="subCategory" value="요거트">요거트</button>
@@ -155,12 +127,12 @@
       
       
       <div class="tab">
-        <input type="radio" id="rd3" name="rd">
-        <label for="rd3" class="tab-close">닫기 &times;</label>
+        <input class="mainCategoryradio" type="radio" id="maincategory7" name="mainCategory">
+        <label for="maincategory7" class="tab-close">닫기 &times;</label>
       </div>
     </div>
   </div>
-
+</form>
 <!--
 		<button class="accordion" name="maincategory">빵</button>
 	         <div class="panel">
