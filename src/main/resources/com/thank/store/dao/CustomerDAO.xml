@@ -33,8 +33,8 @@
 	작성자 : 방지훈
 	작성일자: 2021/05/24 16:20
 	 -->
-	<select id="searchCvstoreList" parameterType="String" resultType="CvstoreDTO">
-		select c.no,
+	<select id="searchCvstoreList" parameterType="CusSearchDTO" resultType="CvstoreDTO">
+		select distinct(c.no),
 				c.name,
 				c.latitude,
 				c.longitude,
@@ -44,13 +44,15 @@
 		join cvstoreproduct cv on c.no = cv.cvstore_no
 		join productlist p on  p.no = cv.productlist_no
 		where p.name like '%'||#{searchKeyword}||'%'
+		and p.maincategory like '%'||#{mainCategory}||'%'
+		and p.subcategory like '%'||#{subCategory}||'%'
 	</select>
 	
 	<!-- 
 	작성자 : 방지훈
 	작성일자: 2021/05/24 16:20
 	 -->
-	<select id="searchCvsProductList" parameterType="long" resultType="CvsProductDTO">
+	<select id="searchCvsProductList" parameterType="CusSearchDTO" resultType="CvsProductDTO">
 		select p.name as name,
 				p.no as productcode,
 				p.maincategory as maincategory,
@@ -62,8 +64,12 @@
 				c.expirationdate as expirationdate
 		from cvstoreproduct c
 		join productlist p on c.productlist_no = p.no
-		join cvstore cvs on  c.cvssotre_no = cvs.no
-		where c.no = #{no}
+		join cvstore cvs on  c.cvstore_no = cvs.no
+		where cvs.no = #{cvstore_no}
+		and p.name like '%'||#{searchKeyword}||'%'
+		and p.maincategory like '%'||#{mainCategory}||'%'
+		and p.subcategory like '%'||#{subCategory}||'%'
+		and c.enrollment = 1
 	</select>
 	
 	<!-- 
