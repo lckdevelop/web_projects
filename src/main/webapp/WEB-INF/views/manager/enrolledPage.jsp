@@ -84,7 +84,7 @@
 		    				<h6 style="color:red">현재 할인률 : ${product.discountRate}%<br/></h6>
 		    		</div>
 		    		<div class='col-sm-2'>
-	    				<a href="cancelAction?pg=${pagingDTO.pg}&no=${product.no}&discountPrice=${product.discountPrice}&countTime=${product.countTime}&from=enrolledPage" class="btn_cancel">취소</a>
+	    				<a href="cancelAction?pg=${pagingDTO.pg}&no=${product.no}&discountPrice=${product.discountPrice}&countTime=${product.countTime}&from=enrolled" class="btn_cancel">취소</a>
 		    		</div>
 	    		</div>
 	   		</div>
