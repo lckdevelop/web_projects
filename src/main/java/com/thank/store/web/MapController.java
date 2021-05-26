@@ -1,11 +1,17 @@
 package com.thank.store.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thank.store.dto.CvstoreDTO;
@@ -25,15 +31,42 @@ public class MapController {
 	 * @작성일자 : 0524
 	 * @작성이유 : map띄울때 편의점정보 가져오기
 	 */
-	@GetMapping("/maptest")
-	public ModelAndView map() {
+	@RequestMapping(value="/mapajax", produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public HashMap mapajax(
+			@RequestParam HashMap<String, Double> loc
+			) {
 		
-		CvstoreDTO cvStoreDTO = new CvstoreDTO();
+//		log.info(loc.get("lat") + ": lat");
+//		log.info(lat + ": lat");
+//		log.info(loc.get("lon") + ": lon");
+//		log.info(lon + ": lon");
+		HashMap<String, List<CvstoreDTO>> hash = new HashMap<String, List<CvstoreDTO>>();
 		ModelAndView mav = new ModelAndView();
-		
 		try {
-			
-			List<CvstoreDTO> list = mapService.getCvStore();
+			List<CvstoreDTO> list = mapService.getCvStore(loc);
+			System.out.println("list : " + list);
+			hash.put("list", list);
+			mav.addObject("hash", hash);
+			mav.setViewName("map");
+//			model.addAttribute("hash", hash);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return hash;
+	}
+	
+	/*
+	 * @작성자 : 이효범
+	 * @작성일자 : 0524
+	 */
+	@GetMapping(value="/maptotal")
+	@ResponseBody
+	public ModelAndView maptotal() {
+		ModelAndView mav = new ModelAndView();
+		try {
+			List<CvstoreDTO> list = mapService.getTotalCvStore();
+			System.out.println(list);
 			mav.addObject("cvStoreDTO", list);
 			mav.setViewName("map");
 		} catch (Exception e) {
@@ -45,20 +78,9 @@ public class MapController {
 	/*
 	 * @작성자 : 이효범
 	 * @작성일자 : 0524
-	 * @작성이유 : map.jsp의 편의점상품보기 ajax
 	 */
-	@RequestMapping("/map3")
-	public String ajaxProductList() {
-		return "map";
-	}
-	
-	/*
-	 * @작성자 : 이효범
-	 * @작성일자 : 0524
-	 * @작성이유 : map.jsp의 편의점상품보기 ajax
-	 */
-	@RequestMapping("/map2")
-	public  String ajaxProductList2() {
+	@RequestMapping("/map")
+	public  String map() {
 		return "map";
 	}
 }
