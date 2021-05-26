@@ -211,6 +211,7 @@ public class ManagerController {
 	/*
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/25 10:54
+	 * 수정일자: 2021/05/26 23:25
 	 * 세션으로 받아온 id/pw로 해당 member의 no 받고, 그 no로 member_no 얻어서 managerDTO의 no 리턴
 	 */
 	@PostMapping()
