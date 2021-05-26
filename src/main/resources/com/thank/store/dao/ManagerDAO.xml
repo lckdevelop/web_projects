@@ -8,19 +8,17 @@
 	작성일자: 2021/05/22
 	 -->
 	<sql id="searchType">
-		<where>
-			<choose>
-				<when test="searchCondition == 'name'">
-					p.name like '%' || #{searchKeyword} || '%'
-				</when>
-				<when test="searchCondition == 'maincategory'">
-					p.maincategory like '%' || #{searchKeyword} || '%'
-				</when>
-				<when test="searchCondition == 'subcategory'">
-					p.subcategory like '%' || #{searchKeyword} || '%'
-				</when>
-			</choose>
-		</where>
+		<choose>
+			<when test="searchCondition == 'name'">
+				and p.name like '%' || #{searchKeyword} || '%'
+			</when>
+			<when test="searchCondition == 'maincategory'">
+				and p.maincategory like '%' || #{searchKeyword} || '%'
+			</when>
+			<when test="searchCondition == 'subcategory'">
+				and p.subcategory like '%' || #{searchKeyword} || '%'
+			</when>
+		</choose>
 	</sql>
 	
 	<!-- 
@@ -55,6 +53,7 @@
 						join productlist p on cvsp.productlist_no = p.no
 		                where cvsp.cvstore_no = #{cvstore_no}
 		                and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
+		                <include refid="searchType" />
 	              order by countTime) A
 			) B 
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
@@ -78,6 +77,7 @@
 					    and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
 					    and ROUND((cvsp.expirationdate - sysdate) * 24) <= 24
 				]]>
+						<include refid="searchType" />
                   order by countTime) A 
 		    ) B
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
@@ -101,6 +101,7 @@
 					  and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
 					  and ROUND((cvsp.expirationdate - sysdate) * 24) <= 24
 		]]>
+					  <include refid="searchType" />
                 order by countTime) A 
 		   ) B
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
@@ -143,6 +144,7 @@
 	<![CDATA[
 		and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
 	]]>
+		<include refid="searchType" />
 	</select>
 	
 	<!-- 
@@ -160,6 +162,7 @@
 		and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
         and ROUND((cvsp.expirationdate - sysdate) * 24) <= 24
     ]]>
+    	<include refid="searchType" />
 	</select>
 	
 	<!-- 
@@ -177,6 +180,7 @@
 		and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
         and ROUND((cvsp.expirationdate - sysdate) * 24) <= 24
     ]]>
+    	<include refid="searchType" />
 	</select>
 
 	<!-- 
