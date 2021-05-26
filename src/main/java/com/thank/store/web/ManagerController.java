@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,14 +40,13 @@ public class ManagerController {
 	 * 작성일자: 2021/05/23 
 	 */
 	@GetMapping("/home")
-	public String home(@ModelAttribute ManagerDTO managerDTO, 
-				       @RequestParam(defaultValue="1") long pg, 
+	public String home(@ModelAttribute ManagerDTO managerDTO,
+				       @RequestParam(defaultValue="1") long pg,
 				       @ModelAttribute ManSearchDTO searchDTO,
 				       Model model) {
 		long managerNo = 1; // 세션 매니저번호
 		long cvsNo = 1; // 세션 매니저지점번호
 		managerDTO = new ManagerDTO();
-		
 		try {
 			managerDTO = managerService.getManagerInfo(managerNo);
 			model.addAttribute("managerDTO", managerDTO);
@@ -80,7 +80,7 @@ public class ManagerController {
 		       @ModelAttribute ManSearchDTO searchDTO,
 		       Model model) {
 		long managerNo = 1; // 세션 매니저번호
-		long cvsNo = 40; // 세션 매니저지점번호
+		long cvsNo = 1; // 세션 매니저지점번호
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -141,6 +141,98 @@ public class ManagerController {
 		
 		return "manager/enrollPage";
 	}
+	
+	/*
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/26
+	 */
+	@RequestMapping("/enrollAction")
+	public String enrollAction(@ModelAttribute ManagerDTO managerDTO,
+					   			@ModelAttribute CvsProductDTO cvsProductDTO,
+					   			@RequestParam(defaultValue="1") long pg,
+					   			@ModelAttribute ManSearchDTO searchDTO,
+					   			Model model) {
+		long managerNo = 1; // 세션 매니저번호
+		long cvsNo = 1; // 세션 매니저지점번호
+		managerDTO = new ManagerDTO();
+		
+		log.info(cvsProductDTO.getFrom() + " : getFrom");
+		try {
+			int updateEnrollRow = managerService.enrollAction(cvsProductDTO);
+			log.info(updateEnrollRow + " : updateEnrollRow");
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		try {
+			managerDTO = managerService.getManagerInfo(managerNo);
+			model.addAttribute("managerDTO", managerDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		searchDTO.setPagingDTO(new ManPagingDTO(pg));
+		searchDTO.setCvstore_no(cvsNo);
+
+		try {
+			List<CvsProductDTO> allList = managerService.getAllProductList(searchDTO);
+			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
+			model.addAttribute("allList", allList);
+			model.addAttribute("pagingDTO", pagingDTO);
+			
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		return "manager/" + cvsProductDTO.getFrom();
+	}
+	
+	/*
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/26
+	 */
+	@RequestMapping("/cancelAction")
+	public String cancelAction(@ModelAttribute ManagerDTO managerDTO,
+					   	       @ModelAttribute CvsProductDTO cvsProductDTO,
+					   	       @RequestParam(defaultValue="1") long pg,
+					   	       @ModelAttribute ManSearchDTO searchDTO,
+					   	       Model model) {
+		long managerNo = 1; // 세션 매니저번호
+		long cvsNo = 1; // 세션 매니저지점번호
+		managerDTO = new ManagerDTO();
+		
+		log.info(cvsProductDTO.getNo() + " : productNo");
+		try {
+			int updatecancelRow = managerService.cancelAction(cvsProductDTO);
+			log.info(updatecancelRow + " : updatecancelRow");
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		try {
+			managerDTO = managerService.getManagerInfo(managerNo);
+			model.addAttribute("managerDTO", managerDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		searchDTO.setPagingDTO(new ManPagingDTO(pg));
+		searchDTO.setCvstore_no(cvsNo);
+
+		try {
+			List<CvsProductDTO> allList = managerService.getAllProductList(searchDTO);
+			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
+			model.addAttribute("allList", allList);
+			model.addAttribute("pagingDTO", pagingDTO);
+			
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		return "manager/home";
+	}
+	
+	
 	
 	
 	/*

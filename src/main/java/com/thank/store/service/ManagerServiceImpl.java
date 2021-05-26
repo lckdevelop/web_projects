@@ -73,26 +73,14 @@ public class ManagerServiceImpl implements ManagerService {
 			list = managerDAO.getEnrolledProductList(searchDTO);
 			
 			for (CvsProductDTO cvsProductDTO : list) {
-				long tmpTime = cvsProductDTO.getExpirationdate().getTime() - cvsProductDTO.getWarehousingdate().getTime();
-				log.info(tmpTime / (24*60*60*1000) + "차이나는 일수" );
-				log.info(tmpTime / (60*60*1000) + "차이나는 시간" );
-				long leftDay = tmpTime / (24*60*60*1000);
-				long leftTime = (tmpTime / (60*60*1000)) - (leftDay * 24);
-				long countTime = (tmpTime / (60*60*1000));
-				
-				cvsProductDTO.setLeftDay(leftDay);
-				cvsProductDTO.setLeftTime(leftTime);
-				cvsProductDTO.setCountTime(countTime);
-				
+				long countTime = (cvsProductDTO.getCountTime());
 				int discountRate = getDiscountRate(countTime);
 				cvsProductDTO.setDiscountRate(discountRate);
-				
-				if (countTime <= 24) {
-					cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
-				}
+				cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
 			}
 			
 			return list;
+			
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			
@@ -146,7 +134,15 @@ public class ManagerServiceImpl implements ManagerService {
 		return pagingDTO;
 	}
 	
+	@Override
+	public int enrollAction(CvsProductDTO cvsProductDTO) throws Exception {
+		return managerDAO.enrollAction(cvsProductDTO);
+	}
 	
+	@Override
+	public int cancelAction(CvsProductDTO cvsProductDTO) throws Exception {
+		return managerDAO.cancelAction(cvsProductDTO);
+	}
 	
 	/*
 	 * 작성자: 김수빈
@@ -200,5 +196,6 @@ public class ManagerServiceImpl implements ManagerService {
 		}
 
 	}
+
 }
 
