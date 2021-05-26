@@ -82,7 +82,7 @@
 		    				<h6 style="color:red">할인률 : ${product.discountRate}%<br/></h6>
 		    		</div>
 		    		<div class='col-sm-2'>
-	    				<a href="enrollAction?pg=${pagingDTO.pg}&no=${product.no}&discountPrice=${product.discountPrice}&countTime=${product.countTime}&from=enrollPage" class="btn_enroll">등록</a>
+	    				<a href="enrollAction?pg=${pagingDTO.pg}&no=${product.no}&discountPrice=${product.discountPrice}&countTime=${product.countTime}&from=enroll" class="btn_enroll">등록</a>
 		    		</div>
 	    		</div>
 	   		</div>
