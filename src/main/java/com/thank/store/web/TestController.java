@@ -2,6 +2,7 @@ package com.thank.store.web;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class TestController {
 	private ManagerDAO managerDAO;
 	
 	@GetMapping("/erer")
-	public String index() throws SQLException {
+	public String index() {
 		ManSearchDTO searchDTO = new ManSearchDTO();
 		SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
@@ -30,7 +31,12 @@ public class TestController {
 		searchDTO.setCvstore_no(1);
 		log.info(searchDTO.getPagingDTO().getStartNum() + "STARTNUM");
 		log.info(searchDTO.getPagingDTO().getEndNum() + "EndNUM");
-		List<CvsProductDTO> allList = managerDAO.getAllProductList(searchDTO);
+		List<CvsProductDTO> allList = new ArrayList<>();
+		try {
+			allList = managerDAO.getAllProductList(searchDTO);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		log.info(allList.size() + "갯수");
 		for (CvsProductDTO cvsProductDTO : allList) {
 			long countTime = (cvsProductDTO.getCountTime());
@@ -39,10 +45,6 @@ public class TestController {
 			log.info(cvsProductDTO.getName() + ": name" );
 			log.info(fmt.format(cvsProductDTO.getExpirationdate()) + ": Expirationdate" );
 			log.info(countTime + ": countTime" );
-
-			
-			
-
 		}
 		return "lala";
 	}
