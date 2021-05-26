@@ -15,7 +15,7 @@ public class MemberDTO {
 	private String password;
 	private String name;
 	private String accountno;
-	private int accountType; // **0 = member **  ** 1= manager **
+	private int accountType; // **0 = customer **  ** 1= member **
 	
 	//이거 하면 안되는건가?
 //	public void setPassword(String password) {

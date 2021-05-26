@@ -10,5 +10,7 @@ public interface MemberDAO {
 	
 	void addManager(MemberDTO memberDTO) throws Exception;
 
-	void addCustomer(MemberDTO memberDTO);
+	void addCustomer(MemberDTO memberDTO) throws Exception;
+	
+	int getAccountType(MemberDTO memberDTO) throws Exception;
 }

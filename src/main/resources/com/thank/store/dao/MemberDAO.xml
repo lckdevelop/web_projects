@@ -27,10 +27,12 @@
 	values(MEMBER_NO_SEQ.nextval,#{id},#{password},#{name},#{accountno},1)
 	</insert>
 	
-	<!-- 가져온 멤버로 managerDTO로 로그인 -->
-	<select id="getManagerFromMember" parameterType="MemberDTO" resultType="ManagerDTO">
-	select member_no
-	</select>
+	<!-- 멤버 타입 반환 0: customer 1: manager-->
+	<select id="getAccountType" parameterType="MemberDTO" resultType="int">
+	select accountType
+	from member
+	where id=#{id} and password=#{password}
 	
+	</select>
 	
 </mapper>

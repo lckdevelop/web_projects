@@ -109,10 +109,17 @@ public class CustomerController {
 			HttpSession session) {
 		log.info(memberDTO.toString());
 		try {
-			MemberDTO memberInfo = memberService.getMember(memberDTO);
-			session.setAttribute("memberInfo", memberInfo);
-
-			return "redirect:./customer/home";
+			int memberType = memberService.getAccountType(memberDTO);
+			if(memberType==0) {
+				MemberDTO memberInfo = memberService.getMember(memberDTO);
+				session.setAttribute("memberInfo", memberInfo);
+				return "redirect:./customer/home";
+			}
+			else {
+				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
+				model.addAttribute("url", "./customer");
+				return "result";
+			}
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
