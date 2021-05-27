@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.thank.store.dao.MapDAO;
 import com.thank.store.dto.CvstoreDTO;
+import com.thank.store.dto.ProductListDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,6 +41,17 @@ public class MapServiceImpl implements MapService{
 	public List<CvstoreDTO> getTotalCvStore() throws Exception {
 		List<CvstoreDTO> list = new ArrayList();
 		list = mapDAO.getTotalCvStore();
+		return list;
+	}
+
+	/*
+	 * 작성자 : 이효범
+	 * 작성일자 : 0527 00:54
+	 */
+	@Override
+	public List<ProductListDTO> getProductList(HashMap<String, String> storecode) throws Exception {
+		List<ProductListDTO> list = new ArrayList();
+		list = mapDAO.getProductList(storecode);
 		return list;
 	}
 
