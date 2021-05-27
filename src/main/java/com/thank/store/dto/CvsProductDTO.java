@@ -11,6 +11,8 @@ import lombok.ToString;
 @ToString
 public class CvsProductDTO {
 	private long no;
+	private long managerno; 
+	private long cvstoreno; 
 	private String productcode;
 	private String name;
 	private String maincategory;

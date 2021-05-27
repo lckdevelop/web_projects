@@ -62,16 +62,51 @@ $( function() {
 	
 	
 });
+
 function buyBtn(no){
-	alert(no)
-	/* alert(cvsproduct);
 	var accountno = '${dto.accountno}';
-	 	var agree = confirm('구입하시겠습니까?');
-	 	if(agree == false){
-		 return;
-		} */
-   
+	$.ajax({
+   		 url: "onecvsproduct",
+   		 method: "POST",
+   		 data: {"no":no},
+   		 datatype: "json",
+   		 success:function(cvsProductDTO){
+   			var agree = confirm(cvsProductDTO.name+'을 '+ cvsProductDTO.discountPrice+'원에 구입하시겠습니까?');
+   			if(agree == false){
+   				return;
+   			}
+   			
+   			$.ajax({
+   				url: "purchaseproduct",
+   				method: "POST",
+   				data: {"no":no},
+				datatype: "json",
+				success:function(data){
+					if(data == null || data == ""){
+						alert("잔액부족");
+					}
+					else{
+						alert("구매성공");
+						
+						location.reload();
+					}
+					
+				},
+				error:function(request,status,error){
+			        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+			       }
+   			});
+   			 	
+   			
+   		 },
+   		 error:function(){
+   		    alert("실패");
+   		 }
+   	});
+
+	
 }
+
 </script>
 </head>
 <body>
@@ -175,7 +210,7 @@ function buyBtn(no){
 		    				<h6>원가 : ${cvsproduct.price}원<br/></h6>
 		    				<h6 style="color:red">할인가 : ${cvsproduct.discountPrice}원<br/></h6>
 		    				<h6 style="color:red">할인률 : ${cvsproduct.discountRate}%<br/></h6>
-		    				<input type="button" value="결제" onclick="buyBtn(${cvsproduct.no})"/>
+		    				<input type="button" value="결제" onclick="buyBtn('${cvsproduct.no}')"/>
 		    				<hr>
 			        		</div>
 			        	</c:forEach>

@@ -136,4 +136,59 @@
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
 	</select>
 	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/27 19:22
+	 -->
+	 <select id="getOneCvsProduct" parameterType="long" resultType="CvsProductDTO">
+	 	select p.name as name,
+				p.no as productcode,
+				p.price as price,
+				cs.manager_no as managerno,
+				c.cvstore_no as cvstoreno,
+				c.no as no,
+				c.warehousingdate as warehousingdate,
+				c.expirationdate as expirationdate,
+				ROUND((sysdate - expirationdate) * 24) as countTime
+		from cvstoreproduct c
+		join productlist p on c.productlist_no = p.no
+		join cvstore cs on c.cvstore_no = cs.no
+		where c.no = #{no}
+	 </select>
+	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/28 00:00
+	 -->
+	<update id="updateCustomerPoint" parameterType="CustomerDTO">
+		update customer set point = point - #{purchasePrice}
+		where no = #{customerno} 
+	</update>
+	
+		
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/28 00:12
+	 -->
+	<insert id="addPurchaseProduct" parameterType="CustomerDTO">
+		insert into purchaselist values (purchaselist_no_seq.nextval,#{customerno},#{cvsproductno})
+	</insert>
+	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/28 00:18
+	 -->
+	<update id="updatePurchaseProduct" parameterType="CvsProductDTO">
+		update cvstoreproduct set enrollment = 2
+		where no = #{no}
+	</update>
+	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/28 00:23
+	 -->
+	<update id="updateManagerPoint" parameterType="CvsProductDTO">
+		update manager set profit = profit + #{discountPrice}
+		where no = #{managerno}
+	</update>
 </mapper>
