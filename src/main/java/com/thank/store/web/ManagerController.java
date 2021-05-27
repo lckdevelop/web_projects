@@ -193,7 +193,7 @@ public class ManagerController {
 	 * 작성일자: 2021/05/24 10:50
 	 */
 	@GetMapping()
-	public String login2() {
+	public String login() {
 		return "/manager/login";
 	}
 	
@@ -234,17 +234,16 @@ public class ManagerController {
 			}
 			else {
 				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
-				model.addAttribute("url", "./");
+				model.addAttribute("url", "../manager");
 				return "result";
 			}		
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
-			model.addAttribute("url", "./manager");
+			model.addAttribute("url", "../manager");
 			return "result";
 		}
 	}
-
 	
 	/*
 	 * 작성자: 김수빈
@@ -268,7 +267,7 @@ public class ManagerController {
 	 * 작성일자: 2021/05/24 10:50
 	 * 작성내용: 회원가입 시 cvstore 테이블의 manager_no 업데이트
 	 */
-	@PostMapping(value="/signup")
+	@PostMapping(value="signup")
 	public String signUp(
 			@RequestParam("storecode")String storecode,
 			@ModelAttribute MemberDTO memberDTO,
@@ -283,7 +282,7 @@ public class ManagerController {
 				managerService.updateCVstoreFromManager(managerDTO);
 			}
 
-			return "redirect:./";
+			return "redirect:../manager";
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
