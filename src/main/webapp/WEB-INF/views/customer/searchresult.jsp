@@ -155,11 +155,14 @@ $( function() {
  	</form>
     	
     	<hr style="border: solid 3px #1b4af5;">
+    	<form>
   		<c:forEach var="cvstore" items="${cvstoreList}" varStatus="status">
-  		<form>
+  		
 	    	<div id="list-box">
 	    		<div class="tab">
-	  			 <input class="accordion" type="radio" id="${cvstore.storecode}" name="cvstore" value="${cvstore.name}">
+	  			 <input class="accordion" type="radio" id="${cvstore.storecode}" name="cvstoreradio" value="${cvstore.name}"
+	  			 <c:if test="${status.first == true}"> checked </c:if>
+	  			 >
 			        <label class="tab-label" for="${cvstore.storecode}">${cvstore.name}</label>
 			        <div class="tab-content panel">
 			        	<c:forEach var="cvsproduct" items="${cvstore.cvsProductList}">
@@ -167,12 +170,10 @@ $( function() {
 			        			<h6>상품명 : ${cvsproduct.name}<br/></h6>
 			        			<h6>제조날짜 : <f:formatDate value="${cvsproduct.warehousingdate}" pattern="yyyy/MM/dd" /><br/></h6>
 		    				<h6>유통만료기한 : <f:formatDate value="${cvsproduct.expirationdate}" pattern="yyyy/MM/dd" /><br/></h6>
-		    				<h6 style="color:blue">남은일수/남은시간 : ${cvsproduct.leftDay}일 / ${cvsproduct.countTime}시간<br/></h6>
+		    				<h6 style="color:blue">남은시간 : ${cvsproduct.countTime}시간<br/></h6>
 		    				<h6>원가 : ${cvsproduct.price}원<br/></h6>
-		    				<c:if test='${cvsproduct.leftTime <= 24}'>
-			    				<h6 style="color:red">할인가 : ${cvsproduct.discountPrice}원<br/></h6>
-			    				<h6 style="color:red">할인률 : ${cvsproduct.discountRate}%<br/></h6>
-		    				</c:if>
+		    				<h6 style="color:red">할인가 : ${cvsproduct.discountPrice}원<br/></h6>
+		    				<h6 style="color:red">할인률 : ${cvsproduct.discountRate}%<br/></h6>
 		    				<input type="button" value="결제" onclick="buyBtn('${cvsproduct.name}')"/>
 		    				<hr>
 			        		</div>
@@ -180,8 +181,8 @@ $( function() {
 			        </div>
 	    		</div>
 	   		</div>
-    		</form>
     	</c:forEach>
+    	</form>
     	<form>
     	<div class="row">
     		<div class='col-md-5'></div>
