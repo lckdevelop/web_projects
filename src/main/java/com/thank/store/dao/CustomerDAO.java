@@ -7,6 +7,7 @@ import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.CvstoreDTO;
+import com.thank.store.dto.PurchaseListDTO;
 
 public interface CustomerDAO {
 
@@ -23,5 +24,7 @@ public interface CustomerDAO {
 	List<String> getSubCategory(CusSearchDTO searchDTO) throws SQLException;
 
 	long getTotalRecord(CusSearchDTO searchDTO) throws SQLException;
+
+	List<PurchaseListDTO> getPurchaseList(long no) throws SQLException;
 
 }

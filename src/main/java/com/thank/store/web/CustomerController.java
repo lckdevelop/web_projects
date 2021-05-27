@@ -20,9 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvstoreDTO;
-import com.thank.store.dto.ManPagingDTO;
 import com.thank.store.dto.MemberDTO;
 import com.thank.store.dto.PagingDTO;
+import com.thank.store.dto.PurchaseListDTO;
 import com.thank.store.service.CustomerService;
 import com.thank.store.service.MemberService;
 
@@ -59,12 +59,15 @@ public class CustomerController {
 	public String qrcode(@RequestParam(defaultValue="0") long purchasecount ,@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		customerDTO = new CustomerDTO();
+		List<PurchaseListDTO> purchaseList;
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			purchaseList =customerService.getPurchaseList(memberInfo.getNo());
 			
 			model.addAttribute("customerDTO", customerDTO);
 			model.addAttribute("purchasecount",purchasecount);
+			model.addAttribute("purchaseList",purchaseList);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}

@@ -1,5 +1,7 @@
 package com.thank.store.dto;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +13,9 @@ import lombok.ToString;
 @ToString
 public class PurchaseListDTO {
 	private long no;
+	private long customerno;
+	private String productcode;
+	private String name;
 	private long cvstoreproductno;
 	
 }

@@ -3,12 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="app" value="${pageContext.request.contextPath}" />
 <c:set var="dto" value="${customerDTO}" />
+<c:set var="purchaseList" value="${purchaseList}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>ThankStore 메인</title>
+<title>ThankStore 고객 구매목록</title>
 <!-- Google Fonts -->
 
 <!-- *************** CSS START *************** -->
@@ -49,7 +50,24 @@
 		<jsp:include page="/WEB-INF/views/customer/fragment/profilebar.jsp" flush="true" />
     </div>
     <div id='box-right'>
-	    
+	    <div id="product-search-box">
+   			<div class="row">
+	   			<div class="col-md-11">
+	    			<h3>${dto.name} 회원님의 구매목록</h3>
+	       		</div>
+	   		</div>
+	   	</div>
+	   	<hr style="border: solid 3px #1b4af5;">
+	   	<form>
+	   		<c:forEach var="purchaseDTO" items="${purchaseList}" varStatus="status">
+	   			<div id="list-box">
+	   				<div class="row">
+	   					<h6>상품명 : ${purchaseDTO.name}<br/></h6>
+	   				</div>
+	   			</div>
+	   		
+	   		</c:forEach>
+	   	</form>
 
 	    
     </div>
