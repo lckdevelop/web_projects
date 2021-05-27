@@ -194,7 +194,16 @@ public class ManagerServiceImpl implements ManagerService {
 			log.info(e.getMessage());
 			throw e;
 		}
+	}
 
+	@Override
+	public void updateCVstoreFromManager(ManagerDTO managerDTO) throws Exception {
+		try {
+			managerDAO.updateCVstoreFromManager(managerDTO);
+		}catch (Exception e) {
+			log.info(e.getMessage());
+			throw e;
+		}	
 	}
 
 }

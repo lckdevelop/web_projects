@@ -198,10 +198,19 @@
 	<!-- 
 	작성자 : 김수빈
 	작성일자 : 2021/05/25 12:28
-	작성내용 : 매니저 회원 가입 시 입력한 storecode를 갖고 있는 cvstore의 manager_no 를 업데이트
+	작성내용 : 매니저 회원 가입 시 입력한 storecode로 manager의 storecode 를 업데이트
 	-->
 	<update id="updateStorecode" parameterType="ManagerDTO">
 	update manager set storecode=#{storecode} where no=#{managerno}
+	</update>
+	
+	<!-- 
+	작성자 : 김수빈
+	작성일자 : 2021/05/27 09:50
+	작성내용 : 매니저 회원 가입 시 입력한 storecode를 갖고 있는 cvstore의 manager_no 를 업데이트
+	-->
+	<update id="updateCVstoreFromManager" parameterType="ManagerDTO">
+	update cvstore set manager_no=#{managerno} where storecode=#{storecode}
 	</update>
 	
 </mapper>
