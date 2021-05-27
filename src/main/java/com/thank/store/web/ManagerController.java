@@ -206,8 +206,6 @@ public class ManagerController {
 		return "/manager/signup";
 	}
 	
-	
-	
 	/*
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/25 10:54
@@ -263,6 +261,8 @@ public class ManagerController {
 			return "result";
 		}
 	}
+	
+
 	
 	/*
 	 * 작성자: 김수빈
