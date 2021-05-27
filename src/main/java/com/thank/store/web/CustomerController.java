@@ -38,7 +38,7 @@ public class CustomerController {
 	private MemberService memberService;
 	
 	@GetMapping()
-	public String login2() {
+	public String login() {
 		return "/customer/login";
 	}
 	
@@ -137,17 +137,6 @@ public class CustomerController {
 			HttpSession session) {
 		log.info(memberDTO.toString());
 		try {
-//			int memberType = memberService.getAccountType(memberDTO);
-//			if(memberType==0) {
-//				MemberDTO memberInfo = memberService.getMember(memberDTO);
-//				session.setAttribute("memberInfo", memberInfo);
-//				return "redirect:./customer/home";
-//			}
-//			else {
-//				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
-//				model.addAttribute("url", "./customer");
-//				return "result";
-//			}
 			MemberDTO memberInfo = memberService.getMember(memberDTO);
 			if(memberService.getAccountType(memberDTO)==0) {
 				session.setAttribute("memberInfo", memberInfo);
@@ -155,13 +144,13 @@ public class CustomerController {
 			}
 			else {
 				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
-				model.addAttribute("url", "./customer");
+				model.addAttribute("url", "../customer");
 				return "result";
 			}
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
-			model.addAttribute("url", "./customer");
+			model.addAttribute("url", "../customer");
 			return "result";
 		}
 	}
@@ -187,7 +176,7 @@ public class CustomerController {
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/24 09:28
 	 */
-	@PostMapping(value="/signup")
+	@PostMapping(value="signup")
 	public String signUp(
 			@ModelAttribute MemberDTO memberDTO,
 			Model model) {
@@ -196,7 +185,7 @@ public class CustomerController {
 				memberService.addCustomer(memberDTO);
 			}
 
-			return "redirect:./login";
+			return "redirect:../customer";
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
