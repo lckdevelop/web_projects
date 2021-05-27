@@ -158,7 +158,7 @@ $( function() {
   		<c:forEach var="cvstore" items="${cvstoreList}" varStatus="status">
   		<form>
 	    	<div id="list-box">
-	    		<div class="row">
+	    		<div class="tab">
 	  			 <input class="accordion" type="radio" id="${cvstore.storecode}" name="cvstore" value="${cvstore.name}">
 			        <label class="tab-label" for="${cvstore.storecode}">${cvstore.name}</label>
 			        <div class="tab-content panel">
