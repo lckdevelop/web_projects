@@ -75,8 +75,8 @@
 		
 		<form>
     	<div class="row">
-    		<div class='col-md-5'></div>
-   			<div class='col-md-5'>
+    		<!-- <div class='col-md-5'></div> -->
+   			<div class='col' style="margin-top:5px;">
 				<c:if test="${searchDTO.pagingDTO.startPage == 1}">
 				<a class="btn btn-default">Previous</a>
 				</c:if>
