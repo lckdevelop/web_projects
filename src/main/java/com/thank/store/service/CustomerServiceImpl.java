@@ -13,6 +13,7 @@ import com.thank.store.dto.CvstoreDTO;
 import com.thank.store.dto.ManPagingDTO;
 import com.thank.store.dto.ManSearchDTO;
 import com.thank.store.dto.PagingDTO;
+import com.thank.store.dto.PurchaseListDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -116,5 +117,11 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public long getTotalRecord(CusSearchDTO searchDTO) throws Exception {
 		return customerDAO.getTotalRecord(searchDTO);
+	}
+
+	
+	@Override
+	public List<PurchaseListDTO> getPurchaseList(long no) throws Exception {
+		return customerDAO.getPurchaseList(no);
 	}
 }
