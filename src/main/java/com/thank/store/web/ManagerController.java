@@ -234,6 +234,7 @@ public class ManagerController {
 				System.out.println("멤버 pk로 구한 manager의 pk: "+managerNoFromMember);
 				System.out.println("멤버의 no와 manager의 member_no가 같은 "+managerNoFromMember);
 				ManagerDTO managerInfo = managerService.getManagerInfo(managerNoFromMember);
+				System.out.println(managerInfo.toString());
 				log.info(managerInfo.toString());
 				session.setAttribute("managerInfo", managerInfo);
 				return "redirect:./manager/home";
@@ -247,7 +248,7 @@ public class ManagerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
-			model.addAttribute("url", "../manager");
+			model.addAttribute("url", "./manager");
 			return "result";
 		}
 	}
