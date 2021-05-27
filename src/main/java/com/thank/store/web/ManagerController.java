@@ -44,8 +44,8 @@ public class ManagerController {
 				       HttpSession session,
 				       Model model) {
 		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
-		long managerNo = managerInfo.getManagerno(); // 세션 매니저번호
-		long cvsNo = managerInfo.getCvsno(); // 세션 매니저지점번호
+		long managerNo = managerInfo.getManagerno(); 
+		long cvsNo = managerInfo.getCvsno(); 
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -63,7 +63,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
 			model.addAttribute("allList", allList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			
+			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -82,8 +82,8 @@ public class ManagerController {
 		       HttpSession session,
 		       Model model) {
 		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
-		long managerNo = managerInfo.getManagerno(); // 세션 매니저번호
-		long cvsNo = managerInfo.getCvsno(); // 세션 매니저지점번호
+		long managerNo = managerInfo.getManagerno(); 
+		long cvsNo = managerInfo.getCvsno(); 
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -101,7 +101,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getEnrolledPagingInfo(searchDTO);
 			model.addAttribute("enrolledList", enrolledList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			
+			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -120,8 +120,8 @@ public class ManagerController {
 		       HttpSession session,
 		       Model model) {
 		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
-		long managerNo = managerInfo.getManagerno(); // 세션 매니저번호
-		long cvsNo = managerInfo.getCvsno(); // 세션 매니저지점번호
+		long managerNo = managerInfo.getManagerno(); 
+		long cvsNo = managerInfo.getCvsno(); 
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -139,7 +139,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getAvailPagingInfo(searchDTO);
 			model.addAttribute("enrollAvailList", enrollAvailList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			
+			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}

@@ -67,7 +67,7 @@ $(function() {
 				</select>
 	       		</div>
 	       		<div class="col-md-3">
-	    			<input type="text" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search" />
+	    			<input type="text" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search"/>
 	    		</div>
 	    		<div class="col-md-2">
 	       			<input type="submit" class="btn btn-default" value="submit"></input>
@@ -114,6 +114,7 @@ $(function() {
 	   		</div>
     		<hr>
     	</c:forEach>
+   		
     	<div class="row">
     		<div class='col-md-5'></div>
    			<div class='col-md-5'>
@@ -142,7 +143,7 @@ $(function() {
 				</c:if>
 			</div>
 		</div>
-   		
+ 	
     </div>
 </div>
 </body>
