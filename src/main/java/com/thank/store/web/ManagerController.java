@@ -255,8 +255,8 @@ public class ManagerController {
 		session.invalidate();
 		
 		ModelAndView mav = new ModelAndView("result");
-		mav.addObject("msg", memberInfo.getId() + 
-				 "(" + memberInfo.getName() + ")님이 로그아웃 하였습니다.");
+		
+		mav.addObject("msg","로그아웃 했습니다.");
 		mav.addObject("url", "./");
 		return mav;
 	}

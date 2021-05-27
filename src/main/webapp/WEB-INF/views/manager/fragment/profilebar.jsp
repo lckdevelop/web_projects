@@ -23,7 +23,7 @@
 <script type="text/javascript">
 $(function() {
 	$('.man_logout').click(function(){
-		location.href="/thankstore";
+		location.href="/store/manager/logout";
 	});
 });
 </script>
