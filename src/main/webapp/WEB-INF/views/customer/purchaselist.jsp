@@ -63,6 +63,9 @@
 	   			<div id="list-box">
 	   				<div class="row">
 	   					<h6>상품명 : ${purchaseDTO.name}<br/></h6>
+	   					<div style="height:150px; text-align:center;">
+	   						<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
+	   					</div>
 	   				</div>
 	   			</div>
 	   		
