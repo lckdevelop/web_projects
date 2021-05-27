@@ -244,7 +244,6 @@ public class ManagerController {
 			return "result";
 		}
 	}
-	
 
 	
 	/*
