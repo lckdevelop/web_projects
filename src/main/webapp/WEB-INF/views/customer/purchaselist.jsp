@@ -4,6 +4,7 @@
 <c:set var="app" value="${pageContext.request.contextPath}" />
 <c:set var="dto" value="${customerDTO}" />
 <c:set var="purchaseList" value="${purchaseList}" />
+<c:set var="searchDTO" value="${searchDTO}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +72,37 @@
 	   		
 	   		</c:forEach>
 	   	</form>
-
+		
+		<form>
+    	<div class="row">
+    		<div class='col-md-5'></div>
+   			<div class='col-md-5'>
+				<c:if test="${searchDTO.pagingDTO.startPage == 1}">
+				<a class="btn btn-default">Previous</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.startPage != 1}">
+				<a href="/store/customer/purchaselist?pg=${searchDTO.pagingDTO.startPage-1}" class="btn btn-default">Previous</a>
+				</c:if>
+				
+				<c:forEach var="i" begin="${searchDTO.pagingDTO.startPage}" end="${searchDTO.pagingDTO.endPage}">
+				<c:if test="${searchDTO.pagingDTO.pg == i}">
+				<a href="#" class="btn btn-warning">${i}</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.pg != i}">
+				<a href="/store/customer/purchaselist?pg=${i}" class="btn btn-warning">${i}</a>
+				</c:if>
+				</c:forEach>
+				
+				
+				<c:if test="${searchDTO.pagingDTO.endPage == searchDTO.pagingDTO.totalPage}">
+				<a class="btn btn-default">Next</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.endPage != searchDTO.pagingDTO.totalPage}">
+				<a href="/store/customer/purchaselist?pg=${searchDTO.pagingDTO.endPage+1}" class="btn btn-default">Next</a>
+				</c:if>
+			</div>
+		</div>
+		</form>
 	    
     </div>
 </div>

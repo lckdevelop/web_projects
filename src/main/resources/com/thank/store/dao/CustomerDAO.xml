@@ -114,9 +114,14 @@
 		where maincategory like '%'||#{mainCategory}||'%'
 	</select>
 	
-	
-	<select id="getPurchaseList" parameterType="long" resultType="PurchaseListDTO">
-		select p.no,
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/27 14:32
+	 -->
+	<select id="getPurchaseList" parameterType="CusSearchDTO" resultType="PurchaseListDTO">
+		select B.*
+		from (select rownum as rnum, A.*
+		      from (select p.no,
 				p.cvstoreproduct_no as cvstoreproductno,
 				p.customer_no as customerno,
 				pl.name,
@@ -125,7 +130,10 @@
 		join customer c on c.no = p.customer_no
 		join cvstoreproduct cp on cp.no = p.cvstoreproduct_no
 		join productlist pl on pl.no = cp.productlist_no
-		where p.customer_no = #{no}
+		where p.customer_no = #{customer_no}
+		) A
+			  ) B 
+		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
 	</select>
 	
 </mapper>

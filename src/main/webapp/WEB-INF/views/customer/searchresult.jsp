@@ -183,6 +183,7 @@ $( function() {
 	   		</div>
     	</c:forEach>
     	</form>
+    	
     	<form>
     	<div class="row">
     		<div class='col-md-5'></div>
@@ -208,7 +209,7 @@ $( function() {
 				<a class="btn btn-default">Next</a>
 				</c:if>
 				<c:if test="${searchDTO.pagingDTO.endPage != searchDTO.pagingDTO.totalPage}">
-				<a href="/store/customer/searchresult?mainCategory=${searchDTO.mainCategory}&subCategory=${searchDTO.subCategory}&searchKeyword=${searchDTO.searchKeyword}&pg=${pagingDTO.endPage+1}" class="btn btn-default">Next</a>
+				<a href="/store/customer/searchresult?mainCategory=${searchDTO.mainCategory}&subCategory=${searchDTO.subCategory}&searchKeyword=${searchDTO.searchKeyword}&pg=${searchDTO.pagingDTO.endPage+1}" class="btn btn-default">Next</a>
 				</c:if>
 			</div>
 		</div>

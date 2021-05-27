@@ -24,6 +24,6 @@ public interface CustomerService {
 
 	long getTotalRecord(CusSearchDTO searchDTO) throws Exception;
 
-	List<PurchaseListDTO> getPurchaseList(long no) throws Exception;
+	List<PurchaseListDTO> getPurchaseList(CusSearchDTO searchDTO) throws Exception;
 
 }

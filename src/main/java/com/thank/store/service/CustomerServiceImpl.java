@@ -109,7 +109,7 @@ public class CustomerServiceImpl implements CustomerService{
 	//작성자 : 방지훈
 	//작성일자 : 05/27 10:20
 	@Override
-	public List<PurchaseListDTO> getPurchaseList(long no) throws Exception {
-		return customerDAO.getPurchaseList(no);
+	public List<PurchaseListDTO> getPurchaseList(CusSearchDTO searchDTO) throws Exception {
+		return customerDAO.getPurchaseList(searchDTO);
 	}
 }
