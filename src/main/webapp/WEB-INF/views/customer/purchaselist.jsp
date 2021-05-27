@@ -49,22 +49,7 @@
 		<jsp:include page="/WEB-INF/views/customer/fragment/profilebar.jsp" flush="true" />
     </div>
     <div id='box-right'>
-	    <button class="accordion" id="category1">Section 1</button>
-			<div class="panel" >
-				    <!-- chl={데이터}+{}+{} 이런식으로 수정하면 됨 -->
-				<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=customername+storecode+ProductName&choe=UTF-8"/>
-			  	<p>Hello World!</p>
-			</div>
 	    
-	    <button class="accordion" id="category2">Section 2</button>
-			<div class="panel" id="category2">
-			  	<p>Hello World~~~</p>
-			</div>
-			
-	    <button class="accordion" id="category3">Section 3</button>
-			<div class="panel" id="category3">
-			  <p>왜안돼</p>
-			</div>
 
 	    
     </div>
