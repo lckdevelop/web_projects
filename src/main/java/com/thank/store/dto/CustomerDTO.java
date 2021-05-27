@@ -15,5 +15,7 @@ import lombok.ToString;
 public class CustomerDTO extends MemberDTO{
 	private long customerno;
 	private long point;
+	private long purchasePrice;
+	private long cvsproductno;
 	//private List<PurchaseListDTO> purchaselist;
 }

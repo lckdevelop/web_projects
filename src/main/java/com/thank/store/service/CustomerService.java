@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
+import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.CvstoreDTO;
 import com.thank.store.dto.PagingDTO;
 import com.thank.store.dto.PurchaseListDTO;
@@ -25,5 +26,15 @@ public interface CustomerService {
 	long getTotalRecord(CusSearchDTO searchDTO) throws Exception;
 
 	List<PurchaseListDTO> getPurchaseList(CusSearchDTO searchDTO) throws Exception;
+
+	CvsProductDTO getOneCvsProduct(long no) throws Exception;
+
+	long updateCustomerPoint(CustomerDTO customerDTO) throws Exception;
+
+	long addPurchaseProduct(CustomerDTO customerDTO) throws Exception;
+
+	long updatePurchaseProduct(CvsProductDTO cvsProductDTO) throws Exception;
+
+	long updateManagerPoint(CvsProductDTO cvsProductDTO) throws Exception;
 
 }

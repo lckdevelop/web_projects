@@ -112,4 +112,54 @@ public class CustomerServiceImpl implements CustomerService{
 	public List<PurchaseListDTO> getPurchaseList(CusSearchDTO searchDTO) throws Exception {
 		return customerDAO.getPurchaseList(searchDTO);
 	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/27 19:21
+	*/
+	@Override
+	public CvsProductDTO getOneCvsProduct(long no) throws Exception {
+		CvsProductDTO cvsProductDTO =  customerDAO.getOneCvsProduct(no);
+		long countTime = (cvsProductDTO.getCountTime());
+		int discountRate = getDiscountRate(countTime);
+		cvsProductDTO.setDiscountRate(discountRate);
+		cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
+		return cvsProductDTO;
+	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/28 00:00
+	*/
+	@Override
+	public long updateCustomerPoint(CustomerDTO customerDTO) throws Exception {
+		return customerDAO.updateCustomerPoint(customerDTO);
+	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/28 00:10
+	*/
+	@Override
+	public long addPurchaseProduct(CustomerDTO customerDTO) throws Exception {
+		return customerDAO.addPurchaseProduct(customerDTO);
+	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/28 00:16
+	*/
+	@Override
+	public long updatePurchaseProduct(CvsProductDTO cvsProductDTO) throws Exception {
+		return customerDAO.updatePurchaseProduct(cvsProductDTO);
+	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/28 00:21
+	*/
+	@Override
+	public long updateManagerPoint(CvsProductDTO cvsProductDTO) throws Exception {
+		return customerDAO.updateManagerPoint(cvsProductDTO);
+	}
 }
