@@ -8,5 +8,5 @@ public class CusSearchDTO {
 	private String mainCategory;
 	private String subCategory;
 	private String searchKeyword;
-	private ManPagingDTO pagingDTO;
+	private PagingDTO pagingDTO;
 }

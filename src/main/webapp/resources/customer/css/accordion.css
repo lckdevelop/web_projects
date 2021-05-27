@@ -39,3 +39,9 @@
 .active:after {
   content: "\2796"; /* Unicode character for "minus" sign (-) */
 }
+
+input.accordion {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}

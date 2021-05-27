@@ -5,6 +5,7 @@ import java.util.List;
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvstoreDTO;
+import com.thank.store.dto.PagingDTO;
 
 public interface CustomerService {
 
@@ -15,5 +16,11 @@ public interface CustomerService {
 	List<CvstoreDTO> searchCvstoreList(CusSearchDTO searchDTO) throws Exception;
 
 	long rechargePoint(CustomerDTO customerDTO) throws Exception;
+
+	List<String> getSubCategory(CusSearchDTO searchDTO) throws Exception;
+
+	int getDiscountRate(long countTime) throws Exception;
+
+	long getTotalRecord(CusSearchDTO searchDTO) throws Exception;
 
 }
