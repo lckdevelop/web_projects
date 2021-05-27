@@ -2,7 +2,8 @@
     pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="kakaokey" value="d5d4850376504cbcd111fa1f434f605e"/>
-<c:set var="dto" value="${dto }"></c:set>
+<c:set var="hash" value="${hash }"></c:set>
+<c:set var="CvstoreDTO" value="${CvstoreDTO }"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,34 +44,34 @@
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaokey }"></script>
 <body>
-	<h1 id="headline_1">카카오맵</h1>
-	<div id=container_1>
-		<div id="map" style="width:100%; height:400px;"></div>
-	</div>
-	<div id="container_2">
-		<div id="cvsProductList">
-			<h1 id="headline_2">cvsProductList</h1>
-			
-			<c:forEach var ="CvStoreDTO" items="${CvStoreDTO }">
-				<p><c:out value="${CvStoreDTO.name }" /></p>
-			</c:forEach> 
-			
+	<div id="mainContainer">
+		<h1 id="headline_1">카카오맵</h1>
+		<div id=container_1>
+			<div id="map" style="width:100%; height:400px;"></div>
 		</div>
-	</div>
-	
-	<div>
-		<p>
-		    <button onclick="hideMarkers()">마커 감추기</button>
-		    <button onclick="showMarkers()">마커 보이기</button>
-		    <button onclick="()">내 위주 편의점보기</button>
-		</p> 
-	</div>
-	<div>
-		<button onclick="myLoc()" >내 위치받기</button>
-	    <ul>
-	        <li>위도:<span id="latitude"></span></li>
-	        <li>경도:<span id="longitude"></span></li>
-	    </ul>
+		<div id="container_2">
+			<div id="cvsProductList">
+				
+				
+			</div>
+		</div>
+		
+		<div>
+			<p>
+			    <button onclick="hideMarkers()">마커 감추기</button>
+			    <button onclick="showMarkers()">마커 보이기</button>
+			    <button onclick="searchCvstore()">내 위주 편의점보기</button>
+			</p> 
+		</div>
+		<div>
+		<!-- 
+			<button onclick="myLoc()" >내 위치받기</button>
+			 -->
+		    <ul>
+		        <li>위도:<span id="latitude"></span></li>
+		        <li>경도:<span id="longitude"></span></li>
+		    </ul>
+		</div>
 	</div>
 
 </body>
@@ -82,6 +83,7 @@
 ====================================================================================-->
 <!-- 내 위치 받아오는 js -->
 <script>
+
     function myGeoLocation2() {        
         // Geolocation API에 액세스할 수 있는지를 확인
         var myLoc;
@@ -110,12 +112,22 @@
 <!-- 카카오api 기본 설정 -->
 
 <script>
-//위도
-var lat ;
-//경도
-var lon ;
-//편의점값 담을 배열
-var cvsArr = new Array();
+
+
+	//위도
+	var lat ;
+	//경도
+	var lon ;
+	// 나한테 제일 가까운 10개 편의점 배열
+	var cvsArr = new Array();
+	// positions 배열
+	var positions  = [];
+	// contents
+	var contents = [];
+	// 커스텀오버레이 담는배열
+	var  overlayArr = new Array();
+	//marker 담는 배열
+	var  markerArr = new Array();
 
 
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
@@ -124,8 +136,15 @@ var cvsArr = new Array();
 	    center: new kakao.maps.LatLng(37.6443448, 127.0337226), // 지도의 중심좌표
 	    level: 4// 지도의 확대 레벨
 	};
+	
+	// searchCvstore 호출
+	searchCvstore();
 
-	function myLoc(){
+	<!--searchCvStore함수 -->
+	//바로실행하려면 window.onload()사용할 것
+	function searchCvstore(){
+		
+		
 		// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 		if (navigator.geolocation) {
 		    
@@ -141,14 +160,14 @@ var cvsArr = new Array();
 		        	console.log("lon : " + lon);
 		        	
 		        	<!-- 지도에 받을 편의점 리스트 Ajax -->
-		            $(function() {
+		        	$(function() {
 		    			$.ajax({
 		    			type:"get",
 		    	        url:"mapajax",
-		    	        async:false,
 		    	        data:{"lat":lat,
 		    	        	  "lon":lon},
 		    	        datatype:"json",
+		    	        async:false,
 		    	        success:function (data){
 		    					alert("ajax 정상작동");
 		    					//console.log(data);
@@ -158,16 +177,29 @@ var cvsArr = new Array();
 		    					//console.log(data.list.length);
 		    					// 10
 		    					
-		    					//정상
+		    					//데이터 전역변수에 담기
 		    					for(var i = 0; i<data.list.length; i++){
 		    						cvsArr[i]=data.list[i];
 		    					}
+		    					//데이터 positions, contents 배열에 담기
+		    					for(var i=0; i<data.list.length; i++){
+		    						positions.push(data.list[i]);
+		    						contents.push(data.list[i]);
+		    					}
+
+		    					//console.log("positions[0]호출")
+		    					//console.log(positions[0].name);
+		    					//console.log(positions[0].member_no);
 		    					
-		    					//console.log(data.list[0]);
+		    					console.log("ajax 안 cvsArr 에서 호출  :");
+		    					console.log(cvsArr)
+
 		    	            }
+		    	            
 	      				});
-		            });
-		        	
+		        	});
+		        	//console.log("ajax 밖 cvsArr 에서 호출  :");
+					//console.log(cvsArr)
 	
 	        	<!-- 지도에 받을 편의점 리스트 Ajax END -->
 		        // 마커와 인포윈도우를 표시합니다
@@ -181,19 +213,11 @@ var cvsArr = new Array();
 		        
 		    displayMarker(locPosition, message);
 		}
-	}
 	
-	//정상	
-	for(var j =0; j<cvsArr.length; j++){
-		console.log(cvsArr[j]);
-	}
-
+	console.log("myLoc 밖에서 cvsArr 에서 호출  :");
+	console.log(cvsArr);
 	
 
-
-	
-	// myLoc 호출
-	myLoc();
 	
 	var imageSrc = 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png', // 마커이미지의 주소입니다    
     imageSize = new kakao.maps.Size(45, 50), // 마커이미지의 크기입니다
@@ -240,34 +264,46 @@ var cvsArr = new Array();
 	//커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
 	//별도의 이벤트 메소드를 제공하지 않습니다 
 	
-	var contents=[
-		 
-    ]
+	//contents 생성영역
+	//var contents=[
+	//	<c:forEach items="${CvstoreDTO}" var="CvstoreDTO">
+	//		 	{
+	//		 		name : '${CvstoreDTO.name}.name' ,
+	//		 		address : '${CvstoreDTO.address}'
+	//		 	},
+	// 	 </c:forEach>
+	//]
+	
+
 	
 	
 	
 	
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-	//마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-	//cvsotre에서 데이터를 가져와 
 	
-	var positions=[
-		 <c:forEach items="${csvArr}" var="item">
-		 	{
-		 		content : '<div> ${csvArr.name } </div>',
-		 		latlng : new kakao.maps.LatLng(${CvstoreDTO.latitude}, ${CvstoreDTO.longitude})
-		 	},
-		 	
-		 </c:forEach>
-    	]
-
+	//positions생성 영역
 	
+	//var positions=[
+	//	<c:forEach items="${CvstoreDTO}" var="CvstoreDTO">
+	//		 	{
+	//		 		content : '<div> ${CvstoreDTO.name } </div>',
+	//		 		latlng : new kakao.maps.LatLng(${CvstoreDTO.latitude}, ${CvstoreDTO.longitude})
+	//		 	},
+	// 	 </c:forEach>
+	//]
+	
+	//positions값 가공
+	for(var i=0; i<positions.length; i++){
+		positions[i].InfoContent = "<div>"+ positions[i].name +"</div>";
+		console.log(positions[0].InfoContent);
+		
+		positions[i].latlng	= new kakao.maps.LatLng(positions[i].latitude, positions[i].longitude);
+		console.log(positions[0].latlng);
+	}
 	
 	// 마커
 	
-	//marker 담는 배열
-	var  markerArr = new Array();
 
 	for (var i = 0; i < positions.length; i ++) {
 		// 마커를 생성합니다
@@ -282,7 +318,7 @@ var cvsArr = new Array();
 		
 		// 마커에 표시할 인포윈도우를 생성합니다 
 		var infowindow = new kakao.maps.InfoWindow({
-		    content: positions[i].content // 인포윈도우에 표시할 내용
+		    content: positions[i].InfoContent // 인포윈도우에 표시할 내용
 		});
 		
 		// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
@@ -311,8 +347,7 @@ var cvsArr = new Array();
 	
 	// 커스텀오버레이
 	
-	// 커스텀오버레이 담는배열
-	var  overlayArr = new Array();
+
 	
 	// 마커 위에 커스텀오버레이를 표시합니다
 	// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
@@ -331,7 +366,7 @@ var cvsArr = new Array();
 	    '           </div>' + 
 	    '            <div class="desc">' + 
 	    '                <div class="ellipsis">'+ contents[i].address +'</div>' + 
-	    '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">상품바로가기</a></div>' + 
+	    '                <div><a onclick="productListAjax('+ i +')" class="link">상품바로가기</a></div>' + 
 	    '            </div>' + 
 	    '        </div>' + 
 	    '    </div>' +    
@@ -352,6 +387,10 @@ var cvsArr = new Array();
 		
 		kakao.maps.event.addListener(markerArr[i],'click',openOverlay(overlay,map))
 	}
+	}
+	<!--searchCvStore함수 END -->
+	
+	<!--etc -->
 
 	// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
 	function openOverlay(overlay,map){
@@ -362,7 +401,9 @@ var cvsArr = new Array();
 		
 	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 	function closeOverlay(idx) {
+		console.log("colseOverlay 호출");
 	    overlayArr[idx].setMap(null);     
+	    
 	}
 	
 	
@@ -370,6 +411,7 @@ var cvsArr = new Array();
 	
 	// 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
 	function setMarkers(map) {
+		console.log("setMarkers 호출");
 	    for (var i = 0; i < markerArr.length; i++) {
 	    	markerArr[i].setMap(map);
 	    }            
@@ -377,67 +419,57 @@ var cvsArr = new Array();
 	
 	//"마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
 	function showMarkers() {
+		console.log("showMarkers 호출");
 	    setMarkers(map)    
 	}
 
 	// "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
 	function hideMarkers() {
+		console.log("hideMarkers 호출");
 	    setMarkers(null);    
 	}
-	
-	<!-- init오버레이 감추기 -->
-	
-	//함수를 이용해서 처음 overlay감춘다.
-	function initOverlay(){
-		for(var i = 0; i<OverlayArr.length; i++){
-			OverlayArr[i].setMap(null);
-		}
-	}
-	
-	//함수를 이용해서 오버레이를 표시해준다.
-	function openOverlay2(i, map){
-		for(var i = 0; i<OverlayArr.length; i++){
-			OverlayArr[i].setMap(map);
-		}
-	}
-	
-	
 
+	<!--etc END -->
+	
 </script>
-<!-- 카카오api 기본 설정 end -->
+<!-- 카카오api 설정 end -->
 
 
 
 <!-- ajax 영역 -->
 <script type="text/javascript">
-<!-- 
-	$(function() {
-		var productListAjax = $.ajax({
-			type:"get",
-	        datatype:"json",
-	        url:"${app}/manager/allList/",
-	        success:function (data){
-	        	var v_loadPage ="";
-	        	//document.getElementById('loadUrl').setAttribute("action", "${app}/manager/test");
-	            for(var i in data){
-		            v_loadPage += "<hr><div class='col-sm-5'>";
-		            v_loadPage += "<img src='${app}/resources/manager/img/favicon.png' alt='havetochange' />";
-			    	v_loadPage += "</div>";
-			    	v_loadPage += "<div class='col-sm-5'>";
-			    	v_loadPage += "상품명: " + data[i].name+"<br>";
-			    	v_loadPage += "상풍코드: " + data[i].productcode+"<br>";
-			    	v_loadPage += "세부분류: " + data[i].subcategory+"<br>";
-			    	v_loadPage += "유통기간: " + data[i].productperiod+"<br>";
-		    		v_loadPage += "할인가: " + data[i].price+"<br>";
-		    		v_loadPage += "<input type='submit' />";
-			    	v_loadPage += "</div>";
-	            }
-	            
-	            $("#cvsProductList").html(v_loadPage);
-	        }
+
+	function productListAjax(idx){
+		$(function() {
+			$.ajax({
+				type:"get",
+		        url:"productList",
+		        //편의점상품리스트테이블 더미데이터생성되면 "A0001" -> idx로 변경
+		        data:{"storecode" : "A0001"},
+		        dataType:"json",
+		        success:function (data){
+		        	console.log("productListAjax에서 실행");
+		        	console.log(data);
+		        	console.log(data.list.length);
+		        	var v_loadPage ="";
+		        	//document.getElementById('loadUrl').setAttribute("action", "${app}/manager/test");
+		            for(var j=0; j<data.list.length; j++){
+			            v_loadPage += "<hr><div class='col-sm-5'>";
+			            v_loadPage += "<img src='/store/resources/product/images/" + data.list[j].imgurl  + ".jpg'/>";
+				    	v_loadPage += "</div>";
+				    	v_loadPage += "<div class='col-sm-5'>";
+				    	v_loadPage += "상품명: " + data.list[j].name+"<br>";
+				    	v_loadPage += "이미지: " + data.list[j].imgurl+"<br>";
+				    	v_loadPage += "가격: " + data.list[j].price+"<br>";
+				    	v_loadPage += "상품코드: " + data.list[j].storecode+"<br>";
+			    		v_loadPage += "<input type='submit' />";
+				    	v_loadPage += "</div>";
+		            }
+		            $("#cvsProductList").html(v_loadPage);
+		        }
+			});
 		});
-	});
-	-->
+	}
 </script>
 
 
