@@ -9,7 +9,24 @@
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>프로필 바입니다.</title>
-
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
+<link 
+	href="${app}/resources/manager/css/manager.css" rel="stylesheet">
+<link
+	href="${app}/resources/manager/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- jquery 경로 -->
+<script type="text/javascript"
+	src="${app}/resources/manager/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('.man_logout').click(function(){
+		location.href="/thankstore";
+	});
+});
+</script>
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet">
@@ -46,6 +63,7 @@
 		<li class="list-link-to"><a href="${app}/manager/enroll" id="" >임박상품 등록 
 			</a></li>
 	</ul>
+	<input type="button" value="로그아웃" class="man_logout"   />
 </div>
 </body>
 </html>
