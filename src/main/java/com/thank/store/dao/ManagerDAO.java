@@ -31,4 +31,6 @@ public interface ManagerDAO {
 	void updateStorecode(ManagerDTO managerDTO) throws SQLException;
 
 	int cancelAction(CvsProductDTO cvsProductDTO) throws SQLException;
+	
+	void updateCVstoreFromManager(ManagerDTO managerDTO) throws SQLException;
 }

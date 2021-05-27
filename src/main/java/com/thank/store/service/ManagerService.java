@@ -35,5 +35,7 @@ public interface ManagerService {
 	int getDiscountRate(long countTime) throws Exception;
 	
 	void updateStorecode(ManagerDTO managerDTO) throws Exception;
+	
+	void updateCVstoreFromManager(ManagerDTO managerDTO) throws Exception;
 
 }

@@ -221,29 +221,29 @@ public class ManagerController {
 		log.info(memberDTO.toString());
 		try {
 			//여기서 memberDTO를 이용해서 맞는 mangerDTO 받아와야함
-//			long managerNoFromMember= managerService.getManagerNoFromMember(memberDTO);
-//			System.out.println("멤버의 no와 manager의 member_no가 같은 "+managerNoFromMember);
-//			ManagerDTO managerInfo = managerService.getManagerInfo(managerNoFromMember);
-//			session.setAttribute("managerInfo", managerInfo);
-//
-//			return "redirect:./manager/home";
-			int memberType = memberService.getAccountType(memberDTO);
-			System.out.println("멤버타입: "+memberType);
-			if(memberType==1) { //유저 타입이 1 (매니저) 이면 로그인
-				long managerNoFromMember= managerService.getManagerNoFromMember(memberDTO);
-				System.out.println("멤버 pk로 구한 manager의 pk: "+managerNoFromMember);
-				System.out.println("멤버의 no와 manager의 member_no가 같은 "+managerNoFromMember);
-				ManagerDTO managerInfo = managerService.getManagerInfo(managerNoFromMember);
-				System.out.println(managerInfo.toString());
-				log.info(managerInfo.toString());
-				session.setAttribute("managerInfo", managerInfo);
-				return "redirect:./manager/home";
-			}
-			else {
-				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
-				model.addAttribute("url", "./manager");
-				return "result";
-			}
+			long managerNoFromMember= managerService.getManagerNoFromMember(memberDTO);
+			System.out.println("멤버의 no와 manager의 member_no가 같은 "+managerNoFromMember);
+			ManagerDTO managerInfo = managerService.getManagerInfo(managerNoFromMember);
+			session.setAttribute("managerInfo", managerInfo);
+
+			return "redirect:./home";
+//			int memberType = memberService.getAccountType(memberDTO);
+//			System.out.println("멤버타입: "+memberType);
+//			if(memberType==1) { //유저 타입이 1 (매니저) 이면 로그인
+//				long managerNoFromMember= managerService.getManagerNoFromMember(memberDTO);
+//				System.out.println("멤버 pk로 구한 manager의 pk: "+managerNoFromMember);
+//				System.out.println("멤버의 no와 manager의 member_no가 같은 "+managerNoFromMember);
+//				ManagerDTO managerInfo = managerService.getManagerInfo(managerNoFromMember);
+//				System.out.println(managerInfo.toString());
+//				log.info(managerInfo.toString());
+//				session.setAttribute("managerInfo", managerInfo);
+//				return "redirect:./manager/home";
+//			}
+//			else {
+//				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
+//				model.addAttribute("url", "./manager");
+//				return "result";
+//			}
 			
 		} catch (Exception e) {
 			log.info(e.getMessage());
@@ -287,6 +287,7 @@ public class ManagerController {
 				managerDTO.setManagerno(managerService.getManagerNoFromMember(memberDTO));
 				managerDTO.setStorecode(storecode);
 				managerService.updateStorecode(managerDTO);
+				managerService.updateCVstoreFromManager(managerDTO);
 			}
 
 			return "redirect:./";
