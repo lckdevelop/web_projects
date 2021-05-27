@@ -23,7 +23,7 @@
 <script type="text/javascript">
 $(function() {
 	$('.man_logout').click(function(){
-		location.href="/store/manager/logout";
+		location.href="${app}/manager/logout";
 	});
 });
 </script>
@@ -41,7 +41,7 @@ $(function() {
 	<div class="d-flex flex-column">
 	<div id="text-space-box">
  		<div class="profile">
-			<img src="${app}/resources/manager/img/profile-img.jpg" alt=""
+			<img src="${app}/resources/manager/img/gs_logo.png" alt="Brand"
 				class="img-fluid rounded-circle">
 				<h3 class="text-light">${dto.name}점장님 안녕하세요.</h3>
 				<h3 class="text-light">${dto.brand}${dto.spot}</h3>

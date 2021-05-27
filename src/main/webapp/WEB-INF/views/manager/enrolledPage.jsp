@@ -68,7 +68,7 @@
 	    	<div id="list-box">
 	    		<div class="row">
 	    			<div class='col-sm-4'>
-	  					<img src='${app}/resources/manager/img/favicon.png' alt='havetochange' />
+	  					<img src='${app}/resources/product/images/${product.name}.jpg' />
 	  				</div>
 	  				<div class='col-sm-6'>
 		    				<h6>상품명 : ${product.name}<br/></h6>
