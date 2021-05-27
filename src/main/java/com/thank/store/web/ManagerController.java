@@ -234,13 +234,13 @@ public class ManagerController {
 			}
 			else {
 				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
-				model.addAttribute("url", "../manager");
+				model.addAttribute("url", "./");
 				return "result";
 			}		
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
-			model.addAttribute("url", "../manager");
+			model.addAttribute("url", "./manager");
 			return "result";
 		}
 	}
