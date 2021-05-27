@@ -60,9 +60,10 @@
         <input class="mainCategoryradio" type="radio" id="maincategory1" name="mainCategory" value="김밥류">
         <label class="tab-label" for="maincategory1">김밥류</label>
         <div class="tab-content">
-          <button name="subCategory" value="삼각김밥">삼각김밥</button>
-          <button name="subCategory" value="줄김밥">줄김밥</button>
-	      <button name="subCategory" value="주먹밥">주먹밥</button>
+        	<!-- <a href="/store/customer/searchresult?mainCategory=김밥류&subCategory=삼각김밥&searchKeyword=">삼각김밥</a> -->
+          <button class="accordionbutton" name="subCategory" value="삼각김밥">삼각김밥</button>
+          <button class="accordionbutton" name="subCategory" value="줄김밥">줄김밥</button>
+	      <button class="accordionbutton" name="subCategory" value="주먹밥">주먹밥</button>
         </div>
       </div>
 	      
@@ -70,8 +71,8 @@
         <input class="mainCategoryradio" type="radio" id="maincategory2" name="mainCategory" value="도시락류">
         <label class="tab-label" for="maincategory2">도시락류</label>
         <div class="tab-content">
-          <button name="subCategory" value="도시락일반">도시락일반</button>
-          <button name="subCategory" value="도시락샐러드">도시락샐러드</button>
+          <button class="accordionbutton" name="subCategory" value="도시락일반">도시락일반</button>
+          <button class="accordionbutton" name="subCategory" value="도시락샐러드">도시락샐러드</button>
         </div>
       </div>
       
@@ -79,9 +80,9 @@
         <input class="mainCategoryradio" type="radio" id="maincategory3" name="mainCategory" value="빵류">
         <label class="tab-label" for="maincategory3">빵류</label>
         <div class="tab-content">
-          <button name="subCategory" value="일반빵">일반빵</button>
-          <button name="subCategory" value="핫도그">핫도그</button>
-          <button name="subCategory" value="샌드위치">샌드위치</button>
+          <button class="accordionbutton" name="subCategory" value="일반빵">일반빵</button>
+          <button class="accordionbutton" name="subCategory" value="핫도그">핫도그</button>
+          <button class="accordionbutton" name="subCategory" value="샌드위치">샌드위치</button>
         </div>
       </div>
       
@@ -89,7 +90,7 @@
         <input class="mainCategoryradio" type="radio" id="maincategory4" name="mainCategory" value="즉석요리">
         <label class="tab-label" for="maincategory4">즉석요리</label>
         <div class="tab-content">
-          <button name="subCategory" value="튀김">튀김</button>
+          <button class="accordionbutton" name="subCategory" value="튀김">튀김</button>
         </div>
       </div>
       
@@ -97,7 +98,7 @@
         <input class="mainCategoryradio" type="radio" id="maincategory5" name="mainCategory" value="완제품">
         <label class="tab-label" for="maincategory5">완제품</label>
         <div class="tab-content">
-          <button name="subCategory" value="박스류">박스류</button>
+          <button class="accordionbutton" name="subCategory" value="박스류">박스류</button>
         </div>
       </div>
       
@@ -105,9 +106,9 @@
         <input class="mainCategoryradio" type="radio" id="maincategory6" name="mainCategory" value="유제품류">
         <label class="tab-label" for="maincategory6">유제품류</label>
         <div class="tab-content">
-          <button name="subCategory" value="우유">우유</button>
-          <button name="subCategory" value="요거트">요거트</button>
-          <button name="subCategory" value="요구르트">요구르트</button>
+          <button class="accordionbutton" name="subCategory" value="우유">우유</button>
+          <button class="accordionbutton" name="subCategory" value="요거트">요거트</button>
+          <button class="accordionbutton" name="subCategory" value="요구르트">요구르트</button>
         </div>
       </div>
       

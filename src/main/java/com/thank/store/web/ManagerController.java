@@ -44,8 +44,8 @@ public class ManagerController {
 				       HttpSession session,
 				       Model model) {
 		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
-		long managerNo = managerInfo.getManagerno(); 
-		long cvsNo = managerInfo.getCvsno(); 
+		long managerNo = managerInfo.getManagerno(); // 세션 매니저번호
+		long cvsNo = managerInfo.getCvsno(); // 세션 매니저지점번호
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -63,7 +63,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
 			model.addAttribute("allList", allList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			model.addAttribute("searchDTO", searchDTO);
+			
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -82,8 +82,8 @@ public class ManagerController {
 		       HttpSession session,
 		       Model model) {
 		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
-		long managerNo = managerInfo.getManagerno(); 
-		long cvsNo = managerInfo.getCvsno(); 
+		long managerNo = managerInfo.getManagerno(); // 세션 매니저번호
+		long cvsNo = managerInfo.getCvsno(); // 세션 매니저지점번호
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -101,7 +101,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getEnrolledPagingInfo(searchDTO);
 			model.addAttribute("enrolledList", enrolledList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			model.addAttribute("searchDTO", searchDTO);
+			
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -120,8 +120,8 @@ public class ManagerController {
 		       HttpSession session,
 		       Model model) {
 		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
-		long managerNo = managerInfo.getManagerno(); 
-		long cvsNo = managerInfo.getCvsno(); 
+		long managerNo = managerInfo.getManagerno(); // 세션 매니저번호
+		long cvsNo = managerInfo.getCvsno(); // 세션 매니저지점번호
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -139,7 +139,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getAvailPagingInfo(searchDTO);
 			model.addAttribute("enrollAvailList", enrollAvailList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			model.addAttribute("searchDTO", searchDTO);
+			
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -193,7 +193,7 @@ public class ManagerController {
 	 * 작성일자: 2021/05/24 10:50
 	 */
 	@GetMapping()
-	public String login() {
+	public String login2() {
 		return "/manager/login";
 	}
 	
@@ -234,7 +234,7 @@ public class ManagerController {
 			}
 			else {
 				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
-				model.addAttribute("url", "./manager");
+				model.addAttribute("url", "./");
 				return "result";
 			}		
 		} catch (Exception e) {
@@ -244,6 +244,8 @@ public class ManagerController {
 			return "result";
 		}
 	}
+	
+
 	
 	/*
 	 * 작성자: 김수빈
@@ -265,7 +267,7 @@ public class ManagerController {
 	 * 작성일자: 2021/05/24 10:50
 	 * 작성내용: 회원가입 시 cvstore 테이블의 manager_no 업데이트
 	 */
-	@PostMapping(value="signup")
+	@PostMapping(value="/signup")
 	public String signUp(
 			@RequestParam("storecode")String storecode,
 			@ModelAttribute MemberDTO memberDTO,
@@ -280,7 +282,7 @@ public class ManagerController {
 				managerService.updateCVstoreFromManager(managerDTO);
 			}
 
-			return "redirect:../manager";
+			return "redirect:./";
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
