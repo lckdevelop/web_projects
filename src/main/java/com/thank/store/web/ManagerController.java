@@ -234,13 +234,13 @@ public class ManagerController {
 			}
 			else {
 				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
-				model.addAttribute("url", "../manager");
+				model.addAttribute("url", "./manager");
 				return "result";
 			}		
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
-			model.addAttribute("url", "../manager");
+			model.addAttribute("url", "./manager");
 			return "result";
 		}
 	}
@@ -251,12 +251,10 @@ public class ManagerController {
 	 */
 	@GetMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
-		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		session.invalidate();
 		
 		ModelAndView mav = new ModelAndView("result");
-		mav.addObject("msg", memberInfo.getId() + 
-				 "(" + memberInfo.getName() + ")님이 로그아웃 하였습니다.");
+		mav.addObject("msg", "로그아웃 하였습니다.");
 		mav.addObject("url", "./");
 		return mav;
 	}
