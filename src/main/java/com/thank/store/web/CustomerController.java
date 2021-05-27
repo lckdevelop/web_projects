@@ -20,9 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvstoreDTO;
-import com.thank.store.dto.ManPagingDTO;
 import com.thank.store.dto.MemberDTO;
 import com.thank.store.dto.PagingDTO;
+import com.thank.store.dto.PurchaseListDTO;
 import com.thank.store.service.CustomerService;
 import com.thank.store.service.MemberService;
 
@@ -59,12 +59,15 @@ public class CustomerController {
 	public String qrcode(@RequestParam(defaultValue="0") long purchasecount ,@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		customerDTO = new CustomerDTO();
+		List<PurchaseListDTO> purchaseList;
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			purchaseList =customerService.getPurchaseList(memberInfo.getNo());
 			
 			model.addAttribute("customerDTO", customerDTO);
 			model.addAttribute("purchasecount",purchasecount);
+			model.addAttribute("purchaseList",purchaseList);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -134,9 +137,19 @@ public class CustomerController {
 			HttpSession session) {
 		log.info(memberDTO.toString());
 		try {
-			int memberType = memberService.getAccountType(memberDTO);
-			if(memberType==0) {
-				MemberDTO memberInfo = memberService.getMember(memberDTO);
+//			int memberType = memberService.getAccountType(memberDTO);
+//			if(memberType==0) {
+//				MemberDTO memberInfo = memberService.getMember(memberDTO);
+//				session.setAttribute("memberInfo", memberInfo);
+//				return "redirect:./customer/home";
+//			}
+//			else {
+//				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
+//				model.addAttribute("url", "./customer");
+//				return "result";
+//			}
+			MemberDTO memberInfo = memberService.getMember(memberDTO);
+			if(memberService.getAccountType(memberDTO)==0) {
 				session.setAttribute("memberInfo", memberInfo);
 				return "redirect:./customer/home";
 			}

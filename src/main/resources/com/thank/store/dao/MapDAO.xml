@@ -13,7 +13,7 @@
 	
 	<select id="getCvStore"  parameterType="hashmap" resultType="CvStoreDTO">
 		<![CDATA[
-			select name, address, brand, latitude, longitude
+			select name, address, brand, latitude, longitude, storecode
 			FROM(
 			    SELECT 
 			    (( ACOS(
@@ -22,11 +22,24 @@
 			    COS((#{lat}-0.019) * 3.14 / 180) * 
 			    COS((Latitude-0.019) * 3.14 / 180) * 
 			    COS(((#{lon}-0.022) - (Longitude-0.022)) * 3.14 / 180)) * 
-			    180 / 3.14) * 60 * 1.1515) AS distance, name, address, brand,latitude,longitude
+			    180 / 3.14) * 60 * 1.1515) AS distance, name, address, brand,latitude,longitude,storecode
 			    FROM cvstore
 			    order by distance
 			    )
 			where rownum<=10
+		]]>
+	</select>
+	
+	
+	<select id="getProductList"  parameterType="hashmap" resultType="ProductListDTO">
+		<![CDATA[
+			select p.name, p.imgurl, p.price, cvs.storecode
+			from cvstore cvs
+				join cvstoreproduct cvsp 
+				  on    cvs.no = cvsp.cvstore_no
+				join productlist p 
+				  on cvsp.productlist_no = p.no
+			where cvs.storecode = #{storecode}
 		]]>
 	</select>
 </mapper>

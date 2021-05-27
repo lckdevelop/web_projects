@@ -21,5 +21,7 @@ public class CvstoreDTO {
 	private String brand;
 	private long member_no;
 	private long manager_no;
+	private String InfoContent;
+	private String latlng;
 	private List<CvsProductDTO> cvsProductList;
 }

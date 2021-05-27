@@ -6,6 +6,7 @@ import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvstoreDTO;
 import com.thank.store.dto.PagingDTO;
+import com.thank.store.dto.PurchaseListDTO;
 
 public interface CustomerService {
 
@@ -22,5 +23,7 @@ public interface CustomerService {
 	int getDiscountRate(long countTime) throws Exception;
 
 	long getTotalRecord(CusSearchDTO searchDTO) throws Exception;
+
+	List<PurchaseListDTO> getPurchaseList(long no) throws Exception;
 
 }

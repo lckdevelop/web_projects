@@ -206,8 +206,6 @@ public class ManagerController {
 		return "/manager/signup";
 	}
 	
-	
-	
 	/*
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/25 10:54
@@ -220,8 +218,8 @@ public class ManagerController {
 			HttpSession session) {
 		log.info(memberDTO.toString());
 		try {
-			//여기서 memberDTO를 이용해서 맞는 mangerDTO 받아와야함
 
+			MemberDTO memberInfo = memberService.getMember(memberDTO);
 
 			if(memberService.getAccountType(memberDTO)==1) {
 				long managerNoFromMember= managerService.getManagerNoFromMember(memberDTO);
@@ -231,17 +229,14 @@ public class ManagerController {
 				System.out.println(managerInfo.toString());
 				log.info(managerInfo.toString());
 				session.setAttribute("managerInfo", managerInfo);
+
 				return "redirect:/manager/home";
 			}
-
-
 			else {
 				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
 				model.addAttribute("url", "./");
 				return "result";
-			}
-
-			
+			}		
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
@@ -249,6 +244,8 @@ public class ManagerController {
 			return "result";
 		}
 	}
+	
+
 	
 	/*
 	 * 작성자: 김수빈
