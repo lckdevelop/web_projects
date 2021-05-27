@@ -63,7 +63,6 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
 			model.addAttribute("allList", allList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}

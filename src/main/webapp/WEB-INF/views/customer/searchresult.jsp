@@ -185,9 +185,9 @@ $( function() {
     	</form>
     	
     	<form>
-    	<div class="row">
-    		<div class='col-md-5'></div>
-   			<div class='col-md-5'>
+    	<div class="row" style="margin-top:5px;">
+    		<!-- <div class='col-md-5'></div> -->
+   			<div class='col'>
 				<c:if test="${searchDTO.pagingDTO.startPage == 1}">
 				<a class="btn btn-default">Previous</a>
 				</c:if>
