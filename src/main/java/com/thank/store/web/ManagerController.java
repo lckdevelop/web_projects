@@ -63,7 +63,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
 			model.addAttribute("allList", allList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			
+			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -101,7 +101,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getEnrolledPagingInfo(searchDTO);
 			model.addAttribute("enrolledList", enrolledList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			
+			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -139,7 +139,7 @@ public class ManagerController {
 			ManPagingDTO pagingDTO = managerService.getAvailPagingInfo(searchDTO);
 			model.addAttribute("enrollAvailList", enrollAvailList);
 			model.addAttribute("pagingDTO", pagingDTO);
-			
+			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}

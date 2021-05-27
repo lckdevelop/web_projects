@@ -80,7 +80,7 @@ $(function() {
 	    	<div id="list-box">
 	    		<div class="row">
 	    			<div class='col-sm-4'>
-	  					<img src='${app}"/resources/product/images/" + ${product.name} +".jpg"' alt='havetochange' />
+	  					<img src='${app}/resources/product/images/${product.name}.jpg' />
 	  				</div>
 	  				<div class='col-sm-6'>
 		    				<label class="name1">상품명 : ${product.name}<br/></label>
