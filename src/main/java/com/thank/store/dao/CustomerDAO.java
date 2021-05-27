@@ -20,4 +20,8 @@ public interface CustomerDAO {
 
 	long rechargePoint(CustomerDTO customerDTO) throws SQLException;
 
+	List<String> getSubCategory(CusSearchDTO searchDTO) throws SQLException;
+
+	long getTotalRecord(CusSearchDTO searchDTO) throws SQLException;
+
 }

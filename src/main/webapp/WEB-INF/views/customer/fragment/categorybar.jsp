@@ -51,21 +51,7 @@
 	</div>
 </div>
 </form>
-<%-- <form action="/store/customer/searchresult">
-	<input type="hidden" name="mainCategory" value="${searchDTO.mainCategory }"/>
-	<input type="hidden" name="subCategory" value="${searchDTO.subCategory }"/>
-	<input type="hidden" name="searchKeyword" value="${searchDTO.searchKeyword}"/>
-	<button class="maincategory" name="mainCategory" value="김밥류" >김밥류</button>
-     	<div class="panel">
-           <button class="subCategory" name="subCategory" value="삼각김밥" >삼각김밥</button>
-         </div>
-         <div class="panel">
-           <button class="subCategory" name="subCategory" value="줄김밥">줄김밥</button>
-         </div>
-         <div class="panel">
-           <p>Hello World!</p>
-         </div>
-</form> --%>
+
 <form action="/store/customer/searchresult">
 <input type="hidden" name="searchKeyword" value=""/>
  <div class="col">
@@ -133,45 +119,6 @@
     </div>
   </div>
 </form>
-<!--
-		<button class="accordion" name="maincategory">빵</button>
-	         <div class="panel">
-	           <button name="subCategory" value="일반빵">일반빵</button>
 
-	           <button name="subCategory" value="핫도그">핫도그</button>
-
-	           <button name="subCategory" value="샌드위치">샌드위치</button>
-	         </div>
-		
-		<button class="accordion" name="maincategory">즉석요리</button>
-			<div class="panel">
-	           <button name="subCategory" value="튀김">튀김</button>
-	         </div>
-	         
-		<button class="accordion" name="maincategory">완제품</button>
-	         <div class="panel">
-	           <button name="subCategory" value="박스류">박스류</button>
-	         </div>
-	         	         	         	 
-		<button class="accordion" name="maincategory">유제품류</button>
-	         <div class="panel">
-	           <button name="subCategory" value="우유">우유</button>
-
-	           <button name="subCategory" value="요거트">요거트</button>
-
-	           <button name="subCategory" value="요구르트">요구르트</button>
-	         </div>	  -->  
-<!-- 
-<ul id="category-box">
-	<li class="main-category" name="maincategory" value="도시락류"><a href="./searchresult/${maincategory}">도시락</a></li>
-	<li class="main-category"><a href="./searchresult/${maincategory}">김밥</a></li>
-	<li class="main-category"><a href="./searchresult/${maincategory}">샌드위치</a></li>
-	<li class="main-category"><a href="./searchresult/${maincategory}">햄버거</a></li>
-	<li class="main-category"><a href="./searchresult/${maincategory}">샐러드</a></li>
-	<li class="main-category"><a href="./searchresult/${maincategory}">유제품</a></li>
-	<li class="main-category"><a href="./searchresult/${maincategory}">제과</a></li>
-	<li class="main-category"><a href="./searchresult/${maincategory}">기타</a></li>
-</ul>
--->
 </body>
 </html>

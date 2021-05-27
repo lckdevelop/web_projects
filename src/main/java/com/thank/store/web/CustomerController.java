@@ -20,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvstoreDTO;
+import com.thank.store.dto.ManPagingDTO;
 import com.thank.store.dto.MemberDTO;
+import com.thank.store.dto.PagingDTO;
 import com.thank.store.service.CustomerService;
 import com.thank.store.service.MemberService;
 
@@ -49,8 +51,23 @@ public class CustomerController {
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/25 14:14
 	 */
+	/*
+	 * 수정 : 방지훈
+	 * 21/05/27 01:30
+	 */
 	@GetMapping("/purchaselist")
-	public String qrcode() {
+	public String qrcode(@RequestParam(defaultValue="0") long purchasecount ,@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
+		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
+		customerDTO = new CustomerDTO();
+		try {
+			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			
+			model.addAttribute("customerDTO", customerDTO);
+			model.addAttribute("purchasecount",purchasecount);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
 		return "/customer/purchaselist";
 	}
 	
@@ -79,18 +96,26 @@ public class CustomerController {
 	//작성자 : 방지훈
 	//작성일자: 2021/05/25 10:48
 	@GetMapping("/searchresult")
-	public String selectMaincategory(@ModelAttribute CusSearchDTO searchDTO, @ModelAttribute CustomerDTO customerDTO,Model model, HttpSession session) {
+	public String selectMaincategory(@RequestParam(defaultValue="1") long pg, @ModelAttribute CusSearchDTO searchDTO, @ModelAttribute CustomerDTO customerDTO,Model model, HttpSession session) {
 		log.info(searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
+		List<String> subCategoryList;
+		searchDTO.setPagingDTO(new PagingDTO(pg));
 		long purchasecount = 0;
+		long recordCount = 0;
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
-			List<CvstoreDTO> cvstoreList= customerService.searchCvstoreList(searchDTO);	
+			List<CvstoreDTO> cvstoreList= customerService.searchCvstoreList(searchDTO);
+			recordCount = customerService.getTotalRecord(searchDTO);
+			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), recordCount));
+			subCategoryList = customerService.getSubCategory(searchDTO);
+			log.info("검색기능 : "+searchDTO.toString());
 			model.addAttribute("customerDTO", customerDTO);				
 			model.addAttribute("purchasecount",purchasecount);
 			model.addAttribute("cvstoreList", cvstoreList);
 			model.addAttribute("searchDTO", searchDTO);
+			model.addAttribute("subCategoryList",subCategoryList);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			log.info("에러");
@@ -187,5 +212,29 @@ public class CustomerController {
 			log.info(e.getMessage());
 		}
 		return changeCustomerDTO;
+	}
+	
+	/*
+	 * 작성자: 방지훈
+	 * 작성일자: 2021/05/25 20:30
+	 */
+	@PostMapping(value="changeCategory", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public List<String> recharge(@ModelAttribute CustomerDTO customerDTO,@ModelAttribute CusSearchDTO changeSearchDTO, HttpSession session, Model model) {
+		MemberDTO memberInfo = (MemberDTO)session.getAttribute("memberInfo");
+		long purchasecount;
+		List<String> subCategoryList = null;
+		log.info("카테고리 현황 : "+changeSearchDTO.toString());
+		try {
+			customerDTO =  customerService.getCustomerInfo(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			subCategoryList = customerService.getSubCategory(changeSearchDTO);
+			
+			model.addAttribute("searchDTO",changeSearchDTO);
+			model.addAttribute("subCategoryList",subCategoryList);
+		}catch(Exception e) {
+			log.info(e.getMessage());
+		}
+		return subCategoryList;
 	}
 }
