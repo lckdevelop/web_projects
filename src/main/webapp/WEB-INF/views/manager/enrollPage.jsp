@@ -74,15 +74,15 @@
 		    				<h6>상품명 : ${product.name}<br/></h6>
 		    				<h6>상품코드 : ${product.productcode}<br/></h6>
 		    				<h6 style="color:blue">등록여부 : x<br/></h6>
-		    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy/MM/dd" /><br/></h6>
-		    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy/MM/dd" /><br/></h6>
+		    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
+		    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
 		    				<h6 style="color:blue">남은시간 : ${product.countTime}시간<br/></h6>
 		    				<h6>원가 : ${product.price}원<br/></h6>
 		    				<h6 style="color:red">할인가 : ${product.discountPrice}원<br/></h6>
 		    				<h6 style="color:red">할인률 : ${product.discountRate}%<br/></h6>
 		    		</div>
 		    		<div class='col-sm-2'>
-	    				<a href="" ><input type="submit" value="등록" class="btn_enroll"/></a>
+	    				<a href="enrollAction?pg=${pagingDTO.pg}&no=${product.no}&discountPrice=${product.discountPrice}&countTime=${product.countTime}&from=enroll" class="btn_enroll">등록</a>
 		    		</div>
 	    		</div>
 	   		</div>

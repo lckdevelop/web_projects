@@ -5,14 +5,28 @@
 		
 <mapper namespace="com.thank.store.dao.MapDAO">
 
-	<select id="getCvStore" resultType="cvStoreDTO">
-	<![CDATA[
+	<select id="getTotalCvStore" resultType="CvStoreDTO">
 		select storecode, name,latitude,longitude,address,brand
 		from cvstore
-		
-		]]>
-		
 	</select>
 
-
+	
+	<select id="getCvStore"  parameterType="hashmap" resultType="CvStoreDTO">
+		<![CDATA[
+			select name, address, brand, latitude, longitude
+			FROM(
+			    SELECT 
+			    (( ACOS(
+			    SIN((#{lat}-0.019) * 3.14 / 180) * 
+			    SIN((Latitude-0.019) * 3.14 / 180) + 
+			    COS((#{lat}-0.019) * 3.14 / 180) * 
+			    COS((Latitude-0.019) * 3.14 / 180) * 
+			    COS(((#{lon}-0.022) - (Longitude-0.022)) * 3.14 / 180)) * 
+			    180 / 3.14) * 60 * 1.1515) AS distance, name, address, brand,latitude,longitude
+			    FROM cvstore
+			    order by distance
+			    )
+			where rownum<=10
+		]]>
+	</select>
 </mapper>

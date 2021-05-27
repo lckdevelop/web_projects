@@ -24,4 +24,7 @@ public class CvsProductDTO {
 	private long countTime;
 	private long discountPrice;
 	private int discountRate;
+	private long enrolledprice;
+	private long enrolledlefttime;
+	private String from;
 }

@@ -33,18 +33,19 @@ public class ManagerController {
 	@Autowired
 	private MemberService memberService;
 	
-	
 	/*
 	 * 작성자: 이채경
 	 * 작성일자: 2021/05/23 
 	 */
 	@GetMapping("/home")
-	public String home(@ModelAttribute ManagerDTO managerDTO, 
-				       @RequestParam(defaultValue="1") long pg, 
-				       @ModelAttribute ManSearchDTO searchDTO,
+	public String home(@ModelAttribute ManagerDTO managerDTO,
+      				   @ModelAttribute ManSearchDTO searchDTO,
+				       @RequestParam(defaultValue="1") long pg,
+				       HttpSession session,
 				       Model model) {
-		long managerNo = 1; // 세션 매니저번호
-		long cvsNo = 40; // 세션 매니저지점번호
+		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
+		long managerNo = managerInfo.getManagerno(); // 세션 매니저번호
+		long cvsNo = managerInfo.getCvsno(); // 세션 매니저지점번호
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -78,9 +79,11 @@ public class ManagerController {
 	public String enrolled(@ModelAttribute ManagerDTO managerDTO, 
 		       @RequestParam(defaultValue="1") long pg, 
 		       @ModelAttribute ManSearchDTO searchDTO,
+		       HttpSession session,
 		       Model model) {
-		long managerNo = 1; // 세션 매니저번호
-		long cvsNo = 40; // 세션 매니저지점번호
+		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
+		long managerNo = managerInfo.getManagerno(); // 세션 매니저번호
+		long cvsNo = managerInfo.getCvsno(); // 세션 매니저지점번호
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -95,7 +98,7 @@ public class ManagerController {
 
 		try {
 			List<CvsProductDTO> enrolledList = managerService.getEnrolledProductList(searchDTO);
-			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
+			ManPagingDTO pagingDTO = managerService.getEnrolledPagingInfo(searchDTO);
 			model.addAttribute("enrolledList", enrolledList);
 			model.addAttribute("pagingDTO", pagingDTO);
 			
@@ -114,9 +117,11 @@ public class ManagerController {
 	public String enrollAvail(@ModelAttribute ManagerDTO managerDTO, 
 		       @RequestParam(defaultValue="1") long pg, 
 		       @ModelAttribute ManSearchDTO searchDTO,
+		       HttpSession session,
 		       Model model) {
-		long managerNo = 1; // 세션 매니저번호
-		long cvsNo = 40; // 세션 매니저지점번호
+		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
+		long managerNo = managerInfo.getManagerno(); // 세션 매니저번호
+		long cvsNo = managerInfo.getCvsno(); // 세션 매니저지점번호
 		managerDTO = new ManagerDTO();
 		
 		try {
@@ -131,7 +136,7 @@ public class ManagerController {
 
 		try {
 			List<CvsProductDTO> enrollAvailList = managerService.getEnrolAvaiProductList(searchDTO);
-			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
+			ManPagingDTO pagingDTO = managerService.getAvailPagingInfo(searchDTO);
 			model.addAttribute("enrollAvailList", enrollAvailList);
 			model.addAttribute("pagingDTO", pagingDTO);
 			
@@ -142,6 +147,46 @@ public class ManagerController {
 		return "manager/enrollPage";
 	}
 	
+	/*
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/26
+	 */
+	@RequestMapping("/enrollAction")
+	public String enrollAction(@ModelAttribute ManagerDTO managerDTO,
+					   			@ModelAttribute CvsProductDTO cvsProductDTO,
+					   			@RequestParam long pg,
+					   			@ModelAttribute ManSearchDTO searchDTO,
+					   			HttpSession session,
+					   			Model model) {
+		try {
+			int updateEnrollRow = managerService.enrollAction(cvsProductDTO);
+			log.info(updateEnrollRow + " : updateEnrollRow");
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		return "redirect:./" + cvsProductDTO.getFrom();
+	}
+	
+	/*
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/26
+	 */
+	@RequestMapping("/cancelAction")
+	public String cancelAction(@ModelAttribute ManagerDTO managerDTO,
+   							   @ModelAttribute CvsProductDTO cvsProductDTO,
+   							   @RequestParam long pg,
+   							   @ModelAttribute ManSearchDTO searchDTO,
+					   	       Model model) {
+		try {
+			int updatecancelRow = managerService.cancelAction(cvsProductDTO);
+			log.info(updatecancelRow + " : updatecancelRow");
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		return "redirect:./" + cvsProductDTO.getFrom();
+	}
 	
 	/*
 	 * 작성자: 김수빈
