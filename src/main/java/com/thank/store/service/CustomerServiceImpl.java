@@ -43,6 +43,7 @@ public class CustomerServiceImpl implements CustomerService{
 		for(CvstoreDTO cvstore:cvstoreList) {
 			searchDTO.setCvstore_no(cvstore.getNo());
 			List<CvsProductDTO> cvsProductList =customerDAO.searchCvsProductList(searchDTO);
+			log.info("불러온 상품 개수 : "+cvsProductList.size());
 			for (CvsProductDTO cvsProductDTO : cvsProductList) {
 				long countTime = (cvsProductDTO.getCountTime());
 				int discountRate = getDiscountRate(countTime);
@@ -51,6 +52,7 @@ public class CustomerServiceImpl implements CustomerService{
 			}
 			cvstore.setCvsProductList(cvsProductList);
 		}
+		log.info("첫번째 편의점 검색 상품 개수 : "+cvstoreList.get(0).getCvsProductList().size());
 		return cvstoreList;
 	}
 
