@@ -120,6 +120,7 @@ public class CustomerController {
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), recordCount));
 			subCategoryList = customerService.getSubCategory(searchDTO);
 			log.info("검색기능 : "+searchDTO.toString());
+			log.info("검색상품 불러온 결과 1번 편의점 : "+cvstoreList.get(0).getCvsProductList().size());
 			model.addAttribute("customerDTO", customerDTO);				
 			model.addAttribute("purchasecount",purchasecount);
 			model.addAttribute("cvstoreList", cvstoreList);
