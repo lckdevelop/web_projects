@@ -52,7 +52,6 @@ public class CustomerServiceImpl implements CustomerService{
 			}
 			cvstore.setCvsProductList(cvsProductList);
 		}
-		log.info("첫번째 편의점 검색 상품 개수 : "+cvstoreList.get(0).getCvsProductList().size());
 		return cvstoreList;
 	}
 

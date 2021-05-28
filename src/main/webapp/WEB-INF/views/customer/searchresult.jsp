@@ -189,14 +189,13 @@ function buyBtn(no){
     	<hr style="border: solid 3px #1b4af5;">
     	<form>
   		<c:forEach var="cvstore" items="${cvstoreList}" varStatus="status">
-  			<h1>${cvstore.cvsProductList.size()}</h1>
 	    	<div id="list-box">
 	    		<div class="tab">
 	  			 <input class="accordion" type="radio" id="${cvstore.storecode}" name="cvstoreradio" value="${cvstore.name}"
 	  			 <c:if test="${status.first == true}"> checked </c:if>
 	  			 >
 			        <label class="tab-label" for="${cvstore.storecode}">${cvstore.name}</label>
-			        <div class="tab-content panel">
+			        <div class="tab-content panel" style="overflow:auto;">
 			        	<c:forEach var="cvsproduct" items="${cvstore.cvsProductList}">
 			        		<div id="${cvsproduct.no}">
 			        			<div class='col-sm-4'>
