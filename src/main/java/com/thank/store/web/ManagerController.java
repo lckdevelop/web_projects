@@ -192,6 +192,14 @@ public class ManagerController {
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/24 10:50
 	 */
+	@GetMapping("/profit")
+	public String showProfit() {
+		return "/manager/profit";
+	}
+	/*
+	 * 작성자: 김수빈
+	 * 작성일자: 2021/05/24 10:50
+	 */
 	@GetMapping()
 	public String login2() {
 		return "/manager/login";

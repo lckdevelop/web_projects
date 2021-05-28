@@ -32,7 +32,7 @@
 			   c.name as spot, 
 			   c.brand, 
 			   c.storecode, 
-			   ma.profit
+			   c.profit
 		from manager ma 
 		join member me on ma.member_no = me.no 
 		join cvstore c on ma.no = c.manager_no
@@ -52,6 +52,7 @@
 						join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
 						join productlist p on cvsp.productlist_no = p.no
 		                where cvsp.cvstore_no = #{cvstore_no}
+		                and cvsp.enrollment != 3
 		                and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
 		                <include refid="searchType" />
 	              order by countTime) A
@@ -141,6 +142,7 @@
 		join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
 		join productlist p on cvsp.productlist_no = p.no
 		where cvsp.cvstore_no = #{cvstore_no}
+		and cvsp.enrollment != 3
 	<![CDATA[
 		and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
 	]]>
