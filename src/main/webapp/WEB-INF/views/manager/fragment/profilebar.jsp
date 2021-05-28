@@ -44,10 +44,10 @@ $(function() {
 			<img src="${app}/resources/manager/img/gs_logo.png" alt="Brand"
 				class="img-fluid rounded-circle">
 				<h3 class="text-light">${dto.name}점장님 안녕하세요.</h3>
-				<h3 class="text-light">${dto.brand}${dto.spot}</h3>
+				<h3 class="text-light">${dto.brand}&nbsp;${dto.spot}</h3>
 				<h3 class="text-light">${dto.storecode}</h3>
 				<h3 class="text-light">
-					<a href="index.html">수익금:${dto.profit}</a>
+					<a href="${app}/manager/profit">수익금:${dto.profit}</a>
 					</h3>
 			</div>
 		</div>
