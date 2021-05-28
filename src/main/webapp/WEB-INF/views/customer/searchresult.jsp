@@ -202,11 +202,15 @@ function buyBtn(no){
 			        <label class="tab-label" for="${cvstore.storecode}">${cvstore.name}</label>
 			        <div class="tab-content panel">
 			        	<c:forEach var="cvsproduct" items="${cvstore.cvsProductList}">
+			        	
 			        		<div id="${cvsproduct.no}">
+			        			<div class='col-sm-4'>
+	  								<img src='${app}/resources/product/images/${cvsproduct.name}.jpg' />
+	  							</div>
 			        			<h6>상품명 : ${cvsproduct.name}<br/></h6>
 			        			<h6>제조날짜 : <f:formatDate value="${cvsproduct.warehousingdate}" pattern="yyyy/MM/dd" /><br/></h6>
 		    				<h6>유통만료기한 : <f:formatDate value="${cvsproduct.expirationdate}" pattern="yyyy/MM/dd" /><br/></h6>
-		    				<h6 style="color:blue">남은시간 : ${cvsproduct.countTime}시간<br/></h6>
+		    				<h6 style="color:blue">남은시간 : ${-cvsproduct.countTime}시간<br/></h6>
 		    				<h6>원가 : ${cvsproduct.price}원<br/></h6>
 		    				<h6 style="color:red">할인가 : ${cvsproduct.discountPrice}원<br/></h6>
 		    				<h6 style="color:red">할인률 : ${cvsproduct.discountRate}%<br/></h6>

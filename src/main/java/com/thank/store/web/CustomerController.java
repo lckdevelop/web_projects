@@ -269,7 +269,7 @@ public class CustomerController {
 	
 	/*
 	 * 작성자: 방지훈
-	 * 작성일자: 2021/05/25 20:30
+	 * 작성일자: 2021/05/28 01:00
 	 */
 	@PostMapping(value="purchaseproduct", produces = "application/json;charset=UTF-8")
 	@ResponseBody

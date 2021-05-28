@@ -24,7 +24,6 @@
 	    $('#rechargeBtn').click(function(){
 	    	 var point=prompt('충전할 금액을 입력하세요');
 	    	 if(point==null || point <= 0){
-	    		 alert("올바른 금액을 입력하세요");
 	    		 return;
 	    	 }
 	    	 var accountno = '${dto.accountno}';
@@ -67,16 +66,24 @@
 				<h3 class="text-light">
 					<a href="purchaselist">내가 구입한 물품 (${purchasecount})</a>
 				</h3>
+				<div>
+					<input class="btn btn-secondary" type="button" value="지도보기" onclick="location.href='/store/customer/home'"/>
+				</div>
+				
+				<div style="margin-top:10px;">
+					<input class="btn btn-secondary" type="button" value="충전하기" id="rechargeBtn"/>
+				</div>
+				
+				<div style="margin-top:10px;">
+					<input class="btn btn-secondary" type="button" value="로그아웃" onclick="location.href='/store/customer/logout'"/>
+				</div>
 			</div>
 		</div>
 	</div>
+	
 </header>
-<div>
-	<input class="btn btn-secondary" type="button" value="충전하기" id="rechargeBtn"/>
-</div>
 
-<div style="margin-top:10px;">
-	<input class="btn btn-secondary" type="button" value="로그아웃" onclick="location.href='/store/customer/logout'"/>
-</div>
+
+
 </body>
 </html>
