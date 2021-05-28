@@ -44,18 +44,28 @@ public class MapController {
 	@ResponseBody
 	public HashMap mapajax(
 			@RequestParam HashMap<String, Double> loc
+
+			
 			) {
+//		@RequestParam Double lat,
+//		@RequestParam Double lon,
+//		@RequestParam long cvStoreCnt
 		
-//		log.info(loc.get("lat") + ": lat");
+		log.info(loc.get("lat") + ": lat");
 //		log.info(lat + ": lat");
-//		log.info(loc.get("lon") + ": lon");
+		log.info(loc.get("lon") + ": lon");
 //		log.info(lon + ": lon");
-		log.info(loc.get("lat") + ": lon");
+		log.info(loc.get("cvStoreCnt") + ": cvStoreCnt");
+		System.out.println("-------------------------------------------");
+		System.out.println(loc.get("cvStoreCnt"));
+		System.out.println("-------------------------------------------");
 		HashMap<String, List<CvstoreDTO>> hash = new HashMap<String, List<CvstoreDTO>>();
+		//HashMap<String, Double> hash = new HashMap<String, List<CvstoreDTO>>();
 		//ModelAndView mav = new ModelAndView();
 		try {
 			List<CvstoreDTO> list = mapService.getCvStore(loc);
 			System.out.println("list : " + list);
+			
 			hash.put("list", list);
 			//mav.addObject("hash", hash);
 			//mav.setViewName("map");
