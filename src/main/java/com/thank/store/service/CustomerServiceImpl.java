@@ -160,7 +160,7 @@ public class CustomerServiceImpl implements CustomerService{
 	 * 작성일자 : 05/28 00:21
 	*/
 	@Override
-	public long updateManagerPoint(CvsProductDTO cvsProductDTO) throws Exception {
-		return customerDAO.updateManagerPoint(cvsProductDTO);
+	public long updateCvstorePoint(CvsProductDTO cvsProductDTO) throws Exception {
+		return customerDAO.updateCvstorePoint(cvsProductDTO);
 	}
 }

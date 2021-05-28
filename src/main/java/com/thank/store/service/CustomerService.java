@@ -35,6 +35,6 @@ public interface CustomerService {
 
 	long updatePurchaseProduct(CvsProductDTO cvsProductDTO) throws Exception;
 
-	long updateManagerPoint(CvsProductDTO cvsProductDTO) throws Exception;
+	long updateCvstorePoint(CvsProductDTO cvsProductDTO) throws Exception;
 
 }

@@ -293,7 +293,7 @@ public class CustomerController {
 			customerDTO.setCvsproductno(cvsProductDTO.getNo());
 			customerService.addPurchaseProduct(customerDTO);//구매목록에 등록
 			customerService.updatePurchaseProduct(cvsProductDTO);//상품 상태 변경 enrollment = 2
-			customerService.updateManagerPoint(cvsProductDTO);//판매자 수익금 추가
+			customerService.updateCvstorePoint(cvsProductDTO);//판매자 수익금 추가
 			
 			
 		} catch (Exception e) {

@@ -35,6 +35,6 @@ public interface CustomerDAO {
 
 	long updatePurchaseProduct(CvsProductDTO cvsProductDTO) throws SQLException;
 
-	long updateManagerPoint(CvsProductDTO cvsProductDTO) throws SQLException;
+	long updateCvstorePoint(CvsProductDTO cvsProductDTO) throws SQLException;
 
 }
