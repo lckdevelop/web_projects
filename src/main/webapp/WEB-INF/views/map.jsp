@@ -13,10 +13,11 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
+<!--내 위주 편의점보기 버튼 이벤트-->
 window.onload = function () {
-	document.getElementById('searchBtn').onclick = function () {
+	document.getElementById("searchBtn").onclick = function () {
 		  var cvStoreCnt = document.getElementById("cvStoreCnt").value;
-		   searchCvstore(cvStoreCnt);
+		  cvsStoreCntAjax(cvStoreCnt);
 		};
 	};
 </script>
@@ -49,7 +50,7 @@ window.onload = function () {
     .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-    .info .link {color: #5085BB;}
+    .info .link {color: #5085BB; }
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaokey }"></script>
 <body>
@@ -60,9 +61,8 @@ window.onload = function () {
 		</div>
 		<div id="contaniner_2">
 			<p>
-			    <button hidden="true" onclick="hideMarkers()">마커 감추기</button>
-			    <button hidden="true" onclick="showMarkers()">마커 보이기</button>
-			    <div><strong>안녕하세요</strong></div>
+			    <button  onclick="hideMarkers()">편의점 감추기</button>
+			    <button  onclick="showMarkers()">검색했던 편의점 모두 보기</button>
 			    
 				  <label for="cvStore">편의점 개수 지정:</label>
 				  <select name="cvStoreCnt" id="cvStoreCnt">
@@ -71,7 +71,7 @@ window.onload = function () {
 				    <option value="50">50</option>
 				    <option value="100">100</option>
 				  </select>
-				  <br><br>
+				  
 				  <button id ="searchBtn" >내 위주 편의점보기</button>
 				
 				
@@ -95,71 +95,39 @@ window.onload = function () {
 <!--===================================================================================
 										JS영역
 ====================================================================================-->
-<!-- 내 위치 받아오는 js -->
-<script>
-
-    function myGeoLocation2() {        
-        // Geolocation API에 액세스할 수 있는지를 확인
-        var myLoc;
-        if (navigator.geolocation) {
-            //위치 정보를 얻기
-            navigator.geolocation.getCurrentPosition (function(pos) {
-                $('#latitude').html(pos.coords.latitude);     // 위도
-                $('#longitude').html(pos.coords.longitude); // 경도
-                //console.log(pos.coords.latitude);
-				myLoc = pos.coords.latitude;
-				console.log("myLoc : " + myLoc)
-            });
-           
-            return myLoc;
-            
-        } else {
-            alert("이 브라우저에서는 Geolocation이 지원되지 않습니다.")
-        }
-    }
-    
-  
-</script>
-<!-- 내 위치 받아오는 js end-->
-
-
 <!-- 카카오api 기본 설정 -->
 
 <script>
 
+<!-- 변수 선언 영역 -->
+//위도
+var lat ;
+//경도
+var lon ;
+// 나한테 제일 가까운 10개 편의점 배열
+var cvsArr = new Array();
+// positions 배열
+var positions  = [];
+// contents
+var contents = [];
+// 커스텀오버레이 담는배열
+var  overlayArr = new Array();
+//marker 담는 배열
+var  markerArr = new Array();
+<!-- 변수 선언 영역 END -->
 
-	//위도
-	var lat ;
-	//경도
-	var lon ;
-	// 나한테 제일 가까운 10개 편의점 배열
-	var cvsArr = new Array();
-	// positions 배열
-	var positions  = [];
-	// contents
-	var contents = [];
-	// 커스텀오버레이 담는배열
-	var  overlayArr = new Array();
-	//marker 담는 배열
-	var  markerArr = new Array();
-
-
+	// 지도의 확대 레벨 여기서 조정 할 것!
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	mapOption = { 
 		//내위치로 지도 표시 할 것
-	    center: new kakao.maps.LatLng(37.6443448, 127.0337226), // 지도의 중심좌표
-	    level: 4// 지도의 확대 레벨
+	    center: new kakao.maps.LatLng(0,0), // 지도의 중심좌표
+	    level: 5// 지도의 확대 레벨
 	};
 	
-	// searchCvstore 호출
-	searchCvstore();
+	
+	
+	
 
-	<!--searchCvStore함수 -->
-	//바로실행하려면 window.onload()사용할 것
-	function searchCvstore(cvStoreCnt){
-		console.log("cvStore변수 출력")
-		console.log("함수안 : "+cvStoreCnt);
-		
 		// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 		if (navigator.geolocation) {
 		    
@@ -170,78 +138,27 @@ window.onload = function () {
 		            lon = position.coords.longitude; // 경도
 		        
 		        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-		            message = '<div style="padding:10px;  background-color: #ff8a3d; border-radius: 40px 80px;"><strong>여기에 계시는군요?</strong></div>'; // 인포윈도우에 표시될 내용입니다
-		        	console.log("lat : " + lat);
-		        	console.log("lon : " + lon);
+		            message = '<div style="padding:10px;  background-color: #ff8a3d;"><strong>여기에 계시는군요?</strong></div>'; // 인포윈도우에 표시될 내용입니다
 		        	
-		        	<!-- 지도에 받을 편의점 리스트 Ajax -->
-		        	$(function() {
-		    			$.ajax({
-		    			type:"get",
-		    	        url:"mapajax",
-		    	        data:{"lat":lat,
-		    	        	  "lon":lon,
-		    	        	  "cvStoreCnt",cvStoreCnt},
-		    	        datatype:"json",
-		    	        async:false,
-		    	        success:function (data){
-		    					
-		    					//console.log(data);
-		    					
-		    					//console.log(data.list[0].name);
-		    					// 세븐일레븐 쌍문점
-		    					//console.log(data.list.length);
-		    					// 10
-		    					
-		    					//데이터 전역변수에 담기
-		    					for(var i = 0; i<data.list.length; i++){
-		    						cvsArr[i]=data.list[i];
-		    					}
-		    					//데이터 positions, contents 배열에 담기
-		    					for(var i=0; i<data.list.length; i++){
-		    						positions.push(data.list[i]);
-		    						contents.push(data.list[i]);
-		    					}
-
-		    					//console.log("positions[0]호출")
-		    					//console.log(positions[0].name);
-		    					//console.log(positions[0].member_no);
-		    					
-		    					console.log("ajax 안 cvsArr 에서 호출  :");
-		    					console.log(cvsArr)
-
-		    	            }
-		    	            
-	      				});
-		        	});
-		        	//console.log("ajax 밖 cvsArr 에서 호출  :");
-					//console.log(cvsArr)
-	
-	        	<!-- 지도에 받을 편의점 리스트 Ajax END -->
+		            console.log("lat : " + lat);
+		        	console.log("lon : " + lon);
+		        	console.log("cvStoreCnt : " + cvStoreCnt);
+		        	
 		        // 마커와 인포윈도우를 표시합니다
 		        displayMarker(locPosition, message);
 			});
-		    
 		} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-		    
 		    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
-		        message = 'geolocation을 사용할수 없어요..'
-		        
+		        message = '현재 위치를 받아올 수 없습니다.'
 		    displayMarker(locPosition, message);
 		}
-	
-	console.log("myLoc 밖에서 cvsArr 에서 호출  :");
-	console.log(cvsArr);
-	
 
-	
 	var imageSrc = 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png', // 마커이미지의 주소입니다    
     imageSize = new kakao.maps.Size(45, 50), // 마커이미지의 크기입니다
     imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 	
 	// 지도에 마커와 인포윈도우를 표시하는 함수입니다
 	function displayMarker(locPosition, message) {
-    	
 		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
 		    markerPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치입니다
@@ -268,60 +185,32 @@ window.onload = function () {
 	    infowindow.open(map, marker);
 	    
 	    // 지도 중심좌표를 접속위치로 변경합니다
-	    map.setCenter(locPosition);      
+	    map.setCenter(locPosition);   
 	}    
-    
-	
-	
-	
-	
 
 	//커스텀 오버레이에 표시할 컨텐츠 입니다
 	//커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
 	//별도의 이벤트 메소드를 제공하지 않습니다 
 	
 	//contents 생성영역
-	//var contents=[
-	//	<c:forEach items="${CvstoreDTO}" var="CvstoreDTO">
-	//		 	{
-	//		 		name : '${CvstoreDTO.name}.name' ,
-	//		 		address : '${CvstoreDTO.address}'
-	//		 	},
-	// 	 </c:forEach>
-	//]
-	
-
-	
-	
-	
-	
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
+	
+<!--makeMap함수 -->
+function makeCvsInfo(){
+	
+	//실행될때 기존에 떠 있던 마커 숨기기
+	hideMarkers();
 	
 	//positions생성 영역
-	
-	//var positions=[
-	//	<c:forEach items="${CvstoreDTO}" var="CvstoreDTO">
-	//		 	{
-	//		 		content : '<div> ${CvstoreDTO.name } </div>',
-	//		 		latlng : new kakao.maps.LatLng(${CvstoreDTO.latitude}, ${CvstoreDTO.longitude})
-	//		 	},
-	// 	 </c:forEach>
-	//]
-	
 	//positions값 가공
 	for(var i=0; i<positions.length; i++){
 		positions[i].InfoContent = "<div>"+ positions[i].name +"</div>";
-		console.log(positions[0].InfoContent);
-		
 		positions[i].latlng	= new kakao.maps.LatLng(positions[i].latitude, positions[i].longitude);
-		console.log(positions[0].latlng);
 	}
 	
 	// 마커
-	
-
 	for (var i = 0; i < positions.length; i ++) {
+		
 		// 마커를 생성합니다
 		var marker = new kakao.maps.Marker({
 		    map: map, // 마커를 표시할 지도
@@ -332,7 +221,7 @@ window.onload = function () {
 		markerArr[i] = marker;
 		
 		//인포 윈도우에 들어갈 content 생성
-		var Infocontent = positions[i].brand +" "+ positions[i].InfoContent;
+		var Infocontent = positions[i].brand + positions[i].InfoContent;
 		
 		// 마커에 표시할 인포윈도우를 생성합니다 
 		var infowindow = new kakao.maps.InfoWindow({
@@ -347,7 +236,6 @@ window.onload = function () {
 	}
 	 
 	// 인포윈도우
-
 	//인포윈도우를 표시하는 클로저를 만드는 함수입니다 
 	function makeOverListener(map, marker, infowindow) {
 		return function() {
@@ -362,10 +250,7 @@ window.onload = function () {
 		};
 	}
 	
-	
 	// 커스텀오버레이
-	
-
 	
 	// 마커 위에 커스텀오버레이를 표시합니다
 	// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
@@ -398,14 +283,12 @@ window.onload = function () {
 	    
 	  	//커스텀오버레이 배열에 삽입 
 		overlayArr[i] = overlay;
-		//initOverlay();
-	    
 	    
 		// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-		
 		kakao.maps.event.addListener(markerArr[i],'click',openOverlay(overlay,map))
 	}
-}
+} 
+	
 	<!--searchCvStore함수 END -->
 	
 	<!--etc -->
@@ -419,9 +302,7 @@ window.onload = function () {
 		
 	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
 	function closeOverlay(idx) {
-		console.log("colseOverlay 호출");
 	    overlayArr[idx].setMap(null);     
-	    
 	}
 	
 	
@@ -429,7 +310,6 @@ window.onload = function () {
 	
 	// 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
 	function setMarkers(map) {
-		console.log("setMarkers 호출");
 	    for (var i = 0; i < markerArr.length; i++) {
 	    	markerArr[i].setMap(map);
 	    }            
@@ -437,13 +317,11 @@ window.onload = function () {
 	
 	//"마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
 	function showMarkers() {
-		console.log("showMarkers 호출");
 	    setMarkers(map)    
 	}
 
 	// "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
 	function hideMarkers() {
-		console.log("hideMarkers 호출");
 	    setMarkers(null);    
 	}
 
@@ -451,8 +329,6 @@ window.onload = function () {
 	
 </script>
 <!-- 카카오api 설정 end -->
-
-
 
 <!-- ajax 영역 -->
 <script type="text/javascript">
@@ -466,7 +342,6 @@ window.onload = function () {
 		        data:{"storecode" : "A0001"},
 		        dataType:"json",
 		        success:function (data){
-		        	console.log("productListAjax에서 실행");
 		        	console.log(data);
 		        	console.log(data.list.length);
 		        	var v_loadPage ="";
@@ -488,6 +363,45 @@ window.onload = function () {
 			});
 		});
 	}
+	
+	<!-- 지도에 받을 편의점 리스트 Ajax -->
+	function cvsStoreCntAjax(cvStoreCnt){
+    	$(function() {
+    		if(typeof cvStoreCnt == "undefined" || cvStoreCnt == null || cvStoreCnt == ""){
+        		cvStoreCnt = 0;
+        	}
+			$.ajax({
+			type:"get",
+	        url:"mapajax",
+	        data:{"lat":lat,
+	        	  "lon":lon,
+	        	  "cvStoreCnt":cvStoreCnt  
+	        },
+	        async:"false",
+	        datatype:"json",
+	        success:function (data){
+	        		// 사용할 배열 초기화
+	        		positions  = [];
+	        		contents   = [];
+	        		cvsArr     = [];
+					//데이터 전역변수에 담기
+					for(var i = 0; i<data.list.length; i++){
+						cvsArr[i]=data.list[i];
+					}
+					//데이터 positions, contents 배열에 담기
+					for(var i=0; i<data.list.length; i++){
+						positions.push(data.list[i]);
+						contents.push(data.list[i]);
+					}
+					//makeCvsInfo 사용
+					makeCvsInfo();
+	            }
+	            
+				});
+    	});
+	
+	}
+	<!-- 지도에 받을 편의점 리스트 Ajax END -->
 </script>
 
 
