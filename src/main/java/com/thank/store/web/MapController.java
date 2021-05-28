@@ -50,6 +50,7 @@ public class MapController {
 //		log.info(lat + ": lat");
 //		log.info(loc.get("lon") + ": lon");
 //		log.info(lon + ": lon");
+		log.info(loc.get("lat") + ": lon");
 		HashMap<String, List<CvstoreDTO>> hash = new HashMap<String, List<CvstoreDTO>>();
 		//ModelAndView mav = new ModelAndView();
 		try {
@@ -105,5 +106,6 @@ public class MapController {
 		
 		return hash;
 	}
+	
 
 }

@@ -12,6 +12,15 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<script type="text/javascript">
+window.onload = function () {
+	document.getElementById('searchBtn').onclick = function () {
+		  var cvStoreCnt = document.getElementById("cvStoreCnt").value;
+		   searchCvstore(cvStoreCnt);
+		};
+	};
+</script>
+
 	<meta charset="utf-8"/>
 	<title>Kakao 지도 시작하기</title>
 </head>
@@ -27,9 +36,9 @@
 
 
 <!--닫기 css 테스트 --> 
-    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 5px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
-    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info {max-width: 100%;; height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
     .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
     .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
     .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
@@ -49,28 +58,33 @@
 		<div id=container_1>
 			<div id="map" style="width:100%; height:400px;"></div>
 		</div>
-		<div id="container_2">
+		<div id="contaniner_2">
+			<p>
+			    <button hidden="true" onclick="hideMarkers()">마커 감추기</button>
+			    <button hidden="true" onclick="showMarkers()">마커 보이기</button>
+			    <div><strong>안녕하세요</strong></div>
+			    
+				  <label for="cvStore">편의점 개수 지정:</label>
+				  <select name="cvStoreCnt" id="cvStoreCnt">
+				    <option value="10">10</option>
+				    <option value="30">30</option>
+				    <option value="50">50</option>
+				    <option value="100">100</option>
+				  </select>
+				  <br><br>
+				  <button id ="searchBtn" >내 위주 편의점보기</button>
+				
+				
+				
+			    
+			</p> 
+		</div>
+		
+		<div id="container_3">
 			<div id="cvsProductList">
 				
 				
 			</div>
-		</div>
-		
-		<div>
-			<p>
-			    <button onclick="hideMarkers()">마커 감추기</button>
-			    <button onclick="showMarkers()">마커 보이기</button>
-			    <button onclick="searchCvstore()">내 위주 편의점보기</button>
-			</p> 
-		</div>
-		<div>
-		<!-- 
-			<button onclick="myLoc()" >내 위치받기</button>
-			 -->
-		    <ul>
-		        <li>위도:<span id="latitude"></span></li>
-		        <li>경도:<span id="longitude"></span></li>
-		    </ul>
 		</div>
 	</div>
 
@@ -142,8 +156,9 @@
 
 	<!--searchCvStore함수 -->
 	//바로실행하려면 window.onload()사용할 것
-	function searchCvstore(){
-		
+	function searchCvstore(cvStoreCnt){
+		console.log("cvStore변수 출력")
+		console.log("함수안 : "+cvStoreCnt);
 		
 		// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 		if (navigator.geolocation) {
@@ -155,7 +170,7 @@
 		            lon = position.coords.longitude; // 경도
 		        
 		        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-		            message = '<div style="padding:10px;">여기에 계시는군요?</div>'; // 인포윈도우에 표시될 내용입니다
+		            message = '<div style="padding:10px;  background-color: #ff8a3d; border-radius: 40px 80px;"><strong>여기에 계시는군요?</strong></div>'; // 인포윈도우에 표시될 내용입니다
 		        	console.log("lat : " + lat);
 		        	console.log("lon : " + lon);
 		        	
@@ -165,11 +180,12 @@
 		    			type:"get",
 		    	        url:"mapajax",
 		    	        data:{"lat":lat,
-		    	        	  "lon":lon},
+		    	        	  "lon":lon,
+		    	        	  "cvStoreCnt",cvStoreCnt},
 		    	        datatype:"json",
 		    	        async:false,
 		    	        success:function (data){
-		    					alert("ajax 정상작동");
+		    					
 		    					//console.log(data);
 		    					
 		    					//console.log(data.list[0].name);
@@ -315,10 +331,12 @@
 		//마커를 배열에 삽입
 		markerArr[i] = marker;
 		
+		//인포 윈도우에 들어갈 content 생성
+		var Infocontent = positions[i].brand +" "+ positions[i].InfoContent;
 		
 		// 마커에 표시할 인포윈도우를 생성합니다 
 		var infowindow = new kakao.maps.InfoWindow({
-		    content: positions[i].InfoContent // 인포윈도우에 표시할 내용
+		    content: Infocontent // 인포윈도우에 표시할 내용
 		});
 		
 		// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
@@ -357,7 +375,7 @@
 		var content = '<div class="wrap">' + 
 	    '    <div class="info">' + 
 	    '        <div class="title">' + 
-	                   contents[i].name  + 
+	                   contents[i].brand +" "+ contents[i].name  + 
 	    '            <div class="close" onclick="closeOverlay('+ i +')" title="닫기"></div>' + 
 	    '        </div>' + 
 	    '        <div class="body">' + 
@@ -387,7 +405,7 @@
 		
 		kakao.maps.event.addListener(markerArr[i],'click',openOverlay(overlay,map))
 	}
-	}
+}
 	<!--searchCvStore함수 END -->
 	
 	<!--etc -->
