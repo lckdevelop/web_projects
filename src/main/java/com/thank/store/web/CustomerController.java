@@ -151,13 +151,13 @@ public class CustomerController {
 			else {
 				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
 				model.addAttribute("url", "./customer");
-				return "result";
+				return "customer/customerloginfailure";
 			}
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
 			model.addAttribute("url", "./customer");
-			return "result";
+			return "customer/customerloginfailure";
 		}
 	}
 	
