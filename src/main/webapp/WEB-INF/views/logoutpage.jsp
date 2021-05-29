@@ -20,11 +20,44 @@
 </head>
 <body onload="message()">
 <script>
-function message(){
-	Swal.fire('로그아웃 되었습니다.').then(function(){
-		window.location="../"
+const swalWithBootstrapButtons = Swal.mixin({
+	  customClass: {
+	    confirmButton: 'btn btn-success',
+	    cancelButton: 'btn btn-danger'
+	  },
+	  buttonsStyling: false
 	})
-};
+
+	swalWithBootstrapButtons.fire({
+	  title: '정말로 로그아웃 하시겠습니까?',
+	  text: "정말 로그아웃 됩니다!",
+	  icon: 'warning',
+	  showCancelButton: true,
+	  confirmButtonText: '로그아웃 할게요!',
+	  cancelButtonText: '잘못 눌렀어요!',
+	  reverseButtons: true
+	}).then((result) => {
+	  if (result.isConfirmed) {
+	    swalWithBootstrapButtons.fire(
+	      '로그아웃 되었습니다!',
+	      '안녕히 가세요!',
+	      'success'
+	    ).then(function(){
+			window.location="../"
+		})
+	  } else if (
+	    /* Read more about handling dismissals below */
+	    result.dismiss === Swal.DismissReason.cancel
+	  ) {
+	    swalWithBootstrapButtons.fire(
+	      '로그아웃이 취소되었습니다!',
+	      '취소됐어요~ :)',
+	      'error'
+	    ).then(function(){
+			window.location="./home"
+		})
+	  }
+	})
 </script>
 </body>
 </html>
