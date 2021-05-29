@@ -209,9 +209,9 @@ public class ManagerController {
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/24 10:50
 	 */
-	@GetMapping("/signup")
+	@GetMapping("signup")
 	public String signup() {
-		return "/manager/signup";
+		return "manager/signup";
 	}
 	
 	/*
@@ -242,7 +242,7 @@ public class ManagerController {
 			}
 			else {
 				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
-				model.addAttribute("url", "./");
+				model.addAttribute("url", "./manager");
 				return "result";
 			}		
 		} catch (Exception e) {
@@ -290,7 +290,7 @@ public class ManagerController {
 				managerService.updateCVstoreFromManager(managerDTO);
 			}
 
-			return "redirect:./";
+			return "redirect:../manager";
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
