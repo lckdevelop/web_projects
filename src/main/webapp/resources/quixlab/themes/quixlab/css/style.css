@@ -3252,7 +3252,7 @@ input[type="button"].btn-block {
 
 .card {
   position: relative;
-  display: flex;
+/*   display: flex; */
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
@@ -8132,7 +8132,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .content-body {
   margin-left: 15.1875rem;
   z-index: 0; }
-  @media only screen and (min-width: 1200px) and (max-width: 1350px) {
+  @media only screen and (min-width: 880px) and (max-width: 1350px) {
     .content-body {
       margin-left: 14.375rem; } }
 
