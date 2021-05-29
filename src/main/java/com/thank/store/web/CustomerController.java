@@ -258,7 +258,7 @@ public class CustomerController {
 		
 		try {
 			cvsProductDTO = customerService.getOneCvsProduct(no);
-			log.info(cvsProductDTO.toString());
+			log.info("상품정보 : "+cvsProductDTO.toString());
 			
 		} catch (Exception e) {
 			log.info(e.getMessage());
