@@ -286,6 +286,9 @@ public class CustomerController {
 			if(cvsProductDTO.getDiscountPrice()>customerDTO.getPoint()) {
 				throw new RuntimeException("잔액부족");
 			}
+			if(cvsProductDTO.getEnrollment()==0) {
+				throw new RuntimeException("등록 취소된 상품");
+			}
 			log.info("상품 정보 : "+cvsProductDTO.toString());
 			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
 			customerService.updateCustomerPoint(customerDTO); //잔액차감
