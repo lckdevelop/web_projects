@@ -40,7 +40,12 @@ public class CustomerController {
 	private MemberService memberService;
 	
 	@GetMapping()
-	public String login() {
+	public String login(HttpSession session) {
+		System.out.println(session.getAttribute("memberInfo"));
+		if(session!=null) {
+			return "/customer/home";
+		}
+		
 		return "/customer/login";
 	}
 	
@@ -168,7 +173,7 @@ public class CustomerController {
 	 */
 	@GetMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
-		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
+
 		session.invalidate();
 		
 		ModelAndView mav = new ModelAndView("result");
