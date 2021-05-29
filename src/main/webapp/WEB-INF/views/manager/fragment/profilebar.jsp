@@ -39,16 +39,35 @@ $(function() {
 <body>
 <header id="header">
 	<div class="d-flex flex-column">
-	<div id="text-space-box">
- 		<div class="profile">
-			<img src="${app}/resources/manager/img/gs_logo.png" alt="Brand"
-				class="img-fluid rounded-circle">
+		<div id="text-space-box">
+	 		<div class="profile">
+ 			<c:choose>
+ 				<c:when test='${dto.brand eq "GS25"}'>
+			    	<img src="${app}/resources/manager/img/gs_logo.png" alt="Brand" class="img-fluid rounded-circle">
+			    </c:when>
+			    <c:when test='${dto.brand eq "CU"}'>
+			    	<img src="${app}/resources/manager/img/cu_logo.png" alt="Brand" class="img-fluid rounded-circle">
+			    </c:when>
+			    <c:when test='${dto.brand eq "세븐일레븐"}'>
+			    	<img src="${app}/resources/manager/img/seven_logo.png" alt="Brand" class="img-fluid rounded-circle">
+			    </c:when>
+			    <c:when test='${dto.brand eq "미니스톱"}'>
+			    	<img src="${app}/resources/manager/img/mini_logo.png" alt="Brand" class="img-fluid rounded-circle">
+			    </c:when>
+			    <c:when test='${dto.brand eq "emart24"}'>
+			    	<img src="${app}/resources/manager/img/e24_logo.jpg" alt="Brand" class="img-fluid rounded-circle">
+			    </c:when>
+				<c:otherwise>
+					<img src="${app}/resources/manager/img/부산요거트.jpg" alt="Brand" class="img-fluid rounded-circle">
+				</c:otherwise>
+			</c:choose>
+				<h3>${dto.brand}</h3>
 				<h3 class="text-light">${dto.name}점장님 안녕하세요.</h3>
 				<h3 class="text-light">${dto.brand}&nbsp;${dto.spot}</h3>
 				<h3 class="text-light">${dto.storecode}</h3>
 				<h3 class="text-light">
 					<a href="${app}/manager/profit">수익금:${dto.profit}</a>
-					</h3>
+				</h3>
 			</div>
 		</div>
 	</div>
