@@ -44,11 +44,7 @@ public class CustomerController {
 		HttpSession session=request.getSession();
 		System.out.println("지금 세션 상태는: "+session.getAttribute("memberInfo"));
 		System.out.println(session.getAttribute("memberInfo"));
-		/*
-		 * String value=(String)session.getAttribute("name");
-		 * System.out.println("value 값: "+value);
-		 */
-		if(session.getAttribute("memberInfo")!=null) {
+		if(session.getAttribute("memberInfo")!=null) {			
 			return "/customer/home";
 		}
 		else {
@@ -181,13 +177,9 @@ public class CustomerController {
 	 * 작성일자: 2021/05/23 23:43
 	 */
 	@GetMapping("/logout")
-	public ModelAndView logout(HttpSession session) {
-
+	public String logout(HttpSession session) {
 		session.invalidate();
-		
-		ModelAndView mav = new ModelAndView("result");
-		mav.addObject("url", "../");
-		return mav;
+		return "logoutpage";
 	}
 	
 	

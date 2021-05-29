@@ -2,6 +2,7 @@ package com.thank.store.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,8 +212,16 @@ public class ManagerController {
 	 * 작성일자: 2021/05/24 10:50
 	 */
 	@GetMapping()
-	public String login2() {
-		return "/manager/login";
+	public String login(HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		System.out.println("지금 매니저의 세션 상태는: "+session.getAttribute("managerInfo"));
+		System.out.println(session.getAttribute("managerInfo"));
+		if(session.getAttribute("managerInfo")!=null) {
+			return "/manager/home";
+		}
+		else {
+			return "/manager/login";
+		}
 	}
 	
 	/*
@@ -270,13 +279,9 @@ public class ManagerController {
 	 * 작성일자: 2021/05/24 10:50
 	 */
 	@GetMapping("/logout")
-	public ModelAndView logout(HttpSession session) {
+	public String logout(HttpSession session) {
 		session.invalidate();
-		
-		ModelAndView mav = new ModelAndView("result");
-		mav.addObject("msg", "로그아웃 하였습니다.");
-		mav.addObject("url", "./");
-		return mav;
+		return "logoutpage";
 	}
 	
 	
