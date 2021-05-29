@@ -1,0 +1,1 @@
+document.querySelector(".sweet-wrong").onload=function(){sweetAlert("Oops...","Something went wrong !!","error")};
