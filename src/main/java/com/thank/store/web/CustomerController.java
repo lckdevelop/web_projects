@@ -147,17 +147,17 @@ public class CustomerController {
 			MemberDTO memberInfo = memberService.getMember(memberDTO);
 			if(memberService.getAccountType(memberDTO)==0) {
 				session.setAttribute("memberInfo", memberInfo);
-				return "redirect:./customer/home";
+				return "redirect:/customer/home";
 			}
 			else {
 				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
-				model.addAttribute("url", "../customer");
+				model.addAttribute("url", "./customer");
 				return "result";
 			}
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			model.addAttribute("msg",e.getMessage());
-			model.addAttribute("url", "../customer");
+			model.addAttribute("url", "./customer");
 			return "result";
 		}
 	}
