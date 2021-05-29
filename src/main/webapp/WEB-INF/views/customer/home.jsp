@@ -34,7 +34,7 @@
 		<jsp:include page="/WEB-INF/views/customer/fragment/profilebar.jsp" flush="true" />
     </div>
     <div id='box-right'>
-    효범이형 map 자리쓰세요
+    map이랑 합칠 자리
     </div>
 </div>
 </body>

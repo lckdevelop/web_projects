@@ -50,6 +50,7 @@
 		and p.maincategory like '%'||#{mainCategory}||'%'
 		and p.subcategory like '%'||#{subCategory}||'%'
 		and cv.enrollment = 1
+		and ROUND((cv.expirationdate - sysdate) * 24) > 0
 		) A
 			  ) B 
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
@@ -68,6 +69,7 @@
 		and p.maincategory like '%'||#{mainCategory}||'%'
 		and p.subcategory like '%'||#{subCategory}||'%'
 		and cv.enrollment = 1
+		and ROUND((cv.expirationdate - sysdate) * 24) > 0
 	</select>
 	
 	<!-- 
@@ -84,7 +86,7 @@
 				c.enrollment as enrollment,
 				c.warehousingdate as warehousingdate,
 				c.expirationdate as expirationdate,
-				ROUND((sysdate - expirationdate) * 24) as countTime
+				ROUND((c.expirationdate - sysdate) * 24) as countTime
 		from cvstoreproduct c
 		join productlist p on c.productlist_no = p.no
 		join cvstore cvs on  c.cvstore_no = cvs.no
@@ -93,6 +95,7 @@
 		and p.maincategory like '%'||#{mainCategory}||'%'
 		and p.subcategory like '%'||#{subCategory}||'%'
 		and c.enrollment = 1
+		and ROUND((c.expirationdate - sysdate) * 24) > 0
 	</select>
 	
 	<!-- 
@@ -149,7 +152,8 @@
 				c.no as no,
 				c.warehousingdate as warehousingdate,
 				c.expirationdate as expirationdate,
-				ROUND((sysdate - expirationdate) * 24) as countTime
+				c.enrollment,
+				ROUND((c.expirationdate - sysdate) * 24) as countTime
 		from cvstoreproduct c
 		join productlist p on c.productlist_no = p.no
 		join cvstore cs on c.cvstore_no = cs.no

@@ -9,9 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.thank.store.dto.CvsProductDTO;
@@ -37,7 +40,7 @@ public class ManagerController {
 	 * 작성자: 이채경
 	 * 작성일자: 2021/05/23 
 	 */
-	@GetMapping("/home")
+	@RequestMapping("/home")
 	public String home(@ModelAttribute ManagerDTO managerDTO,
       				   @ModelAttribute ManSearchDTO searchDTO,
 				       @RequestParam(defaultValue="1") long pg,
@@ -57,13 +60,13 @@ public class ManagerController {
 		
 		searchDTO.setPagingDTO(new ManPagingDTO(pg));
 		searchDTO.setCvstore_no(cvsNo);
-
 		try {
 			List<CvsProductDTO> allList = managerService.getAllProductList(searchDTO);
 			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
 			model.addAttribute("allList", allList);
 			model.addAttribute("pagingDTO", pagingDTO);
 			model.addAttribute("searchDTO", searchDTO);
+			model.addAttribute("enrollCheck", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
@@ -133,7 +136,6 @@ public class ManagerController {
 		
 		searchDTO.setPagingDTO(new ManPagingDTO(pg));
 		searchDTO.setCvstore_no(cvsNo);
-
 		try {
 			List<CvsProductDTO> enrollAvailList = managerService.getEnrolAvaiProductList(searchDTO);
 			ManPagingDTO pagingDTO = managerService.getAvailPagingInfo(searchDTO);
@@ -179,8 +181,16 @@ public class ManagerController {
    							   @ModelAttribute ManSearchDTO searchDTO,
 					   	       Model model) {
 		try {
-			int updatecancelRow = managerService.cancelAction(cvsProductDTO);
-			log.info(updatecancelRow + " : updatecancelRow");
+			int check = managerService.enrollmentCheck(cvsProductDTO.getNo());
+			log.info(check + ": check");
+			
+			if (check != 2) {
+				int updatecancelRow = managerService.cancelAction(cvsProductDTO);
+				log.info(updatecancelRow + " : updatecancelRow");
+			} else {
+				log.info("여기 탔습니다요~");
+				model.addAttribute("enrollCheck", "이미 판매 완료 된 상품입니다.");
+			}
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}

@@ -21,7 +21,21 @@
 	rel="stylesheet">
 <script type="text/javascript"
 	src="${app}/resources/manager/js/jquery-3.6.0.min.js"></script>
-</head>
+
+<script type="text/javascript">
+function btn_cancel(productNo, productName, discountPrice, countTime){
+	if(confirm(productName 
+			+ ' 상품\n' 
+			+ '\n할인가 : '
+			+ discountPrice
+			+ '원\n남은시간 : '
+			+ countTime
+			+ '시간\n\n등록취소 하시겠습니까?'))
+		location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enrolled";
+	else
+		return false;
+}
+</script>
 </head>
 <body>
 <!-- 전체 컨테이너 입니다.  -->
@@ -84,7 +98,7 @@
 		    				<h6 style="color:red">현재 할인률 : ${product.discountRate}%<br/></h6>
 		    		</div>
 		    		<div class='col-sm-2'>
-	    				<a href="cancelAction?pg=${pagingDTO.pg}&no=${product.no}&discountPrice=${product.discountPrice}&countTime=${product.countTime}&from=enrolled" class="btn_cancel">취소</a>
+	    				<input type="button" value="취소" class="btn_cancel" onclick="btn_cancel('${product.no}', '${product.name}','${product.discountPrice}', '${product.countTime}')"/>
 		    		</div>
 	    		</div>
 	   		</div>

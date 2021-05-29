@@ -134,7 +134,6 @@ public class CustomerController {
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), recordCount));
 			subCategoryList = customerService.getSubCategory(searchDTO);
 			log.info("검색기능 : "+searchDTO.toString());
-			log.info("검색상품 불러온 결과 1번 편의점 : "+cvstoreList.get(0).getCvsProductList().size());
 			model.addAttribute("customerDTO", customerDTO);				
 			model.addAttribute("purchasecount",purchasecount);
 			model.addAttribute("cvstoreList", cvstoreList);
@@ -272,7 +271,7 @@ public class CustomerController {
 		
 		try {
 			cvsProductDTO = customerService.getOneCvsProduct(no);
-			log.info(cvsProductDTO.toString());
+			log.info("상품정보 : "+cvsProductDTO.toString());
 			
 		} catch (Exception e) {
 			log.info(e.getMessage());
@@ -300,6 +299,9 @@ public class CustomerController {
 			if(cvsProductDTO.getDiscountPrice()>customerDTO.getPoint()) {
 				throw new RuntimeException("잔액부족");
 			}
+			if(cvsProductDTO.getEnrollment()==0) {
+				throw new RuntimeException("등록 취소된 상품");
+			}
 			log.info("상품 정보 : "+cvsProductDTO.toString());
 			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
 			customerService.updateCustomerPoint(customerDTO); //잔액차감
@@ -314,5 +316,33 @@ public class CustomerController {
 			return null;
 		}
 		return customerDTO;
+	}
+	
+
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 21/05/28 17:30
+	 */
+	@GetMapping("/transactionhistory")
+	public String getTransactionHistory(@RequestParam(defaultValue="0") long purchasecount ,@RequestParam(defaultValue="1") long pg, @ModelAttribute CusSearchDTO searchDTO,@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
+		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
+		customerDTO = new CustomerDTO();
+		List<PurchaseListDTO> purchaseList;
+		searchDTO.setPagingDTO(new PagingDTO(pg));
+		searchDTO.setCustomer_no(memberInfo.getNo());
+		try {
+			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			purchaseList =customerService.getPurchaseList(searchDTO);
+			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), purchasecount));
+			log.info(searchDTO.toString());
+			model.addAttribute("customerDTO", customerDTO);
+			model.addAttribute("purchasecount",purchasecount);
+			model.addAttribute("purchaseList",purchaseList);
+			model.addAttribute("searchDTO", searchDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		return "/customer/transactionhistory";
 	}
 }
