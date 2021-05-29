@@ -4,6 +4,7 @@ package com.thank.store.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.CvstoreDTO;
-import com.thank.store.dto.ManagerDTO;
 import com.thank.store.dto.MemberDTO;
 import com.thank.store.dto.PagingDTO;
 import com.thank.store.dto.PurchaseListDTO;
@@ -40,19 +40,28 @@ public class CustomerController {
 	private MemberService memberService;
 	
 	@GetMapping()
-	public String login(HttpSession session) {
+	public String login(HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		System.out.println("지금 세션 상태는: "+session.getAttribute("memberInfo"));
 		System.out.println(session.getAttribute("memberInfo"));
-		if(session!=null) {
+		/*
+		 * String value=(String)session.getAttribute("name");
+		 * System.out.println("value 값: "+value);
+		 */
+		if(session.getAttribute("memberInfo")!=null) {
 			return "/customer/home";
 		}
-		
-		return "/customer/login";
+		else {
+			return "/customer/login";
+		}
 	}
 	
 	@GetMapping("/signup")
 	public String signup() {
 		return "/customer/signup";
 	}
+	
+	@RequestMapping()
 	
 	/*
 	 * 작성자: 김수빈
@@ -148,6 +157,7 @@ public class CustomerController {
 			Model model,
 			HttpSession session) {
 		log.info(memberDTO.toString());
+
 		try {
 			MemberDTO memberInfo = memberService.getMember(memberDTO);
 			if(memberService.getAccountType(memberDTO)==0) {
@@ -177,8 +187,6 @@ public class CustomerController {
 		session.invalidate();
 		
 		ModelAndView mav = new ModelAndView("result");
-		mav.addObject("msg", memberInfo.getId() + 
-				 "(" + memberInfo.getName() + ")님이 로그아웃 하였습니다.");
 		mav.addObject("url", "../");
 		return mav;
 	}
