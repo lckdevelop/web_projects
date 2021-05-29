@@ -21,7 +21,21 @@
 	rel="stylesheet">
 <script type="text/javascript"
 	src="${app}/resources/manager/js/jquery-3.6.0.min.js"></script>
-</head>
+
+<script type="text/javascript">
+function btn_enroll(productNo, productName, discountPrice, countTime){
+	if(confirm(productName 
+			+ ' 상품\n' 
+			+ '\n할인가 : '
+			+ discountPrice
+			+ '원\n남은시간 : '
+			+ countTime
+			+ '시간\n\n등록하시겠습니까?'))
+		location.href="enrollAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enroll";
+	else
+		return false;
+}
+</script>
 </head>
 </head>
 <body>
@@ -82,8 +96,7 @@
 		    				<h6 style="color:red">할인률 : ${product.discountRate}%<br/></h6>
 		    		</div>
 		    		<div class='col-sm-2'>
-	    				<a href="enrollAction?pg=${pagingDTO.pg}&no=${product.no}&discountPrice=${product.discountPrice}&countTime=${product.countTime}&from=enroll" class="btn_enroll">등록</a>
-		    		</div>
+						<input type="button" value="등록" class="btn_enroll" onclick="btn_enroll('${product.no}', '${product.name}', '${product.discountPrice}', '${product.countTime}')"/>		    		</div>
 	    		</div>
 	   		</div>
     		<hr>

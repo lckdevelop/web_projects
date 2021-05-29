@@ -24,15 +24,34 @@
 	src="${app}/resources/manager/js/jquery-3.6.0.min.js"></script>
 	
 <script type="text/javascript">
-$(function() {
-	/* $('.btn_enroll').click(function() {
-		if (!confirm("정말 등록하시겠습니까?")) {
-            alert("취소(아니오)를 누르셨습니다.");
-        } else {
-        	alert("예를 누르셨습니다.");
-        }
-	}); */
-});
+function btn_enroll(productNo, productName, discountPrice, countTime){
+	if(confirm(productName 
+			+ ' 상품\n' 
+			+ '\n할인가 : '
+			+ discountPrice
+			+ '원\n남은시간 : '
+			+ countTime
+			+ '시간\n\n등록하시겠습니까?'))
+		location.href="enrollAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=home";
+	else
+		return false;
+
+}
+
+function btn_cancel(productNo, productName, discountPrice, countTime){
+	if(confirm(productName 
+			+ ' 상품\n' 
+			+ '\n할인가 : '
+			+ discountPrice
+			+ '원\n남은시간 : '
+			+ countTime
+			+ '시간\n\n등록취소 하시겠습니까?'))
+		location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=home";
+	else
+		return false;
+
+}
+
 </script>
 </head>
 <body>
@@ -76,45 +95,46 @@ $(function() {
    		</div>
  	</form>
    		<hr style="border: solid 3px #1b4af5;">
-  		<c:forEach var="product" items="${list}" varStatus="status">
-	    	<div id="list-box">
-	    		<div class="row">
-	    			<div class='col-sm-4'>
-	  					<img src='${app}/resources/product/images/${product.name}.jpg' />
-	  				</div>
-	  				<div class='col-sm-6'>
-		    				<label class="name1">상품명 : ${product.name}<br/></label>
-		    				<h6>상품코드 : ${product.productcode}<br/></h6>
-		    				<c:choose>
-		    					<c:when test='${product.enrollment == 0}'>
-		    						<h6 style="color:blue">등록여부 : x<br/></h6>
-		    					</c:when>
-	    						<c:otherwise>
-	    							<h6 style="color:blue">등록여부 : o<br/></h6>
-	    						</c:otherwise>
-		    				</c:choose>
-		    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
-		    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
-		    				<h6 style="color:blue">남은일수/남은시간 : ${product.leftDay}일 / ${product.leftTime}시간<br/></h6>
-		    				<h6>원가 : ${product.price}원<br/></h6>
-		    				<c:if test='${product.countTime <= 24}'>
-			    				<h6 style="color:red">할인가 : ${product.discountPrice}원<br/></h6>
-			    				<h6 style="color:red">할인률 : ${product.discountRate}%<br/></h6>
-		    				</c:if>
+   		<form>
+	  		<c:forEach var="product" items="${list}" varStatus="status">
+		    	<div id="list-box">
+		    		<div class="row">
+		    			<div class='col-sm-4'>
+		  					<img src='${app}/resources/product/images/${product.name}.jpg' />
+		  				</div>
+		  				<div class='col-sm-6'>
+			    				<label class="name1">상품명 : ${product.name}<br/></label>
+			    				<h6>상품코드 : ${product.productcode}<br/></h6>
+			    				<c:choose>
+			    					<c:when test='${product.enrollment == 0}'>
+			    						<h6 style="color:blue">등록여부 : x<br/></h6>
+			    					</c:when>
+		    						<c:otherwise>
+		    							<h6 style="color:blue">등록여부 : o<br/></h6>
+		    						</c:otherwise>
+			    				</c:choose>
+			    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
+			    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
+			    				<h6 style="color:blue">남은일수/남은시간 : ${product.leftDay}일 / ${product.leftTime}시간<br/></h6>
+			    				<h6>원가 : ${product.price}원<br/></h6>
+			    				<c:if test='${product.countTime <= 24}'>
+				    				<h6 style="color:red">할인가 : ${product.discountPrice}원<br/></h6>
+				    				<h6 style="color:red">할인률 : ${product.discountRate}%<br/></h6>
+			    				</c:if>
+			    		</div>
+			    		<div class='col-sm-2'>
+			    			<c:if test='${(product.countTime <= 24) && (product.enrollment == 0)}'>
+			    					<input type="button" value="등록" class="btn_enroll" onclick="btn_enroll('${product.no}', '${product.name}', '${product.discountPrice}', '${product.countTime}')"/>
+			    			</c:if>
+			    			<c:if test='${product.enrollment == 1}'>
+			    				<input type="button" value="취소" class="btn_cancel" onclick="btn_cancel('${product.no}', '${product.name}','${product.discountPrice}', '${product.countTime}')"/>
+			    			</c:if>
+			    		</div>
 		    		</div>
-		    		<div class='col-sm-2'>
-		    			<c:if test='${(product.countTime <= 24) && (product.enrollment == 0)}'>
-		    				<a href="enrollAction?pg=${pagingDTO.pg}&no=${product.no}&discountPrice=${product.discountPrice}&countTime=${product.countTime}&from=home" class="btn_enroll">등록</a>
-		    			</c:if>
-		    			<c:if test='${product.enrollment == 1}'>
-		    				<a href="cancelAction?pg=${pagingDTO.pg}&no=${product.no}&discountPrice=${product.discountPrice}&countTime=${product.countTime}&from=home" class="btn_cancel">취소</a>
-		    			</c:if>
-		    		</div>
-	    		</div>
-	   		</div>
-    		<hr>
-    	</c:forEach>
-   		
+		   		</div>
+	    		<hr>
+	    	</c:forEach>
+   		</form>
     	<div class="row">
     		<div class='col-md-5'></div>
    			<div class='col-md-5'>

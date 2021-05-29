@@ -38,4 +38,6 @@ public interface ManagerService {
 	
 	void updateCVstoreFromManager(ManagerDTO managerDTO) throws Exception;
 
+	int enrollmentCheck(long no) throws Exception;
+
 }

@@ -206,5 +206,10 @@ public class ManagerServiceImpl implements ManagerService {
 		}	
 	}
 
+	@Override
+	public int enrollmentCheck(long no) throws Exception {
+		return managerDAO.enrollmentCheck(no);
+	}
+
 }
 
