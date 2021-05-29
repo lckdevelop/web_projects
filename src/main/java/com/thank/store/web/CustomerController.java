@@ -301,4 +301,32 @@ public class CustomerController {
 		}
 		return customerDTO;
 	}
+	
+
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 21/05/28 17:30
+	 */
+	@GetMapping("/transactionhistory")
+	public String getTransactionHistory(@RequestParam(defaultValue="0") long purchasecount ,@RequestParam(defaultValue="1") long pg, @ModelAttribute CusSearchDTO searchDTO,@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
+		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
+		customerDTO = new CustomerDTO();
+		List<PurchaseListDTO> purchaseList;
+		searchDTO.setPagingDTO(new PagingDTO(pg));
+		searchDTO.setCustomer_no(memberInfo.getNo());
+		try {
+			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			purchaseList =customerService.getPurchaseList(searchDTO);
+			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), purchasecount));
+			log.info(searchDTO.toString());
+			model.addAttribute("customerDTO", customerDTO);
+			model.addAttribute("purchasecount",purchasecount);
+			model.addAttribute("purchaseList",purchaseList);
+			model.addAttribute("searchDTO", searchDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		return "/customer/transactionhistory";
+	}
 }

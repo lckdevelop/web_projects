@@ -60,7 +60,7 @@
 				<h3 class="text-light">${sessionScope.memberInfo.name} 회원님 안녕하세요.</h3>
 	
 					<h3 class="text-light">
-						폐기머니 : <label id="point">${dto.point}</label> <!-- 시간되면 결제내역 -->
+						<a href="transactionhistory">폐기머니 : <label id="point">${dto.point}</label></a> <!-- 시간되면 결제내역 -->
 					</h3>
 				
 				<h3 class="text-light">
