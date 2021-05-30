@@ -41,4 +41,8 @@ public interface CustomerService {
 
 	List<PurchaseListDTO> getEndPurchaseList(CusSearchDTO searchDTO) throws Exception;
 
+	long getTotalPurchaseCount(long no) throws Exception;
+
+	List<PurchaseListDTO> getTotalPurchaseList(CusSearchDTO searchDTO) throws Exception;
+
 }

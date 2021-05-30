@@ -41,4 +41,8 @@ public interface CustomerDAO {
 
 	List<PurchaseListDTO> getEndPurchaseList(CusSearchDTO searchDTO) throws SQLException;
 
+	long getTotalPurchaseCount(long no) throws SQLException;
+
+	List<PurchaseListDTO> getTotalPurchaseList(CusSearchDTO searchDTO) throws SQLException;
+
 }

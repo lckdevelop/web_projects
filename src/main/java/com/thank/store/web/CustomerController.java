@@ -319,16 +319,19 @@ public class CustomerController {
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		customerDTO = new CustomerDTO();
 		List<PurchaseListDTO> purchaseList;
+		long totalpurchasecount;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
 		searchDTO.setCustomer_no(memberInfo.getNo());
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
-			purchaseList =customerService.getPurchaseList(searchDTO);
-			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), purchasecount));
+			totalpurchasecount = customerService.getTotalPurchaseCount(memberInfo.getNo());
+			purchaseList =customerService.getTotalPurchaseList(searchDTO);
+			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), totalpurchasecount));
 			log.info(searchDTO.toString());
 			model.addAttribute("customerDTO", customerDTO);
 			model.addAttribute("purchasecount",purchasecount);
+			model.addAttribute("totalpurchasecount",totalpurchasecount);
 			model.addAttribute("purchaseList",purchaseList);
 			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
