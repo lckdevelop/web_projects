@@ -258,7 +258,7 @@
 	작성일자: 2021/05/28 00:18
 	 -->
 	<update id="updatePurchaseProduct" parameterType="CvsProductDTO">
-		update cvstoreproduct set enrollment = 2
+		update cvstoreproduct set enrollment = 2 , sellday = sysdate
 		where no = #{no}
 	</update>
 	
