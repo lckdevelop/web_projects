@@ -26,6 +26,7 @@ public class MapServiceImpl implements MapService{
 	 * 작성자 : 이효범
 	 * 작성일자 : 0524
 	 */
+	//나의 위치와 편의점 위치를 이용해서 거리 계산된 편의점 List출력
 	@Override
 	public List<CvstoreDTO> getCvStore(HashMap<String, Double> loc) throws Exception {
 		List<CvstoreDTO> list = new ArrayList();
