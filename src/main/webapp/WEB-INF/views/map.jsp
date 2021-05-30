@@ -63,6 +63,8 @@ window.onload = function () {
 			<p>
 			    <button  onclick="hideMarkers()">편의점 감추기</button>
 			    <button  onclick="showMarkers()">검색했던 편의점 모두 보기</button>
+			    <br/>
+			    <br/>
 			    
 				  <label for="cvStore">편의점 개수 지정:</label>
 				  <select name="cvStoreCnt" id="cvStoreCnt">
@@ -73,10 +75,6 @@ window.onload = function () {
 				  </select>
 				  
 				  <button id ="searchBtn" >내 위주 편의점보기</button>
-				
-				
-				
-			    
 			</p> 
 		</div>
 		
@@ -123,10 +121,6 @@ var  markerArr = new Array();
 	    center: new kakao.maps.LatLng(0,0), // 지도의 중심좌표
 	    level: 5// 지도의 확대 레벨
 	};
-	
-	
-	
-	
 
 		// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 		if (navigator.geolocation) {
@@ -201,6 +195,11 @@ function makeCvsInfo(){
 	//실행될때 기존에 떠 있던 마커 숨기기
 	hideMarkers();
 	
+	//실행될때 기존에 떠 있던 오버레이 숨기기
+	for(var i=0; i<overlayArr.length; i++){
+		overlayArr[i].setMap(null);   
+	}
+	
 	//positions생성 영역
 	//positions값 가공
 	for(var i=0; i<positions.length; i++){
@@ -269,7 +268,8 @@ function makeCvsInfo(){
 	    '           </div>' + 
 	    '            <div class="desc">' + 
 	    '                <div class="ellipsis">'+ contents[i].address +'</div>' + 
-	    '                <div><a onclick="productListAjax('+ i +')" class="link">상품바로가기</a></div>' + 
+	    '                <div> 나로 부터 거리 : '+ contents[i].distance +' KM</div>' + 
+	    '                <div><a onclick="productListAjax('+ contents[i].storecode +')" class="link">상품바로가기</a></div>' + 
 	    '            </div>' + 
 	    '        </div>' + 
 	    '    </div>' +    
@@ -333,19 +333,19 @@ function makeCvsInfo(){
 <!-- ajax 영역 -->
 <script type="text/javascript">
 
-	function productListAjax(idx){
+	function productListAjax(storecode){
 		$(function() {
 			$.ajax({
 				type:"get",
 		        url:"productList",
-		        //편의점상품리스트테이블 더미데이터생성되면 "A0001" -> idx로 변경
-		        data:{"storecode" : "A0001"},
+		        //편의점상품리스트테이블 더미데이터생성되면 "A0001" -> storecode로 변경
+		        data:{"storecode" : storecode},
 		        dataType:"json",
 		        success:function (data){
 		        	console.log(data);
 		        	console.log(data.list.length);
 		        	var v_loadPage ="";
-		        	//document.getElementById('loadUrl').setAttribute("action", "${app}/manager/test");
+		        	v_loadPage += "<h4>" + data.list[0].brand +" "+ data.list[0].storeName +"<h4>";
 		            for(var j=0; j<data.list.length; j++){
 			            v_loadPage += "<hr><div class='col-sm-5'>";
 			            v_loadPage += "<img src='/store/resources/product/images/" + data.list[j].imgurl  + ".jpg'/>";
@@ -393,6 +393,7 @@ function makeCvsInfo(){
 						positions.push(data.list[i]);
 						contents.push(data.list[i]);
 					}
+					console.log(data);
 					//makeCvsInfo 사용
 					makeCvsInfo();
 	            }

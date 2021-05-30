@@ -15,4 +15,7 @@ public class ProductListDTO {
 	private String imgurl;
 	private long price;
 	private String storecode;
+	
+	private String brand;
+	private String storeName;
 }
