@@ -57,7 +57,6 @@ public class CustomerController {
 		return "/customer/signup";
 	}
 	
-	@RequestMapping()
 	
 	/*
 	 * 작성자: 김수빈
@@ -87,7 +86,7 @@ public class CustomerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
-		return "/customer/purchaselist";
+		return "customer/purchaselist";
 	}
 	
 	//작성자 : 방지훈
@@ -335,6 +334,6 @@ public class CustomerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
-		return "/customer/transactionhistory";
+		return "customer/transactionhistory";
 	}
 }

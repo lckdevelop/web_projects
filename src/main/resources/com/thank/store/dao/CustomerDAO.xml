@@ -25,8 +25,10 @@
 	 -->
 	<select id="getPurchaseCount" parameterType="long" resultType="long">
 		select count(*)
-		from purchaselist
+		from purchaselist p
+		join cvstoreproduct c on p.cvstoreproduct_no = c.no
 		where customer_no = #{no}
+		and ROUND((c.expirationdate - sysdate) * 24) > 0
 	</select>
 	
 	<!-- 
@@ -134,6 +136,7 @@
 		join cvstoreproduct cp on cp.no = p.cvstoreproduct_no
 		join productlist pl on pl.no = cp.productlist_no
 		where p.customer_no = #{customer_no}
+		and ROUND((cp.expirationdate - sysdate) * 24) > 0
 		) A
 			  ) B 
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
