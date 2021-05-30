@@ -28,59 +28,55 @@
 $(function() {
     let cvsno = '${dto.cvsno}';
 	
-    // 월별 수익 차트
-    function createMonthChart() {
-        let ctx = document.getElementById("monthProfit").getContext("2d");
-        LineChartDemo = Chart.Line(ctx, {
-            data : lineChartData,
-            options : {
-                scales : {
-                    yAxes : [ {
-                        ticks : {
-                            beginAtZero : true
-                        }
-                    } ]
-                }
-            }
-        });
-    }
-    
-    
     $('#btn_searchYear').click(function(){
     	let searchYear = $("#searchYear").val();
+    	
+    	// 월별 수익 차트 
+    	let lineChart = document.getElementById("monthProfit").getContext("2d");
         let chartLabels = [];
         let chartData=[];
         
-        //getJson으로 데이터 
         $.getJSON("${app}/manager/profit/"+cvsno+"/"+searchYear, function(data){
             $.each(data, function(key, value) {
             	chartLabels.push(value.month);
                 chartData.push(value.profitpermonth);
             });
             
-            lineChartData = {
+            let categoryChart = new Chart(lineChart, {
+            	type : 'line',
+            	data : {
             		labels : chartLabels,
-                    datasets : [ {
-                        label : searchYear + "년 월별 수익",
+            		datasets : [ {
+                        label : "원",
                         backgroundColor:"#bfdaf9",
                         borderColor: "#80b6f4",
-                        pointBorderColor: "#80b6f4",
-                        pointBackgroundColor: "#80b6f4",
+                        pointBorderColor: "#4393f0",
+                        pointBackgroundColor: "#4393f0",
                         pointHoverBackgroundColor: "#80b6f4",
                         pointHoverBorderColor: "#80b6f4",
+                        fontSize : 30,
                         fill: false,
                         borderWidth: 4,
                         data : chartData
                     } ]
-
-            }
-            createMonthChart();
+            	},
+            	options: {
+            		title: {
+            			display : true,
+            			text : searchYear + "년 월별 수익",
+            			fontSize : 25,
+            			fontColor : '#ff8a3d', 
+            		}
+            	}
+            });
             
         });
+        
+     	// 카테고리별 현황 차트
         let doughnutChart = document.getElementById("categoryProfit").getContext("2d");
         let chartLabels2 = [];
         let chartData2 = [];
-        // 2번째 차트
+        
         $.getJSON("${app}/manager/category/"+cvsno+"/"+searchYear, function(data){
             $.each(data, function(key, value) {
             	chartLabels2.push(value.mainCategory);
@@ -106,15 +102,15 @@ $(function() {
             		title: {
             			display : true,
             			text : searchYear + "년 메인 카테고리별 현황",
+            			fontSize : 25,
+            			fontColor : '#ff8a3d', 
             		}
             	}
             });
             
         });
-    })
-
-    
-})
+    });
+});
 </script>
 </head>
 <body>
@@ -151,6 +147,7 @@ $(function() {
 	     		</div>
      		</div>
    		</div>
+   		<hr style="border: solid 3px #1b4af5;">
 	 	<div class="container">
 	 		<div class="row">
 	 			<div class="col-md-7">
@@ -160,10 +157,6 @@ $(function() {
 					<canvas id="categoryProfit" height="450" width="600"></canvas>
 				</div>
 			</div>
-		</div>
-		</div>
-		<div id="loadPage">
-							
 		</div>
 	</div>
 </div>
