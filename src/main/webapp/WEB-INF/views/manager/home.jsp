@@ -163,7 +163,6 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 				</c:if>
 			</div>
 		</div>
- 	
     </div>
 </div>
 </body>

@@ -42,6 +42,40 @@ public class ManagerController {
 	@Autowired
 	private MemberService memberService;
 	
+	@RequestMapping("/exe")
+	public String exex(@ModelAttribute ManagerDTO managerDTO,
+      				   @ModelAttribute ManSearchDTO searchDTO,
+				       @RequestParam(defaultValue="1") long pg,
+				       HttpSession session,
+				       Model model) {
+		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
+		long managerNo = managerInfo.getManagerno(); // 세션 매니저번호
+		long cvsNo = managerInfo.getCvsno(); // 세션 매니저지점번호
+		managerDTO = new ManagerDTO();
+		
+		try {
+			managerDTO = managerService.getManagerInfo(managerNo);
+			model.addAttribute("managerDTO", managerDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		searchDTO.setPagingDTO(new ManPagingDTO(pg));
+		searchDTO.setCvstore_no(cvsNo);
+		try {
+			List<CvsProductDTO> allList = managerService.getAllProductList(searchDTO);
+			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
+			model.addAttribute("allList", allList);
+			model.addAttribute("pagingDTO", pagingDTO);
+			model.addAttribute("searchDTO", searchDTO);
+			model.addAttribute("enrollCheck", searchDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		return "manager/newhome";
+	}
+	
 	/*
 	 * 작성자: 이채경
 	 * 작성일자: 2021/05/23 
@@ -169,9 +203,11 @@ public class ManagerController {
 		try {
 			int updateEnrollRow = managerService.enrollAction(cvsProductDTO);
 			log.info(updateEnrollRow + " : updateEnrollRow");
+			
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
+		model.addAttribute("pg", pg);
 		
 		return "redirect:./" + cvsProductDTO.getFrom();
 	}
@@ -200,6 +236,7 @@ public class ManagerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
+		model.addAttribute("pg", pg);
 		
 		return "redirect:./" + cvsProductDTO.getFrom();
 	}
