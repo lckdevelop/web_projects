@@ -336,4 +336,35 @@ public class CustomerController {
 		}
 		return "customer/transactionhistory";
 	}
+	
+
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 21/05/30 15:30
+	 */
+	@GetMapping("/endpurchaselist")
+	public String getEndPurchaseList(@RequestParam(defaultValue="0") long purchasecount ,@RequestParam(defaultValue="1") long pg, @ModelAttribute CusSearchDTO searchDTO,@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
+		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
+		customerDTO = new CustomerDTO();
+		List<PurchaseListDTO> purchaseList;
+		long endpurchasecount;
+		searchDTO.setPagingDTO(new PagingDTO(pg));
+		searchDTO.setCustomer_no(memberInfo.getNo());
+		try {
+			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			endpurchasecount = customerService.getEndPurchaseCount(memberInfo.getNo());
+			purchaseList =customerService.getEndPurchaseList(searchDTO);
+			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), endpurchasecount));
+			log.info(searchDTO.toString());
+			model.addAttribute("customerDTO", customerDTO);
+			model.addAttribute("purchasecount",purchasecount);
+			model.addAttribute("endpurchasecount",endpurchasecount);
+			model.addAttribute("purchaseList",purchaseList);
+			model.addAttribute("searchDTO", searchDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		return "customer/endpurchaselist";
+	}
 }

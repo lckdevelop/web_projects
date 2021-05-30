@@ -163,4 +163,22 @@ public class CustomerServiceImpl implements CustomerService{
 	public long updateCvstorePoint(CvsProductDTO cvsProductDTO) throws Exception {
 		return customerDAO.updateCvstorePoint(cvsProductDTO);
 	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/30 15:41
+	*/
+	@Override
+	public long getEndPurchaseCount(long no) throws Exception {
+		return customerDAO.getEndPurchaseCount(no);
+	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/30 15:44
+	*/
+	@Override
+	public List<PurchaseListDTO> getEndPurchaseList(CusSearchDTO searchDTO) throws Exception {
+		return customerDAO.getEndPurchaseList(searchDTO);
+	}
 }
