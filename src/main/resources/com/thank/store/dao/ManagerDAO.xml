@@ -211,11 +211,11 @@
         and to_char(cvsp.sellday, 'yyyy') = #{searchYear} 
         GROUP BY to_char(cvsp.sellday, 'YYYY-MM-DD')
         ) a right outer join
-      	( SELECT TO_DATE('2021-01-01','YYYY-MM-DD') + LEVEL - 1 AS dt
+      	( SELECT TO_DATE(#{searchYear} || '-01-01','YYYY-MM-DD') + LEVEL - 1 AS dt
           FROM dual
      <![CDATA[
-          CONNECT BY LEVEL <= (TO_DATE('2021-12-31','YYYY-MM-DD') 
-                            - TO_DATE('2021-01-01','YYYY-MM-DD') + 1)
+          CONNECT BY LEVEL <= (TO_DATE(#{searchYear} || '-12-31','YYYY-MM-DD') 
+                            - TO_DATE(#{searchYear} || '-01-01','YYYY-MM-DD') + 1)
      ]]>
         ) b
 	      on b.dt = a.m
