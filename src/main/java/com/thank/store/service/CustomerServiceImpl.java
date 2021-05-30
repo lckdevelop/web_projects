@@ -181,4 +181,22 @@ public class CustomerServiceImpl implements CustomerService{
 	public List<PurchaseListDTO> getEndPurchaseList(CusSearchDTO searchDTO) throws Exception {
 		return customerDAO.getEndPurchaseList(searchDTO);
 	}
+
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/30 17:51
+	*/
+	@Override
+	public long getTotalPurchaseCount(long no) throws Exception {
+		return customerDAO.getTotalPurchaseCount(no);
+	}
+
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 05/30 17:52
+	*/
+	@Override
+	public List<PurchaseListDTO> getTotalPurchaseList(CusSearchDTO searchDTO) throws Exception {
+		return customerDAO.getTotalPurchaseList(searchDTO);
+	}
 }
