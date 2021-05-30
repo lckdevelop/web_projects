@@ -37,4 +37,8 @@ public interface CustomerService {
 
 	long updateCvstorePoint(CvsProductDTO cvsProductDTO) throws Exception;
 
+	long getEndPurchaseCount(long no) throws Exception;
+
+	List<PurchaseListDTO> getEndPurchaseList(CusSearchDTO searchDTO) throws Exception;
+
 }
