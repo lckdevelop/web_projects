@@ -1,5 +1,6 @@
 package com.thank.store.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import com.thank.store.dto.ManPagingDTO;
 import com.thank.store.dto.ManSearchDTO;
 import com.thank.store.dto.ManagerDTO;
 import com.thank.store.dto.MemberDTO;
+import com.thank.store.dto.ProfitDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -209,6 +211,17 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public int enrollmentCheck(long no) throws Exception {
 		return managerDAO.enrollmentCheck(no);
+	}
+
+	@Override
+	public List<ProfitDTO> profitPerMonth(ProfitDTO profitDTO) throws Exception {
+		return managerDAO.profitPerMonth(profitDTO);
+		
+	}
+
+	@Override
+	public List<ProfitDTO> profitPerCategory(ProfitDTO profitDTO) throws Exception {
+		return managerDAO.profitPerCategory(profitDTO);
 	}
 
 }
