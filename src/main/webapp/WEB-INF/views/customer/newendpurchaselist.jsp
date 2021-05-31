@@ -130,6 +130,7 @@
 	   					<div class='col-sm-12' style="text-align:center;">
 	  								<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' />
 	   					<h6 >상품명 : ${purchaseDTO.name}<br/></h6>
+	   					<h6 >구매금액 : ${purchaseDTO.purchaseprice}<br/></h6>
 	   					<div style="height:150px; text-align:center;">
 	   						<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
 	   					</div>
