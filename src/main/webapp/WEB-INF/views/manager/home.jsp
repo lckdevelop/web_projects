@@ -143,8 +143,16 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 			   			<div class="col-md-5">
 			    			<h3>마이 점포 전상품 리스트</h3>
 			       		</div>
-			       		<div class="col-md-2">
-			       		<select name="searchCondition">
+			       		<div class="col-md-3">
+			    			<div class="input-group icons">
+		                        <div class="input-group-prepend">
+		                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+		                        </div>
+		                        <input type="search" name="searchKeyword" class="form-control" placeholder="검색" value="${searchDTO.searchKeyword}" aria-label="Search Dashboard">
+                    		</div>
+			    		</div>
+			    		<div class="col-md-1">
+			       		<select name="searchCondition" class="selectpicker" data-style="btn-danger" data-width="100px">
 						<option value="name"
 							<c:if test="${searchDTO.searchCondition == 'name'}"> selected </c:if>
 						>상품명</option>
@@ -156,11 +164,8 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 						>세분류</option>
 						</select>
 			       		</div>
-			       		<div class="col-md-3">
-			    			<input type="text" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search"/>
-			    		</div>
-			    		<div class="col-md-2">
-			       			<input type="submit" class="btn btn-default" value="submit"></input>
+			    		<div class="col-md-3">
+			       			<input type="submit" class="btn btn-warning" value="찾기"></input>
 			     		</div>
 		     		</div>
 		   		</div>
