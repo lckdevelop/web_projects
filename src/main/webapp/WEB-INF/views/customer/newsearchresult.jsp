@@ -67,12 +67,61 @@ function buyBtn(no){
    		 data: {"no":no},
    		 datatype: "json",
    		 success:function(cvsProductDTO){
-   			var agree = confirm(cvsProductDTO.name+'을 '+ cvsProductDTO.discountPrice+'원에 구입하시겠습니까?');
-   			if(agree == false){
-   				return;
-   			}
+   			const swalWithBootstrapButtons = Swal.mixin({
+				  customClass: {
+				    confirmButton: 'btn btn-success',
+				    cancelButton: 'btn btn-danger'
+				  },
+				  buttonsStyling: false
+				})
+
+				swalWithBootstrapButtons.fire({
+				  title: "결제확인",
+				  text: cvsProductDTO.name+'을 '+ cvsProductDTO.discountPrice+'원에 구입하시겠습니까?',
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonText: '결제요청',
+				  cancelButtonText: '취소'
+				}).then((result) => {
+				  if (result.isConfirmed) {
+					  
+					  $.ajax({
+			   				url: "purchaseproduct",
+			   				method: "POST",
+			   				data: {"no":no},
+							datatype: "json",
+							success:function(data){
+								Swal.fire({
+									  icon: 'success',
+									  title: '성공적으로 물품을 구입했습니다.',
+									  showConfirmButton: false,
+									  timer: 100000
+									});
+				    			
+				    			location.reload();
+				    			 
+				    		 },
+				    		 error:function(){
+				    			 Swal.fire(
+			    						  '잔액부족',
+			  	    				      '포인트가 부족합니다. 충전 후에 재시도 부탁드립니다.',
+			  	    				      'error'
+			    						);
+				    		 }
+				    	 });
+				  } else if (
+    				    /* Read more about handling dismissals below */
+    				    result.dismiss === Swal.DismissReason.cancel
+    				  ) {
+    				    swalWithBootstrapButtons.fire(
+    				      '결제취소',
+    				      '결제를 취소했습니다. 처음부터 다시 시도하세요.',
+    				      'error'
+    				    );
+    				  }
+    				});
    			
-   			$.ajax({
+   			/* $.ajax({
    				url: "purchaseproduct",
    				method: "POST",
    				data: {"no":no},
@@ -89,11 +138,11 @@ function buyBtn(no){
 				error:function(request,status,error){
 			        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 			       }
-   			});
+   			});*/
    		 },
    		 error:function(){
    		    alert("실패");
-   		 }
+   		 } 
    	});
 
 	
