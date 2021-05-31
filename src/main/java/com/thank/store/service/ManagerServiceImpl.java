@@ -224,5 +224,15 @@ public class ManagerServiceImpl implements ManagerService {
 		return managerDAO.profitPerCategory(profitDTO);
 	}
 
+	@Override
+	public String managerIdCheck(String id) throws SQLException {
+		return managerDAO.managerIdCheck(id);
+	}
+
+	@Override
+	public String managerStoreCodeCheck(String storecode) throws SQLException {
+		return managerDAO.managerStoreCodeCheck(storecode);
+	}
+
 }
 

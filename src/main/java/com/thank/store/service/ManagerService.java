@@ -45,4 +45,8 @@ public interface ManagerService {
 	List<ProfitDTO> profitPerMonth(ProfitDTO profitDTO) throws Exception;
 
 	List<ProfitDTO> profitPerCategory(ProfitDTO profitDTO) throws Exception;
+
+	String managerIdCheck(String id) throws Exception;
+
+	String managerStoreCodeCheck(String storecode) throws Exception;
 }
