@@ -27,7 +27,8 @@
 	href="${app}/resources/customer/css/categoryaccordion.css" rel="stylesheet">
 <script type="text/javascript" 
 	src="${app}/resources/customer/js/accordion.js"></script>	
-	
+<script type="text/javascript"
+	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 
 <script>
 
