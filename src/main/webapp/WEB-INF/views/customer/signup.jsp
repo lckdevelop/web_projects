@@ -47,22 +47,30 @@
         
                                 <form class="mt-5 mb-5 login-input">
                                     <div class="form-group" style="margin-bottom:20px;">
-                                        <input type="text" class="form-control" id="id" name="id" placeholder="아이디" required>
+                                        <input type="text" class="form-control" id="id" name="id" placeholder="아이디 (4~12 글자 )" required>
                                     </div>
                                     
                                     <div class="check_font" id="id_check">
                                     </div>
                                     
                                     <div class="form-group" style="margin-bottom:20px;">
-                                        <input type="password" class="form-control" name="password" placeholder="비밀번호" required>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호" required>
                                     </div>
+                                    
+                                    <div class="form-group" style="margin-bottom:20px;">
+                                        <input type="password" class="form-control" id="secondpassword" name="password" placeholder="비밀번호 확인" required>
+                                    </div>
+                                    
+                                    <div class="check_font" id="pw_check">
+                                    </div>
+                                    
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="name" placeholder="이름" required>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="accountno" placeholder="계좌번호" required>
                                     </div>
-                                    <button class="btn login-form__btn submit w-100" type="submit">가입 하기</button>
+                                    <button class="btn login-form__btn submit w-100" id="reg_submit" type="submit">가입 하기</button>
                                 </form>
                                     <p class="mt-5 login-form__footer">계정이 있으신가요? <a href="../customer" class="text-primary"> 로그인 </a> 하기</p>
                                     </p>
@@ -119,6 +127,24 @@
 				}
 			});
 		});
+
+		$('#secondpassword').blur(function(){
+		   if($('#password').val() != $('#secondpassword').val()){
+		    	if($('#secondpassword').val()!=''){
+		    		$('#pw_check').text('비밀번호가 일치하지 않습니다.');
+					$('#pw_check').css('color', 'red');
+					$("#reg_submit").attr("disabled", true);
+		       }
+		    }
+		   else{
+			   	$('#pw_check').text('비밀번호가 일치합니다.');
+				$('#pw_check').css('color', 'green');
+				$("#reg_submit").attr("disabled", false);
+		   }
+		   
+		});  	   
+
+
 	</script>
     <script src="${app}/resources/quixlab/themes/quixlab/plugins/common/common.min.js"></script>
     <script src="${app}/resources/quixlab/themes/quixlab/js/custom.min.js"></script>
