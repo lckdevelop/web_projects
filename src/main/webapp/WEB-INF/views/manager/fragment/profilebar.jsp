@@ -37,52 +37,73 @@ $(function() {
 	rel="stylesheet">
 </head>
 <body>
-<header id="header">
-	<div class="d-flex flex-column">
-		<div id="text-space-box">
-	 		<div class="profile">
- 			<c:choose>
- 				<c:when test='${dto.brand eq "GS25"}'>
-			    	<img src="${app}/resources/manager/img/gs_logo.png" alt="Brand" class="img-fluid rounded-circle">
-			    </c:when>
-			    <c:when test='${dto.brand eq "CU"}'>
-			    	<img src="${app}/resources/manager/img/cu_logo.png" alt="Brand" class="img-fluid rounded-circle">
-			    </c:when>
-			    <c:when test='${dto.brand eq "세븐일레븐"}'>
-			    	<img src="${app}/resources/manager/img/seven_logo.png" alt="Brand" class="img-fluid rounded-circle">
-			    </c:when>
-			    <c:when test='${dto.brand eq "미니스톱"}'>
-			    	<img src="${app}/resources/manager/img/mini_logo.png" alt="Brand" class="img-fluid rounded-circle">
-			    </c:when>
-			    <c:when test='${dto.brand eq "emart24"}'>
-			    	<img src="${app}/resources/manager/img/e24_logo.jpg" alt="Brand" class="img-fluid rounded-circle">
-			    </c:when>
-				<c:otherwise>
-					<img src="${app}/resources/manager/img/부산요거트.jpg" alt="Brand" class="img-fluid rounded-circle">
-				</c:otherwise>
-			</c:choose>
-				<h3>${dto.brand}</h3>
-				<h3 class="text-light">${dto.name}점장님 안녕하세요.</h3>
-				<h3 class="text-light">${dto.brand}&nbsp;${dto.spot}</h3>
-				<h3 class="text-light">${dto.storecode}</h3>
-				<h3 class="text-light">
-					<a href="${app}/manager/profit">수익금:${dto.profit}</a>
-				</h3>
+
+
+	<div class="card-body">
+		<div class="media align-items-center mb-4">
+			<div class="media-body">
+				<p class="text-muted mb-0">Manager</p>
+			</div>
+		</div>
+
+		<div class="row mb-5">
+			<div class="col">
+				<div class="card card-profile text-center">
+					<span class="mb-1 text-warning">
+						<c:choose>
+			 				<c:when test='${dto.brand eq "GS25"}'>
+						    	<img src="${app}/resources/manager/img/gs_logo.png" alt="Brand" class="img-fluid rounded-circle">
+						    </c:when>
+						    <c:when test='${dto.brand eq "CU"}'>
+						    	<img src="${app}/resources/manager/img/cu_logo.png" alt="Brand" class="img-fluid rounded-circle">
+						    </c:when>
+						    <c:when test='${dto.brand eq "세븐일레븐"}'>
+						    	<img src="${app}/resources/manager/img/seven_logo.png" alt="Brand" class="img-fluid rounded-circle">
+						    </c:when>
+						    <c:when test='${dto.brand eq "미니스톱"}'>
+						    	<img src="${app}/resources/manager/img/mini_logo.png" alt="Brand" class="img-fluid rounded-circle">
+						    </c:when>
+						    <c:when test='${dto.brand eq "emart24"}'>
+						    	<img src="${app}/resources/manager/img/e24_logo.jpg" alt="Brand" class="img-fluid rounded-circle">
+						    </c:when>
+							<c:otherwise>
+								<img src="${app}/resources/manager/img/부산요거트.jpg" alt="Brand" class="img-fluid rounded-circle">
+							</c:otherwise>
+						</c:choose>
+					</span>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="media-body" >
+			<p class="text-muted mb-0">${dto.name}점장님 안녕하세요.</p>
+			<p class="text-muted mb-0">${dto.brand}&nbsp;${dto.spot}</p>
+			<p class="text-muted mb-0">편의점 코드 : ${dto.storecode}</p>
+			<p class="text-muted mb-0"><a href="${app}/manager/profit">수익금 : ${dto.profit} 원</a></p>
+		</div>
+
+		<div class="row mb-5">
+			<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
+				<a href="${app}/manager/home" id="allList" class="btn mb-1 btn-warning btn-block">나의 점포 전 상품</a>
+			</div>
+
+			<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
+				<a href="${app}/manager/enrolled" class="btn mb-1 btn-warning btn-block">등록된 임박 상품</a>
+			</div>
+
+			<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
+				<a href="${app}/manager/enroll" class="btn mb-1 btn-warning btn-block">임박상품 등록</a>
+			</div>
+
+			<div class="footer"
+				style="width: 300px; height: 200px; padding-left: 0px; text-align: center;">
+				<p>
+					<a href="logout">로그아웃</a>
+				</p>
 			</div>
 		</div>
 	</div>
-</header>
-		
-<div id="box-center-list">
-	<ul id="list-link">
-		<li class="list-link-to"><a href="${app}/manager/home" id="allList">마이점포 전상품
-			</a></li>
-		<li class="list-link-to"><a href="${app}/manager/enrolled" id="" >등록된 임박 상품
-			</a></li>
-		<li class="list-link-to"><a href="${app}/manager/enroll" id="" >임박상품 등록 
-			</a></li>
-	</ul>
-	<input type="button" value="로그아웃" class="man_logout"   />
-</div>
+
 </body>
 </html>
