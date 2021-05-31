@@ -15,7 +15,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
     <!-- Custom Stylesheet -->
     <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
-
+	<script type="text/javascript"
+	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
