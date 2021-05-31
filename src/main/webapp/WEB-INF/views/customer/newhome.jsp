@@ -112,7 +112,7 @@
             Content body start
         ***********************************-->		
         <div class="content-body" style=" margin-left: 486px; ">            
-            map자리
+            map자리입니다.
         </div>
         <!--**********************************
             Content body end
