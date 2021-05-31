@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <c:set var="app" value="${pageContext.request.contextPath}" />
 <c:set var="dto" value="${customerDTO}" />
+<c:set var="purchaseList" value="${purchaseList}" />
+<c:set var="searchDTO" value="${searchDTO}" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>ThankStore Home</title>
+    <title>ThankStore 고객 구매목록</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -39,7 +41,7 @@
     <!--**********************************
         Main wrapper start
     ***********************************-->
-    <div id="main-wrapper" style="height:960px; min-height:960px">
+   <div id="main-wrapper">
 
         <!--**********************************
             Nav header start
@@ -112,16 +114,62 @@
         <!--**********************************
             Content body start
         ***********************************-->		
-        <div class="content-body" style=" margin-left: 543px; height:550px; width:300px; float:right;">            
-            <!-- row -->
-
-            <div class="container-fluid">
-                <div class="row">
-                    
-                   
-                </div>
-            </div>
-            <!-- #/ container -->
+       <div class="content-body" style=" margin-left: 486px; ">            
+            <div id="product-search-box">
+   			<div class="row">
+	   			<div class="col-md-11">
+	    			<h3>${dto.name} 회원님의 구매목록</h3>
+	       		</div>
+	   		</div>
+	   	</div>
+	   	<hr style="border: solid 3px #1b4af5;">
+	   	<form>
+	   		<c:forEach var="purchaseDTO" items="${purchaseList}" varStatus="status">
+	   			<div id="list-box" >
+	   				<div class="row">
+	   					<div class='col-sm-12' style="text-align:center;">
+	  								<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' />
+	   					<h6 >상품명 : ${purchaseDTO.name}<br/></h6>
+	   					<div style="height:150px; text-align:center;">
+	   						<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
+	   					</div>
+	   					</div>
+	   				</div>
+	   			</div>
+	   		</c:forEach>
+	   		<input class="btn btn-primary" type="button" value="기간만료 상품보기" onclick="location.href='endpurchaselist'"/>
+	   	</form>
+		
+		<form>
+    	<div class="row" style="text-align:center;">
+    		<!-- <div class='col-md-5'></div> -->
+   			<div class='col' style="margin-top:5px;">
+				<c:if test="${searchDTO.pagingDTO.startPage == 1}">
+				<a class="btn btn-default">Previous</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.startPage != 1}">
+				<a href="/store/customer/purchaselist?pg=${searchDTO.pagingDTO.startPage-1}" class="btn btn-default">Previous</a>
+				</c:if>
+				
+				<c:forEach var="i" begin="${searchDTO.pagingDTO.startPage}" end="${searchDTO.pagingDTO.endPage}">
+				<c:if test="${searchDTO.pagingDTO.pg == i}">
+				<a href="#" class="btn btn-warning">${i}</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.pg != i}">
+				<a href="/store/customer/purchaselist?pg=${i}" class="btn btn-warning">${i}</a>
+				</c:if>
+				</c:forEach>
+				
+				
+				<c:if test="${searchDTO.pagingDTO.endPage == searchDTO.pagingDTO.totalPage}">
+				<a class="btn btn-default">Next</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.endPage != searchDTO.pagingDTO.totalPage}">
+				<a href="/store/customer/purchaselist?pg=${searchDTO.pagingDTO.endPage+1}" class="btn btn-default">Next</a>
+				</c:if>
+			</div>
+		</div>
+		</form>
         </div>
         <!--**********************************
             Content body end

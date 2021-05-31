@@ -43,7 +43,7 @@
 	   	</div>
     	<hr style="border: solid 3px #1b4af5;">
     	
- <div class="container-fluid">
+	 <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
