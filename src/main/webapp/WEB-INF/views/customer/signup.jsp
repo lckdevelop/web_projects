@@ -58,7 +58,7 @@
                                     </div>
                                     
                                     <div class="form-group" style="margin-bottom:20px;">
-                                        <input type="password" class="form-control" id="secondpassword" name="password" placeholder="비밀번호 확인" required>
+                                        <input type="password" class="form-control" id="secondpassword" name="secondpassword" placeholder="비밀번호 확인" required>
                                     </div>
                                     
                                     <div class="check_font" id="pw_check">
