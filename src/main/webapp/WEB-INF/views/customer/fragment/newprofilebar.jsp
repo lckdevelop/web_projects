@@ -70,13 +70,13 @@
 				<div class="media-body">
                              <a href="transactionhistory">
                              <p class="text-muted mb-0">보유한 폐기머니</p>
-                             <p class="text-muted mb-0">${dto.point} 원</p>
+                             <p class="text-muted mb-0" id="point">${dto.point} 원</p>
                              </a>
 				</div>
                     
 				<div class="row mb-5">
                          <div class="col-12 text-center" style="margin: 10px 0 10px 0;">
-                             <button class="btn mb-1 btn-warning btn-block">지도보기</button>
+                             <button class="btn mb-1 btn-warning btn-block" onclick="location.href='/store/customer/home'">지도보기</button>
                          </div>
                          
                          <div class="col-12 text-center" style="margin: 10px 0 10px 0;">

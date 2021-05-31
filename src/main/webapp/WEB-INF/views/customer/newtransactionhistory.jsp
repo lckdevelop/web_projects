@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>ThankStore Home</title>
+    <title>ThankStore 거래내역</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -39,7 +39,7 @@
     <!--**********************************
         Main wrapper start
     ***********************************-->
-    <div id="main-wrapper" style="height:960px; min-height:960px">
+    <div id="main-wrapper">
 
         <!--**********************************
             Nav header start
@@ -62,7 +62,7 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">    
+         <div class="header">    
             <div class="header-content clearfix">
                 
                 <div class="nav-control">
@@ -75,8 +75,6 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
                         </div>
-                        <input type="search" class="form-control" placeholder="검색" aria-label="Search Dashboard">
-                        <input type="button" class="form-control" value="검색" aria-label="Search Dashboard">
                         <!-- 화면에 어디에 뜨는지 이해불가 -->
                         <div class="drop-down   d-md-none">
 							<form action="#">
@@ -86,155 +84,7 @@
                         <!-- 이해불가 -->
                     </div>
                 </div>
-                <div class="header-right">
-                    <ul class="clearfix">
-                        <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
-                                <i class="mdi mdi-email-outline"></i>
-                                <span class="badge gradient-1 badge-pill badge-primary">3</span>
-                            </a>
-                            <div class="drop-down animated fadeIn dropdown-menu">
-                                <div class="dropdown-content-heading d-flex justify-content-between">
-                                    <span class="">3 New Messages</span>  
-                                    
-                                </div>
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li class="notification-unread">
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="${app}/resources/quixlab/themes/quixlab/images/avatar/1.jpg" alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Saiful Islam</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="notification-unread">
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="${app}/resources/quixlab/themes/quixlab/images/avatar/2.jpg" alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Adam Smith</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Can you do me a favour?</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="${app}/resources/quixlab/themes/quixlab/images/avatar/3.jpg" alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Barak Obama</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="${app}/resources/quixlab/themes/quixlab/images/avatar/4.jpg" alt="">
-                                                <div class="notification-content">
-                                                    <div class="notification-heading">Hilari Clinton</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Hello</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </li>
-                        <li class="icons dropdown"><a href="javascript:void(0)" data-toggle="dropdown">
-                                <i class="mdi mdi-bell-outline"></i>
-                                <span class="badge badge-pill gradient-2 badge-primary">3</span>
-                            </a>
-                            <div class="drop-down animated fadeIn dropdown-menu dropdown-notfication">
-                                <div class="dropdown-content-heading d-flex justify-content-between">
-                                    <span class="">2 New Notifications</span>  
-                                    
-                                </div>
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Events near you</h6>
-                                                    <span class="notification-text">Within next 5 days</span> 
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-danger-lighten-2"><i class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Event Started</h6>
-                                                    <span class="notification-text">One hour ago</span> 
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Event Ended Successfully</h6>
-                                                    <span class="notification-text">One hour ago</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-danger-lighten-2"><i class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Events to Join</h6>
-                                                    <span class="notification-text">After two days</span> 
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </li>
-                        <li class="icons dropdown d-none d-md-flex">
-                            <a href="javascript:void(0)" class="log-user"  data-toggle="dropdown">
-                                <span>English</span>  <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
-                            </a>
-                            <div class="drop-down dropdown-language animated fadeIn  dropdown-menu">
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li><a href="javascript:void()">English</a></li>
-                                        <li><a href="javascript:void()">Dutch</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="icons dropdown">
-                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
-                                <span class="activity active"></span>
-                                <img src="${app}/resources/quixlab/themes/quixlab/images/user/1.png" height="40" width="40" alt="">
-                            </div>
-                            <div class="drop-down dropdown-profile   dropdown-menu">
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li>
-                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="email-inbox.html"><i class="icon-envelope-open"></i> <span>Inbox</span> <div class="badge gradient-3 badge-pill badge-primary">3</div></a>
-                                        </li>
-                                        
-                                        <hr class="my-2">
-                                        <li>
-                                            <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
-                                        </li>
-                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                
             </div>
         </div>
         <!--**********************************
@@ -262,16 +112,165 @@
         <!--**********************************
             Content body start
         ***********************************-->		
-        <div class="content-body" style=" margin-left: 543px; height:550px; width:300px; float:right;">            
-            <!-- row -->
-
-            <div class="container-fluid">
+       <div class="content-body" style=" margin-left: 486px; ">            
+           <div id="product-search-box">
+   			<div class="row">
+	   			<div class="col-md-11">
+	    			<h3>거래내역 조회</h3>
+	       		</div>
+	   		</div>
+	   	</div>
+    	<hr style="border: solid 3px #1b4af5;">
+    	
+	 <div class="container-fluid">
                 <div class="row">
-                    
-                   
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">${dto.name} 회원님의 거래내역 조회</h4>
+                                <div class="table-responsive">
+                                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                                    	
+                                    	<div class="row">
+                                    	<div class="col-sm-12">
+                                    	<table class="table table-striped table-bordered zero-configuration dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                        	<thead>
+	                                            <tr role="row">
+	                                            	<th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 168.2px;">
+	                                            		거래번호
+	                                            	</th>
+	                                            	<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 270.6px;">
+	                                            		거래명
+	                                            	</th>
+	                                            	<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 123.4px;">
+	                                            		일시
+	                                            	</th>
+	                                            	<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 57px;">
+	                                            		충전금액
+	                                            	</th>
+	                                            	<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 113px;">
+	                                            		결제비용
+	                                            	</th>
+	                                            	<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 95.6px;">
+	                                            		비고
+	                                            	</th>
+	                                            </tr>
+                                        	</thead>
+                                        	<tbody>
+		                                        <tr role="row" class="odd">
+		                                                <td class="sorting_1">Airi Satou</td>
+		                                                <td>Accountant</td>
+		                                                <td>Tokyo</td>
+		                                                <td>33</td>
+		                                                <td>2008/11/28</td>
+		                                                <td>$162,700</td>
+		                                            </tr><tr role="row" class="even">
+		                                                <td class="sorting_1">Angelica Ramos</td>
+		                                                <td>Chief Executive Officer (CEO)</td>
+		                                                <td>London</td>
+		                                                <td>47</td>
+		                                                <td>2009/10/09</td>
+		                                                <td>$1,200,000</td>
+		                                            </tr><tr role="row" class="odd">
+		                                                <td class="sorting_1">Ashton Cox</td>
+		                                                <td>Junior Technical Author</td>
+		                                                <td>San Francisco</td>
+		                                                <td>66</td>
+		                                                <td>2009/01/12</td>
+		                                                <td>$86,000</td>
+		                                            </tr><tr role="row" class="even">
+		                                                <td class="sorting_1">Bradley Greer</td>
+		                                                <td>Software Engineer</td>
+		                                                <td>London</td>
+		                                                <td>41</td>
+		                                                <td>2012/10/13</td>
+		                                                <td>$132,000</td>
+		                                            </tr><tr role="row" class="odd">
+		                                                <td class="sorting_1">Brenden Wagner</td>
+		                                                <td>Software Engineer</td>
+		                                                <td>San Francisco</td>
+		                                                <td>28</td>
+		                                                <td>2011/06/07</td>
+		                                                <td>$206,850</td>
+		                                            </tr><tr role="row" class="even">
+		                                                <td class="sorting_1">Brielle Williamson</td>
+		                                                <td>Integration Specialist</td>
+		                                                <td>New York</td>
+		                                                <td>61</td>
+		                                                <td>2012/12/02</td>
+		                                                <td>$372,000</td>
+		                                            </tr><tr role="row" class="odd">
+		                                                <td class="sorting_1">Bruno Nash</td>
+		                                                <td>Software Engineer</td>
+		                                                <td>London</td>
+		                                                <td>38</td>
+		                                                <td>2011/05/03</td>
+		                                                <td>$163,500</td>
+		                                            </tr><tr role="row" class="even">
+		                                                <td class="sorting_1">Caesar Vance</td>
+		                                                <td>Pre-Sales Support</td>
+		                                                <td>New York</td>
+		                                                <td>21</td>
+		                                                <td>2011/12/12</td>
+		                                                <td>$106,450</td>
+		                                            </tr><tr role="row" class="odd">
+		                                                <td class="sorting_1">Cara Stevens</td>
+		                                                <td>Sales Assistant</td>
+		                                                <td>New York</td>
+		                                                <td>46</td>
+		                                                <td>2011/12/06</td>
+		                                                <td>$145,600</td>
+		                                            </tr><tr role="row" class="even">
+		                                                <td class="sorting_1">Cedric Kelly</td>
+		                                                <td>Senior Javascript Developer</td>
+		                                                <td>Edinburgh</td>
+		                                                <td>22</td>
+		                                                <td>2012/03/29</td>
+		                                                <td>$433,060</td>
+		                                            </tr>
+		                                        </tbody>
+                                  		  </table>
+                                    	</div>
+                                    </div>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- #/ container -->
+    	
+		<form>
+    	<div class="row" style="text-align:center;">
+    		<!-- <div class='col-md-5'></div> -->
+   			<div class='col' style="margin-top:5px;">
+				<c:if test="${searchDTO.pagingDTO.startPage == 1}">
+				<a class="btn btn-default">Previous</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.startPage != 1}">
+				<a href="/store/customer/transactionhistory?pg=${searchDTO.pagingDTO.startPage-1}" class="btn btn-default">Previous</a>
+				</c:if>
+				
+				<c:forEach var="i" begin="${searchDTO.pagingDTO.startPage}" end="${searchDTO.pagingDTO.endPage}">
+				<c:if test="${searchDTO.pagingDTO.pg == i}">
+				<a href="#" class="btn btn-warning">${i}</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.pg != i}">
+				<a href="/store/customer/transactionhistory?pg=${i}" class="btn btn-warning">${i}</a>
+				</c:if>
+				</c:forEach>
+				
+				
+				<c:if test="${searchDTO.pagingDTO.endPage == searchDTO.pagingDTO.totalPage}">
+				<a class="btn btn-default">Next</a>
+				</c:if>
+				<c:if test="${searchDTO.pagingDTO.endPage != searchDTO.pagingDTO.totalPage}">
+				<a href="/store/customer/transactionhistory?pg=${searchDTO.pagingDTO.endPage+1}" class="btn btn-default">Next</a>
+				</c:if>
+			</div>
+		</div>
+		</form>
         </div>
         <!--**********************************
             Content body end

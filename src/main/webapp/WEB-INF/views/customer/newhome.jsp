@@ -39,7 +39,7 @@
     <!--**********************************
         Main wrapper start
     ***********************************-->
-    <div id="main-wrapper" style="height:960px; min-height:960px">
+     <div id="main-wrapper">
 
         <!--**********************************
             Nav header start
@@ -75,8 +75,6 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
                         </div>
-                        <input type="search" class="form-control" placeholder="검색" aria-label="Search Dashboard">
-                        <input type="button" class="form-control" value="검색" aria-label="Search Dashboard">
                         <!-- 화면에 어디에 뜨는지 이해불가 -->
                         <div class="drop-down   d-md-none">
 							<form action="#">
@@ -85,7 +83,7 @@
                         </div>
                         <!-- 이해불가 -->
                     </div>
-                </div>	          
+                </div>	                        
             </div>
         </div>
         <!--**********************************
@@ -113,7 +111,7 @@
         <!--**********************************
             Content body start
         ***********************************-->		
-        <div class="content-body" style=" margin-left: 543px; height:550px; width:300px; float:right;">            
+        <div class="content-body" style=" margin-left: 486px; ">            
             <!-- row -->
 
             <div class="container-fluid">

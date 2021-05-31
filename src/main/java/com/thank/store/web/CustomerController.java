@@ -95,7 +95,7 @@ public class CustomerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
-		return "customer/purchaselist";
+		return "customer/newpurchaselist";
 	}
 
 	// 작성자 : 방지훈
@@ -345,7 +345,7 @@ public class CustomerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
-		return "customer/transactionhistory";
+		return "customer/newtransactionhistory";
 	}
 
 	/*
@@ -376,7 +376,7 @@ public class CustomerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
-		return "customer/endpurchaselist";
+		return "customer/newendpurchaselist";
 	}
 
 }
