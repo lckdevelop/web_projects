@@ -112,15 +112,7 @@
             Content body start
         ***********************************-->		
         <div class="content-body" style=" margin-left: 486px; ">            
-            <!-- row -->
-
-            <div class="container-fluid">
-                <div class="row">
-                    
-                   
-                </div>
-            </div>
-            <!-- #/ container -->
+            map자리
         </div>
         <!--**********************************
             Content body end
