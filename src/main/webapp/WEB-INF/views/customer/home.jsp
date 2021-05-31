@@ -34,7 +34,7 @@
 		<jsp:include page="/WEB-INF/views/customer/fragment/profilebar.jsp" flush="true" />
     </div>
     <div id='box-right'>
-    map이랑 합칠 자리
+    	<jsp:include page="/WEB-INF/views/map.jsp" flush="true" />
     </div>
 </div>
 </body>

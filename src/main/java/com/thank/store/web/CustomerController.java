@@ -1,7 +1,6 @@
 package com.thank.store.web;
 
-
-
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +23,10 @@ import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.CvstoreDTO;
 import com.thank.store.dto.MemberDTO;
 import com.thank.store.dto.PagingDTO;
+import com.thank.store.dto.ProductListDTO;
 import com.thank.store.dto.PurchaseListDTO;
 import com.thank.store.service.CustomerService;
+import com.thank.store.service.MapService;
 import com.thank.store.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,36 +39,34 @@ public class CustomerController {
 	private CustomerService customerService;
 	@Autowired
 	private MemberService memberService;
-	
+
 	@GetMapping()
 	public String login(HttpServletRequest request) {
-		HttpSession session=request.getSession();
-		System.out.println("지금 세션 상태는: "+session.getAttribute("memberInfo"));
+		HttpSession session = request.getSession();
+		System.out.println("지금 세션 상태는: " + session.getAttribute("memberInfo"));
 		System.out.println(session.getAttribute("memberInfo"));
-		if(session.getAttribute("memberInfo")!=null) {			
+		if (session.getAttribute("memberInfo") != null) {
 			return "/customer/home";
-		}
-		else {
+		} else {
 			return "/customer/login";
 		}
 	}
-	
+
 	@GetMapping("/signup")
 	public String signup() {
 		return "/customer/signup";
 	}
-	
-	
+
 	/*
-	 * 작성자: 김수빈
-	 * 작성일자: 2021/05/25 14:14
+	 * 작성자: 김수빈 작성일자: 2021/05/25 14:14
 	 */
 	/*
-	 * 수정 : 방지훈
-	 * 21/05/27 01:30
+	 * 수정 : 방지훈 21/05/27 01:30
 	 */
 	@GetMapping("/purchaselist")
-	public String qrcode(@RequestParam(defaultValue="0") long purchasecount ,@RequestParam(defaultValue="1") long pg, @ModelAttribute CusSearchDTO searchDTO,@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
+	public String qrcode(@RequestParam(defaultValue = "0") long purchasecount,
+			@RequestParam(defaultValue = "1") long pg, @ModelAttribute CusSearchDTO searchDTO,
+			@ModelAttribute CustomerDTO customerDTO, Model model, HttpSession session) {
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		customerDTO = new CustomerDTO();
 		List<PurchaseListDTO> purchaseList;
@@ -76,23 +75,23 @@ public class CustomerController {
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
-			purchaseList =customerService.getPurchaseList(searchDTO);
+			purchaseList = customerService.getPurchaseList(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), purchasecount));
 			log.info(searchDTO.toString());
 			model.addAttribute("customerDTO", customerDTO);
-			model.addAttribute("purchasecount",purchasecount);
-			model.addAttribute("purchaseList",purchaseList);
+			model.addAttribute("purchasecount", purchasecount);
+			model.addAttribute("purchaseList", purchaseList);
 			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
 		return "customer/purchaselist";
 	}
-	
-	//작성자 : 방지훈
-	//작성일자: 2021/05/23 20:50
+
+	// 작성자 : 방지훈
+	// 작성일자: 2021/05/23 20:50
 	@GetMapping("/home")
-	public String home(@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
+	public String home(@ModelAttribute CustomerDTO customerDTO, Model model, HttpSession session) {
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		String searchKeyword = "";
 		customerDTO = new CustomerDTO();
@@ -101,20 +100,21 @@ public class CustomerController {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
 			log.info(customerDTO.toString());
-			log.info(""+purchasecount);
+			log.info("" + purchasecount);
 			model.addAttribute("customerDTO", customerDTO);
-			model.addAttribute("purchasecount",purchasecount);
-			model.addAttribute("searchKeyword",searchKeyword);
+			model.addAttribute("purchasecount", purchasecount);
+			model.addAttribute("searchKeyword", searchKeyword);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
-		return "customer/home";
+		return "customer/newhome";
 	}
-	
-	//작성자 : 방지훈
-	//작성일자: 2021/05/25 10:48
+
+	// 작성자 : 방지훈
+	// 작성일자: 2021/05/25 10:48
 	@GetMapping("/searchresult")
-	public String selectMaincategory(@RequestParam(defaultValue="1") long pg, @ModelAttribute CusSearchDTO searchDTO, @ModelAttribute CustomerDTO customerDTO,Model model, HttpSession session) {
+	public String selectMaincategory(@RequestParam(defaultValue = "1") long pg, @ModelAttribute CusSearchDTO searchDTO,
+			@ModelAttribute CustomerDTO customerDTO, Model model, HttpSession session) {
 		log.info(searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		List<String> subCategoryList;
@@ -124,198 +124,185 @@ public class CustomerController {
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
-			List<CvstoreDTO> cvstoreList= customerService.searchCvstoreList(searchDTO);
+			List<CvstoreDTO> cvstoreList = customerService.searchCvstoreList(searchDTO);
 			recordCount = customerService.getTotalRecord(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), recordCount));
 			subCategoryList = customerService.getSubCategory(searchDTO);
-			log.info("검색기능 : "+searchDTO.toString());
-			model.addAttribute("customerDTO", customerDTO);				
-			model.addAttribute("purchasecount",purchasecount);
+			log.info("검색기능 : " + searchDTO.toString());
+			model.addAttribute("customerDTO", customerDTO);
+			model.addAttribute("purchasecount", purchasecount);
 			model.addAttribute("cvstoreList", cvstoreList);
 			model.addAttribute("searchDTO", searchDTO);
-			model.addAttribute("subCategoryList",subCategoryList);
+			model.addAttribute("subCategoryList", subCategoryList);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			log.info("에러");
 		}
 		return "customer/searchresult";
 	}
-	
-	
+
 	/*
-	 * 작성자: 김수빈
-	 * 작성일자: 2021/05/23 23:43
+	 * 작성자: 김수빈 작성일자: 2021/05/23 23:43
 	 */
 	@PostMapping()
-	public String login(@ModelAttribute MemberDTO memberDTO, 
-			Model model,
-			HttpSession session) {
+	public String login(@ModelAttribute MemberDTO memberDTO, Model model, HttpSession session) {
 		log.info(memberDTO.toString());
 
 		try {
 			MemberDTO memberInfo = memberService.getMember(memberDTO);
-			if(memberService.getAccountType(memberDTO)==0) {
+			if (memberService.getAccountType(memberDTO) == 0) {
 				session.setAttribute("memberInfo", memberInfo);
 				return "redirect:/customer/home";
-			}
-			else {
-				model.addAttribute("msg","아이디나 비밀번호가 틀립니다.");
+			} else {
+				model.addAttribute("msg", "아이디나 비밀번호가 틀립니다.");
 				model.addAttribute("url", "./customer");
 				return "customer/customerloginfailure";
 			}
 		} catch (Exception e) {
 			log.info(e.getMessage());
-			model.addAttribute("msg",e.getMessage());
+			model.addAttribute("msg", e.getMessage());
 			model.addAttribute("url", "./customer");
 			return "customer/customerloginfailure";
 		}
 	}
-	
+
 	/*
-	 * 작성자: 김수빈
-	 * 작성일자: 2021/05/23 23:43
+	 * 작성자: 김수빈 작성일자: 2021/05/23 23:43
 	 */
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "logoutpage";
 	}
-	
-	
+
 	/*
-	 * 작성자: 김수빈
-	 * 작성일자: 2021/05/24 09:28
+	 * 작성자: 김수빈 작성일자: 2021/05/24 09:28
 	 */
-	@PostMapping(value="signup")
-	public String signUp(
-			@ModelAttribute MemberDTO memberDTO,
-			Model model) {
+	@PostMapping(value = "signup")
+	public String signUp(@ModelAttribute MemberDTO memberDTO, Model model) {
 		try {
-			if(memberService.checkMemberExist(memberDTO)==0) {
+			if (memberService.checkMemberExist(memberDTO) == 0) {
 				memberService.addCustomer(memberDTO);
 			}
 
 			return "redirect:../customer";
 		} catch (Exception e) {
 			log.info(e.getMessage());
-			model.addAttribute("msg",e.getMessage());
+			model.addAttribute("msg", e.getMessage());
 			model.addAttribute("url", "./");
 			return "result";
 		}
 	}
-	
+
 	/*
-	 * 작성자: 방지훈
-	 * 작성일자: 2021/05/25 12:00
+	 * 작성자: 방지훈 작성일자: 2021/05/25 12:00
 	 */
-	@PostMapping(value="recharge", produces = "application/json;charset=UTF-8")
+	@PostMapping(value = "recharge", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public CustomerDTO recharge(@ModelAttribute CustomerDTO changeCustomerDTO, @RequestParam long point, HttpSession session, Model model) {
-		MemberDTO memberInfo = (MemberDTO)session.getAttribute("memberInfo");
+	public CustomerDTO recharge(@ModelAttribute CustomerDTO changeCustomerDTO, @RequestParam long point,
+			HttpSession session, Model model) {
+		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		long purchasecount;
 		try {
-			changeCustomerDTO =  customerService.getCustomerInfo(memberInfo.getNo());
+			changeCustomerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
 			changeCustomerDTO.setPoint(point);
 			long result = customerService.rechargePoint(changeCustomerDTO);
-			changeCustomerDTO =  customerService.getCustomerInfo(memberInfo.getNo());
-			log.info("포인트충전 결과 : "+result);
-		}catch(Exception e) {
+			changeCustomerDTO = customerService.getCustomerInfo(memberInfo.getNo());
+			log.info("포인트충전 결과 : " + result);
+		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
 		return changeCustomerDTO;
 	}
-	
+
 	/*
-	 * 작성자: 방지훈
-	 * 작성일자: 2021/05/25 20:30
+	 * 작성자: 방지훈 작성일자: 2021/05/25 20:30
 	 */
-	@PostMapping(value="changeCategory", produces = "application/json;charset=UTF-8")
+	@PostMapping(value = "changeCategory", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public List<String> recharge(@ModelAttribute CustomerDTO customerDTO,@ModelAttribute CusSearchDTO changeSearchDTO, HttpSession session, Model model) {
-		MemberDTO memberInfo = (MemberDTO)session.getAttribute("memberInfo");
+	public List<String> recharge(@ModelAttribute CustomerDTO customerDTO, @ModelAttribute CusSearchDTO changeSearchDTO,
+			HttpSession session, Model model) {
+		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		long purchasecount;
 		List<String> subCategoryList = null;
-		log.info("카테고리 현황 : "+changeSearchDTO.toString());
+		log.info("카테고리 현황 : " + changeSearchDTO.toString());
 		try {
-			customerDTO =  customerService.getCustomerInfo(memberInfo.getNo());
+			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
 			subCategoryList = customerService.getSubCategory(changeSearchDTO);
-			
-			model.addAttribute("searchDTO",changeSearchDTO);
-			model.addAttribute("subCategoryList",subCategoryList);
-		}catch(Exception e) {
+
+			model.addAttribute("searchDTO", changeSearchDTO);
+			model.addAttribute("subCategoryList", subCategoryList);
+		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
 		return subCategoryList;
 	}
-	
+
 	/*
-	 * 작성자: 방지훈
-	 * 작성일자: 2021/05/25 20:30
+	 * 작성자: 방지훈 작성일자: 2021/05/25 20:30
 	 */
-	@PostMapping(value="onecvsproduct", produces = "application/json;charset=UTF-8")
+	@PostMapping(value = "onecvsproduct", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public CvsProductDTO getOneCvsProduct(@RequestParam long no,Model model, HttpSession session) {
-		
+	public CvsProductDTO getOneCvsProduct(@RequestParam long no, Model model, HttpSession session) {
+
 		CvsProductDTO cvsProductDTO = new CvsProductDTO();
-		
+
 		try {
 			cvsProductDTO = customerService.getOneCvsProduct(no);
-			log.info("상품정보 : "+cvsProductDTO.toString());
-			
+			log.info("상품정보 : " + cvsProductDTO.toString());
+
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			log.info("에러");
 		}
 		return cvsProductDTO;
 	}
-	
+
 	/*
-	 * 작성자: 방지훈
-	 * 작성일자: 2021/05/28 01:00
+	 * 작성자: 방지훈 작성일자: 2021/05/28 01:00
 	 */
-	@PostMapping(value="purchaseproduct", produces = "application/json;charset=UTF-8")
+	@PostMapping(value = "purchaseproduct", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public CustomerDTO purchaseProduct(@RequestParam long no,Model model, HttpSession session) {
-		
+	public CustomerDTO purchaseProduct(@RequestParam long no, Model model, HttpSession session) {
+
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		CustomerDTO customerDTO = new CustomerDTO();
 		CvsProductDTO cvsProductDTO = new CvsProductDTO();
-		
+
 		try {
 			cvsProductDTO = customerService.getOneCvsProduct(no);
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
-			log.info("구매자 정보 : "+customerDTO.toString());
-			if(cvsProductDTO.getDiscountPrice()>customerDTO.getPoint()) {
+			log.info("구매자 정보 : " + customerDTO.toString());
+			if (cvsProductDTO.getDiscountPrice() > customerDTO.getPoint()) {
 				throw new RuntimeException("잔액부족");
 			}
-			if(cvsProductDTO.getEnrollment()==0) {
+			if (cvsProductDTO.getEnrollment() == 0) {
 				throw new RuntimeException("등록 취소된 상품");
 			}
-			log.info("상품 정보 : "+cvsProductDTO.toString());
+			log.info("상품 정보 : " + cvsProductDTO.toString());
 			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
-			customerService.updateCustomerPoint(customerDTO); //잔액차감
+			customerService.updateCustomerPoint(customerDTO); // 잔액차감
 			customerDTO.setCvsproductno(cvsProductDTO.getNo());
-			customerService.addPurchaseProduct(customerDTO);//구매목록에 등록
-			customerService.updatePurchaseProduct(cvsProductDTO);//상품 상태 변경 enrollment = 2
-			customerService.updateCvstorePoint(cvsProductDTO);//판매자 수익금 추가
-			
-			
+			customerService.addPurchaseProduct(customerDTO);// 구매목록에 등록
+			customerService.updatePurchaseProduct(cvsProductDTO);// 상품 상태 변경 enrollment = 2
+			customerService.updateCvstorePoint(cvsProductDTO);// 판매자 수익금 추가
+
 		} catch (Exception e) {
 			log.info(e.getMessage());
 			return null;
 		}
 		return customerDTO;
 	}
-	
 
 	/*
-	 * 작성자 : 방지훈
-	 * 작성일자 : 21/05/28 17:30
+	 * 작성자 : 방지훈 작성일자 : 21/05/28 17:30
 	 */
 	@GetMapping("/transactionhistory")
-	public String getTransactionHistory(@RequestParam(defaultValue="0") long purchasecount ,@RequestParam(defaultValue="1") long pg, @ModelAttribute CusSearchDTO searchDTO,@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
+	public String getTransactionHistory(@RequestParam(defaultValue = "0") long purchasecount,
+			@RequestParam(defaultValue = "1") long pg, @ModelAttribute CusSearchDTO searchDTO,
+			@ModelAttribute CustomerDTO customerDTO, Model model, HttpSession session) {
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		customerDTO = new CustomerDTO();
 		List<PurchaseListDTO> purchaseList;
@@ -326,27 +313,27 @@ public class CustomerController {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
 			totalpurchasecount = customerService.getTotalPurchaseCount(memberInfo.getNo());
-			purchaseList =customerService.getTotalPurchaseList(searchDTO);
+			purchaseList = customerService.getTotalPurchaseList(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), totalpurchasecount));
 			log.info(searchDTO.toString());
 			model.addAttribute("customerDTO", customerDTO);
-			model.addAttribute("purchasecount",purchasecount);
-			model.addAttribute("totalpurchasecount",totalpurchasecount);
-			model.addAttribute("purchaseList",purchaseList);
+			model.addAttribute("purchasecount", purchasecount);
+			model.addAttribute("totalpurchasecount", totalpurchasecount);
+			model.addAttribute("purchaseList", purchaseList);
 			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
 		return "customer/transactionhistory";
 	}
-	
 
 	/*
-	 * 작성자 : 방지훈
-	 * 작성일자 : 21/05/30 15:30
+	 * 작성자 : 방지훈 작성일자 : 21/05/30 15:30
 	 */
 	@GetMapping("/endpurchaselist")
-	public String getEndPurchaseList(@RequestParam(defaultValue="0") long purchasecount ,@RequestParam(defaultValue="1") long pg, @ModelAttribute CusSearchDTO searchDTO,@ModelAttribute CustomerDTO customerDTO ,Model model, HttpSession session) {
+	public String getEndPurchaseList(@RequestParam(defaultValue = "0") long purchasecount,
+			@RequestParam(defaultValue = "1") long pg, @ModelAttribute CusSearchDTO searchDTO,
+			@ModelAttribute CustomerDTO customerDTO, Model model, HttpSession session) {
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		customerDTO = new CustomerDTO();
 		List<PurchaseListDTO> purchaseList;
@@ -357,17 +344,19 @@ public class CustomerController {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
 			endpurchasecount = customerService.getEndPurchaseCount(memberInfo.getNo());
-			purchaseList =customerService.getEndPurchaseList(searchDTO);
+			purchaseList = customerService.getEndPurchaseList(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), endpurchasecount));
 			log.info(searchDTO.toString());
 			model.addAttribute("customerDTO", customerDTO);
-			model.addAttribute("purchasecount",purchasecount);
-			model.addAttribute("endpurchasecount",endpurchasecount);
-			model.addAttribute("purchaseList",purchaseList);
+			model.addAttribute("purchasecount", purchasecount);
+			model.addAttribute("endpurchasecount", endpurchasecount);
+			model.addAttribute("purchaseList", purchaseList);
 			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
 		return "customer/endpurchaselist";
 	}
+
+	
 }
