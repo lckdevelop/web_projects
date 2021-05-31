@@ -75,7 +75,8 @@
 				</div>
 				
 				<div style="margin-top:10px;">
-					<input class="btn btn-secondary" type="button" value="로그아웃" onclick="location.href='/store/customer/logout'"/>
+					<p><a href="/store/customer/logout">로그아웃112</a></p>
+					<!-- <input class="btn btn-secondary" type="button" value="로그아웃" onclick="location.href='/store/customer/logout'"/> -->
 				</div>
 			</div>
 		</div>
