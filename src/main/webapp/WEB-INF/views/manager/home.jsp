@@ -16,10 +16,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
 <!-- Custom Stylesheet -->
 <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
-<link
-href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;500;700;900&display=swap" rel="stylesheet">
 
 <link 
@@ -27,37 +24,60 @@ rel="stylesheet">
 <link
 	href="${app}/resources/manager/css/bootstrap.min.css"
 	rel="stylesheet">
+<!-- alert창  -->
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- jquery 경로 -->
 <script type="text/javascript"
 	src="${app}/resources/manager/js/jquery-3.6.0.min.js"></script>
 	
 <script type="text/javascript">
 function btn_enroll(productNo, productName, discountPrice, countTime){
-	if(confirm(productName 
-			+ ' 상품\n' 
-			+ '\n할인가 : '
-			+ discountPrice
-			+ '원\n남은시간 : '
-			+ countTime
-			+ '시간\n\n등록하시겠습니까?'))
-		location.href="enrollAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=home";
-	else
-		return false;
-
+	Swal.fire({
+		  title: "할인가 : " + discountPrice + "원 <br/>남은 시간 : " + countTime + "시간",
+		  text: productName + "를 현재가로 등록하시겠습니까?",
+		  imageUrl: '${app}/resources/product/images/'+productName+'.jpg',
+		  imageWidth: 200,
+		  imageHeight: 200,
+		  showCancelButton: true,
+		  confirmButtonColor: 'rgba(79, 126, 255, 0.7)',
+		  cancelButtonColor: 'rgba(237, 123, 123)',
+		  confirmButtonText: '상품등록',
+		  cancelButtonText: '돌아가기',
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire(
+		      '등록 완료!',
+		       productName,
+		      'success'
+		    )
+		    location.href="enrollAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=home";
+		  }
+		})
 }
 
 function btn_cancel(productNo, productName, discountPrice, countTime){
-	if(confirm(productName 
-			+ ' 상품\n' 
-			+ '\n할인가 : '
-			+ discountPrice
-			+ '원\n남은시간 : '
-			+ countTime
-			+ '시간\n\n등록취소 하시겠습니까?'))
-		location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=home";
-	else
-		return false;
-
+	Swal.fire({
+		  title: "할인가 : " + discountPrice + "원 <br/>남은 시간 : " + countTime + "시간",
+		  text: productName + "를 등록 취소하시겠습니까?",
+		  imageUrl: '${app}/resources/product/images/'+productName+'.jpg',
+		  imageWidth: 200,
+		  imageHeight: 200,
+		  showCancelButton: true,
+		  confirmButtonColor: 'rgba(237, 123, 123)',
+		  cancelButtonColor: 'rgba(79, 126, 255, 0.7)',
+		  confirmButtonText: '등록취소',
+		  cancelButtonText: '돌아가기',
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire(
+		      '취소 완료!',
+		       productName,
+		      'error'
+		    )
+		    location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=home";
+		  }
+		})
 }
 </script>
 </head>
@@ -134,14 +154,12 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
         <div class="content-body" style="margin-left: 543px;">            
             <!-- row -->
             <div class="container-fluid">
-            
-            
 	            <!-- 검색 창 -->
 		        <form>
 		 		<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<h3>마이 점포 전상품 리스트</h3>
+			    			<h3>나의 점포 전상품</h3>
 			       		</div>
 			       		<div class="col-md-3">
 			    			<div class="input-group icons">
@@ -180,7 +198,7 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 				    			<div class='col-sm-4'>
 				  					<img src='${app}/resources/product/images/${product.name}.jpg' />
 				  				</div>
-				  				<div class='col-sm-6'>
+				  				<div class='col-sm-6' style="font-family: 'Gothic A1', sans-serif;">
 					    				<label class="name1">상품명 : ${product.name}<br/></label>
 					    				<h6>상품코드 : ${product.productcode}<br/></h6>
 					    				<c:choose>
