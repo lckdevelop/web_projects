@@ -447,9 +447,30 @@ public class ManagerController {
 	@RequestMapping(value = "/idCheck", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String idCheck(@RequestParam("id") String id) {
+		String result="";
 		System.out.println("idCheck까지 됐음");
-		System.out.println(managerService.managerIdCheck(id));
-
-		return managerService.managerIdCheck(id); 
+		try {
+			result=managerService.managerIdCheck(id); 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	@RequestMapping(value = "/cvstoreCheck", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String storecodeCheck(@RequestParam("storecode") String storecode){
+		String result="";
+		System.out.println("받아온 storecode 값"+storecode);
+		System.out.println("storecodeCheck까지 됐음");
+		
+		try {
+			result=managerService.managerStoreCodeCheck(storecode);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("편의점코드 존재 확인 결과: "+result);
+		return result;
 	}
 }

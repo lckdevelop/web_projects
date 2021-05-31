@@ -70,7 +70,10 @@
                                         <input type="text" class="form-control" name="accountno" placeholder="계좌번호" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" name="storecode" placeholder="편의점 코드" required>
+                                        <input type="text" class="form-control" id="storecode" name="storecode" placeholder="편의점 코드" required>
+                                    </div>
+                                    
+                                    <div class="check_font" id="storecode_check">
                                     </div>
                                     <button class="btn login-form__btn submit w-100" id="reg_submit" type="submit">가입 하기</button>
                                 </form>
@@ -145,7 +148,27 @@
 		   }
 		   
 		});  	   
-
+		
+		$("#storecode").blur(function() {
+			// id = "id_reg" / name = "userId"
+			var storecode = $('#storecode').val();
+			$.ajax({
+				url : "${pageContext.request.contextPath}/manager/cvstoreCheck?storecode="+ storecode,
+				type : 'get',
+				success : function(data) {
+					console.log("1 = 존재 / 0 = 존재x : "+ data);							
+					console.log("스토어코드: "+storecode);
+					if (data == 0) {
+							// 1 : 아이디가 중복되는 문구
+							$("#storecode_check").text("존재하지 않는 편의점 코드입니다.");
+							$("#storecode_check").css("color", "red");
+							$("#reg_submit").attr("disabled", true);
+						}
+					}, error : function() {
+							console.log("실패");
+					}
+				});
+			});
 
 	</script>
     <script src="${app}/resources/quixlab/themes/quixlab/plugins/common/common.min.js"></script>
