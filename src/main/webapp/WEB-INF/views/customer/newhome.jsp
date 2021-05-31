@@ -112,7 +112,7 @@
             Content body start
         ***********************************-->		
         <div class="content-body" style=" margin-left: 486px; ">            
-            map자리입니다.
+           <jsp:include page="/WEB-INF/views//map.jsp" flush="true" />
         </div>
         <!--**********************************
             Content body end
