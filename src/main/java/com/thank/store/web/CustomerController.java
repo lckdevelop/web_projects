@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,6 +51,15 @@ public class CustomerController {
 		} else {
 			return "/customer/login";
 		}
+	}
+
+	@RequestMapping(value = "/idCheck", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String idCheck(@RequestParam("id") String id) {
+		System.out.println("idCheck까지 됐음");
+		System.out.println(customerService.customerIdCheck(id));
+
+		return customerService.customerIdCheck(id); 
 	}
 
 	@GetMapping("/signup")
@@ -173,19 +183,19 @@ public class CustomerController {
 	public String logout(HttpSession session) {
 		return "logout";
 	}
-	
+
 	@GetMapping("/logoutconfirm")
 	public String logoutconfirm(HttpSession session) {
 		session.invalidate();
 		System.out.println("/logoutconfirm 으로 왔음");
 		return "redirect:../";
 	}
-	
+
 	@GetMapping("/logoutcancel")
 	public String logoutcancel(HttpSession session) {
 		return "redirect:./";
 	}
-	
+
 	/*
 	 * 작성자: 김수빈 작성일자: 2021/05/24 09:28
 	 */
@@ -369,5 +379,4 @@ public class CustomerController {
 		return "customer/endpurchaselist";
 	}
 
-	
 }

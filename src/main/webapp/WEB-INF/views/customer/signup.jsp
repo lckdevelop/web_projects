@@ -16,6 +16,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
+    <script type="text/javascript"
+	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="h-100">
@@ -44,10 +46,14 @@
                                     <a class="text-center" href="index.html"> <h4>회원 가입</h4></a>
         
                                 <form class="mt-5 mb-5 login-input">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="id" placeholder="아이디" required>
+                                    <div class="form-group" style="margin-bottom:20px;">
+                                        <input type="text" class="form-control" id="id" name="id" placeholder="아이디" required>
                                     </div>
-                                    <div class="form-group">
+                                    
+                                    <div class="check_font" id="id_check">
+                                    </div>
+                                    
+                                    <div class="form-group" style="margin-bottom:20px;">
                                         <input type="password" class="form-control" name="password" placeholder="비밀번호" required>
                                     </div>
                                     <div class="form-group">
@@ -71,6 +77,49 @@
     <!--**********************************
         Scripts
     ***********************************-->
+    <script>
+    	$("#id").blur(function() {
+		// id = "id_reg" / name = "userId"
+		var id = $('#id').val();
+		var idJ = /^[a-z0-9]{4,12}$/;
+		$.ajax({
+			url : "${pageContext.request.contextPath}/customer/idCheck?id="+ id,
+			type : 'get',
+			success : function(data) {
+				console.log("1 = 중복o / 0 = 중복x : "+ data);							
+				
+				if (data == 1) {
+						// 1 : 아이디가 중복되는 문구
+						$("#id_check").text("사용중인 아이디입니다 :p");
+						$("#id_check").css("color", "red");
+						$("#reg_submit").attr("disabled", true);
+					} else {
+						
+						if(idJ.test(id)){
+							// 0 : 아이디 길이 / 문자열 검사
+							$("#id_check").text("");
+							$("#reg_submit").attr("disabled", false);
+				
+						} else if(id == ""){
+							
+							$('#id_check').text('아이디를 입력해주세요 :)');
+							$('#id_check').css('color', 'red');
+							$("#reg_submit").attr("disabled", true);				
+							
+						} else {
+							
+							$('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다 :) :)");
+							$('#id_check').css('color', 'red');
+							$("#reg_submit").attr("disabled", true);
+						}
+						
+					}
+				}, error : function() {
+						console.log("실패");
+				}
+			});
+		});
+	</script>
     <script src="${app}/resources/quixlab/themes/quixlab/plugins/common/common.min.js"></script>
     <script src="${app}/resources/quixlab/themes/quixlab/js/custom.min.js"></script>
     <script src="${app}/resources/quixlab/themes/quixlab/js/settings.js"></script>

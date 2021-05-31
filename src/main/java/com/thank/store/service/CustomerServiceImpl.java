@@ -199,4 +199,9 @@ public class CustomerServiceImpl implements CustomerService{
 	public List<PurchaseListDTO> getTotalPurchaseList(CusSearchDTO searchDTO) throws Exception {
 		return customerDAO.getTotalPurchaseList(searchDTO);
 	}
+
+	@Override
+	public String customerIdCheck(String id) {
+		return customerDAO.customerIdCheck(id);
+	}
 }

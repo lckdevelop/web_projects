@@ -270,4 +270,8 @@
 		update cvstore set profit = profit + #{discountPrice}
 		where no = #{cvstoreno}
 	</update>
+	
+	<select id="customerIdCheck" parameterType="String" resultType="String">
+	select count(*) from member where id=#{id} and accountType=0
+	</select>
 </mapper>

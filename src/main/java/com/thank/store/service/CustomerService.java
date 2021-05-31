@@ -45,4 +45,6 @@ public interface CustomerService {
 
 	List<PurchaseListDTO> getTotalPurchaseList(CusSearchDTO searchDTO) throws Exception;
 
+	String customerIdCheck(String id);
+
 }
