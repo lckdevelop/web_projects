@@ -39,7 +39,7 @@
     <!--**********************************
         Main wrapper start
     ***********************************-->
-    <div id="main-wrapper" style="height:960px; min-height:960px">
+     <div id="main-wrapper">
 
         <!--**********************************
             Nav header start
@@ -112,7 +112,7 @@
         <!--**********************************
             Content body start
         ***********************************-->		
-        <div class="content-body" style=" margin-left: 543px; height:550px; width:300px; float:right;">            
+        <div class="content-body" style=" margin-left: 486px; ">            
             <!-- row -->
 
             <div class="container-fluid">
