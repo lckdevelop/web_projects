@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class MapController {
-//	주석
 	@Autowired
 	private MapService mapService;
 	
