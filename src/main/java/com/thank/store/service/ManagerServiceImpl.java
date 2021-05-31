@@ -225,8 +225,13 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public String managerIdCheck(String id) {
+	public String managerIdCheck(String id) throws SQLException {
 		return managerDAO.managerIdCheck(id);
+	}
+
+	@Override
+	public String managerStoreCodeCheck(String storecode) throws SQLException {
+		return managerDAO.managerStoreCodeCheck(storecode);
 	}
 
 }
