@@ -1,5 +1,6 @@
 package com.thank.store.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.thank.store.dto.CusSearchDTO;
@@ -16,6 +17,9 @@ public interface CustomerService {
 	long getPurchaseCount(long no) throws Exception;
 
 	List<CvstoreDTO> searchCvstoreList(CusSearchDTO searchDTO) throws Exception;
+	
+	//효범 searchCvstorList
+	CvstoreDTO searchCvstoreListMap(HashMap<String, String> storecode) throws Exception;
 
 	long rechargePoint(CustomerDTO customerDTO) throws Exception;
 

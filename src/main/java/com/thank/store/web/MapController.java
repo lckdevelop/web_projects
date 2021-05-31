@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.thank.store.dto.CvstoreDTO;
 import com.thank.store.dto.ProductListDTO;
+import com.thank.store.service.CustomerService;
 import com.thank.store.service.MapService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MapController {
 	@Autowired
 	private MapService mapService;
+	@Autowired
+	private CustomerService customerService ;
 	
 	/*
 	 * @작성자 : 이효범
@@ -108,6 +111,24 @@ public class MapController {
 		
 		return hash;
 	}
+	
+	// 작성자 : 이효범
+	// 작성일자: 2021/05/31 12:32
+			@GetMapping(value = "/productList2" , produces="application/json;charset=UTF-8")
+			@ResponseBody
+			public HashMap<String, CvstoreDTO> productList2 (
+					@RequestParam HashMap<String, String> storecode
+				    ) {
+				HashMap<String, CvstoreDTO> hash = new HashMap<String, CvstoreDTO>();
+				try {
+					CvstoreDTO cvstoreDTO = customerService.searchCvstoreListMap(storecode);
+					hash.put("cvstoreDTO", cvstoreDTO);
+				} catch (Exception e) {
+					log.info(e.getMessage());
+					log.info("에러");
+				}
+				return hash;
+			}
 	
 
 }

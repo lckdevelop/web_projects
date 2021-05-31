@@ -261,15 +261,10 @@
         <!--**********************************
             Content body start
         ***********************************-->		
-        <div class="content-body" style=" margin-left: 543px; height:550px; width:300px; float:right;">            
+        <div class="content-body" style= "margin-left:486px;height:600px; width:100%;">            
             <!-- row -->
-
-            <div class="container-fluid">
-                <div class="row">
-                    
-                   
-                </div>
-            </div>
+			<jsp:include page="/WEB-INF/views/map.jsp" flush="true" />
+            
             <!-- #/ container -->
         </div>
         <!--**********************************

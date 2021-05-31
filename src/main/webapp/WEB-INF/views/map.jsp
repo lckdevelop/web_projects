@@ -27,10 +27,6 @@
 <script type="text/javascript"
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 
-<script type="text/javascript" 
-	src="${app}/resources/customer/js/accordion.js"></script>	
-
-
 <script type="text/javascript">
 <!--내 위주 편의점보기 버튼 이벤트-->
 window.onload = function () {
@@ -42,7 +38,21 @@ window.onload = function () {
 <!--내 위주 편의점보기 버튼 이벤트 END-->	
 	
 <!--아코디언 JS -->
-
+$(document).ready(function(){
+	var acc = document.getElementsByClassName("accordion");
+	
+	for (var i = 0; i < acc.length; i++) {
+	  acc[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var panel = this.nextElementSibling;
+	    if (panel.style.maxHeight) {
+	      panel.style.maxHeight = null;
+	    } else {
+	      panel.style.maxHeight = panel.scrollHeight + "px";
+	    }
+	  });
+}
+});
 <!--아코디언 JS END-->
 </script>
 
@@ -390,8 +400,8 @@ function makeCvsInfo(){
 		        	var v_loadPage ="";
 		            	v_loadPage += "<div id='list-box'>"; 
 		            	v_loadPage += "		<div class='tab'>"; 
-		            	v_loadPage += "		<input class='accordion' type='radio'  id='test' name='cvstoreradio' value='편의점'/>"; 
-	            		v_loadPage += "			<label class='tab-label' for='test'>"+ data.cvstoreDTO.brand +" "+ data.cvstoreDTO.name +" 상품 목록 </label>"; 
+		            	v_loadPage += "		<input class='accordion' type='radio'  id='storeProduct' name='cvstoreradio' value='편의점' checked/>"; 
+	            		v_loadPage += "			<label class='tab-label' for='storeProduct'>"+ data.cvstoreDTO.brand +" "+ data.cvstoreDTO.name +" 상품 목록 </label>"; 
 	            		v_loadPage += "			 <div class='tab-content panel' style='overflow:auto;'>"; 
 		            	for(var i=0; i<data.cvstoreDTO.cvsProductList.length; i++){
 	            				v_loadPage += "<div class='col-sm-5'>"; 
@@ -407,8 +417,8 @@ function makeCvsInfo(){
 		            	v_loadPage += "				</div>"; 
 		            	v_loadPage += "			</div>"; 
 		            	v_loadPage += "			<div class='tab'>"; 
-		            	v_loadPage += "			 <input class='accordion' type='radio' id='maincategory7' name='cvstoreradio'>"; 
-		            	v_loadPage += "			<label for='maincategory7' class='tab-close'>닫기 &times;</label>"; 
+		            	v_loadPage += "			 <input class='accordion' type='radio' id='acc_close' name='cvstoreradio'>"; 
+		            	v_loadPage += "			<label for='acc_close' class='tab-close'>닫기 &times;</label>"; 
 		            	v_loadPage += "			</div>"; 
 		            	v_loadPage += "</div>"; 
 		

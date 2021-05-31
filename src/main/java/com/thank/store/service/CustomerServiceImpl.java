@@ -1,11 +1,13 @@
 package com.thank.store.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.thank.store.dao.CustomerDAO;
+import com.thank.store.dao.MapDAO;
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvsProductDTO;
@@ -23,7 +25,10 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Autowired
 	private CustomerDAO customerDAO;
-
+	
+	@Autowired
+	private MapDAO mapDAO;
+	
 	@Override
 	public CustomerDTO getCustomerInfo(long no) throws Exception {
 		return customerDAO.getCustomerInfo(no);
@@ -198,5 +203,25 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public List<PurchaseListDTO> getTotalPurchaseList(CusSearchDTO searchDTO) throws Exception {
 		return customerDAO.getTotalPurchaseList(searchDTO);
+	}
+
+	/*
+	 * 작성자 : 이효범
+	 * 작성일자 : 05/31 14:04
+	*/
+	@Override
+	public CvstoreDTO searchCvstoreListMap(HashMap<String, String> storecode) throws Exception {
+		CvstoreDTO cvstore = mapDAO.searchCvstoreListMap(storecode);
+		List<CvsProductDTO> cvsProductList =mapDAO.searchCvsProductListMap(cvstore);
+		log.info("불러온 상품 개수 : "+cvsProductList.size());
+		for (CvsProductDTO cvsProductDTO : cvsProductList) {
+			long countTime = (cvsProductDTO.getCountTime());
+			int discountRate = getDiscountRate(countTime);
+			cvsProductDTO.setDiscountRate(discountRate);
+			cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
+		}
+		cvstore.setCvsProductList(cvsProductList);
+		
+		return cvstore;	
 	}
 }
