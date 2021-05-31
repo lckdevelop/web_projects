@@ -443,4 +443,13 @@ public class ManagerController {
 			return "result";
 		}
 	}
+	
+	@RequestMapping(value = "/idCheck", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String idCheck(@RequestParam("id") String id) {
+		System.out.println("idCheck까지 됐음");
+		System.out.println(managerService.managerIdCheck(id));
+
+		return managerService.managerIdCheck(id); 
+	}
 }

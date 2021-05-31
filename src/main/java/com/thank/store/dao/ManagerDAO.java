@@ -40,4 +40,6 @@ public interface ManagerDAO {
 	List<ProfitDTO> profitPerMonth(ProfitDTO profitDTO) throws SQLException;
 
 	List<ProfitDTO> profitPerCategory(ProfitDTO profitDTO) throws SQLException;
+
+	String managerIdCheck(String id) throws SQLException;
 }
