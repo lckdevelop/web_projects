@@ -178,10 +178,19 @@ public class CustomerController {
 	 */
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		session.invalidate();
-		return "logoutpage";
+		return "logout";
 	}
 	
+	@GetMapping("/logoutconfirm")
+	public String logoutconfirm(HttpSession session) {
+		session.invalidate();
+		return "../";
+	}
+	
+	@GetMapping("/logoutcancel")
+	public String logoutcancel(HttpSession session) {
+		return "redirect:../";
+	}
 	
 	/*
 	 * 작성자: 김수빈

@@ -43,6 +43,7 @@ const swalWithBootstrapButtons = Swal.mixin({
 	      '안녕히 가세요!',
 	      'success'
 	    ).then(function(){
+	    	sessionStorage.claer()
 			window.location="../"
 		})
 	  } else if (
