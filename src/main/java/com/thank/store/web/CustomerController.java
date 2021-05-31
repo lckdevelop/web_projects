@@ -183,12 +183,13 @@ public class CustomerController {
 	@GetMapping("/logoutconfirm")
 	public String logoutconfirm(HttpSession session) {
 		session.invalidate();
-		return "../";
+		System.out.println("/logoutconfirm 으로 왔음");
+		return "redirect:../";
 	}
 	
 	@GetMapping("/logoutcancel")
 	public String logoutcancel(HttpSession session) {
-		return "redirect:../";
+		return "redirect:./";
 	}
 	
 	/*

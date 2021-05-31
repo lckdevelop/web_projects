@@ -18,7 +18,7 @@
 	<title>로그인 실패</title>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body onload="message()">
+<body>
 <script>
 const swalWithBootstrapButtons = Swal.mixin({
 	  customClass: {
@@ -43,8 +43,7 @@ const swalWithBootstrapButtons = Swal.mixin({
 	      '안녕히 가세요!',
 	      'success'
 	    ).then(function(){
-	    	sessionStorage.claer()
-			window.location="../"
+			window.location="/store/customer/logoutconfirm"
 		})
 	  } else if (
 	    /* Read more about handling dismissals below */

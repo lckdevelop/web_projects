@@ -360,7 +360,7 @@
         <!--**********************************
             Content body start
         ***********************************-->		
-        <div class="content-body" style=" margin-left: 543px; height:550px; width:300px; float:right;">            
+        <div class="content-body" style=" margin-left: 543px; margin-right: 0; height:550px; width:300px;">            
             <!-- row -->
 
             <div class="container-fluid">
