@@ -278,7 +278,7 @@
                          </div>
                          
                          <div class="footer" style="width:300px; height:200px; padding-left:0px; text-align:right;" >
-			                <p><a href="https://themeforest.net/user/quixlab">로그아웃</a></p>
+			                <p><a href="/store/customer/logout">로그아웃</a></p>
 			          	 </div>
 				</div>                         
 			</div>

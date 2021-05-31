@@ -392,10 +392,26 @@ public class ManagerController {
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/24 10:50
 	 */
+//	@GetMapping("/logout")
+//	public String logout(HttpSession session) {
+//		session.invalidate();
+//		return "logoutpage";
+//	}
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
+		return "logout";
+	}
+	
+	@GetMapping("/logoutconfirm")
+	public String logoutconfirm(HttpSession session) {
 		session.invalidate();
-		return "logoutpage";
+		System.out.println("/logoutconfirm 으로 왔음");
+		return "redirect:../";
+	}
+	
+	@GetMapping("/logoutcancel")
+	public String logoutcancel(HttpSession session) {
+		return "redirect:./";
 	}
 	
 	

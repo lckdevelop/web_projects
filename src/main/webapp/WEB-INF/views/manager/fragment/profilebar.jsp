@@ -99,7 +99,7 @@ $(function() {
 			<div class="footer"
 				style="width: 300px; height: 200px; padding-left: 0px; text-align: center;">
 				<p>
-					<a href="logout">로그아웃</a>
+					<a href="/store/manager/logout">로그아웃</a>
 				</p>
 			</div>
 		</div>
