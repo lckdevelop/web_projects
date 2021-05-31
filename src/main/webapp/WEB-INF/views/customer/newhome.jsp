@@ -45,7 +45,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="index.html">
+                <a href="/store/customer/home">
                     <b class="logo-abbr"><img src="${app}/resources/quixlab/themes/quixlab/images/logo.png" alt=""> </b>
                     <span class="logo-compact"><img src="${app}/resources/quixlab/themes/quixlab/images/logo-compact.png" alt=""></span>
                     <span class="brand-title">
@@ -244,122 +244,20 @@
             Sidebar start
         ***********************************-->
         <div class="nk-sidebar" style="height: 880px;  width: 243px; padding-bottom:0px">         
-        	
-			
-                   
-            <div class="nk-nav-scroll" style="height: 800px; width:180px;">            	
-                <ul class="metismenu" id="menu">
-                    <li class="nav-label">카테고리</li>
-                    <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">김밥류</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=김밥류&subCategory=삼각김밥">삼각김밥</a></li>
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=김밥류&subCategory=줄김밥">줄김밥</a></li>
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=김밥류&subCategory=주먹밥">주먹밥</a></li>
-                        </ul>
-                    </li>    
-                                 
-                    <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">도시락류</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=도시락류&subCategory=도시락일반">도시락일반</a></li>
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=도시락류&subCategory=도시락샐러드">도시락샐러드</a></li>
-                        </ul>
-                    </li>   
-                    
-                    <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">빵류</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=일반빵">일반빵</a></li>
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=핫도그">핫도그</a></li>
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=샌드위치">샌드위치</a></li>
-                            
-                        </ul>
-                    </li>
-                    
-                    <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">즉석요리</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=즉석요리&subCategory=튀김">튀김</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">완제품</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=완제품&subCategory=박스류">박스류</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">유제품류</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=우유">우유</a></li>
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=요거트">요거트</a></li>
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=요구르트">요구르트</a></li>
-                        </ul>                        
-                    </li>                      
-                </ul>
-            </div>
+			<jsp:include page="/WEB-INF/views/customer/fragment/newcategorybar.jsp" flush="true" />			
         </div>
         <!--**********************************
             Sidebar end
         ***********************************-->
+        <!--**********************************
+            profile start
+        ***********************************-->
 		<div class="nk-sidebar" style="height:1297px; width:243px; margin-left:243px; margin-right:0px">
- 			<div class="card-body">
-            	<div class="media align-items-center mb-4">                                   
-                	<div class="media-body">
-                    	<h3 class="mb-0">${sessionScope.memberInfo.name}</h3>
-                        	<p class="text-muted mb-0">Customer</p>
-                    </div>
-                </div>
-                                
-                <div class="row mb-5">
-                    <div class="col">
-                        <div class="card card-profile text-center">
-                            <span class="mb-1 text-warning"><i class="icon-people" ></i></span>
-                        </div>
-                    </div>
-                </div>     
-                     
-
-				<div class="media-body">
-                             <p class="text-muted mb-0">보유한 폐기머니</p>
-                             <p class="text-muted mb-0">${dto.point} 원</p>
-				</div>
-                    
-				<div class="row mb-5">
-                         <div class="col-12 text-center" style="margin: 10px 0 10px 0;">
-                             <button class="btn mb-1 btn-warning btn-block">지도보기</button>
-                         </div>
-                         
-                         <div class="col-12 text-center" style="margin: 10px 0 10px 0;">
-                             <button class="btn mb-1 btn-warning btn-block">나의 구매목록 (${purchasecount})</button>
-                         </div>
-                         
-                         <div class="col-12 text-center" style="margin: 10px 0 10px 0;">
-                             <button class="btn mb-1 btn-warning btn-block">충전하기</button>
-                         </div>
-                         
-                         <div class="footer" style="width:300px; height:200px; padding-left:0px; text-align:right;" >
-			                <p><a href="/store/customer/logout">로그아웃</a></p>
-			          	 </div>
-				</div>                         
-			</div>
+ 			<jsp:include page="/WEB-INF/views/customer/fragment/newprofilebar.jsp" flush="true" />
 		</div>
-
+ 		 <!--**********************************
+            profile end
+        ***********************************-->
         <!--**********************************
             Content body start
         ***********************************-->		
