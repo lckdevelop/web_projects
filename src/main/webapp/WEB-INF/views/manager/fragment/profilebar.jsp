@@ -46,7 +46,7 @@ $(function() {
 			</div>
 		</div>
 
-		<div class="row mb-5">
+		<div class="row">
 			<div class="col">
 				<div class="card card-profile text-center">
 					<span class="mb-1 text-warning">
@@ -74,33 +74,35 @@ $(function() {
 				</div>
 			</div>
 		</div>
-
-
-		<div class="media-body" >
-			<p class="text-muted mb-0">${dto.name}점장님 안녕하세요.</p>
-			<p class="text-muted mb-0">${dto.brand}&nbsp;${dto.spot}</p>
-			<p class="text-muted mb-0">편의점 코드 : ${dto.storecode}</p>
-			<p class="text-muted mb-0"><a href="${app}/manager/profit">수익금 : ${dto.profit} 원</a></p>
+		<div class="row my-5">
+			<div class="profile_info" >
+				<p class="text-muted mb-0">${dto.name}점장님 안녕하세요.</p>
+				<p class="text-muted mb-0">${dto.brand}&nbsp;${dto.spot}</p>
+				<p class="text-muted mb-0">편의점 코드 : ${dto.storecode}</p>
+				<p class="text-muted mb-0"><a href="${app}/manager/profit">수익금 : ${dto.profit} 원</a></p>
+			</div>
 		</div>
-
-		<div class="row mb-5">
-			<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
-				<a href="${app}/manager/home" id="allList" class="btn mb-1 btn-warning btn-block">나의 점포 전 상품</a>
-			</div>
-
-			<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
-				<a href="${app}/manager/enrolled" class="btn mb-1 btn-warning btn-block">등록된 임박 상품</a>
-			</div>
-
-			<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
-				<a href="${app}/manager/enroll" class="btn mb-1 btn-warning btn-block">임박상품 등록</a>
-			</div>
-
-			<div class="footer"
-				style="width: 300px; height: 200px; padding-left: 0px; text-align: center;">
-				<p>
-					<a href="/store/manager/logout">로그아웃</a>
-				</p>
+		
+		<div class="row my-5">
+			<div class="row my-5">
+				<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
+					<a href="${app}/manager/home" id="allList" class="btn mb-1 btn-warning btn-block">나의 점포 전 상품</a>
+				</div>
+	
+				<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
+					<a href="${app}/manager/enrolled" class="btn mb-1 btn-warning btn-block">등록된 임박 상품</a>
+				</div>
+	
+				<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
+					<a href="${app}/manager/enroll" class="btn mb-1 btn-warning btn-block">임박상품 등록</a>
+				</div>
+	
+				<div class="footer"
+					style="width: 300px; height: 200px; padding-left: 0px; text-align: center;">
+					<p>
+						<a href="/store/manager/logout">로그아웃</a>
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>

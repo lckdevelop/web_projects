@@ -313,7 +313,7 @@ function makeCvsInfo(){
 		var content = '<div class="wrap">' + 
 	    '    <div class="info">' + 
 	    '        <div class="title">' + 
-	                   contents[i].brand +" "+ contents[i].name  + 
+	    			contents[i].brand +" "+ contents[i].name  + 
 	    '            <div class="close" onclick="closeOverlay('+ i +')" title="닫기"></div>' + 
 	    '        </div>' + 
 	    '        <div class="body">' + 
@@ -323,7 +323,7 @@ function makeCvsInfo(){
 	    '            <div class="desc">' + 
 	    '                <div class="ellipsis">'+ contents[i].address +'</div>' + 
 	    '                <div> 나로 부터 거리 : '+ contents[i].distance +' KM</div>' + 
-	    '                <div><a onclick="productListAjax(\''+ contents[i].storecode +'\')" class="link">상품바로가기</a></div>' + 
+	    '                <div ><a onclick="productListAjax(\''+ contents[i].storecode +'\')" class="link">상품바로가기</a></div>' + 
 	    '            </div>' + 
 	    '        </div>' + 
 	    '    </div>' +    

@@ -24,6 +24,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 @import url(../plugins/animate/animate.min.css);
 @import url(../plugins/metismenu/css/metisMenu.min.css);
 @import url(../plugins/bootstrap-select/dist/css/bootstrap-select.min.css);
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;500;700;900&display=swap');
 .gradient-1, .dropdown-mega-menu .ext-link.link-1 a, .morris-hover, .datamaps-hoverover {
   background-image: linear-gradient(230deg, #759bff, #843cf6); }
 
@@ -90,7 +91,8 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   --breakpoint-xl: 1200px;
   --breakpoint-xxl: 1400;
   --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", "monospace"; 
+  --font-family: 'Gothic A1', sans-serif;}
 
 *,
 *::before,
@@ -5512,7 +5514,7 @@ button.bg-dark:focus {
 
 .mt-5,
 .my-5 {
-  margin-top: 3rem !important; }
+  margin-top: 2rem !important; }
 
 .mr-5,
 .mx-5 {

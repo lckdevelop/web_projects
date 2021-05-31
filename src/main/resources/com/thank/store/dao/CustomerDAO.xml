@@ -154,6 +154,7 @@
 		      from (select p.no,
 				p.cvstoreproduct_no as cvstoreproductno,
 				p.customer_no as customerno,
+				p.purchaseprice as purchaseprice,
 				pl.name,
 				pl.productcode
 		from purchaselist p 
@@ -177,6 +178,7 @@
 		      from (select p.no,
 				p.cvstoreproduct_no as cvstoreproductno,
 				p.customer_no as customerno,
+				p.purchaseprice as purchaseprice,
 				pl.name,
 				pl.productcode
 		from purchaselist p 
@@ -200,6 +202,7 @@
 		      from (select p.no,
 				p.cvstoreproduct_no as cvstoreproductno,
 				p.customer_no as customerno,
+				p.purchaseprice as purchaseprice,
 				pl.name,
 				pl.productcode
 		from purchaselist p 
@@ -250,7 +253,7 @@
 	작성일자: 2021/05/28 00:12
 	 -->
 	<insert id="addPurchaseProduct" parameterType="CustomerDTO">
-		insert into purchaselist values (purchaselist_no_seq.nextval,#{customerno},#{cvsproductno})
+		insert into purchaselist values (purchaselist_no_seq.nextval,#{customerno},#{cvsproductno},#{purchasePrice})
 	</insert>
 	
 	<!-- 
@@ -270,4 +273,8 @@
 		update cvstore set profit = profit + #{discountPrice}
 		where no = #{cvstoreno}
 	</update>
+	
+	<select id="customerIdCheck" parameterType="String" resultType="String">
+	select count(*) from member where id=#{id} and accountType=0
+	</select>
 </mapper>

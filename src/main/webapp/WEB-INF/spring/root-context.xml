@@ -36,7 +36,7 @@
 		p:typeAliasesPackage="com.thank.store.dto"
 		/>
 	
-	<bean id="mangerDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" 
+	<bean id="managerDAO" class="org.mybatis.spring.mapper.MapperFactoryBean" 
 		p:sqlSessionFactory-ref="managerSqlSession"
 		p:mapperInterface="com.thank.store.dao.ManagerDAO" />
 	<!-- ManagerDAO end -->		

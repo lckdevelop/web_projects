@@ -269,4 +269,11 @@
 	update cvstore set manager_no=#{managerno} where storecode=#{storecode}
 	</update>
 	
+	<select id="managerIdCheck" parameterType="String" resultType="String">
+	select count(*) from member where id=#{id} and accountType=1
+	</select>
+	
+	<select id="managerStoreCodeCheck" parameterType="String" resultType="String">
+	select count(*) from cvstore where storecode=#{storecode}
+	</select>
 </mapper>

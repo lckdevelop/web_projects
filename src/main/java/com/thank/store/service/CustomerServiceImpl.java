@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Autowired
 	private MapDAO mapDAO;
-	
+
 	@Override
 	public CustomerDTO getCustomerInfo(long no) throws Exception {
 		return customerDAO.getCustomerInfo(no);
@@ -203,6 +203,11 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public List<PurchaseListDTO> getTotalPurchaseList(CusSearchDTO searchDTO) throws Exception {
 		return customerDAO.getTotalPurchaseList(searchDTO);
+	}
+
+	@Override
+	public String customerIdCheck(String id) {
+		return customerDAO.customerIdCheck(id);
 	}
 
 	/*

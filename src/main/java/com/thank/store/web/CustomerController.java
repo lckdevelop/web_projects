@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,6 +53,15 @@ public class CustomerController {
 		}
 	}
 
+	@RequestMapping(value = "/idCheck", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String idCheck(@RequestParam("id") String id) {
+		System.out.println("idCheck까지 됐음");
+		System.out.println(customerService.customerIdCheck(id));
+
+		return customerService.customerIdCheck(id); 
+	}
+
 	@GetMapping("/signup")
 	public String signup() {
 		return "/customer/signup";
@@ -85,7 +95,7 @@ public class CustomerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
-		return "customer/purchaselist";
+		return "customer/newpurchaselist";
 	}
 
 	// 작성자 : 방지훈
@@ -138,7 +148,7 @@ public class CustomerController {
 			log.info(e.getMessage());
 			log.info("에러");
 		}
-		return "customer/searchresult";
+		return "customer/newsearchresult";
 	}
 
 	/*
@@ -173,19 +183,19 @@ public class CustomerController {
 	public String logout(HttpSession session) {
 		return "logout";
 	}
-	
+
 	@GetMapping("/logoutconfirm")
 	public String logoutconfirm(HttpSession session) {
 		session.invalidate();
 		System.out.println("/logoutconfirm 으로 왔음");
 		return "redirect:../";
 	}
-	
+
 	@GetMapping("/logoutcancel")
 	public String logoutcancel(HttpSession session) {
 		return "redirect:./";
 	}
-	
+
 	/*
 	 * 작성자: 김수빈 작성일자: 2021/05/24 09:28
 	 */
@@ -296,6 +306,7 @@ public class CustomerController {
 			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
 			customerService.updateCustomerPoint(customerDTO); // 잔액차감
 			customerDTO.setCvsproductno(cvsProductDTO.getNo());
+			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
 			customerService.addPurchaseProduct(customerDTO);// 구매목록에 등록
 			customerService.updatePurchaseProduct(cvsProductDTO);// 상품 상태 변경 enrollment = 2
 			customerService.updateCvstorePoint(cvsProductDTO);// 판매자 수익금 추가
@@ -335,7 +346,7 @@ public class CustomerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
-		return "customer/transactionhistory";
+		return "customer/newtransactionhistory";
 	}
 
 	/*
@@ -366,7 +377,7 @@ public class CustomerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
-		return "customer/endpurchaselist";
+		return "customer/newendpurchaselist";
 	}
 	
 	/*
@@ -476,5 +487,4 @@ public class CustomerController {
 			return hash;
 		}
 
-	
 }
