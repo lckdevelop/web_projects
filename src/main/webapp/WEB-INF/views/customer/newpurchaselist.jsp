@@ -114,32 +114,51 @@
         <!--**********************************
             Content body start
         ***********************************-->		
-       <div class="content-body" style=" margin-left: 486px; ">            
-            <div id="product-search-box">
-   			<div class="row">
-	   			<div class="col-md-11">
-	    			<h3>${dto.name} 회원님의 구매목록</h3>
-	       		</div>
-	   		</div>
-	   	</div>
-	   	<hr style="border: solid 3px #1b4af5;">
-	   	<form>
-	   		<c:forEach var="purchaseDTO" items="${purchaseList}" varStatus="status">
-	   			<div id="list-box" >
-	   				<div class="row">
-	   					<div class='col-sm-12' style="text-align:center;">
-	  								<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' />
-	   					<h6 >상품명 : ${purchaseDTO.name}<br/></h6>
-	   					<h6 >구매금액 : ${purchaseDTO.purchaseprice}<br/></h6>
-	   					<div style="height:150px; text-align:center;">
-	   						<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
-	   					</div>
-	   					</div>
-	   				</div>
+       <div class="content-body" style=" margin-left: 486px; ">       
+			<div id="product-search-box">
+   				<div class="row">
+	   				<div class="col-md-11">
+	    				<h3>${dto.name} 회원님의 구매목록</h3>
+	       			</div>
 	   			</div>
-	   		</c:forEach>
-	   		<input class="btn btn-primary" type="button" value="기간만료 상품보기" onclick="location.href='endpurchaselist'"/>
-	   	</form>
+	   			<hr style="border: solid 3px #1b4af5;">
+	   			<form>
+       <div class="container-fluid">
+                <div class="row">
+                <c:forEach var="purchaseDTO" items="${purchaseList}" varStatus="status">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h4>구매상품</h4>
+                                </div>
+                                <div id="list-box">
+						    			<div class='col-sm-3'>
+						  					<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' />
+						  				</div>
+						  				<div class='col-sm-3'>
+							   					<img src="https://chart.googleapis.com/chart?chs=80x80&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
+							   			</div>
+						  				<div class='col-sm-6'>
+							    				<label class="name1">상품명 : ${purchaseDTO.name}<br/></label>
+							    				<h6>상품코드 : ${purchaseDTO.productcode}<br/></h6>
+							    				<h6 style="color:red">구매금액 : ${purchaseDTO.purchaseprice}원<br/></h6>
+							    				
+							    		</div>
+				   				</div>
+	   						</div>
+                        </div>
+                    </div>
+                    </c:forEach>
+                        <!-- /# card -->
+                    </div>
+                </div>
+            	<input class="btn btn-primary" type="button" value="기간만료 상품보기" onclick="location.href='endpurchaselist'"/>
+	   	   	</form>
+	   
+	   		
+	   		
+	
 		
 		<form>
     	<div class="row" style="text-align:center;">
