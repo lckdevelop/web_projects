@@ -306,6 +306,7 @@ public class CustomerController {
 			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
 			customerService.updateCustomerPoint(customerDTO); // 잔액차감
 			customerDTO.setCvsproductno(cvsProductDTO.getNo());
+			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
 			customerService.addPurchaseProduct(customerDTO);// 구매목록에 등록
 			customerService.updatePurchaseProduct(cvsProductDTO);// 상품 상태 변경 enrollment = 2
 			customerService.updateCvstorePoint(cvsProductDTO);// 판매자 수익금 추가

@@ -77,7 +77,7 @@ function buyBtn(no){
 
 				swalWithBootstrapButtons.fire({
 				  title: "결제확인",
-				  text: cvsProductDTO.name+'을 '+ cvsProductDTO.discountPrice+'원에 구입하시겠습니까?',
+				  text: cvsProductDTO.name+'을(를) '+ cvsProductDTO.discountPrice+'원에 구입하시겠습니까?',
 				  icon: 'warning',
 				  showCancelButton: true,
 				  confirmButtonText: '결제요청',
@@ -91,20 +91,30 @@ function buyBtn(no){
 			   				data: {"no":no},
 							datatype: "json",
 							success:function(data){
-								Swal.fire({
-									  icon: 'success',
-									  title: '성공적으로 물품을 구입했습니다.',
-									  showConfirmButton: false,
-									  timer: 100000
-									});
-				    			
-				    			location.reload();
+								if(data == null || data==""){
+									Swal.fire(
+				    						  '잔액부족',
+				  	    				      '포인트가 부족합니다. 충전 후에 재시도 부탁드립니다.',
+				  	    				      'error'
+				    						);
+								}
+								else{
+									Swal.fire({
+										  icon: 'success',
+										  title: '성공적으로 물품을 구입했습니다.',
+										  showConfirmButton: false,
+										  timer: 100000
+										});
+					    			
+					    			location.reload();									
+								}
+								
 				    			 
 				    		 },
 				    		 error:function(){
 				    			 Swal.fire(
-			    						  '잔액부족',
-			  	    				      '포인트가 부족합니다. 충전 후에 재시도 부탁드립니다.',
+			    						  '문제발생',
+			  	    				      '오류가 발생했습니다. 다시 시도해주세요.',
 			  	    				      'error'
 			    						);
 				    		 }

@@ -16,6 +16,7 @@ public class PurchaseListDTO {
 	private long customerno;
 	private String productcode;
 	private String name;
+	private long purchaseprice;
 	private long cvstoreproductno;
 	
 }
