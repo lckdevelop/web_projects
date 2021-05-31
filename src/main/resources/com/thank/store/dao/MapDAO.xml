@@ -13,7 +13,7 @@
 	
 	<select id="getCvStore"  parameterType="hashmap" resultType="CvStoreDTO">
 		<![CDATA[
-			select storecode, name,latitude,longitude,address,brand,distance
+			select storecode,name,latitude,longitude,address,brand,distance
 			from
 			    (
 			    select storecode, name,latitude,longitude,address,brand,CALC_DISTANCE( #{lat},#{lon},LATITUDE,LONGITUDE) as distance
@@ -36,6 +36,45 @@
 				join productlist p 
 				  on cvsp.productlist_no = p.no
 			where cvs.storecode = #{storecode}
+		]]>
+	</select>
+	
+	
+	<!-- 
+	작성자 : 이효범
+	작성일자: 2021/05/31 14:41
+	 -->
+	<select id="searchCvsProductListMap" parameterType="CvstoreDTO" resultType="CvsProductDTO">
+		<![CDATA[
+			select p.name as name,
+					p.no as productcode,
+					p.price as price,
+					c.warehousingdate as warehousingdate,
+					c.expirationdate as expirationdate,
+					ROUND((c.expirationdate - sysdate) * 24) as countTime
+			from cvstoreproduct c
+			join productlist p on c.productlist_no = p.no
+			join cvstore cvs on  c.cvstore_no = cvs.no
+			where cvs.storecode = 'A0001'
+			and c.enrollment = 1
+			
+			and ROUND((c.expirationdate - sysdate) * 24) > 0
+		]]>
+	</select>
+	
+		<!-- 
+	작성자 : 이효범
+	작성일자: 2021/05/31 14:41
+	 -->
+	<select id="searchCvstoreListMap" parameterType="hashmap" resultType="CvstoreDTO">
+		<![CDATA[
+			select  c.no,
+					c.name,
+					c.storecode,
+					c.address,
+					c.brand
+			from cvstore c
+			WHERE c.storecode = #{storecode}
 		]]>
 	</select>
 </mapper>
