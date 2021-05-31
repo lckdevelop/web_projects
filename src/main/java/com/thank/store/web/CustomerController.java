@@ -138,7 +138,7 @@ public class CustomerController {
 			log.info(e.getMessage());
 			log.info("에러");
 		}
-		return "customer/searchresult";
+		return "customer/newsearchresult";
 	}
 
 	/*

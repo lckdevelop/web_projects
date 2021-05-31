@@ -33,7 +33,7 @@
 </head>
 <body>
 			
-            <div class="nk-nav-scroll" style="height: 800px; width:180px;">
+            <div class="nk-nav-scroll" style="height: 1297px; width:180px;">
             	<!-- 카테고리 검색창 시작 -->
             	<form action="/store/customer/searchresult">
 				<div class="col" style="width:235px; margin: 0 0 0 5px; padding:3px">

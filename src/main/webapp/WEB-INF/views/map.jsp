@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="kakaokey" value="d5d4850376504cbcd111fa1f434f605e"/>
+<c:set var="app" value="${pageContext.request.contextPath}" />
 <c:set var="hash" value="${hash }"></c:set>
 <c:set var="CvstoreDTO" value="${CvstoreDTO }"></c:set>
 <!DOCTYPE html>
@@ -11,6 +12,24 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link
+	href="${app}/resources/customer/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- accordion css -->
+<link 
+	href="${app}/resources/customer/css/accordion.css" rel="stylesheet">
+	
+<link 
+	href="${app}/resources/customer/css/categoryaccordion.css" rel="stylesheet">
+	
+	
+<!-- jquery 경로 -->
+<script type="text/javascript"
+	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript" 
+	src="${app}/resources/customer/js/accordion.js"></script>	
+
 
 <script type="text/javascript">
 <!--내 위주 편의점보기 버튼 이벤트-->
@@ -20,6 +39,11 @@ window.onload = function () {
 		  cvsStoreCntAjax(cvStoreCnt);
 		};
 	};
+<!--내 위주 편의점보기 버튼 이벤트 END-->	
+	
+<!--아코디언 JS -->
+
+<!--아코디언 JS END-->
 </script>
 
 	<meta charset="utf-8"/>
@@ -27,16 +51,17 @@ window.onload = function () {
 </head>
 
 <style>
+<!-- 기본 CSS -->
 	body{background-color :lightyellow;}
 	#container_1{text-align: center;}
 	#container_2{text-align: center;}
 	#map{display: inline-block;}
 	#headline_1{text-align: center;}
 	#headline_2{text-align: center;}
+<!-- 기본 CSS END -->
 
 
-
-<!--닫기 css 테스트 --> 
+<!-- 카카오 CSS -->
     .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 5px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
     .wrap .info {max-width: 100%;; height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
@@ -51,6 +76,27 @@ window.onload = function () {
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB; }
+<!-- 카카오 CSS END -->
+
+<!-- 아코디언 CSS -->
+	  #ac_ul .menu_1 a{
+         background-color: #000;
+         color:#fff;
+      }
+      #ac_ul .menu_1.on{
+         background-color:red;
+      }
+      #ac_ul .menu_2{
+         display:none;
+      }
+      #ac_ul .menu_2 a{
+         background-color:#ccc;
+         color:blue;
+      }
+      #ac_ul .menu_2 a:hover{
+         background-color:rgba(0, 0, 0, 0.500);
+      }
+<!-- 아코디언 CSS END-->     
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaokey }"></script>
 <body>
@@ -269,7 +315,7 @@ function makeCvsInfo(){
 	    '            <div class="desc">' + 
 	    '                <div class="ellipsis">'+ contents[i].address +'</div>' + 
 	    '                <div> 나로 부터 거리 : '+ contents[i].distance +' KM</div>' + 
-	    '                <div><a onclick="productListAjax('+ contents[i].storecode +')" class="link">상품바로가기</a></div>' + 
+	    '                <div><a onclick="productListAjax('+ i +')" class="link">상품바로가기</a></div>' + 
 	    '            </div>' + 
 	    '        </div>' + 
 	    '    </div>' +    
@@ -338,30 +384,56 @@ function makeCvsInfo(){
 			$.ajax({
 				type:"get",
 		        url:"productList",
-		        //편의점상품리스트테이블 더미데이터생성되면 "A0001" -> storecode로 변경
-		        data:{"storecode" : storecode},
+		        //편의점상품리스트테이블 더미데이터생성되면 "A0001" -> storecode로 변경, 파라미터부분
+		        data:{"storecode" : "A0001"},
 		        dataType:"json",
 		        success:function (data){
 		        	console.log(data);
 		        	console.log(data.list.length);
 		        	var v_loadPage ="";
-		        	v_loadPage += "<h4>" + data.list[0].brand +" "+ data.list[0].storeName +"<h4>";
-		            for(var j=0; j<data.list.length; j++){
-			            v_loadPage += "<hr><div class='col-sm-5'>";
-			            v_loadPage += "<img src='/store/resources/product/images/" + data.list[j].imgurl  + ".jpg'/>";
-				    	v_loadPage += "</div>";
-				    	v_loadPage += "<div class='col-sm-5'>";
-				    	v_loadPage += "상품명: " + data.list[j].name+"<br>";
-				    	v_loadPage += "이미지: " + data.list[j].imgurl+"<br>";
-				    	v_loadPage += "가격: " + data.list[j].price+"<br>";
-				    	v_loadPage += "상품코드: " + data.list[j].storecode+"<br>";
-			    		v_loadPage += "<input type='submit' />";
-				    	v_loadPage += "</div>";
-		            }
-		            $("#cvsProductList").html(v_loadPage);
+		            	v_loadPage += "<div id='list-box'>"; 
+		            	v_loadPage += "		<div class='tab'>"; 
+		            	v_loadPage += "		<input class='accordion' type='radio'  id='test' name='cvstoreradio' value='편의점'/>"; 
+	            		v_loadPage += "			<label class='tab-label' for='test'>"+ data.list[0].brand +" "+ data.list[0].storeName +" 상품 목록 </label>"; 
+	            		v_loadPage += "			 <div class='tab-content panel' style='overflow:auto;'>"; 
+		            	for(var i=0; i<data.list.length; i++){
+	            				v_loadPage += "<div class='col-sm-5'>"; 
+	            				v_loadPage += "<img src='${app}/resources/product/images/"+ data.list[i].name +".jpg'/><br>"; 
+	            				v_loadPage += "상품명: " + data.list[i].name+"<br>"; 
+	            				v_loadPage += "판매가: " + data.list[i].price+"<br>"; 
+	            				v_loadPage += "할인가: " + data.list[i].price+"<br>"; 
+	            				v_loadPage += "<input type='submit' />"; 
+	            				v_loadPage += "</div>"; 
+		            	}
+		            	v_loadPage += "				</div>"; 
+		            	v_loadPage += "			</div>"; 
+		            	v_loadPage += "			<div class='tab'>"; 
+		            	v_loadPage += "			 <input class='accordion' type='radio' id='maincategory7' name='cvstoreradio'>"; 
+		            	v_loadPage += "			<label for='maincategory7' class='tab-close'>닫기 &times;</label>"; 
+		            	v_loadPage += "			</div>"; 
+		            	
+		            	v_loadPage += "</div>"; 
+		            	
+
+		            	/*
+		            	
+		            	   v_loadPage += "<hr><div class='col-sm-5'>";
+		            v_loadPage += "<img src='${app}/resources/manager/img/favicon.png' alt='havetochange' />";
+			    	v_loadPage += "</div>";
+			    	v_loadPage += "<div class='col-sm-5'>";
+			    	v_loadPage += "상품명: " + data[i].name+"<br>";
+			    	v_loadPage += "상풍코드: " + data[i].productcode+"<br>";
+			    	v_loadPage += "세부분류: " + data[i].subcategory+"<br>";
+			    	v_loadPage += "유통기간: " + data[i].productperiod+"<br>";
+		    		v_loadPage += "할인가: " + data[i].price+"<br>";
+		    		v_loadPage += "<input type='submit' />";
+			    	v_loadPage += "</div>";
+		            	*/
+		            	
+		            	$("#cvsProductList").html(v_loadPage);
 		        }
-			});
-		});
+	        });
+	    });
 	}
 	
 	<!-- 지도에 받을 편의점 리스트 Ajax -->
