@@ -108,7 +108,7 @@ public class CustomerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
-		return "customer/home";
+		return "customer/newhome";
 	}
 	
 	//작성자 : 방지훈

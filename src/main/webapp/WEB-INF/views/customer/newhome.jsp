@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <c:set var="app" value="${pageContext.request.contextPath}" />
-
+<c:set var="dto" value="${customerDTO}" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <title>ThankStore Home</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -75,11 +75,14 @@
                             <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
                         </div>
                         <input type="search" class="form-control" placeholder="검색" aria-label="Search Dashboard">
+                        <input type="button" class="form-control" value="검색" aria-label="Search Dashboard">
+                        <!-- 화면에 어디에 뜨는지 이해불가 -->
                         <div class="drop-down   d-md-none">
 							<form action="#">
 								<input type="text" class="form-control" placeholder="Search">
 							</form>
                         </div>
+                        <!-- 이해불가 -->
                     </div>
                 </div>
                 <div class="header-right">
@@ -253,8 +256,8 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="./searchresult?searchKeyword=&mainCategory=김밥류&subCategory=삼각김밥">삼각김밥</a></li>
-                            <li><a href="./layout-one-column.html">줄김밥</a></li>
-                            <li><a href="./layout-two-column.html">주먹밥</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=김밥류&subCategory=줄김밥">줄김밥</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=김밥류&subCategory=주먹밥">주먹밥</a></li>
                         </ul>
                     </li>    
                                  
@@ -263,8 +266,8 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">도시락류</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./layout-blank.html">도시락일반</a></li>
-                            <li><a href="./layout-one-column.html">도시락샐러드</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=도시락류&subCategory=도시락일반">도시락일반</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=도시락류&subCategory=도시락샐러드">도시락샐러드</a></li>
                         </ul>
                     </li>   
                     
@@ -273,9 +276,9 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">빵류</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./layout-blank.html">일반빵</a></li>
-                            <li><a href="./layout-one-column.html">핫도그</a></li>
-                            <li><a href="./layout-two-column.html">샌드위치</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=일반빵">일반빵</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=핫도그">핫도그</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=샌드위치">샌드위치</a></li>
                             
                         </ul>
                     </li>
@@ -285,7 +288,7 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">즉석요리</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./layout-blank.html">튀김</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=즉석요리&subCategory=튀김">튀김</a></li>
                         </ul>
                     </li>
                     
@@ -294,7 +297,7 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">완제품</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./layout-blank.html">박스류</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=완제품&subCategory=박스류">박스류</a></li>
                         </ul>
                     </li>
                     
@@ -303,9 +306,9 @@
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">유제품류</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./layout-blank.html">우유</a></li>
-                            <li><a href="./layout-blank.html">요거트</a></li>
-                            <li><a href="./layout-blank.html">요구르트</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=우유">우유</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=요거트">요거트</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=요구르트">요구르트</a></li>
                         </ul>                        
                     </li>                      
                 </ul>
@@ -334,7 +337,7 @@
 
 				<div class="media-body">
                              <p class="text-muted mb-0">보유한 폐기머니</p>
-                             <p class="text-muted mb-0">${dto.point} 10000 원</p>
+                             <p class="text-muted mb-0">${dto.point} 원</p>
 				</div>
                     
 				<div class="row mb-5">
@@ -343,7 +346,7 @@
                          </div>
                          
                          <div class="col-12 text-center" style="margin: 10px 0 10px 0;">
-                             <button class="btn mb-1 btn-warning btn-block">나의 구매목록</button>
+                             <button class="btn mb-1 btn-warning btn-block">나의 구매목록 (${purchasecount})</button>
                          </div>
                          
                          <div class="col-12 text-center" style="margin: 10px 0 10px 0;">
@@ -351,7 +354,7 @@
                          </div>
                          
                          <div class="footer" style="width:300px; height:200px; padding-left:0px; text-align:right;" >
-			                <p><a href="https://themeforest.net/user/quixlab">로그아웃</a></p>
+			                <p><a href="/store/customer/logout">로그아웃</a></p>
 			          	 </div>
 				</div>                         
 			</div>
