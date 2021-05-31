@@ -331,7 +331,7 @@ public class ManagerController {
 		System.out.println("지금 매니저의 세션 상태는: "+session.getAttribute("managerInfo"));
 		System.out.println(session.getAttribute("managerInfo"));
 		if(session.getAttribute("managerInfo")!=null) {
-			return "/manager/home";
+			return "redirect:/manager/home";
 		}
 		else {
 			return "/manager/login";
