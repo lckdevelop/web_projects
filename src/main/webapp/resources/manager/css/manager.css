@@ -2,7 +2,7 @@
 
 /* 전체 */
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Gothic A1', sans-serif;
   color: #272829;
 }
 
@@ -12,14 +12,8 @@ a {
   cursor: pointer;
 }
 
-a:hover {
-  /* color: #37b3ed;
-  text-decoration: none;
-  cursor: pointer; */
-}
-
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Gothic A1', sans-serif;
 }
 
 /* 전체 분할 */
@@ -72,7 +66,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   -moz-text-align-last: center;
   text-align-last: center;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Gothic A1', sans-serif;
 }
 
 #header .profile a {
@@ -186,5 +180,11 @@ h1, h2, h3, h4, h5, h6 {
 .profile_info {
 	text-align:center;
 	margin-bottom:30px;
-	font-size:25;
+	font-size:17;
+}
+
+.profit_link {
+	text-decoration: none;
+	padding-top:20px;
+	color:rgba(237, 123, 123);
 }
