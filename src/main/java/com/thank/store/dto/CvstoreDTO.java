@@ -8,6 +8,7 @@ import lombok.ToString;
 
 //작성자 : 방지훈
 //작성일자 : 05/25 10:14
+// 
 @Getter
 @Setter
 @ToString
@@ -23,5 +24,6 @@ public class CvstoreDTO {
 	private long manager_no;
 	private String InfoContent;
 	private String latlng;
+	private double distance;
 	private List<CvsProductDTO> cvsProductList;
 }
