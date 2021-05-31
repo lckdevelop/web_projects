@@ -44,8 +44,6 @@ public class MapController {
 	@ResponseBody
 	public HashMap mapajax(
 			@RequestParam HashMap<String, Double> loc
-
-			
 			) {
 //		@RequestParam Double lat,
 //		@RequestParam Double lon,
@@ -55,10 +53,6 @@ public class MapController {
 //		log.info(lat + ": lat");
 		log.info(loc.get("lon") + ": lon");
 //		log.info(lon + ": lon");
-		log.info(loc.get("cvStoreCnt") + ": cvStoreCnt");
-		System.out.println("-------------------------------------------");
-		System.out.println(loc.get("cvStoreCnt"));
-		System.out.println("-------------------------------------------");
 		HashMap<String, List<CvstoreDTO>> hash = new HashMap<String, List<CvstoreDTO>>();
 		//HashMap<String, Double> hash = new HashMap<String, List<CvstoreDTO>>();
 		//ModelAndView mav = new ModelAndView();
@@ -110,7 +104,6 @@ public class MapController {
 			System.out.println("list : " + list);
 			hash.put("list", list);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -72,8 +72,8 @@
 	   					</div>
 	   				</div>
 	   			</div>
-	   		
 	   		</c:forEach>
+	   		<input class="btn btn-primary" type="button" value="기간만료 상품보기" onclick="location.href='endpurchaselist'"/>
 	   	</form>
 		
 		<form>

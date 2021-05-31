@@ -37,4 +37,12 @@ public interface CustomerDAO {
 
 	long updateCvstorePoint(CvsProductDTO cvsProductDTO) throws SQLException;
 
+	long getEndPurchaseCount(long no) throws SQLException;
+
+	List<PurchaseListDTO> getEndPurchaseList(CusSearchDTO searchDTO) throws SQLException;
+
+	long getTotalPurchaseCount(long no) throws SQLException;
+
+	List<PurchaseListDTO> getTotalPurchaseList(CusSearchDTO searchDTO) throws SQLException;
+
 }

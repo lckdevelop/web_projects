@@ -13,6 +13,7 @@ import com.thank.store.dto.ProductListDTO;
  */
 public interface MapService {
 	
+	//나의 위치와 편의점 위치를 이용해서 거리 계산된 편의점 List출력
 	List<CvstoreDTO> getCvStore(HashMap<String, Double> loc) throws Exception;
 	
 	List<CvstoreDTO> getTotalCvStore() throws Exception;

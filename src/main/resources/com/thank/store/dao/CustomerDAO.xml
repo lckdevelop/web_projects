@@ -25,8 +25,35 @@
 	 -->
 	<select id="getPurchaseCount" parameterType="long" resultType="long">
 		select count(*)
-		from purchaselist
+		from purchaselist p
+		join cvstoreproduct c on p.cvstoreproduct_no = c.no
 		where customer_no = #{no}
+		and ROUND((c.expirationdate - sysdate) * 24) > 0
+	</select>
+	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/30 16:50
+	 -->
+	<select id="getTotalPurchaseCount" parameterType="long" resultType="long">
+		select count(*)
+		from purchaselist p
+		join cvstoreproduct c on p.cvstoreproduct_no = c.no
+		where customer_no = #{no}
+	</select>
+	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/30 16:47
+	 -->
+	<select id="getEndPurchaseCount" parameterType="long" resultType="long">
+	 <![CDATA[
+		select count(*)
+		from purchaselist p
+		join cvstoreproduct c on p.cvstoreproduct_no = c.no
+		where customer_no = #{no}
+		and ROUND((c.expirationdate - sysdate) * 24) <= 0
+	]]>
 	</select>
 	
 	<!-- 
@@ -134,9 +161,57 @@
 		join cvstoreproduct cp on cp.no = p.cvstoreproduct_no
 		join productlist pl on pl.no = cp.productlist_no
 		where p.customer_no = #{customer_no}
+		and ROUND((cp.expirationdate - sysdate) * 24) > 0
 		) A
 			  ) B 
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
+	</select>
+	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/30 17:10
+	 -->
+	<select id="getTotalPurchaseList" parameterType="CusSearchDTO" resultType="PurchaseListDTO">
+		select B.*
+		from (select rownum as rnum, A.*
+		      from (select p.no,
+				p.cvstoreproduct_no as cvstoreproductno,
+				p.customer_no as customerno,
+				pl.name,
+				pl.productcode
+		from purchaselist p 
+		join customer c on c.no = p.customer_no
+		join cvstoreproduct cp on cp.no = p.cvstoreproduct_no
+		join productlist pl on pl.no = cp.productlist_no
+		where p.customer_no = #{customer_no}
+		) A
+			  ) B 
+		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
+	</select>
+	
+	<!-- 
+	작성자 : 방지훈
+	작성일자: 2021/05/30 16:36
+	 -->
+	<select id="getEndPurchaseList" parameterType="CusSearchDTO" resultType="PurchaseListDTO">
+		<![CDATA[
+		select B.*
+		from (select rownum as rnum, A.*
+		      from (select p.no,
+				p.cvstoreproduct_no as cvstoreproductno,
+				p.customer_no as customerno,
+				pl.name,
+				pl.productcode
+		from purchaselist p 
+		join customer c on c.no = p.customer_no
+		join cvstoreproduct cp on cp.no = p.cvstoreproduct_no
+		join productlist pl on pl.no = cp.productlist_no
+		where p.customer_no = #{customer_no}
+		and ROUND((cp.expirationdate - sysdate) * 24) <= 0
+		) A
+			  ) B 
+		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
+		]]>
 	</select>
 	
 	<!-- 
@@ -183,7 +258,7 @@
 	작성일자: 2021/05/28 00:18
 	 -->
 	<update id="updatePurchaseProduct" parameterType="CvsProductDTO">
-		update cvstoreproduct set enrollment = 2
+		update cvstoreproduct set enrollment = 2 , sellday = sysdate
 		where no = #{no}
 	</update>
 	

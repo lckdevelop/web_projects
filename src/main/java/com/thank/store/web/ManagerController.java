@@ -1,6 +1,9 @@
 package com.thank.store.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.ManPagingDTO;
 import com.thank.store.dto.ManSearchDTO;
 import com.thank.store.dto.ManagerDTO;
 import com.thank.store.dto.MemberDTO;
+import com.thank.store.dto.ProfitDTO;
 import com.thank.store.service.ManagerService;
 import com.thank.store.service.MemberService;
 
@@ -36,6 +41,40 @@ public class ManagerController {
 	private ManagerService managerService;
 	@Autowired
 	private MemberService memberService;
+	
+	@RequestMapping("/exe")
+	public String exex(@ModelAttribute ManagerDTO managerDTO,
+      				   @ModelAttribute ManSearchDTO searchDTO,
+				       @RequestParam(defaultValue="1") long pg,
+				       HttpSession session,
+				       Model model) {
+		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
+		long managerNo = managerInfo.getManagerno(); // 세션 매니저번호
+		long cvsNo = managerInfo.getCvsno(); // 세션 매니저지점번호
+		managerDTO = new ManagerDTO();
+		
+		try {
+			managerDTO = managerService.getManagerInfo(managerNo);
+			model.addAttribute("managerDTO", managerDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		searchDTO.setPagingDTO(new ManPagingDTO(pg));
+		searchDTO.setCvstore_no(cvsNo);
+		try {
+			List<CvsProductDTO> allList = managerService.getAllProductList(searchDTO);
+			ManPagingDTO pagingDTO = managerService.getPagingInfo(searchDTO);
+			model.addAttribute("allList", allList);
+			model.addAttribute("pagingDTO", pagingDTO);
+			model.addAttribute("searchDTO", searchDTO);
+			model.addAttribute("enrollCheck", searchDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
+		return "manager/newhome";
+	}
 	
 	/*
 	 * 작성자: 이채경
@@ -164,9 +203,11 @@ public class ManagerController {
 		try {
 			int updateEnrollRow = managerService.enrollAction(cvsProductDTO);
 			log.info(updateEnrollRow + " : updateEnrollRow");
+			
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
+		model.addAttribute("pg", pg);
 		
 		return "redirect:./" + cvsProductDTO.getFrom();
 	}
@@ -195,18 +236,91 @@ public class ManagerController {
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
+		model.addAttribute("pg", pg);
 		
 		return "redirect:./" + cvsProductDTO.getFrom();
 	}
 	
 	/*
-	 * 작성자: 김수빈
-	 * 작성일자: 2021/05/24 10:50
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/29
 	 */
 	@GetMapping("/profit")
-	public String showProfit() {
+	public String showProfit(@ModelAttribute ManagerDTO managerDTO,
+			   				 @ModelAttribute CvsProductDTO cvsProductDTO,
+			   				 HttpSession session,
+			   				 Model model) {
+		
+		ManagerDTO managerInfo = (ManagerDTO)session.getAttribute("managerInfo");
+		long managerNo = managerInfo.getManagerno();
+		managerDTO = new ManagerDTO();
+		
+		try {
+			managerDTO = managerService.getManagerInfo(managerNo);
+			model.addAttribute("managerDTO", managerDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+		}
+		
 		return "/manager/profit";
 	}
+	
+	/*
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/29
+	 */
+	@RequestMapping(value = "/profit/{cvstoreNo}/{searchYear}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String getProfitList(@PathVariable long cvstoreNo, @PathVariable String searchYear) {
+		Gson gson = new Gson();
+		log.info(cvstoreNo + ": cvstoreNo");
+		log.info(searchYear + "searchYear");
+
+		List<ProfitDTO> monthList = new ArrayList<>();
+		ProfitDTO profitDTO = new ProfitDTO();
+		
+		profitDTO.setCvstoreno(cvstoreNo);
+		profitDTO.setSearchYear(searchYear);
+		
+		try {
+			monthList = managerService.profitPerMonth(profitDTO);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return gson.toJson(monthList);
+		
+	}
+	
+	/*
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/29
+	 */
+	@RequestMapping(value = "/category/{cvstoreNo}/{searchYear}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String getCategoryList(@PathVariable long cvstoreNo, @PathVariable String searchYear) {
+		Gson gson = new Gson();
+		log.info(cvstoreNo + ": cvstoreNo");
+		log.info(searchYear + "searchYear");
+
+		List<ProfitDTO> categoryList = new ArrayList<>();
+		ProfitDTO profitDTO = new ProfitDTO();
+		
+		profitDTO.setCvstoreno(cvstoreNo);
+		profitDTO.setSearchYear(searchYear);
+		
+		try {
+			categoryList = managerService.profitPerCategory(profitDTO);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return gson.toJson(categoryList);
+		
+	}
+	
 	/*
 	 * 작성자: 김수빈
 	 * 작성일자: 2021/05/24 10:50

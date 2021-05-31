@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="app" value="${pageContext.request.contextPath}" />
+<c:set var="dto" value="${managerDTO}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,9 +18,100 @@
 <link
 	href="${app}/resources/manager/css/bootstrap.min.css"
 	rel="stylesheet">
-<!-- jquery 경로 -->
+<!-- jquery -->
 <script type="text/javascript"
 	src="${app}/resources/manager/js/jquery-3.6.0.min.js"></script>
+<!-- gson chart -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+<script type="text/javascript">
+$(function() {
+    let cvsno = '${dto.cvsno}';
+	
+    $('#btn_searchYear').click(function(){
+    	let searchYear = $("#searchYear").val();
+    	
+    	// 월별 수익 차트 
+    	let lineChart = document.getElementById("monthProfit").getContext("2d");
+        let chartLabels = [];
+        let chartData=[];
+        
+        $.getJSON("${app}/manager/profit/"+cvsno+"/"+searchYear, function(data){
+            $.each(data, function(key, value) {
+            	chartLabels.push(value.month);
+                chartData.push(value.profitpermonth);
+            });
+            
+            let categoryChart = new Chart(lineChart, {
+            	type : 'line',
+            	data : {
+            		labels : chartLabels,
+            		datasets : [ {
+                        label : "원",
+                        backgroundColor:"#bfdaf9",
+                        borderColor: "#80b6f4",
+                        pointBorderColor: "#4393f0",
+                        pointBackgroundColor: "#4393f0",
+                        pointHoverBackgroundColor: "#80b6f4",
+                        pointHoverBorderColor: "#80b6f4",
+                        fontSize : 30,
+                        fill: false,
+                        borderWidth: 4,
+                        data : chartData
+                    } ]
+            	},
+            	options: {
+            		title: {
+            			display : true,
+            			text : searchYear + "년 월별 수익",
+            			fontSize : 25,
+            			fontColor : '#ff8a3d', 
+            		}
+            	}
+            });
+            
+        });
+        
+     	// 카테고리별 현황 차트
+        let doughnutChart = document.getElementById("categoryProfit").getContext("2d");
+        let chartLabels2 = [];
+        let chartData2 = [];
+        
+        $.getJSON("${app}/manager/category/"+cvsno+"/"+searchYear, function(data){
+            $.each(data, function(key, value) {
+            	chartLabels2.push(value.mainCategory);
+            	chartData2.push(value.cntPerCategory);
+            });
+            
+
+            let categoryChart = new Chart(doughnutChart, {
+            	type : 'doughnut',
+            	data : {
+            		labels : chartLabels2,
+            		datasets: [{
+            		    data: chartData2,
+            		    backgroundColor: [
+            		      'rgb(255, 99, 132)',
+            		      'rgb(54, 162, 235)',
+            		      'rgb(255, 205, 86)'
+            		    ],
+            		    hoverOffset: 4
+            		  }]
+            	},
+            	options: {
+            		title: {
+            			display : true,
+            			text : searchYear + "년 메인 카테고리별 현황",
+            			fontSize : 25,
+            			fontColor : '#ff8a3d', 
+            		}
+            	}
+            });
+            
+        });
+    });
+});
+</script>
 </head>
 <body>
 <div id='container'>
@@ -31,10 +123,42 @@
     <div id='box-center'>
 		<jsp:include page="/WEB-INF/views/manager/fragment/profilebar.jsp" flush="true" />
     </div>
-     <div id='box-right'>
-     	수익 현황입니다.
-     
-     </div>
+	<div id='box-right'>
+ 		<div id="product-search-box">
+   			<div class="row">
+	   			<div class="col-md-5">
+	    			<h3>${dto.brand}&nbsp;${dto.spot}&nbsp;수익 현황</h3>
+	       		</div>
+	       		<div class="col-md-2">
+	       		<select name="searchYear" id="searchYear">
+				<option value="2021"
+					<c:if test="${profitDTO.searchYear == '2021'}"> selected </c:if>
+				>2021</option>
+				<option value="2020"
+					<c:if test="${profitDTO.searchYear == '2020'}"> selected </c:if>
+				>2020</option>
+				<option value="2019"
+					<c:if test="${profitDTO.searchYear == '2019'}"> selected </c:if>
+				>2019</option>
+				</select>년
+	       		</div>
+	    		<div class="col-md-2">
+	       			<input type="submit" id="btn_searchYear" class="btn btn-default" value="submit"></input>
+	     		</div>
+     		</div>
+   		</div>
+   		<hr style="border: solid 3px #1b4af5;">
+	 	<div class="container">
+	 		<div class="row">
+	 			<div class="col-md-7">
+					<canvas id="monthProfit" height="450" width="600"></canvas>
+				</div>
+				<div class="col-md-5">
+					<canvas id="categoryProfit" height="450" width="600"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 </body>
 </html>
