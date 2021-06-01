@@ -162,7 +162,7 @@ $(document).ready(function(){
 								<input type="text" class="form-control" placeholder="Search">
 							</form>
                         </div>
-                        <!-- 이해불가 -->
+                        <!-- 이해안됩니다. -->
                     </div>
                 </div>
                 
