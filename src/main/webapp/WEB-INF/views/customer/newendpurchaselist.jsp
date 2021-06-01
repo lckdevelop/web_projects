@@ -57,29 +57,9 @@
         <!--**********************************
             Header start
         ***********************************-->
-          <div class="header">    
+         <div class="header">    
             <div class="header-content clearfix">
-                
-                <div class="nav-control">
-                    <div class="hamburger">
-                        <span class="toggle-icon"><i class="icon-menu"></i></span>
-                    </div>
-                </div>
-                <div class="header-left">
-                    <div class="input-group icons">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
-                        </div>
-                        <!-- 화면에 어디에 뜨는지 이해불가 -->
-                        <div class="drop-down   d-md-none">
-							<form action="#">
-								<input type="text" class="form-control" placeholder="Search">
-							</form>
-                        </div>
-                        <!-- 이해불가 -->
-                    </div>
-                </div>
-                
+               <jsp:include page="/WEB-INF/views/customer/fragment/searchbar.jsp" flush="true" />
             </div>
         </div>
         <!--**********************************
@@ -136,7 +116,7 @@
 						  				<div class='col-sm-6'>
 							    				<label class="name1">상품명 : ${purchaseDTO.name}<br/></label>
 							    				<h6>상품코드 : ${purchaseDTO.productcode}<br/></h6>
-							    				<h6>만료일 : <f:formatDate value="${purchaseDTO.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
+							    				<h6>만료일 : <f:formatDate value="${purchaseDTO.expirationdate}" pattern="yyyy-MM-dd HH:mm:ss" /><br/></h6>
 							    				<h6 style="color:red">구매금액 : ${purchaseDTO.purchaseprice}원<br/></h6>
 							    				
 							    		</div>
