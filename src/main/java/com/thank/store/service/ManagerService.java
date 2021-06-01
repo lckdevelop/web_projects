@@ -49,4 +49,6 @@ public interface ManagerService {
 	String managerIdCheck(String id) throws Exception;
 
 	String managerStoreCodeCheck(String storecode) throws Exception;
+
+	String storeCodeRegisteredCheck(String storecode) throws Exception;
 }

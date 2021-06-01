@@ -75,6 +75,9 @@
                                     
                                     <div class="check_font" id="storecode_check">
                                     </div>
+                                    
+                                    <div class="check_font" id="storecode_occupied_check">
+                                    </div>
                                     <button class="btn login-form__btn submit w-100" id="reg_submit" type="submit">가입 하기</button>
                                 </form>
                                     <p class="mt-5 login-form__footer">계정이 있으신가요? <a href="../manager" class="text-primary"> 로그인 </a> 하기</p>
@@ -162,6 +165,27 @@
 							// 1 : 아이디가 중복되는 문구
 							$("#storecode_check").text("존재하지 않는 편의점 코드입니다.");
 							$("#storecode_check").css("color", "red");
+							$("#reg_submit").attr("disabled", true);
+						}
+					}, error : function() {
+							console.log("실패");
+					}
+				});
+			});
+		
+		$("#storecode").blur(function() {
+
+			var storecode = $('#storecode').val();
+			$.ajax({
+				url : "${pageContext.request.contextPath}/manager/cvstoreoccupiedcheck?storecode="+ storecode,
+				type : 'get',
+				success : function(data) {
+					console.log("1 = 미등록된 편의점코드 / 0 = 기등록된 편의점코드 : "+ data);							
+					console.log("스토어코드: "+storecode);
+					if (data == 0) {
+
+							$("#storecode_occupied_check").text("기등록된 편의점 코드 입니다. 편의점 코드를 확인 해주세요");
+							$("#storecode_occupied_check").css("color", "red");
 							$("#reg_submit").attr("disabled", true);
 						}
 					}, error : function() {

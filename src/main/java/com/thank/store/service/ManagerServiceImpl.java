@@ -234,5 +234,10 @@ public class ManagerServiceImpl implements ManagerService {
 		return managerDAO.managerStoreCodeCheck(storecode);
 	}
 
+	@Override
+	public String storeCodeRegisteredCheck(String storecode) throws SQLException{
+		return managerDAO.storeCodeRegisteredCheck(storecode);
+	}
+
 }
 
