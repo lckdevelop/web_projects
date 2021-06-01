@@ -24,22 +24,36 @@ rel="stylesheet">
 <link
 	href="${app}/resources/manager/css/bootstrap.min.css"
 	rel="stylesheet">
+<!-- alert창  -->
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- jquery 경로 -->
 <script type="text/javascript"
 	src="${app}/resources/manager/js/jquery-3.6.0.min.js"></script>
 	
 <script type="text/javascript">
 function btn_enroll(productNo, productName, discountPrice, countTime){
-	if(confirm(productName 
-			+ ' 상품\n' 
-			+ '\n할인가 : '
-			+ discountPrice
-			+ '원\n남은시간 : '
-			+ countTime
-			+ '시간\n\n등록하시겠습니까?'))
-		location.href="enrollAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enroll";
-	else
-		return false;
+	Swal.fire({
+		  title: "할인가 : " + discountPrice + "원 <br/>남은 시간 : " + countTime + "시간",
+		  text: productName + "를 현재가로 등록하시겠습니까?",
+		  imageUrl: '${app}/resources/product/images/'+productName+'.jpg',
+		  imageWidth: 200,
+		  imageHeight: 200,
+		  showCancelButton: true,
+		  confirmButtonColor: 'rgba(79, 126, 255, 0.7)',
+		  cancelButtonColor: 'rgba(237, 123, 123)',
+		  confirmButtonText: '상품등록',
+		  cancelButtonText: '돌아가기',
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire(
+		      '등록 완료!',
+		       productName,
+		      'success'
+		    )
+		    location.href="enrollAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enroll";
+		  }
+		})
 }
 </script>
 </head>
@@ -123,7 +137,7 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
 		 		<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<h3>마이 점포 전상품 리스트</h3>
+			    			<h3>임박 상품 등록</h3>
 			       		</div>
 			       		<div class="col-md-3">
 			    			<div class="input-group icons">
