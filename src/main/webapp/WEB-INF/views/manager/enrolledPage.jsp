@@ -129,7 +129,7 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 		 		<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<span class="list_info" style="color:rgb(237, 123, 123);">등록된 임박 상품</span>
+			    			<span class="list_info" style="color:#ff8a3d;">등록된 임박 상품</span>
 			       		</div>
 			       		<div class="col-md-3">
 			    			<div class="input-group icons">
@@ -175,7 +175,8 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 				    				<span>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
 				    				<div class="enroll_margin_box"></div>
 				    				<span class="enroll_info">등록가 : ${product.enrolledprice}원<br/></span>
-									<span class="enroll_info">등록 시점 남은시간 : ${product.enrolledlefttime}시간<br/></span>	    				
+									<span class="enroll_info">등록 시점 남은시간 : ${product.enrolledlefttime}시간<br/></span>
+									<div class="enroll_margin_box"></div>    				
 				    				<span class="enrollment_yes_info">등록여부 : o<br/></span>
 				    			</div>
 				    		</div>
