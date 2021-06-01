@@ -16,6 +16,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Gothic A1', sans-serif;
 }
 
+td {
+  text-align: center;
+}
 /* 전체 분할 */
 #container {
 	display: flex;
@@ -131,7 +134,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #list_container_box{
 	margin: 40px 50px 40px 50px;
-	width:80%;
+	width:85%;
 }
 
 #list-box{
@@ -149,7 +152,7 @@ h1, h2, h3, h4, h5, h6 {
 	padding:10px 20px;
 	margin-top:40px;
 	font-weight: 300;
-	width:220px;
+	width:210px;
 }
 
 .btn_enroll:hover{
@@ -168,7 +171,7 @@ h1, h2, h3, h4, h5, h6 {
 	padding:10px 20px;
 	margin-top:40px;
 	font-weight: 300;
-	width:220px;
+	width:210px;
 }
 
 .btn_cancel:hover{

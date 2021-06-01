@@ -11,6 +11,7 @@ import com.thank.store.dao.ManagerDAO;
 import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.ManPagingDTO;
 import com.thank.store.dto.ManSearchDTO;
+import com.thank.store.dto.ManSellListDTO;
 import com.thank.store.dto.ManagerDTO;
 import com.thank.store.dto.MemberDTO;
 import com.thank.store.dto.ProfitDTO;
@@ -146,20 +147,7 @@ public class ManagerServiceImpl implements ManagerService {
 		return managerDAO.cancelAction(cvsProductDTO);
 	}
 	
-	/*
-	 * 작성자: 김수빈
-	 * 작성일자: 2021/05/25 10:54
-	 * memberDTO 이용해서 manager의 no 리턴하기
-	 */
-	@Override
-	public long getManagerNoFromMember(MemberDTO memberDTO) throws Exception {
-		try {
-			return managerDAO.getManagerNoFromMember(memberDTO);
-		} catch (Exception e) {
-			log.info(e.getMessage());
-			throw e;
-		}
-	}
+	
 	
 	public long getDiscountPrice(long price, int discountRate) throws Exception {
 		long discountPrice = price * (100 - discountRate) / 100;
@@ -220,10 +208,15 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	@Override
-	public List<ProfitDTO> profitPerCategory(ProfitDTO profitDTO) throws Exception {
-		return managerDAO.profitPerCategory(profitDTO);
+	public List<ProfitDTO> profitPerMainCategory(ProfitDTO profitDTO) throws Exception {
+		return managerDAO.profitPerMainCategory(profitDTO);
 	}
-
+	
+	@Override
+	public List<ManSellListDTO> sellProfitList(ProfitDTO profitDTO) throws SQLException {
+		return managerDAO.sellProfitList(profitDTO);
+	}
+	
 	@Override
 	public String managerIdCheck(String id) throws SQLException {
 		return managerDAO.managerIdCheck(id);
@@ -237,6 +230,21 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public String storeCodeRegisteredCheck(String storecode) throws SQLException{
 		return managerDAO.storeCodeRegisteredCheck(storecode);
+	}
+	
+	/*
+	 * 작성자: 김수빈
+	 * 작성일자: 2021/05/25 10:54
+	 * memberDTO 이용해서 manager의 no 리턴하기
+	 */
+	@Override
+	public long getManagerNoFromMember(MemberDTO memberDTO) throws Exception {
+		try {
+			return managerDAO.getManagerNoFromMember(memberDTO);
+		} catch (Exception e) {
+			log.info(e.getMessage());
+			throw e;
+		}
 	}
 
 }

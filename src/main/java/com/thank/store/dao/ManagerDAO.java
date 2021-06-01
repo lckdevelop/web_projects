@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.ManSearchDTO;
+import com.thank.store.dto.ManSellListDTO;
 import com.thank.store.dto.ManagerDTO;
 import com.thank.store.dto.MemberDTO;
 import com.thank.store.dto.ProfitDTO;
@@ -39,7 +40,9 @@ public interface ManagerDAO {
 	
 	List<ProfitDTO> profitPerMonth(ProfitDTO profitDTO) throws SQLException;
 
-	List<ProfitDTO> profitPerCategory(ProfitDTO profitDTO) throws SQLException;
+	List<ProfitDTO> profitPerMainCategory(ProfitDTO profitDTO) throws SQLException;
+	
+	List<ManSellListDTO> sellProfitList(ProfitDTO profitDTO) throws SQLException;
 
 	String managerIdCheck(String id) throws SQLException;
 	
