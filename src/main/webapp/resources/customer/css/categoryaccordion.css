@@ -1,17 +1,17 @@
 @charset "UTF-8";
-body {
+body.accordion {
   color: #2c3e50;
   background: #ecf0f1;
   padding: 0 1em 1em;
 }
 
-h1 {
+h1.accordion {
   margin: 0;
   line-height: 2;
   text-align: center;
 }
 
-h2 {
+h2.accordion {
   margin: 0 0 0.5em;
   font-weight: normal;
 }
