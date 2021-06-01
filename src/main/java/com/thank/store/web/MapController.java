@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,11 +47,13 @@ public class MapController {
 	@RequestMapping(value="/mapajax", produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public HashMap mapajax(
-			@RequestParam HashMap<String, Double> loc
+			@RequestParam HashMap<String, Double> loc,
+			HttpSession session
 			) {
 //		@RequestParam Double lat,
 //		@RequestParam Double lon,
 //		@RequestParam long cvStoreCnt
+		session.setAttribute("loc", loc);
 		
 		log.info(loc.get("lat") + ": lat");
 //		log.info(lat + ": lat");
