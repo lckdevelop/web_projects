@@ -473,4 +473,21 @@ public class ManagerController {
 		System.out.println("편의점코드 존재 확인 결과: "+result);
 		return result;
 	}
+	
+	@RequestMapping(value = "/cvstoreoccupiedcheck", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String cvstoreoccupiedcheck(@RequestParam("storecode") String storecode){
+		String result="";
+		System.out.println("받아온 storecode 값"+storecode);
+		System.out.println("cvstoreoccupiedcheck까지 됐음");
+		
+		try {
+			result=managerService.storeCodeRegisteredCheck(storecode);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("편의점코드 기등록 확인 결과: "+result);
+		return result;
+	}
+	
 }
