@@ -106,7 +106,9 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
             Nav header start
         ***********************************-->
         <div class="nav-header" style="background-color:white">
-			<img src="${app}/resources/logo_copy.png" style='height: 100%; width: 100%; object-fit: contain'alt="">
+			<button onclick="location.href='${app}'" class="go_root_btn">
+				<img src="${app}/resources/logo_copy.png" style='height: 100%; width: 100%; object-fit: contain'alt="">
+			</button>
         </div>
         <!--**********************************
             Nav header end
@@ -150,7 +152,7 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 		 		<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<span class="list_info">나의 점포 전상품</span>
+			    			<span class="list_info" style="color:#ff8a3d;">나의 점포 전상품</span>
 			       		</div>
 			       		<div class="col-md-3">
 			    			<div class="input-group icons">
@@ -187,7 +189,7 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 				    	<div id="list-box">
 				    		<div class="row">
 				    			<div class='col-sm-3'>
-				  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' /></div>
+				  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' class="product_img"/></div>
 				  				</div>
 				  				<div class='col-sm-6'>
 					    			<div class="control_size">
