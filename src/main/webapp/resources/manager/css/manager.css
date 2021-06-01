@@ -127,10 +127,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 상품 리스트 박스 */
 #product-search-box{
-	margin: 10px 0px 40px 70px;
+	margin: 10px 0px 40px 50px;
 }
 #list_container_box{
-	margin: 40px 50px 40px 70px;
+	margin: 40px 50px 40px 50px;
 	width:80%;
 }
 
@@ -178,15 +178,6 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 300;
 }
 
-/* 프로피 바 리스트 3개 버튼 */
-.profile_btn {
-	
-}
-
-.profile_btn:hover {
-	
-}
-
 .profile_info {
 	text-align:center;
 	margin-bottom:30px;
@@ -213,6 +204,14 @@ h1, h2, h3, h4, h5, h6 {
  	font-size:18px;
  	color:#000;
 }
+
+.control_size_ed{
+	margin-top:25px;
+ 	margin-left:30px;
+ 	font-size:18px;
+ 	color:#000;
+}
+
 .dDay{
 	margin-top:35px;
 	font-size:20px;
