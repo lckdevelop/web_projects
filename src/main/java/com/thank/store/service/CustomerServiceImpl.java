@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.thank.store.dao.CustomerDAO;
 import com.thank.store.dao.MapDAO;
+import com.thank.store.dto.ChartDTO;
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvsProductDTO;
@@ -204,7 +205,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public List<PurchaseListDTO> getTotalPurchaseList(CusSearchDTO searchDTO) throws Exception {
 		return customerDAO.getTotalPurchaseList(searchDTO);
 	}
-
+	
 	@Override
 	public String customerIdCheck(String id) {
 		return customerDAO.customerIdCheck(id);
@@ -228,5 +229,24 @@ public class CustomerServiceImpl implements CustomerService{
 		cvstore.setCvsProductList(cvsProductList);
 		
 		return cvstore;	
+	}
+	
+	/*
+	 * 작성자 : 방지훈
+	 * 작성일자 : 06/01 12:28
+	*/
+	@Override
+	public long getTotalDiscountPrice(long no) throws Exception {
+		return customerDAO.getTotalDiscountPrice(no);
+	}
+
+	@Override
+	public List<ChartDTO> purchasePerBrand(long customerNo) throws Exception {
+		return customerDAO.purchasePerBrand(customerNo);
+	}
+
+	@Override
+	public List<ChartDTO> purchasePerCategory(long customerNo) throws Exception {
+		return customerDAO.purchasePerCategory(customerNo);
 	}
 }
