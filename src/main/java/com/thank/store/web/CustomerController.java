@@ -316,7 +316,6 @@ public class CustomerController {
 			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
 			customerService.updateCustomerPoint(customerDTO); // 잔액차감
 			customerDTO.setCvsproductno(cvsProductDTO.getNo());
-			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
 			customerService.addPurchaseProduct(customerDTO);// 구매목록에 등록
 			customerService.updatePurchaseProduct(cvsProductDTO);// 상품 상태 변경 enrollment = 2
 			customerService.updateCvstorePoint(cvsProductDTO);// 판매자 수익금 추가
@@ -338,8 +337,8 @@ public class CustomerController {
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		customerDTO = new CustomerDTO();
 		List<PurchaseListDTO> purchaseList;
-		long totalpurchasecount;
-		long totalDiscountPrice;
+		long totalpurchasecount = 0;
+		long totalDiscountPrice = 0;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
 		searchDTO.setCustomer_no(memberInfo.getNo());
 		try {
