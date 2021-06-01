@@ -132,6 +132,11 @@ public class CustomerController {
 			@ModelAttribute CustomerDTO customerDTO, Model model, HttpSession session) {
 		log.info(searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
+		/*
+		 * HashMap<String, Double> loc = (HashMap<String, Double>)
+		 * session.getAttribute("loc");
+		 * log.info("현재 내 위치 : "+loc.get("lat")+" , "+loc.get("lon"));
+		 */
 		List<String> subCategoryList;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
 		long purchasecount = 0;
