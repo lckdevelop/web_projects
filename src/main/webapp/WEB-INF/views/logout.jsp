@@ -43,13 +43,17 @@ const swalWithBootstrapButtons = Swal.mixin({
 	  showCancelButton: true,
 	  confirmButtonText: '로그아웃 할게요!',
 	  cancelButtonText: '잘못 눌렀어요!',
-	  reverseButtons: true
+	  reverseButtons: true,
+	  allowOutsideClick: false
 	}).then((result) => {
 	  if (result.isConfirmed) {
-	    swalWithBootstrapButtons.fire(
-	      '로그아웃 되었습니다!',
-	      '안녕히 가세요!',
-	      'success'
+	    swalWithBootstrapButtons.fire({
+	    	title:'로그아웃 되었습니다!',
+		     text:'안녕히 가세요!',
+		     icon:'success',
+		      allowOutsideClick: false
+	    }
+	      
 	    ).then(function(){
 			window.location="/store/customer/logoutconfirm"
 		})
@@ -57,10 +61,13 @@ const swalWithBootstrapButtons = Swal.mixin({
 	    /* Read more about handling dismissals below */
 	    result.dismiss === Swal.DismissReason.cancel
 	  ) {
-	    swalWithBootstrapButtons.fire(
-	      '로그아웃이 취소되었습니다!',
-	      '취소됐어요~ :)',
-	      'error'
+	    swalWithBootstrapButtons.fire({
+
+	      title:'로그아웃이 취소되었습니다!',
+	      text:'취소됐어요~ :)',
+	      icon:'error',
+	    	allowOutsideClick: false
+	    }
 	    ).then(function(){
 			window.location="./home"
 		})
