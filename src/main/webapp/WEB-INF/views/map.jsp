@@ -12,20 +12,19 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link
-	href="${app}/resources/customer/css/bootstrap.min.css"
-	rel="stylesheet">
-<!-- accordion css -->
-<link 
-	href="${app}/resources/customer/css/accordion.css" rel="stylesheet">
 
+	<link href="${app}/resources/customer/css/bootstrap.min.css" rel="stylesheet">
+<!-- accordion css -->
+	<link href="${app}/resources/customer/css/accordion.css" rel="stylesheet">
 <!-- Custom Stylesheet -->
     <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
     	
-	
 <!-- jquery 경로 -->
 <script type="text/javascript"
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
+	
+<script type="text/javascript" 
+	src="${app}/resources/customer/js/accordion.js"></script>	
 
 <script type="text/javascript">
 <!--내 위주 편의점보기 버튼 이벤트-->
@@ -39,21 +38,6 @@ window.onload = function () {
 	
 <!--아코디언 JS -->
 
-
- // 전체 체크 버튼 클릭시 전체 체크 및 해제
- function checkFunc(){	 
-	 if($("input:radio[id='storeProduct']").attr("checked") == 'checked'){
-		 console.log("ture클릭")
-		 console.log($("input:radio[id='storeProduct']").attr("checked"));
-		 $(this).prop('checked', 'unchecked');
-		 
-		 //$("input:radio[id='storeProduct']").attr('check','unchecked');
-	}else{
-		console.log("false클릭");
-		$(this).prop('checked', true);
-		//$("input:radio[id='storeProduct']").attr('check','checked');
-	}
- }
 
 <!--아코디언 JS END-->
 </script>
@@ -340,7 +324,7 @@ function makeCvsInfo(){
 	    '            <div class="desc">' + 
 	    '                <div class="ellipsis">'+ contents[i].address +'</div>' + 
 	    '                <div class="dist"> 내 위치로 부터 거리 : <a style="color:#ff8a3d;">'+ dist_String + '</a></div>' + 
-	    '                <div class="visitStore"><a onclick="productListAjax(\''+ contents[i].storecode +'\')" class="link" style="color:blue">상품바로가기</a></div>' + 
+	    '                <div class="visitStore"><button onclick="productListAjax(\''+ contents[i].storecode +'\')" class="link danger" style="color:blue">상품바로가기</button></div>' + 
 	    '            </div>' + 
 	    '        </div>' + 
 	    '    </div>' +    
@@ -415,12 +399,13 @@ function makeCvsInfo(){
 		        	console.log(data);
 		        	console.log(data.cvstoreDTO.cvsProductList.length);
 		        	var v_loadPage ="";
-
-	            		
+	            		v_loadPage += "		 <div class='nk-nav-scroll'>"; 
+	            		v_loadPage += "		 <ul class='metismenu' id='menu'>"; 
+	            		v_loadPage += "		<li class='nav-label'>카테고리</li>"; 
 	            		v_loadPage += "		<ul class='metismenu' id='menu'>"; 
 	            		v_loadPage += "				<li class='mega-menu mega-menu-sm'>"; 
 	            		v_loadPage += "					<a class='has-arrow' href='javascript:void()' aria-expanded='false'>"; 
-	            		v_loadPage += 						"<i class='icon-globe-alt menu-icon'></i><span class='nav-text'>김밥류</span>"; 
+	            		v_loadPage += "						<i class='icon-globe-alt menu-icon'></i><span class='nav-text'>김밥류</span>"; 
 	            		v_loadPage += "					</a>"; 
            				v_loadPage += "					<ul aria-expanded='false'>"; 
 		            	for(var i=0; i<data.cvstoreDTO.cvsProductList.length; i++){
@@ -435,11 +420,11 @@ function makeCvsInfo(){
 	            				v_loadPage += "</li>"; 
 		            	}
 		            	
-	            		v_loadPage += " 		 	</ul>"; 
+	            		v_loadPage += " 		 		</ul>"; 
+	            		v_loadPage += " 		 		</li>"; 
+		            	v_loadPage += " 			</ul>"; 
 		            	v_loadPage += " 	</ul>"; 
-		            	
-		            	
-		            	
+		            	v_loadPage += " 	</div>"; 
 
 		            	$("#cvsProductList").html(v_loadPage);
 		        }
@@ -447,7 +432,7 @@ function makeCvsInfo(){
 	    });
 	}
 
-	
+
 	
 	<!-- 지도에 받을 편의점 리스트 Ajax -->
 	function cvsStoreCntAjax(cvStoreCnt){
