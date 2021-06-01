@@ -38,15 +38,7 @@
                 </div>
             </div>
         </nav> -->
-        <!-- Masthead-->
-        <header class="masthead">
-            <div class="container">
-                <div class="masthead-subheading">THANK STORE</div>
-                <div class="masthead-heading text-uppercase">알뜰한 당신을 위한 우리동네 편의점</div>
-                <a class="btn btn-primary btn-xl text-uppercase" href="customer" style="width:240px; height:70px; padding:auto; margin:10px;">회원이신가요?</a>
-                <a class="btn btn-primary btn-xl text-uppercase" href="manager" style="width:240px; height:70px; padding-left:20px; padding-right:20px; margin:10px;">점포 업주이신가요?</a>
-            </div>
-        </header>
+        
         <!-- Services-->
         <section class="page-section" id="services">
             <div class="container" style="width:800px">
@@ -74,7 +66,15 @@
                 </div>
             </div>
         </section>
-
+		<!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">THANK STORE</div>
+                <div class="masthead-heading text-uppercase">알뜰한 당신을 위한 우리동네 편의점</div>
+                <a class="btn btn-primary btn-xl text-uppercase" href="customer" style="width:240px; height:70px; padding:auto; margin:10px;">회원이신가요?</a>
+                <a class="btn btn-primary btn-xl text-uppercase" href="manager" style="width:240px; height:70px; padding-left:20px; padding-right:20px; margin:10px;">점포 업주이신가요?</a>
+            </div>
+        </header>
         <!-- Footer-->
         <footer class="footer py-4">
             <div class="container">
