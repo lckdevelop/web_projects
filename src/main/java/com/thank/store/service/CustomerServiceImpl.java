@@ -237,7 +237,7 @@ public class CustomerServiceImpl implements CustomerService{
 	*/
 	@Override
 	public long getTotalDiscountPrice(long no) throws Exception {
-		return customerDAO.getTotalDiscountPrice(no);
+		return customerDAO.getTotalDiscountPrice(no); 
 	}
 
 	@Override

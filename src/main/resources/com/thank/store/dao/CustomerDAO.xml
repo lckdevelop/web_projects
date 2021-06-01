@@ -27,7 +27,7 @@
 		select count(*)
 		from purchaselist p
 		join cvstoreproduct c on p.cvstoreproduct_no = c.no
-		where customer_no = #{no}
+		where p.customer_no = #{no}
 		and ROUND((c.expirationdate - sysdate) * 24) > 0
 	</select>
 	
@@ -39,7 +39,7 @@
 		select count(*)
 		from purchaselist p
 		join cvstoreproduct c on p.cvstoreproduct_no = c.no
-		where customer_no = #{no}
+		where p.customer_no = #{no}
 	</select>
 	
 	<!-- 
@@ -51,7 +51,7 @@
 		select count(*)
 		from purchaselist p
 		join cvstoreproduct c on p.cvstoreproduct_no = c.no
-		where customer_no = #{no}
+		where p.customer_no = #{no}
 		and ROUND((c.expirationdate - sysdate) * 24) <= 0
 	]]>
 	</select>
@@ -160,7 +160,7 @@
 				pl.name,
 				pl.productcode,
 				pl.price,
-				pl.price - p.purchaseprice as discountprice,
+				p.discountprice,
 				pl.maincategory,
 				pl.subcategory,
 				cp.expirationdate as expirationdate
@@ -191,7 +191,7 @@
 				pl.name,
 				pl.productcode,
 				pl.price,
-				pl.price - p.purchaseprice as discountprice,
+				p.discountprice,
 				pl.maincategory,
 				pl.subcategory,
 				cp.expirationdate as expirationdate
@@ -222,7 +222,7 @@
 				pl.name,
 				pl.productcode,
 				pl.price,
-				pl.price - p.purchaseprice as discountprice,
+				p.discountprice,
 				pl.maincategory,
 				pl.subcategory,
 				cp.expirationdate as expirationdate
@@ -310,10 +310,11 @@
 	작성일자: 2021/06/01 12:30
 	 -->
 	 <select id="getTotalDiscountPrice" parameterType="long" resultType="long">
-	 select sum(p.discountprice) as totaldiscountprice
-	 from purchaselist p
-	 join customer c on c.no = p.customer_no
-	 where c.no = #{no}
+	 select nvl(A.totaldiscountprice,0)
+	 from (select sum(p.discountprice) as totaldiscountprice
+			 from purchaselist p
+			 join customer c on c.no = p.customer_no
+			 where c.no = #{no}) A
 	 </select>
 	
 	<!-- 
