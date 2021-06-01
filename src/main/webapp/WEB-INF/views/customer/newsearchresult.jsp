@@ -24,6 +24,9 @@
 	href="${app}/resources/customer/css/accordion.css" rel="stylesheet">
 	
 	<link 
+	href="${app}/resources/customer/css/customer.css" rel="stylesheet">
+	
+	<link 
 	href="${app}/resources/customer/css/categoryaccordion.css" rel="stylesheet">
 <script type="text/javascript" 
 	src="${app}/resources/customer/js/accordion.js"></script>	
@@ -41,14 +44,17 @@ $( function() {
    		 url: "changeCategory",
    		 method: "POST",
    		 data: {"mainCategory": mainCategory,"searchKeyword":searchKeyword},
-   		 async: false,
    		 datatype: "json",
    		 success:function(data){
     		$("#subCategory").children().remove();
+       		
+    		/* $("#subCategory").append("<span>세분류</span>");
+			$("#subCategory").append("<select name='subCategory' class='selectpicker' data-style='btn-danger' data-width='120px'>"); */
 			$("#subCategory").append("<option value='' selected>전체</option>");
  			for(let i = 0; i < data.length; i++){
  				$("#subCategory").append("<option value="+data[i]+">"+data[i]+"</option>");
  			}
+ 			/* $("#subCategory").append("</select>"); */
    		 },
    		 error:function(){
    		    alert("실패");
@@ -226,18 +232,24 @@ function buyBtn(no){
         <!--**********************************
             Content body start
         ***********************************-->		
-        <div class="content-body" style=" margin-left: 486px; ">            
+        <div class="content-body" style=" margin-left: 543px; ">     
+         <div class="container-fluid">       
             <form>
- 		<div id="product-search-box">
+ 			<div id="product-search-box">
    			<div class="row">
 	   			<c:if test="${searchDTO.mainCategory != '' && searchDTO.mainCategory != null}">
-	   			<div class="col-md-11">
-	    			<h3>${searchDTO.mainCategory} 카테고리 조회</h3>
+	   			<div class="col-md-12">
+	    			<span class="list_info" style="color:#ff8a3d;">${searchDTO.mainCategory} 카테고리 조회</span>
 	       		</div>
 	   			</c:if>
+	   			<c:if test="${searchDTO.mainCategory == '' && searchDTO.searchKeyword == '' || searchDTO.searchKeyword == null}">
+	   			<div class="col-md-12">
+	    			<span class="list_info" style="color:#ff8a3d;">[전체] 검색결과</span>
+	       		</div>
+	       		</c:if>
 	   			<c:if test="${searchDTO.searchKeyword != '' && searchDTO.searchKeyword != null}">
-	   			<div class="col-md-11">
-	    			<h3>[${searchDTO.searchKeyword}] 검색결과</h3>
+	   			<div class="col-md-12">
+	    			<span class="list_info" style="color:#ff8a3d;">[${searchDTO.searchKeyword}] 검색결과</span>
 	       		</div>
 	   			</c:if>
 	   			
@@ -245,7 +257,7 @@ function buyBtn(no){
 	       		<!-- 대분류 -->
 	       		<div class="col-md-2">
 	       		<span>대분류</span>
-	       		<select name="mainCategory" id="mainCategory">
+	       		<select name="mainCategory" id="mainCategory" class="selectpicker" data-style="btn-primary" data-width="120px">
 	       		<option value=""
 					<c:if test="${searchDTO.mainCategory == '' || searchDTO.mainCategory == null}"> selected </c:if>
 				>전체</option>
@@ -270,10 +282,10 @@ function buyBtn(no){
 				</select>
 	       		</div>
 	       		
-	       		<!-- 세분류 -->
-	       		<div class="col-md-2">
+	       		<!-- 세분류 --><!-- 보류 class="selectpicker"  -->
+	       		<div class="col-md-2" >
 	       		<span>세분류</span>
-	       		<select name="subCategory" id="subCategory">
+	       		<select name="subCategory" id="subCategory" data-style="btn-danger" data-width="120px">
 	       		<option value=""
 					<c:if test="${searchDTO.subCategory == '' || searchDTO.subCategory == null}"> selected </c:if>
 					>전체</option>
@@ -285,20 +297,27 @@ function buyBtn(no){
 				</select>
 	       		</div>
 	       		
-	       		<div class="col-md-3">
-	    			<input type="text" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="Search" />
-	    		</div>
-	    		<div class="col-md-1">
-	       			<input type="submit" class="btn btn-default" value="submit"></input>
-	     		</div>
+	       		<div class="col-md-4">
+			    			<div class="input-group icons">
+		                        <div class="input-group-prepend">
+		                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+		                        </div>
+		                        <input type="search" name="searchKeyword" class="form-control" placeholder="검색" value="${searchDTO.searchKeyword}" aria-label="Search Dashboard">
+                    		</div>
+			    </div>
+	    		<div class="col-md-3">
+			       			<input type="submit" class="btn btn-warning" value="찾기"></input>
+			    </div>
      		</div>
    		</div>
  	</form>
-    	
+ 	</div>
+ 	
+    	<div id ="list_container_box">
 		<hr style="border: solid 3px #1b4af5;">
     	<form>
   		<c:forEach var="cvstore" items="${cvstoreList}" varStatus="status">
-	    	<div id="list-box" style="margin:10px;">
+	    	<div id="list-box">
 	    		<div class="tab">
 	  			 <input class="accordion" type="radio" id="${cvstore.storecode}" name="cvstoreradio" value="${cvstore.name}"
 	  			 <c:if test="${status.first == true}"> checked </c:if>
@@ -306,19 +325,30 @@ function buyBtn(no){
 			        <label class="tab-label" for="${cvstore.storecode}">${cvstore.name}</label>
 			        <div class="tab-content panel" style="overflow:auto;">
 			        	<c:forEach var="cvsproduct" items="${cvstore.cvsProductList}">
-			        		<div id="${cvsproduct.no}">
-			        			<div class='col-sm-4'>
-	  								<img src='${app}/resources/product/images/${cvsproduct.name}.jpg' />
+			        		<div id="list-box">
+			        		<div id="${cvsproduct.no}" class="row">
+			        			<div class='col-sm-3'>
+	  								<div class="img_resize"><img src='${app}/resources/product/images/${cvsproduct.name}.jpg' class="product_img"/></div>
 	  							</div>
-			        			<h6>상품명 : ${cvsproduct.name}<br/></h6>
-			        			<h6>제조날짜 : <f:formatDate value="${cvsproduct.warehousingdate}" pattern="yyyy/MM/dd" /><br/></h6>
-		    				<h6>유통만료기한 : <f:formatDate value="${cvsproduct.expirationdate}" pattern="yyyy/MM/dd" /><br/></h6>
-		    				<h6 style="color:blue">남은시간 : ${cvsproduct.countTime}시간<br/></h6>
-		    				<h6>원가 : ${cvsproduct.price}원<br/></h6>
-		    				<h6 style="color:red">할인가 : ${cvsproduct.discountPrice}원<br/></h6>
-		    				<h6 style="color:red">할인률 : ${cvsproduct.discountRate}%<br/></h6>
-		    				<input type="button" value="결제" onclick="buyBtn('${cvsproduct.no}')"/>
-		    				<hr>
+	  							<div class='col-sm-6'>
+	  								<div class="control_size"></div>
+				        			<span style="font-weight:bold">상품명 : ${cvsproduct.name}<br/></span>
+				        			<div class="enroll_margin_box"></div>
+				        			<span>제조날짜 : <f:formatDate value="${cvsproduct.warehousingdate}" pattern="yyyy/MM/dd HH:mm:ss" /><br/></span>
+				    				<span>유통만료기한 : <f:formatDate value="${cvsproduct.expirationdate}" pattern="yyyy/MM/dd HH:mm:ss" /><br/></span>
+				    				<div class="enroll_margin_box"></div>
+				    			</div>
+				    			<div class='col-sm-3'>
+				    				<div class="dDay">남은시간 : ${cvsproduct.countTime}시간</div>
+				    				원가 : <span class="ori_price">${cvsproduct.price}원</span>
+				    				<div class="discount">
+					    				<span style="color:black;">할인가 : ${cvsproduct.discountPrice}원</span><br/>
+					    				할인률 : ${cvsproduct.discountRate}%
+					    			</div>
+				    				<input type="button" value="결제" class="btn_enroll" onclick="buyBtn('${cvsproduct.no}')"/>
+			    				</div>
+			    				<hr>
+			        		</div>
 			        		</div>
 			        	</c:forEach>
 			        </div>
@@ -326,6 +356,7 @@ function buyBtn(no){
 	   		</div>
     	</c:forEach>
     	</form>
+    	</div>
     	
     	<form>
     	<div class="row" style="margin-top:5px; text-align:center;">
