@@ -129,7 +129,7 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 		 		<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<span class="list_info" style="color:rgb(237, 123, 123);">등록된 임박 상품</span>
+			    			<span class="list_info" style="color:#ff8a3d;">등록된 임박 상품</span>
 			       		</div>
 			       		<div class="col-md-3">
 			    			<div class="input-group icons">
