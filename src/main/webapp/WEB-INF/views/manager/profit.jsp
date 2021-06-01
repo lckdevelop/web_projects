@@ -31,9 +31,8 @@ rel="stylesheet">
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>	
 <script type="text/javascript">
 $(function() {
-    let cvsno = '${dto.cvsno}';
-    let searchYear = $("#searchYear").val();
-    
+	let cvsno = '${dto.cvsno}';
+	let searchYear = $("#searchYear").val();
 	// 월별 수익 차트 
 	let lineChart = document.getElementById("monthProfit").getContext("2d");
     let chartLabels = [];
@@ -74,13 +73,52 @@ $(function() {
         });
         
     });
+
     $('#btn_searchYear').click(function(){
     	searchYear = $("#searchYear").val();
-    	
-
+    	// 월별 수익 차트 
+    	let lineChart = document.getElementById("monthProfit").getContext("2d");
+        let chartLabels = [];
+        let chartData=[];
+        
+        $.getJSON("${app}/manager/profit/"+cvsno+"/"+searchYear, function(data){
+            $.each(data, function(key, value) {
+            	chartLabels.push(value.month);
+                chartData.push(value.profitpermonth);
+            });
+            
+            let categoryChart = new Chart(lineChart, {
+            	type : 'line',
+            	data : {
+            		labels : chartLabels,
+            		datasets : [ {
+                        label : "월별 총 수익",
+                        backgroundColor:"#ff8a3d",
+                        borderColor: "#ff643d",
+                        pointBorderColor: "#ffb88a",
+                        pointBackgroundColor: "#ffa163",
+                        pointHoverBackgroundColor: "#dc3546",
+                        pointHoverBorderColor: "#ff643d",
+                        fontSize : 30,
+                        fill: false,
+                        borderWidth: 4,
+                        data : chartData
+                    } ]
+            	},
+            	options: {
+            		title: {
+            			display : true,
+            			text : searchYear + "년 월별 수익",
+            			fontSize : 25,
+            			fontColor : '#dc3546', 
+            		}
+            	}
+            });
+            
+        });
         
      	// 카테고리별 현황 차트
-        let doughnutChart = document.getElementById("categoryProfit").getContext("2d");
+     	let doughnutChart = document.getElementById("categoryProfit").getContext("2d");
         let chartLabels2 = [];
         let chartData2 = [];
         
@@ -118,6 +156,7 @@ $(function() {
         });
     });
 });
+    
 </script>
 </head>
 <body>
@@ -189,29 +228,29 @@ $(function() {
             	<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<h3>${dto.brand}&nbsp;${dto.spot}&nbsp;수익 현황</h3>
+			    			<span class="list_info">${dto.brand}&nbsp;${dto.spot}&nbsp;수익 현황</span>
 			       		</div>
 		     		</div>
    				</div>
    				<div id ="list_container_box">
-		   		<hr style="border: solid 3px #1b4af5;">
-		   			<!-- 조회 버튼 -->
+				<hr class="list_hr">		   			
+					<!-- 조회 버튼 -->
 		   			<div class="profit_search">
 			   			<div class="row">
 				    		<div class="col-md-9">
 				   			</div>
-				       		<div class="col-md-2">
+				       		<div class="col-md-3">
 					       		<select name="searchYear" id="searchYear" class="selectpicker" data-style="btn-danger" data-width="100px">
 								<option value="2021"
 									<c:if test="${profitDTO.searchYear == '2021'}"> selected </c:if>
-								>2021</option>
+								>2021년</option>
 								<option value="2020"
 									<c:if test="${profitDTO.searchYear == '2020'}"> selected </c:if>
-								>2020</option>
+								>2020년</option>
 								<option value="2019"
 									<c:if test="${profitDTO.searchYear == '2019'}"> selected </c:if>
-								>2019</option>
-								</select>년
+								>2019년</option>
+								</select>
 					       		
 				       			<input type="submit" id="btn_searchYear" class="btn btn-warning" value="조회"></input>
 				     		</div>
@@ -219,12 +258,11 @@ $(function() {
 					</div>
 					<!-- 그래프 ajax -->
 			 		<div class="row">
-			 			<div class="col-md-7 text-center">
+			 			<div class="col-md-7" style="float: none; margin:0 auto;">
 							<canvas id="monthProfit" height="450" width="600"></canvas>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-7 text-center">
+					
+						<div class="col-md-5" style="float: none; margin:0 auto;">
 							<canvas id="categoryProfit" height="450" width="600"></canvas>
 						</div>
 					</div>
