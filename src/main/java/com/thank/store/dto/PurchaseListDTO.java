@@ -17,13 +17,10 @@ public class PurchaseListDTO {
 	private String productcode;
 	private String name;
 	private long purchaseprice;
-	private long price;
-	private long discountprice; //할인받은가격
 	private long cvstoreproductno;
 	private String maincategory;
 	private String subcategory;
 	private Date expirationdate;
 	private Date warehousingdate;
-	private Date purchasedate;
 	
 }

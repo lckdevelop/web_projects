@@ -3,7 +3,6 @@ package com.thank.store.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.thank.store.dto.ChartDTO;
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvsProductDTO;
@@ -48,11 +47,5 @@ public interface CustomerDAO {
 	List<PurchaseListDTO> getTotalPurchaseList(CusSearchDTO searchDTO) throws SQLException;
 
 	String customerIdCheck(String memberId);
-
-	long getTotalDiscountPrice(long no) throws SQLException;
-
-	List<ChartDTO> purchasePerBrand(long customerNo) throws SQLException;
-
-	List<ChartDTO> purchasePerCategory(long customerNo) throws SQLException;
 
 }

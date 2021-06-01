@@ -1,6 +1,5 @@
 package com.thank.store.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.thank.store.dto.ChartDTO;
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvsProductDTO;
@@ -29,7 +25,6 @@ import com.thank.store.dto.CvstoreDTO;
 import com.thank.store.dto.MemberDTO;
 import com.thank.store.dto.PagingDTO;
 import com.thank.store.dto.ProductListDTO;
-import com.thank.store.dto.ProfitDTO;
 import com.thank.store.dto.PurchaseListDTO;
 import com.thank.store.service.CustomerService;
 import com.thank.store.service.MapService;
@@ -132,10 +127,6 @@ public class CustomerController {
 			@ModelAttribute CustomerDTO customerDTO, Model model, HttpSession session) {
 		log.info(searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
-		
-		double lat = Double.parseDouble((String) session.getAttribute("lat"));
-		double lon = Double.parseDouble((String) session.getAttribute("lon"));
-		
 		List<String> subCategoryList;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
 		long purchasecount = 0;
@@ -143,14 +134,11 @@ public class CustomerController {
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
-			searchDTO.setLat(lat);
-			searchDTO.setLat(lon);
 			List<CvstoreDTO> cvstoreList = customerService.searchCvstoreList(searchDTO);
 			recordCount = customerService.getTotalRecord(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), recordCount));
 			subCategoryList = customerService.getSubCategory(searchDTO);
 			log.info("검색기능 : " + searchDTO.toString());
-			/* log.info("거리 : "+cvstoreList.get(0).getDistance()); */
 			model.addAttribute("customerDTO", customerDTO);
 			model.addAttribute("purchasecount", purchasecount);
 			model.addAttribute("cvstoreList", cvstoreList);
@@ -318,6 +306,7 @@ public class CustomerController {
 			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
 			customerService.updateCustomerPoint(customerDTO); // 잔액차감
 			customerDTO.setCvsproductno(cvsProductDTO.getNo());
+			customerDTO.setPurchasePrice(cvsProductDTO.getDiscountPrice());
 			customerService.addPurchaseProduct(customerDTO);// 구매목록에 등록
 			customerService.updatePurchaseProduct(cvsProductDTO);// 상품 상태 변경 enrollment = 2
 			customerService.updateCvstorePoint(cvsProductDTO);// 판매자 수익금 추가
@@ -339,14 +328,12 @@ public class CustomerController {
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		customerDTO = new CustomerDTO();
 		List<PurchaseListDTO> purchaseList;
-		long totalpurchasecount = 0;
-		long totalDiscountPrice = 0;
+		long totalpurchasecount;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
 		searchDTO.setCustomer_no(memberInfo.getNo());
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
-			totalDiscountPrice = customerService.getTotalDiscountPrice(memberInfo.getNo());
 			totalpurchasecount = customerService.getTotalPurchaseCount(memberInfo.getNo());
 			purchaseList = customerService.getTotalPurchaseList(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), totalpurchasecount));
@@ -354,7 +341,6 @@ public class CustomerController {
 			model.addAttribute("customerDTO", customerDTO);
 			model.addAttribute("purchasecount", purchasecount);
 			model.addAttribute("totalpurchasecount", totalpurchasecount);
-			model.addAttribute("totalDiscountPrice", totalDiscountPrice);
 			model.addAttribute("purchaseList", purchaseList);
 			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
@@ -363,54 +349,6 @@ public class CustomerController {
 		return "customer/newtransactionhistory";
 	}
 
-	/*
-	 * 작성자: 방지훈
-	 * 작성일자: 2021/06/01 12:51
-	 */
-	@RequestMapping(value = "/brand/{customerNo}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
-	@ResponseBody
-	public String getBrandList(@PathVariable long customerNo) {
-		Gson gson = new Gson();
-		log.info(customerNo + ": customerNo");
-
-		List<ChartDTO> brandList = new ArrayList<>();
-		
-		
-		try {
-			brandList = customerService.purchasePerBrand(customerNo);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return gson.toJson(brandList);
-		
-	}
-	
-	/*
-	 * 작성자: 방지훈
-	 * 작성일자: 2021/06/01 13:25
-	 */
-	@RequestMapping(value = "/category/{customerNo}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
-	@ResponseBody
-	public String getCategoryList(@PathVariable long customerNo) {
-		Gson gson = new Gson();
-		log.info(customerNo + ": customerNo");
-
-		List<ChartDTO> categoryList = new ArrayList<>();
-		
-		try {
-			categoryList = customerService.purchasePerCategory(customerNo);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return gson.toJson(categoryList);
-		
-	}
-	
-	
 	/*
 	 * 작성자 : 방지훈 작성일자 : 21/05/30 15:30
 	 */
@@ -453,12 +391,7 @@ public class CustomerController {
 	 * @작성일자 : 0524
 	 */
 	@RequestMapping("/map")
-		public  String map(
-				@RequestParam HashMap<String, Double> loc,
-				HttpSession session
-				) {
-		session.setAttribute("lat", loc.get("lat"));
-		session.setAttribute("lon", loc.get("lon"));
+		public  String map() {
 			return "map";
 	}
 	
@@ -469,14 +402,11 @@ public class CustomerController {
 	@RequestMapping(value="/mapajax", produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public HashMap mapajax(
-			@RequestParam HashMap<String, Double> loc,
-			HttpSession session
+			@RequestParam HashMap<String, Double> loc
 			) {
 //		@RequestParam Double lat,
 //		@RequestParam Double lon,
 //		@RequestParam long cvStoreCnt
-		session.setAttribute("lat", loc.get("lat"));
-		session.setAttribute("lon", loc.get("lon"));
 		
 		log.info(loc.get("lat") + ": lat");
 //		log.info(lat + ": lat");

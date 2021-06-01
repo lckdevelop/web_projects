@@ -1,7 +1,5 @@
 package com.thank.store.dto;
 
-import java.util.HashMap;
-
 import lombok.Data;
 
 @Data
@@ -12,7 +10,4 @@ public class CusSearchDTO {
 	private String subCategory;
 	private String searchKeyword;
 	private PagingDTO pagingDTO;
-	private double lat;
-	private double lon;
-	
 }

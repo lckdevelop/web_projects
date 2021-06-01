@@ -148,15 +148,12 @@
                     </div>
                 </div>     
                      
-				
-				<div class="row my-5">
-					<div class="profile_info" >
-						<p class="text-muted mb-0">${dto.name}고객님 안녕하세요.<br/><br/></p>
-						<p class="text-muted mb-0 profit_link">
-						<a href="transactionhistory">
-                             보유한 폐기머니 : <span id="point">${dto.point} 원</span>
-						</a></p>
-					</div>
+
+				<div class="media-body">
+                             <a href="transactionhistory">
+                             <p class="text-muted mb-0">보유한 폐기머니</p>
+                             <p class="text-muted mb-0" id="point">${dto.point} 원</p>
+                             </a>
 				</div>
                     
 				<div class="row mb-5">

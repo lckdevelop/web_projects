@@ -138,9 +138,7 @@ $(function() {
             		    backgroundColor: [
             		      'rgb(255, 99, 132)',
             		      'rgb(54, 162, 235)',
-            		      'rgb(255, 205, 86)',
-            		      'rgb(254, 145, 99)',
-            		      'rgb(145, 99, 254)'
+            		      'rgb(255, 205, 86)'
             		    ],
             		    hoverOffset: 4
             		  }]
@@ -187,9 +185,7 @@ $(function() {
             Nav header start
         ***********************************-->
         <div class="nav-header" style="background-color:white">
-			<button onclick="location.href='${app}'" class="go_root_btn">
-				<img src="${app}/resources/logo_copy.png" style='height: 100%; width: 100%; object-fit: contain'alt="">
-			</button>
+			<img src="${app}/resources/logo_copy.png" style='height: 100%; width: 100%; object-fit: contain'alt="">
         </div>
         <!--**********************************
             Nav header end
@@ -232,7 +228,7 @@ $(function() {
             	<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<span class="list_info" style="color:#fe5e5e;">${dto.brand}&nbsp;${dto.spot}&nbsp;수익 현황</span>
+			    			<span class="list_info">${dto.brand}&nbsp;${dto.spot}&nbsp;수익 현황</span>
 			       		</div>
 		     		</div>
    				</div>
@@ -270,6 +266,7 @@ $(function() {
 							<canvas id="categoryProfit" height="450" width="600"></canvas>
 						</div>
 					</div>
+            
             
             </div>
             <!-- #/ container -->

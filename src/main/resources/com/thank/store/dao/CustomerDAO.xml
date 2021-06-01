@@ -27,7 +27,7 @@
 		select count(*)
 		from purchaselist p
 		join cvstoreproduct c on p.cvstoreproduct_no = c.no
-		where p.customer_no = #{no}
+		where customer_no = #{no}
 		and ROUND((c.expirationdate - sysdate) * 24) > 0
 	</select>
 	
@@ -39,7 +39,7 @@
 		select count(*)
 		from purchaselist p
 		join cvstoreproduct c on p.cvstoreproduct_no = c.no
-		where p.customer_no = #{no}
+		where customer_no = #{no}
 	</select>
 	
 	<!-- 
@@ -51,7 +51,7 @@
 		select count(*)
 		from purchaselist p
 		join cvstoreproduct c on p.cvstoreproduct_no = c.no
-		where p.customer_no = #{no}
+		where customer_no = #{no}
 		and ROUND((c.expirationdate - sysdate) * 24) <= 0
 	]]>
 	</select>
@@ -69,8 +69,7 @@
 				c.latitude,
 				c.longitude,
 				c.address,
-				c.brand,
-				calc_distance(#{lat},#{lon},c.latitude,c.longitude) as distance
+				c.brand
 		from cvstore c
 		join cvstoreproduct cv on c.no = cv.cvstore_no
 		join productlist p on  p.no = cv.productlist_no
@@ -156,11 +155,8 @@
 				p.cvstoreproduct_no as cvstoreproductno,
 				p.customer_no as customerno,
 				p.purchaseprice as purchaseprice,
-				p.purchasedate as purchasedate,
 				pl.name,
 				pl.productcode,
-				pl.price,
-				p.discountprice,
 				pl.maincategory,
 				pl.subcategory,
 				cp.expirationdate as expirationdate
@@ -170,7 +166,6 @@
 		join productlist pl on pl.no = cp.productlist_no
 		where p.customer_no = #{customer_no}
 		and ROUND((cp.expirationdate - sysdate) * 24) > 0
-		order by p.purchasedate desc
 		) A
 			  ) B 
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
@@ -187,11 +182,8 @@
 				p.cvstoreproduct_no as cvstoreproductno,
 				p.customer_no as customerno,
 				p.purchaseprice as purchaseprice,
-				p.purchasedate as purchasedate,
 				pl.name,
 				pl.productcode,
-				pl.price,
-				p.discountprice,
 				pl.maincategory,
 				pl.subcategory,
 				cp.expirationdate as expirationdate
@@ -200,7 +192,6 @@
 		join cvstoreproduct cp on cp.no = p.cvstoreproduct_no
 		join productlist pl on pl.no = cp.productlist_no
 		where p.customer_no = #{customer_no}
-		order by p.purchasedate desc
 		) A
 			  ) B 
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
@@ -218,11 +209,8 @@
 				p.cvstoreproduct_no as cvstoreproductno,
 				p.customer_no as customerno,
 				p.purchaseprice as purchaseprice,
-				p.purchasedate as purchasedate,
 				pl.name,
 				pl.productcode,
-				pl.price,
-				p.discountprice,
 				pl.maincategory,
 				pl.subcategory,
 				cp.expirationdate as expirationdate
@@ -232,7 +220,6 @@
 		join productlist pl on pl.no = cp.productlist_no
 		where p.customer_no = #{customer_no}
 		and ROUND((cp.expirationdate - sysdate) * 24) <= 0
-		order by p.purchasedate desc
 		) A
 			  ) B 
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
@@ -272,15 +259,10 @@
 		
 	<!-- 
 	작성자 : 방지훈
-	작성일자: 2021/06/01 12:12
+	작성일자: 2021/05/28 00:12
 	 -->
 	<insert id="addPurchaseProduct" parameterType="CustomerDTO">
-		insert into purchaselist values (purchaselist_no_seq.nextval,#{customerno},#{cvsproductno},#{purchasePrice},(
-		select p.price 
-		from productlist p
-		join cvstoreproduct c on p.no = c.productlist_no
-		where c.no = #{cvsproductno})-#{purchasePrice}
-		,sysdate)
+		insert into purchaselist values (purchaselist_no_seq.nextval,#{customerno},#{cvsproductno},#{purchasePrice})
 	</insert>
 	
 	<!-- 
@@ -304,49 +286,4 @@
 	<select id="customerIdCheck" parameterType="String" resultType="String">
 	select count(*) from member where id=#{id} and accountType=0
 	</select>
-	
-	<!-- 
-	작성자 : 방지훈
-	작성일자: 2021/06/01 12:30
-	 -->
-	 <select id="getTotalDiscountPrice" parameterType="long" resultType="long">
-	 select nvl(A.totaldiscountprice,0)
-	 from (select sum(p.discountprice) as totaldiscountprice
-			 from purchaselist p
-			 join customer c on c.no = p.customer_no
-			 where c.no = #{no}) A
-	 </select>
-	
-	<!-- 
-	작성자 : 방지훈
-	작성일자: 2021/06/01 13:07
-	 -->
-	 <select id="purchasePerBrand" parameterType="long" resultType="ChartDTO">
-	 	SELECT
-		COUNT(cvs.brand) as cntPerBrand, cvs.brand as brand
-		FROM cvstore cvs
-		JOIN cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
-		JOIN productlist p on cvsp.productlist_no = p.no
-		JOIN purchaselist pl on pl.cvstoreproduct_no = cvsp.no
-		JOIN customer c on c.no = pl.customer_no
-		WHERE c.no = #{customerNo}
-		GROUP BY cvs.brand
-	 </select>
-	
-	<!-- 
-	작성자 : 방지훈
-	작성일자: 2021/06/01 13:15
-	 -->
-	 <select id="purchasePerCategory" parameterType="long" resultType="ChartDTO">
-	 	SELECT
-		COUNT(p.maincategory) as cntPerCategory, p.maincategory as mainCategory
-		FROM cvstore cvs
-		JOIN cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
-		JOIN productlist p on cvsp.productlist_no = p.no
-		JOIN purchaselist pl on pl.cvstoreproduct_no = cvsp.no
-		JOIN customer c on c.no = pl.customer_no
-		WHERE c.no = #{customerNo}
-		GROUP BY p.mainCategory
-	 </select>
-	
 </mapper>
