@@ -127,10 +127,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 상품 리스트 박스 */
 #product-search-box{
-	margin: 10px 0px 40px 70px;
+	margin: 10px 0px 40px 50px;
 }
 #list_container_box{
-	margin: 40px 50px 40px 70px;
+	margin: 40px 50px 40px 50px;
 	width:80%;
 }
 
@@ -178,15 +178,6 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 300;
 }
 
-/* 프로피 바 리스트 3개 버튼 */
-.profile_btn {
-	
-}
-
-.profile_btn:hover {
-	
-}
-
 .profile_info {
 	text-align:center;
 	margin-bottom:30px;
@@ -201,8 +192,19 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 리스트 폰트 조절 */
 .img_resize{
+	height:14rem;
+	width:14rem;
+	overflow:hidden;
+    /* margin:0 auto; */
 	margin-left:15%; 
-	margin-right:15%
+	margin-right:15%;
+	border-radius: 10px 10px 10px 10px;
+}
+
+.product_img{
+	width:100%;
+    height:100%;
+    object-fit:cover;
 }
 .margin-top_box{
 	margin-top:50px;
@@ -213,6 +215,14 @@ h1, h2, h3, h4, h5, h6 {
  	font-size:18px;
  	color:#000;
 }
+
+.control_size_ed{
+	margin-top:25px;
+ 	margin-left:30px;
+ 	font-size:18px;
+ 	color:#000;
+}
+
 .dDay{
 	margin-top:35px;
 	font-size:20px;
@@ -260,9 +270,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .list_hr{
-	border: solid 3px #ff8a3d;
+	border: solid 3px #ff643d;
 }
 
 .profit_search{
 	margin-bottom:50px;
+}
+
+.go_root_btn{
+	border:0;
+	outline:0;
 }

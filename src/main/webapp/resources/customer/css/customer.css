@@ -2,7 +2,7 @@
 
 /* 전체 */
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Gothic A1', sans-serif;
   color: #272829;
 }
 
@@ -12,14 +12,8 @@ a {
   cursor: pointer;
 }
 
-a:hover {
-  color: #37b3ed;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Gothic A1', sans-serif;
 }
 
 /* 전체 분할 */
@@ -46,7 +40,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #box-right {
 	flex: 3.9;
-	text-align: center;
+	/* text-align: center; */
 }
 
 /* 프로필 */
@@ -59,12 +53,6 @@ h1, h2, h3, h4, h5, h6 {
 	border: 3px solid #575dfa;
 }
 
-#text-space-box {
-	/* background-color: #b0b0b0;
-	width: 80%;
-	margin-left:10%; */
-}
-
 #header .profile h3 {
   font-size: 18px;
   margin-bottom: 20px;
@@ -72,7 +60,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   -moz-text-align-last: center;
   text-align-last: center;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Gothic A1', sans-serif;
 }
 
 #header .profile a {
@@ -135,4 +123,161 @@ h1, h2, h3, h4, h5, h6 {
 
 #list-link li a{
 	text-decoration: none;
+}
+
+/* 상품 리스트 박스 */
+#product-search-box{
+	margin: 10px 0px 40px 50px;
+}
+#list_container_box{
+	margin: 40px 50px 40px 50px;
+	width:80%;
+}
+
+#list-box{
+	padding-left:10px;
+	height:230px;
+}
+
+/* 상품 등록.취소 */
+.btn_enroll{
+	background-color:rgba(79, 126, 255, 0.7);
+	border: 1px solid #ffffff;
+	color: #ffffff;
+	border-radius:10px;
+	font-size:17px; 
+	padding:10px 20px;
+	margin-top:40px;
+	font-weight: 300;
+	width:220px;
+}
+
+.btn_enroll:hover{
+	color:rgba(79, 126, 255, 0.7);
+	background-color: #ffffff;
+	border: 1px solid rgba(79, 126, 255, 0.7);
+	font-weight: 300;
+}
+
+.btn_cancel{
+	background-color:rgba(237, 123, 123);
+	border: 1px solid #ffffff;
+	color: #ffffff;
+	border-radius:10px;
+	font-size:17px; 
+	padding:10px 20px;
+	margin-top:40px;
+	font-weight: 300;
+	width:220px;
+}
+
+.btn_cancel:hover{
+	color:rgba(237, 123, 123);
+	background-color: #ffffff;
+	border: 1px solid rgba(237, 123, 123);
+	font-weight: 300;
+}
+
+.profile_info {
+	text-align:center;
+	margin-bottom:30px;
+	font-size:17;
+}
+
+.profit_link {
+	text-decoration: none;
+	padding-top:20px;
+	color:rgba(237, 123, 123);
+}
+
+/* 리스트 폰트 조절 */
+.img_resize{
+	height:14rem;
+	width:14rem;
+	overflow:hidden;
+    /* margin:0 auto; */
+	margin-left:15%; 
+	margin-right:15%;
+	border-radius: 10px 10px 10px 10px;
+}
+
+.product_img{
+	width:100%;
+    height:100%;
+    object-fit:cover;
+}
+.margin-top_box{
+	margin-top:50px;
+}
+.control_size{
+	margin-top:45px;
+ 	margin-left:30px;
+ 	font-size:18px;
+ 	color:#000;
+}
+
+.control_size_ed{
+	margin-top:25px;
+ 	margin-left:30px;
+ 	font-size:18px;
+ 	color:#000;
+}
+
+.dDay{
+	margin-top:35px;
+	font-size:20px;
+	font-weight: bold;
+	color:#ff8a3d;
+}
+
+.enroll_margin_box{
+	margin-top:15px;
+}
+.enroll_info{
+	font-size:15px;
+	font-weight: bold;
+	color:#ff8a3d;
+}
+
+.enrollment_yes_info{
+	font-size:15px;
+	font-weight: bold;
+	color:rgb(79, 126, 255);
+}
+
+.enrollment_no_info{
+	font-size:15px;
+	font-weight: bold;
+	color:rgb(237, 123, 123);
+}
+
+.ori_price{
+	font-size:17px;
+	text-decoration:line-through
+}
+.discount{
+	font-size:27px;
+	font-weight: bold;
+	color:red;
+}
+
+.list_info{
+	font-size:25px;
+	font-weight: bold;
+	margin-left:70px;
+	color:#000;
+	margin-top:20px;
+}
+
+.list_hr{
+	border: solid 3px #ff643d;
+}
+
+.profit_search{
+	margin-bottom:50px;
+}
+
+.go_root_btn{
+	border:0;
+	outline:0;
 }
