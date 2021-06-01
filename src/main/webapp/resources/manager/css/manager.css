@@ -53,12 +53,6 @@ h1, h2, h3, h4, h5, h6 {
 	border: 3px solid #575dfa;
 }
 
-#text-space-box {
-	/* background-color: #b0b0b0;
-	width: 80%;
-	margin-left:10%; */
-}
-
 #header .profile h3 {
   font-size: 18px;
   margin-bottom: 20px;
@@ -133,11 +127,16 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 상품 리스트 박스 */
 #product-search-box{
-	margin: 40px 0px 40px 50px;
+	margin: 0px 0px 40px 70px;
 }
+#list_container_box{
+	margin: 40px 50px 40px 70px;
+	width:80%;
+}
+
 #list-box{
-	/* padding:1px 0px 10px 1px; */
 	padding-left:10px;
+	height:230px;
 }
 
 /* 상품 등록.취소 */
@@ -146,10 +145,11 @@ h1, h2, h3, h4, h5, h6 {
 	border: 1px solid #ffffff;
 	color: #ffffff;
 	border-radius:10px;
-	font-size:16px; 
+	font-size:17px; 
 	padding:10px 20px;
-	margin-top:95px;
+	margin-top:40px;
 	font-weight: 300;
+	width:220px;
 }
 
 .btn_enroll:hover{
@@ -164,10 +164,11 @@ h1, h2, h3, h4, h5, h6 {
 	border: 1px solid #ffffff;
 	color: #ffffff;
 	border-radius:10px;
-	font-size:16px; 
+	font-size:17px; 
 	padding:10px 20px;
-	margin-top:95px;
+	margin-top:40px;
 	font-weight: 300;
+	width:220px;
 }
 
 .btn_cancel:hover{
@@ -175,6 +176,15 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: #ffffff;
 	border: 1px solid rgba(237, 123, 123);
 	font-weight: 300;
+}
+
+/* 프로피 바 리스트 3개 버튼 */
+.profile_btn {
+	
+}
+
+.profile_btn:hover {
+	
 }
 
 .profile_info {
@@ -187,4 +197,45 @@ h1, h2, h3, h4, h5, h6 {
 	text-decoration: none;
 	padding-top:20px;
 	color:rgba(237, 123, 123);
+}
+
+/* 리스트 폰트 조절 */
+.img_resize{
+	margin-left:15%; 
+	margin-right:15%
+}
+.margin-top_box{
+	margin-top:10px;
+}
+.control_size{
+	margin-top:45px;
+ 	margin-left:30px;
+ 	font-size:18px;
+}
+.dDay{
+	margin-top:35px;
+	font-size:20px;
+	font-weight: bold;
+	color:#ff8a3d;
+}
+
+.ori_price{
+	font-size:17px;
+	text-decoration:line-through
+}
+.discount{
+	font-size:27px;
+	font-weight: bold;
+	color:red;
+}
+
+.list_info{
+	font-size:32px;
+	font-weight: bold;
+	margin-left:70px;
+	color:#6C757D;
+}
+
+.list_hr{
+	border: solid 3px #ff8a3d;
 }
