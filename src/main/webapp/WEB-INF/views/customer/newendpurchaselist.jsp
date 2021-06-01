@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="app" value="${pageContext.request.contextPath}" />
 <c:set var="dto" value="${customerDTO}" />
 <c:set var="purchaseList" value="${purchaseList}" />
@@ -124,22 +125,40 @@
 	   	</div>
 	   	<hr style="border: solid 3px #1b4af5;">
 	   	<form>
-	   		<c:forEach var="purchaseDTO" items="${purchaseList}" varStatus="status">
-	   			<div id="list-box">
-	   				<div class="row">
-	   					<div class='col-sm-12' style="text-align:center;">
-	  								<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' />
-	   					<h6 >상품명 : ${purchaseDTO.name}<br/></h6>
-	   					<h6 >구매금액 : ${purchaseDTO.purchaseprice}<br/></h6>
-	   					<div style="height:150px; text-align:center;">
-	   						<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
-	   					</div>
-	   					</div>
-	   				</div>
-	   			</div>
-	   		</c:forEach>
-	   		<input class="btn btn-primary" type="button" value="수령가능 상품보기" onclick="location.href='purchaselist'"/>
-	   	</form>
+       <div class="container-fluid">
+                <div class="row">
+                <c:forEach var="purchaseDTO" items="${purchaseList}" varStatus="status">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h4>구매상품</h4>
+                                </div>
+                                <div id="list-box">
+						    			<div class='col-sm-3'>
+						  					<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' />
+						  				</div>
+						  				<div class='col-sm-3'>
+							   					<img src="https://chart.googleapis.com/chart?chs=80x80&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
+							   			</div>
+						  				<div class='col-sm-6'>
+							    				<label class="name1">상품명 : ${purchaseDTO.name}<br/></label>
+							    				<h6>상품코드 : ${purchaseDTO.productcode}<br/></h6>
+							    				<h6>만료일 : <f:formatDate value="${purchaseDTO.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
+							    				<h6 style="color:red">구매금액 : ${purchaseDTO.purchaseprice}원<br/></h6>
+							    				
+							    		</div>
+				   				</div>
+	   						</div>
+                        </div>
+                    </div>
+                    </c:forEach>
+                        <!-- /# card -->
+                    </div>
+                </div>
+            	<input class="btn btn-primary" type="button" value="수령가능 상품보기" onclick="location.href='purchaselist'"/>
+	   	   	</form>
+	   	
 		
 		<form>
     	<div class="row" style="text-align:center;">
@@ -149,7 +168,7 @@
 				<a class="btn btn-default">Previous</a>
 				</c:if>
 				<c:if test="${searchDTO.pagingDTO.startPage != 1}">
-				<a href="/store/customer/purchaselist?pg=${searchDTO.pagingDTO.startPage-1}" class="btn btn-default">Previous</a>
+				<a href="/store/customer/endpurchaselist?pg=${searchDTO.pagingDTO.startPage-1}" class="btn btn-default">Previous</a>
 				</c:if>
 				
 				<c:forEach var="i" begin="${searchDTO.pagingDTO.startPage}" end="${searchDTO.pagingDTO.endPage}">
@@ -157,7 +176,7 @@
 				<a href="#" class="btn btn-warning">${i}</a>
 				</c:if>
 				<c:if test="${searchDTO.pagingDTO.pg != i}">
-				<a href="/store/customer/purchaselist?pg=${i}" class="btn btn-warning">${i}</a>
+				<a href="/store/customer/endpurchaselist?pg=${i}" class="btn btn-warning">${i}</a>
 				</c:if>
 				</c:forEach>
 				
@@ -166,7 +185,7 @@
 				<a class="btn btn-default">Next</a>
 				</c:if>
 				<c:if test="${searchDTO.pagingDTO.endPage != searchDTO.pagingDTO.totalPage}">
-				<a href="/store/customer/purchaselist?pg=${searchDTO.pagingDTO.endPage+1}" class="btn btn-default">Next</a>
+				<a href="/store/customer/endpurchaselist?pg=${searchDTO.pagingDTO.endPage+1}" class="btn btn-default">Next</a>
 				</c:if>
 			</div>
 		</div>
