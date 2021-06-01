@@ -1,5 +1,6 @@
 package com.thank.store.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.thank.store.dto.ChartDTO;
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvsProductDTO;
@@ -25,6 +29,7 @@ import com.thank.store.dto.CvstoreDTO;
 import com.thank.store.dto.MemberDTO;
 import com.thank.store.dto.PagingDTO;
 import com.thank.store.dto.ProductListDTO;
+import com.thank.store.dto.ProfitDTO;
 import com.thank.store.dto.PurchaseListDTO;
 import com.thank.store.service.CustomerService;
 import com.thank.store.service.MapService;
@@ -329,11 +334,13 @@ public class CustomerController {
 		customerDTO = new CustomerDTO();
 		List<PurchaseListDTO> purchaseList;
 		long totalpurchasecount;
+		long totalDiscountPrice;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
 		searchDTO.setCustomer_no(memberInfo.getNo());
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			totalDiscountPrice = customerService.getTotalDiscountPrice(memberInfo.getNo());
 			totalpurchasecount = customerService.getTotalPurchaseCount(memberInfo.getNo());
 			purchaseList = customerService.getTotalPurchaseList(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), totalpurchasecount));
@@ -341,6 +348,7 @@ public class CustomerController {
 			model.addAttribute("customerDTO", customerDTO);
 			model.addAttribute("purchasecount", purchasecount);
 			model.addAttribute("totalpurchasecount", totalpurchasecount);
+			model.addAttribute("totalDiscountPrice", totalDiscountPrice);
 			model.addAttribute("purchaseList", purchaseList);
 			model.addAttribute("searchDTO", searchDTO);
 		} catch (Exception e) {
@@ -349,6 +357,54 @@ public class CustomerController {
 		return "customer/newtransactionhistory";
 	}
 
+	/*
+	 * 작성자: 방지훈
+	 * 작성일자: 2021/06/01 12:51
+	 */
+	@RequestMapping(value = "/brand/{customerNo}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String getBrandList(@PathVariable long customerNo) {
+		Gson gson = new Gson();
+		log.info(customerNo + ": customerNo");
+
+		List<ChartDTO> brandList = new ArrayList<>();
+		
+		
+		try {
+			brandList = customerService.purchasePerBrand(customerNo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return gson.toJson(brandList);
+		
+	}
+	
+	/*
+	 * 작성자: 방지훈
+	 * 작성일자: 2021/06/01 13:25
+	 */
+	@RequestMapping(value = "/category/{customerNo}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String getCategoryList(@PathVariable long customerNo) {
+		Gson gson = new Gson();
+		log.info(customerNo + ": customerNo");
+
+		List<ChartDTO> categoryList = new ArrayList<>();
+		
+		try {
+			categoryList = customerService.purchasePerCategory(customerNo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return gson.toJson(categoryList);
+		
+	}
+	
+	
 	/*
 	 * 작성자 : 방지훈 작성일자 : 21/05/30 15:30
 	 */
