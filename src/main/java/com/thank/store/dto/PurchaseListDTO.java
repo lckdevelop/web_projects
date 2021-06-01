@@ -18,5 +18,9 @@ public class PurchaseListDTO {
 	private String name;
 	private long purchaseprice;
 	private long cvstoreproductno;
+	private String maincategory;
+	private String subcategory;
+	private Date expirationdate;
+	private Date warehousingdate;
 	
 }
