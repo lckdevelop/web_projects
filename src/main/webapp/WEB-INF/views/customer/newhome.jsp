@@ -104,7 +104,7 @@
             Content body start
         ***********************************-->		
         <div class="content-body" style=" margin-left: 486px; ">            
-           <jsp:include page="/WEB-INF/views//map.jsp" flush="true" />
+           <jsp:include page="/WEB-INF/views/map.jsp" flush="true" />
         </div>
         <!--**********************************
             Content body end

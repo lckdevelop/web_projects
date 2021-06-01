@@ -38,21 +38,23 @@ window.onload = function () {
 <!--내 위주 편의점보기 버튼 이벤트 END-->	
 	
 <!--아코디언 JS -->
-$(document).ready(function(){
-	var acc = document.getElementsByClassName("accordion");
-	
-	for (var i = 0; i < acc.length; i++) {
-	  acc[i].addEventListener("click", function() {
-	    this.classList.toggle("active");
-	    var panel = this.nextElementSibling;
-	    if (panel.style.maxHeight) {
-	      panel.style.maxHeight = null;
-	    } else {
-	      panel.style.maxHeight = panel.scrollHeight + "px";
-	    }
-	  });
-}
-});
+
+
+ // 전체 체크 버튼 클릭시 전체 체크 및 해제
+ function checkFunc(){	 
+	 if($("input:radio[id='storeProduct']").attr("checked") == 'checked'){
+		 console.log("ture클릭")
+		 console.log($("input:radio[id='storeProduct']").attr("checked"));
+		 $(this).prop('checked', 'unchecked');
+		 
+		 //$("input:radio[id='storeProduct']").attr('check','unchecked');
+	}else{
+		console.log("false클릭");
+		$(this).prop('checked', true);
+		//$("input:radio[id='storeProduct']").attr('check','checked');
+	}
+ }
+
 <!--아코디언 JS END-->
 </script>
 
@@ -74,9 +76,9 @@ $(document).ready(function(){
 <!-- 카카오 CSS -->
     .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 5px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
-    .wrap .info {max-width: 100%;; height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info {max-width: 100%;; height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden; background: #fff;}
     .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .ti_tle {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
     .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
     .info .close:hover {cursor: pointer;}
     .info .body {position: relative;overflow: hidden;}
@@ -86,6 +88,8 @@ $(document).ready(function(){
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB; }
+    .info .dist {position: absolute; }
+    .info .visitStore {position: relative; top:25px; left:25%;}
 <!-- 카카오 CSS END -->
 
 <!-- 아코디언 CSS -->
@@ -116,7 +120,7 @@ $(document).ready(function(){
 		</div>
 		<div id="contaniner_2">
 			<p>
-			    <button  onclick="hideMarkers()">편의점 감추기</button>
+			    <button  class = "w3-button w3-black" onclick="hideMarkers()">편의점 감추기</button>
 			    <button  onclick="showMarkers()">검색했던 편의점 모두 보기</button>
 			    <br/>
 			    <br/>
@@ -187,7 +191,7 @@ var  markerArr = new Array();
 		            lon = position.coords.longitude; // 경도
 		        
 		        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-		            message = '<div style="padding:10px;  background-color: #ff8a3d;"><strong>여기에 계시는군요?</strong></div>'; // 인포윈도우에 표시될 내용입니다
+		            message = '<div style="padding:12px;  background-color: #ff8a3d;"><strong>여기에 계시는군요?</strong></div>'; // 인포윈도우에 표시될 내용입니다
 		        	
 		            console.log("lat : " + lat);
 		        	console.log("lon : " + lon);
@@ -310,9 +314,22 @@ function makeCvsInfo(){
 	// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
 
 	for(var i = 0; i < contents.length; i++){
+		
+		//위치 거리 조건에 맞춰 M로 환산
+		var dist = contents[i].distance;
+		var dist_String = "";
+		if(dist < 1){
+			dist *= 1000;
+			dist_String = dist + "M";
+		}else{
+			dist_String = dist + "KM";
+		}
+		
+		
+		
 		var content = '<div class="wrap">' + 
 	    '    <div class="info">' + 
-	    '        <div class="title">' + 
+	    '        <div class="ti_tle">' + 
 	    			contents[i].brand +" "+ contents[i].name  + 
 	    '            <div class="close" onclick="closeOverlay('+ i +')" title="닫기"></div>' + 
 	    '        </div>' + 
@@ -322,8 +339,8 @@ function makeCvsInfo(){
 	    '           </div>' + 
 	    '            <div class="desc">' + 
 	    '                <div class="ellipsis">'+ contents[i].address +'</div>' + 
-	    '                <div> 나로 부터 거리 : '+ contents[i].distance +' KM</div>' + 
-	    '                <div ><a onclick="productListAjax(\''+ contents[i].storecode +'\')" class="link">상품바로가기</a></div>' + 
+	    '                <div class="dist"> 내 위치로 부터 거리 : <a style="color:#ff8a3d;">'+ dist_String + '</a></div>' + 
+	    '                <div class="visitStore"><a onclick="productListAjax(\''+ contents[i].storecode +'\')" class="link" style="color:blue">상품바로가기</a></div>' + 
 	    '            </div>' + 
 	    '        </div>' + 
 	    '    </div>' +    
@@ -400,7 +417,7 @@ function makeCvsInfo(){
 		        	var v_loadPage ="";
 		            	v_loadPage += "<div id='list-box'>"; 
 		            	v_loadPage += "		<div class='tab'>"; 
-		            	v_loadPage += "		<input class='accordion' type='radio'  id='storeProduct' name='cvstoreradio' value='편의점' checked/>"; 
+		            	v_loadPage += "		<input class='accordion' type='radio'  id='storeProduct' name='cvstoreradio' value='편의점' onclick='checkFunc(event)' checked />"; 
 	            		v_loadPage += "			<label class='tab-label' for='storeProduct'>"+ data.cvstoreDTO.brand +" "+ data.cvstoreDTO.name +" 상품 목록 </label>"; 
 	            		v_loadPage += "			 <div class='tab-content panel' style='overflow:auto;'>"; 
 		            	for(var i=0; i<data.cvstoreDTO.cvsProductList.length; i++){
@@ -427,6 +444,8 @@ function makeCvsInfo(){
 	        });
 	    });
 	}
+
+	
 	
 	<!-- 지도에 받을 편의점 리스트 Ajax -->
 	function cvsStoreCntAjax(cvStoreCnt){
