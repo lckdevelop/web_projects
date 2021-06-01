@@ -166,8 +166,9 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' /></div>
 			  				</div>
 			  				<div class='col-sm-6'>
-			  					<div class="control_size">
-				    				<span>${product.name}(${product.productcode})<br/></span>
+			  					<div class="control_size_ed">
+				    				<span style="font-weight:bold">${product.name}(${product.productcode})<br/></span>
+				    				<div class="enroll_margin_box"></div>
 				    				<span>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
 				    				<span>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
 				    				<div class="enroll_margin_box"></div>
