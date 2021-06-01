@@ -9,11 +9,13 @@
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>프로필 바입니다.</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;500;700;900&display=swap" rel="stylesheet">
 <!-- Favicon icon -->
- <link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
  <!-- Custom Stylesheet -->
- <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
+<link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
+
 <!-- jquery 경로 -->
 <script type="text/javascript"
 	src="${app}/resources/manager/js/jquery-3.6.0.min.js"></script>
@@ -24,11 +26,7 @@ $(function() {
 	});
 });
 </script>
-<link 
-	href="${app}/resources/manager/css/manager.css" rel="stylesheet">
-<link
-	href="${app}/resources/manager/css/bootstrap.min.css"
-	rel="stylesheet">
+
 </head>
 <body>
 
