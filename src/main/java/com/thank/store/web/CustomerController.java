@@ -132,11 +132,10 @@ public class CustomerController {
 			@ModelAttribute CustomerDTO customerDTO, Model model, HttpSession session) {
 		log.info(searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
-		/*
-		 * HashMap<String, Double> loc = (HashMap<String, Double>)
-		 * session.getAttribute("loc");
-		 * log.info("현재 내 위치 : "+loc.get("lat")+" , "+loc.get("lon"));
-		 */
+		
+		double lat = Double.parseDouble((String) session.getAttribute("lat"));
+		double lon = Double.parseDouble((String) session.getAttribute("lon"));
+		
 		List<String> subCategoryList;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
 		long purchasecount = 0;
@@ -144,11 +143,14 @@ public class CustomerController {
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			searchDTO.setLat(lat);
+			searchDTO.setLat(lon);
 			List<CvstoreDTO> cvstoreList = customerService.searchCvstoreList(searchDTO);
 			recordCount = customerService.getTotalRecord(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), recordCount));
 			subCategoryList = customerService.getSubCategory(searchDTO);
 			log.info("검색기능 : " + searchDTO.toString());
+			log.info("거리 : "+cvstoreList.get(0).getDistance());
 			model.addAttribute("customerDTO", customerDTO);
 			model.addAttribute("purchasecount", purchasecount);
 			model.addAttribute("cvstoreList", cvstoreList);
@@ -451,7 +453,12 @@ public class CustomerController {
 	 * @작성일자 : 0524
 	 */
 	@RequestMapping("/map")
-		public  String map() {
+		public  String map(
+				@RequestParam HashMap<String, Double> loc,
+				HttpSession session
+				) {
+		session.setAttribute("lat", loc.get("lat"));
+		session.setAttribute("lon", loc.get("lon"));
 			return "map";
 	}
 	
@@ -462,11 +469,14 @@ public class CustomerController {
 	@RequestMapping(value="/mapajax", produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public HashMap mapajax(
-			@RequestParam HashMap<String, Double> loc
+			@RequestParam HashMap<String, Double> loc,
+			HttpSession session
 			) {
 //		@RequestParam Double lat,
 //		@RequestParam Double lon,
 //		@RequestParam long cvStoreCnt
+		session.setAttribute("lat", loc.get("lat"));
+		session.setAttribute("lon", loc.get("lon"));
 		
 		log.info(loc.get("lat") + ": lat");
 //		log.info(lat + ": lat");
