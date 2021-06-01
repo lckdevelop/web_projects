@@ -31,11 +31,51 @@ rel="stylesheet">
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>	
 <script type="text/javascript">
 $(function() {
-    let cvsno = '${dto.cvsno}';
-	
+	let cvsno = '${dto.cvsno}';
+	let searchYear = $("#searchYear").val();
+	// 월별 수익 차트 
+	let lineChart = document.getElementById("monthProfit").getContext("2d");
+    let chartLabels = [];
+    let chartData=[];
+    
+    $.getJSON("${app}/manager/profit/"+cvsno+"/"+searchYear, function(data){
+        $.each(data, function(key, value) {
+        	chartLabels.push(value.month);
+            chartData.push(value.profitpermonth);
+        });
+        
+        let categoryChart = new Chart(lineChart, {
+        	type : 'line',
+        	data : {
+        		labels : chartLabels,
+        		datasets : [ {
+                    label : "월별 총 수익",
+                    backgroundColor:"#ff8a3d",
+                    borderColor: "#ff643d",
+                    pointBorderColor: "#ffb88a",
+                    pointBackgroundColor: "#ffa163",
+                    pointHoverBackgroundColor: "#dc3546",
+                    pointHoverBorderColor: "#ff643d",
+                    fontSize : 30,
+                    fill: false,
+                    borderWidth: 4,
+                    data : chartData
+                } ]
+        	},
+        	options: {
+        		title: {
+        			display : true,
+        			text : searchYear + "년 월별 수익",
+        			fontSize : 25,
+        			fontColor : '#dc3546', 
+        		}
+        	}
+        });
+        
+    });
+
     $('#btn_searchYear').click(function(){
-    	let searchYear = $("#searchYear").val();
-    	
+    	searchYear = $("#searchYear").val();
     	// 월별 수익 차트 
     	let lineChart = document.getElementById("monthProfit").getContext("2d");
         let chartLabels = [];
@@ -52,13 +92,13 @@ $(function() {
             	data : {
             		labels : chartLabels,
             		datasets : [ {
-                        label : "원",
-                        backgroundColor:"#bfdaf9",
-                        borderColor: "#80b6f4",
-                        pointBorderColor: "#4393f0",
-                        pointBackgroundColor: "#4393f0",
-                        pointHoverBackgroundColor: "#80b6f4",
-                        pointHoverBorderColor: "#80b6f4",
+                        label : "월별 총 수익",
+                        backgroundColor:"#ff8a3d",
+                        borderColor: "#ff643d",
+                        pointBorderColor: "#ffb88a",
+                        pointBackgroundColor: "#ffa163",
+                        pointHoverBackgroundColor: "#dc3546",
+                        pointHoverBorderColor: "#ff643d",
                         fontSize : 30,
                         fill: false,
                         borderWidth: 4,
@@ -70,7 +110,7 @@ $(function() {
             			display : true,
             			text : searchYear + "년 월별 수익",
             			fontSize : 25,
-            			fontColor : '#ff8a3d', 
+            			fontColor : '#dc3546', 
             		}
             	}
             });
@@ -78,7 +118,7 @@ $(function() {
         });
         
      	// 카테고리별 현황 차트
-        let doughnutChart = document.getElementById("categoryProfit").getContext("2d");
+     	let doughnutChart = document.getElementById("categoryProfit").getContext("2d");
         let chartLabels2 = [];
         let chartData2 = [];
         
@@ -108,7 +148,7 @@ $(function() {
             			display : true,
             			text : searchYear + "년 메인 카테고리별 현황",
             			fontSize : 25,
-            			fontColor : '#ff8a3d', 
+            			fontColor : '#dc3546', 
             		}
             	}
             });
@@ -116,6 +156,7 @@ $(function() {
         });
     });
 });
+    
 </script>
 </head>
 <body>
@@ -143,16 +184,8 @@ $(function() {
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
-            <div class="brand-logo">
-                <a href="index.html">
-                    <b class="logo-abbr"><img src="${app}/resources/quixlab/themes/quixlab/images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="${app}/resources/quixlab/themes/quixlab/images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <img src="${app}/resources/quixlab/themes/quixlab/images/logo-text.png" alt="">
-                    </span>
-                </a>
-            </div>
+        <div class="nav-header" style="background-color:white">
+			<img src="${app}/resources/logo_copy.png" style='height: 100%; width: 100%; object-fit: contain'alt="">
         </div>
         <!--**********************************
             Nav header end
@@ -195,37 +228,44 @@ $(function() {
             	<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<h3>${dto.brand}&nbsp;${dto.spot}&nbsp;수익 현황</h3>
+			    			<span class="list_info">${dto.brand}&nbsp;${dto.spot}&nbsp;수익 현황</span>
 			       		</div>
-			       		<div class="col-md-2">
-			       		<select name="searchYear" id="searchYear">
-						<option value="2021"
-							<c:if test="${profitDTO.searchYear == '2021'}"> selected </c:if>
-						>2021</option>
-						<option value="2020"
-							<c:if test="${profitDTO.searchYear == '2020'}"> selected </c:if>
-						>2020</option>
-						<option value="2019"
-							<c:if test="${profitDTO.searchYear == '2019'}"> selected </c:if>
-						>2019</option>
-						</select>년
-			       		</div>
-			    		<div class="col-md-2">
-			       			<input type="submit" id="btn_searchYear" class="btn btn-default" value="submit"></input>
-			     		</div>
 		     		</div>
    				</div>
-		   		<hr style="border: solid 3px #1b4af5;">
-			 	<div class="container">
+   				<div id ="list_container_box">
+				<hr class="list_hr">		   			
+					<!-- 조회 버튼 -->
+		   			<div class="profit_search">
+			   			<div class="row">
+				    		<div class="col-md-9">
+				   			</div>
+				       		<div class="col-md-3">
+					       		<select name="searchYear" id="searchYear" class="selectpicker" data-style="btn-danger" data-width="100px">
+								<option value="2021"
+									<c:if test="${profitDTO.searchYear == '2021'}"> selected </c:if>
+								>2021년</option>
+								<option value="2020"
+									<c:if test="${profitDTO.searchYear == '2020'}"> selected </c:if>
+								>2020년</option>
+								<option value="2019"
+									<c:if test="${profitDTO.searchYear == '2019'}"> selected </c:if>
+								>2019년</option>
+								</select>
+					       		
+				       			<input type="submit" id="btn_searchYear" class="btn btn-warning" value="조회"></input>
+				     		</div>
+			     		</div>
+					</div>
+					<!-- 그래프 ajax -->
 			 		<div class="row">
-			 			<div class="col-md-7">
+			 			<div class="col-md-7" style="float: none; margin:0 auto;">
 							<canvas id="monthProfit" height="450" width="600"></canvas>
 						</div>
-						<div class="col-md-5">
+					
+						<div class="col-md-5" style="float: none; margin:0 auto;">
 							<canvas id="categoryProfit" height="450" width="600"></canvas>
 						</div>
 					</div>
-				</div>
             
             
             </div>

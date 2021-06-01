@@ -82,16 +82,8 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
-            <div class="brand-logo">
-                <a href="index.html">
-                    <b class="logo-abbr"><img src="${app}/resources/quixlab/themes/quixlab/images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="${app}/resources/quixlab/themes/quixlab/images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <img src="${app}/resources/quixlab/themes/quixlab/images/logo-text.png" alt="">
-                    </span>
-                </a>
-            </div>
+        <div class="nav-header" style="background-color:white">
+			<img src="${app}/resources/logo_copy.png" style='height: 100%; width: 100%; object-fit: contain'alt="">
         </div>
         <!--**********************************
             Nav header end
@@ -137,7 +129,7 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
 		 		<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<h3>임박 상품 등록</h3>
+			    			<span class="list_info">임박 상품 등록</span>
 			       		</div>
 			       		<div class="col-md-3">
 			    			<div class="input-group icons">
@@ -167,25 +159,27 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
 		   		</div>
 		 		</form>
 				<!-- 리스트 -->
-		   		<hr style="border: solid 3px #1b4af5;">
+				<div id ="list_container_box">
+		   		<hr class="list_hr">
 		  		<c:forEach var="product" items="${list}" varStatus="status">
 			    	<div id="list-box">
 			    		<div class="row">
-			    			<div class='col-sm-4'>
-			  					<img src='${app}/resources/product/images/${product.name}.jpg' />
+			    			<div class='col-sm-3'>
+			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' /></div>
 			  				</div>
 			  				<div class='col-sm-6'>
-				    				<h6>상품명 : ${product.name}<br/></h6>
-				    				<h6>상품코드 : ${product.productcode}<br/></h6>
-				    				<h6 style="color:blue">등록여부 : x<br/></h6>
-				    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
-				    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
-				    				<h6 style="color:blue">남은시간 : ${product.countTime}시간<br/></h6>
-				    				<h6>원가 : ${product.price}원<br/></h6>
-				    				<h6 style="color:red">할인가 : ${product.discountPrice}원<br/></h6>
-				    				<h6 style="color:red">할인률 : ${product.discountRate}%<br/></h6>
+			  					<div class="control_size">
+				    				<span>${product.name}(${product.productcode})<br/></span>
+				    				<span>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
+				    				<span>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
+				    				<div class="enroll_margin_box"></div>
+				    				<span class="enrollment_no_info">등록여부 : x<br/></span>
+				    			</div>
 				    		</div>
-				    		<div class='col-sm-2'>
+				    		<div class='col-sm-3'>
+				    			<div class="dDay">D-day(Time) : ${product.countTime}시간</div>
+			    				원가 : <span class="ori_price">${product.price}원</span>
+			    				<div class="discount">${product.discountRate}% <span style="color:black;">${product.discountPrice}원</span></div>
 								<input type="button" value="등록" class="btn_enroll" onclick="btn_enroll('${product.no}', '${product.name}', '${product.discountPrice}', '${product.countTime}')"/>		    		</div>
 			    		</div>
 			   		</div>
@@ -220,7 +214,7 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
 						</c:if>
 					</div>
 				</div>
-				
+				</div>
             </div>
             <!-- #/ container -->
         </div>

@@ -44,16 +44,8 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
-            <div class="brand-logo">
-                <a href="/store/customer/home">
-                    <b class="logo-abbr"><img src="${app}/resources/quixlab/themes/quixlab/images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="${app}/resources/quixlab/themes/quixlab/images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <img src="${app}/resources/quixlab/themes/quixlab/images/logo-text.png" alt="">
-                    </span>
-                </a>
-            </div>
+        <div class="nav-header" style="background-color:white">
+			<img src="${app}/resources/logo_copy.png" style='height: 100%; width: 100%; object-fit: contain'alt="">
         </div>
         <!--**********************************
             Nav header end
@@ -112,7 +104,7 @@
             Content body start
         ***********************************-->		
         <div class="content-body" style=" margin-left: 486px; ">            
-           <jsp:include page="/WEB-INF/views//map.jsp" flush="true" />
+           <jsp:include page="/WEB-INF/views/map.jsp" flush="true" />
         </div>
         <!--**********************************
             Content body end

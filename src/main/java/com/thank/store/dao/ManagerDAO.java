@@ -44,4 +44,6 @@ public interface ManagerDAO {
 	String managerIdCheck(String id) throws SQLException;
 	
 	String managerStoreCodeCheck(String id) throws SQLException;
+
+	String storeCodeRegisteredCheck(String storecode) throws SQLException;
 }

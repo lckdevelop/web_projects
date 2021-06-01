@@ -105,16 +105,8 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
-            <div class="brand-logo">
-                <a href="index.html">
-                    <b class="logo-abbr"><img src="${app}/resources/quixlab/themes/quixlab/images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="${app}/resources/quixlab/themes/quixlab/images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <img src="${app}/resources/quixlab/themes/quixlab/images/logo-text.png" alt="">
-                    </span>
-                </a>
-            </div>
+        <div class="nav-header" style="background-color:white">
+			<img src="${app}/resources/logo_copy.png" style='height: 100%; width: 100%; object-fit: contain'alt="">
         </div>
         <!--**********************************
             Nav header end
@@ -187,14 +179,11 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 		     		</div>
 		   		</div>
 		 		</form>
-	            
 				<!-- 리스트 -->            
 	   			<div id ="list_container_box">
 		   		<hr class="list_hr">
 		   		<form>
 			  		<c:forEach var="product" items="${list}" varStatus="status">
-				    	
-				    	
 				    	<div id="list-box">
 				    		<div class="row">
 				    			<div class='col-sm-3'>
@@ -202,17 +191,18 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 				  				</div>
 				  				<div class='col-sm-6'>
 					    			<div class="control_size">
-						    				<span>${product.name}(${product.productcode})<br/></span>
-						    				<span>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
-						    				<span>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
-						    				<c:choose>
-						    					<c:when test='${product.enrollment == 0}'>
-						    						<span style="color:red">등록여부 : x<br/></span>
-						    					</c:when>
-					    						<c:otherwise>
-					    							<span style="color:blue">등록여부 : o<br/></span>
-					    						</c:otherwise>
-						    				</c:choose>
+					    				<span>${product.name}(${product.productcode})<br/></span>
+					    				<span>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
+					    				<span>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
+					    				<div class="enroll_margin_box"></div>
+					    				<c:choose>
+					    					<c:when test='${product.enrollment == 0}'>
+					    						<span class="enrollment_no_info">등록여부 : x<br/></span>
+					    					</c:when>
+				    						<c:otherwise>
+				    							<span class="enrollment_yes_info">등록여부 : o<br/></span>
+				    						</c:otherwise>
+					    				</c:choose>
 						    		</div>
 					    		</div>
 					    		<div class='col-sm-3'>

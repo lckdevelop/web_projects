@@ -276,4 +276,8 @@
 	<select id="managerStoreCodeCheck" parameterType="String" resultType="String">
 	select count(*) from cvstore where storecode=#{storecode}
 	</select>
+	
+	<select id="storeCodeRegisteredCheck" parameterType="String" resultType="String">
+	select COUNT(*) from cvstore where STORECODE=#{storecode} and MANAGER_NO IS NULL
+	</select>
 </mapper>
