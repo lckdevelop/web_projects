@@ -18,10 +18,10 @@
 <!-- accordion css -->
 <link 
 	href="${app}/resources/customer/css/accordion.css" rel="stylesheet">
-	
-<link 
-	href="${app}/resources/customer/css/categoryaccordion.css" rel="stylesheet">
-	
+
+<!-- Custom Stylesheet -->
+    <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
+    	
 	
 <!-- jquery 경로 -->
 <script type="text/javascript"
@@ -415,13 +415,18 @@ function makeCvsInfo(){
 		        	console.log(data);
 		        	console.log(data.cvstoreDTO.cvsProductList.length);
 		        	var v_loadPage ="";
-		            	v_loadPage += "<div id='list-box'>"; 
-		            	v_loadPage += "		<div class='tab'>"; 
-		            	v_loadPage += "		<input class='accordion' type='radio'  id='storeProduct' name='cvstoreradio' value='편의점' onclick='checkFunc(event)' checked />"; 
-	            		v_loadPage += "			<label class='tab-label' for='storeProduct'>"+ data.cvstoreDTO.brand +" "+ data.cvstoreDTO.name +" 상품 목록 </label>"; 
-	            		v_loadPage += "			 <div class='tab-content panel' style='overflow:auto;'>"; 
+
+
+	            		
+	            		v_loadPage += "		<ul class='metismenu' id='menu'>"; 
+	            		v_loadPage += "				<li class='mega-menu mega-menu-sm'>"; 
+	            		v_loadPage += "					<a class='has-arrow' href='javascript:void()' aria-expanded='false'>"; 
+	            		v_loadPage += 						"<i class='icon-globe-alt menu-icon'></i><span class='nav-text'>김밥류</span>"; 
+	            		v_loadPage += "					</a>"; 
+           				v_loadPage += "					<ul aria-expanded='false'>"; 
+
 		            	for(var i=0; i<data.cvstoreDTO.cvsProductList.length; i++){
-	            				v_loadPage += "<div class='col-sm-5'>"; 
+	            				v_loadPage += "<li>"; 
 	            				v_loadPage += "<img src='${app}/resources/product/images/"+ data.cvstoreDTO.cvsProductList[i].name +".jpg'/><br>"; 
 	            				v_loadPage += "상품명: " + data.cvstoreDTO.cvsProductList[i].name+"<br>"; 
 	            				v_loadPage += "판매가: " + data.cvstoreDTO.cvsProductList[i].price+" 원 <br>"; 
@@ -429,16 +434,12 @@ function makeCvsInfo(){
 	            				v_loadPage += "할인율: " + data.cvstoreDTO.cvsProductList[i].discountRate+" % <br>"; 
 	            				v_loadPage += "남은시간: " + data.cvstoreDTO.cvsProductList[i].countTime + " 시간<br>"; 
 	            				v_loadPage += "<input type='submit' />"; 
-	            				v_loadPage += "</div>"; 
+	            				v_loadPage += "</li>"; 
 		            	}
-		            	v_loadPage += "				</div>"; 
-		            	v_loadPage += "			</div>"; 
-		            	v_loadPage += "			<div class='tab'>"; 
-		            	v_loadPage += "			 <input class='accordion' type='radio' id='acc_close' name='cvstoreradio'>"; 
-		            	v_loadPage += "			<label for='acc_close' class='tab-close'>닫기 &times;</label>"; 
-		            	v_loadPage += "			</div>"; 
-		            	v_loadPage += "</div>"; 
-		
+		            	
+	            		v_loadPage += " 		 	</ul>"; 
+		            	v_loadPage += " 	</ul>"; 
+
 		            	$("#cvsProductList").html(v_loadPage);
 		        }
 	        });
