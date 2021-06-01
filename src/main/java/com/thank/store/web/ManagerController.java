@@ -1,9 +1,8 @@
 package com.thank.store.web;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.thank.store.dto.CvsProductDTO;
 import com.thank.store.dto.ManPagingDTO;
 import com.thank.store.dto.ManSearchDTO;
+import com.thank.store.dto.ManSellListDTO;
 import com.thank.store.dto.ManagerDTO;
 import com.thank.store.dto.MemberDTO;
 import com.thank.store.dto.ProfitDTO;
@@ -286,7 +285,7 @@ public class ManagerController {
 			monthList = managerService.profitPerMonth(profitDTO);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 		return gson.toJson(monthList);
@@ -311,13 +310,37 @@ public class ManagerController {
 		profitDTO.setSearchYear(searchYear);
 		
 		try {
-			categoryList = managerService.profitPerCategory(profitDTO);
+			categoryList = managerService.profitPerMainCategory(profitDTO);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 
 		return gson.toJson(categoryList);
+		
+	}
+	
+	/*
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/29
+	 */
+	@RequestMapping(value = "/list/{cvstoreNo}/{searchYear}", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public List<ManSellListDTO> getSellList(@PathVariable long cvstoreNo, @PathVariable String searchYear) {
+		List<ManSellListDTO> sellList = new ArrayList<>();
+		
+		ProfitDTO profitDTO = new ProfitDTO();
+		
+		profitDTO.setCvstoreno(cvstoreNo);
+		profitDTO.setSearchYear(searchYear);
+		
+		try {
+			sellList = managerService.sellProfitList(profitDTO);
+		} catch (SQLException e) {
+			e.getMessage();
+		}
+		
+		return sellList;
 		
 	}
 	
