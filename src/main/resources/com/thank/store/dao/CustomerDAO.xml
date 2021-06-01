@@ -156,7 +156,10 @@
 				p.customer_no as customerno,
 				p.purchaseprice as purchaseprice,
 				pl.name,
-				pl.productcode
+				pl.productcode,
+				pl.maincategory,
+				pl.subcategory,
+				cp.expirationdate as expirationdate
 		from purchaselist p 
 		join customer c on c.no = p.customer_no
 		join cvstoreproduct cp on cp.no = p.cvstoreproduct_no
@@ -180,7 +183,10 @@
 				p.customer_no as customerno,
 				p.purchaseprice as purchaseprice,
 				pl.name,
-				pl.productcode
+				pl.productcode,
+				pl.maincategory,
+				pl.subcategory,
+				cp.expirationdate as expirationdate
 		from purchaselist p 
 		join customer c on c.no = p.customer_no
 		join cvstoreproduct cp on cp.no = p.cvstoreproduct_no
@@ -204,7 +210,10 @@
 				p.customer_no as customerno,
 				p.purchaseprice as purchaseprice,
 				pl.name,
-				pl.productcode
+				pl.productcode,
+				pl.maincategory,
+				pl.subcategory,
+				cp.expirationdate as expirationdate
 		from purchaselist p 
 		join customer c on c.no = p.customer_no
 		join cvstoreproduct cp on cp.no = p.cvstoreproduct_no

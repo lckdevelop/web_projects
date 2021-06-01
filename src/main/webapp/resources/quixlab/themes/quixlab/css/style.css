@@ -9,7 +9,7 @@
 The smaller device rules always should write below the bigger device rules
 Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Component
 */
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;500;700;900&display=swap');
 @import url(../icons/font-awesome/css/font-awesome.min.css);
 @import url(../icons/simple-line-icons/css/simple-line-icons.css);
 @import url(../icons/weather-icons/css/weather-icons.min.css);
@@ -24,7 +24,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 @import url(../plugins/animate/animate.min.css);
 @import url(../plugins/metismenu/css/metisMenu.min.css);
 @import url(../plugins/bootstrap-select/dist/css/bootstrap-select.min.css);
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;500;700;900&display=swap');
+
 .gradient-1, .dropdown-mega-menu .ext-link.link-1 a, .morris-hover, .datamaps-hoverover {
   background-image: linear-gradient(230deg, #759bff, #843cf6); }
 
@@ -90,9 +90,8 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
   --breakpoint-xxl: 1400;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", "monospace"; 
-  --font-family: 'Gothic A1', sans-serif;}
+  --font-family: 'Gothic A1', sans-serif;
+}
 
 *,
 *::before,
@@ -100,7 +99,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   box-sizing: border-box; }
 
 html {
-  font-family: sans-serif;
+  font-family: 'Gothic A1', sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -115,7 +114,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Gothic A1', sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
@@ -218,7 +217,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: 'Gothic A1', sans-serif;
   font-size: 1em; }
 
 pre {
@@ -4063,7 +4062,7 @@ button.close {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Gothic A1', sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -4148,7 +4147,7 @@ button.close {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Gothic A1', sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -6582,7 +6581,8 @@ button.bg-dark:focus {
     margin-left: auto !important; } }
 
 .text-monospace {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  font-family: 'Gothic A1', sans-serif;
+}
 
 .text-justify {
   text-align: justify !important; }
@@ -6720,7 +6720,8 @@ a.text-dark:hover, a.text-dark:focus {
   color: #76838f !important; }
 
 .text-muted {
-  color: #8898aa !important; }
+  color: #8898aa !important;
+}
 
 .text-black-50 {
   color: rgba(0, 0, 0, 0.5) !important; }
@@ -10012,7 +10013,7 @@ input[type="checkbox"]:checked:after {
   height: 1.2rem;
   display: block;
   content: "\f00c";
-  font-family: 'FontAwesome';
+  font-family: 'Gothic A1', sans-serif;
   color: #7571f9;
   font-weight: 100;
   text-align: center; }
@@ -10684,19 +10685,19 @@ table.dataTable thead .sorting_desc_disabled {
 table.dataTable thead .sorting_asc::after {
   content: "";
   cursor: pointer;
-  font-family: fontawesome;
+  font-family: 'Gothic A1', sans-serif;
   margin-left: 10px; }
 
 table.dataTable thead .sorting_desc::after {
   content: "";
   cursor: pointer;
-  font-family: fontawesome;
+  font-family: 'Gothic A1', sans-serif;
   margin-left: 10px; }
 
 table.dataTable thead .sorting::after {
   content: "";
   cursor: pointer;
-  font-family: fontawesome !important;
+  font-family: 'Gothic A1', sans-serif;
   margin-left: 10px; }
 
 .dataTables_wrapper .dataTables_paginate {
@@ -11005,7 +11006,7 @@ table.dataTable thead .sorting::after {
         color: #555555; }
     .page-titles .breadcrumb .breadcrumb-item + .breadcrumb-item:before {
       content: "\e606";
-      font-family: 'simple-line-icons';
+      font-family: 'Gothic A1', sans-serif;
       font-size: 10px;
       color: #555555; }
     .page-titles .breadcrumb-datepicker {
@@ -11737,7 +11738,7 @@ table.dataTable thead .sorting::after {
       border-color: #464a53; }
     .tdl-holder input[type=checkbox]:checked + i::after {
       content: "\f00c";
-      font-family: 'fontAwesome';
+      font-family: 'Gothic A1', sans-serif;
       display: block;
       left: 1px;
       position: absolute;

@@ -24,22 +24,36 @@ rel="stylesheet">
 <link
 	href="${app}/resources/manager/css/bootstrap.min.css"
 	rel="stylesheet">
+<!-- alert창  -->
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- jquery 경로 -->
 <script type="text/javascript"
 	src="${app}/resources/manager/js/jquery-3.6.0.min.js"></script>
 	
 <script type="text/javascript">
-function btn_cancel(productNo, productName, discountPrice, countTime){
-	if(confirm(productName 
-			+ ' 상품\n' 
-			+ '\n할인가 : '
-			+ discountPrice
-			+ '원\n남은시간 : '
-			+ countTime
-			+ '시간\n\n등록취소 하시겠습니까?'))
-		location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enrolled";
-	else
-		return false;
+function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countTime){
+	Swal.fire({
+		  title: "등록 시점 할인가 : " + enrolledPrice + "<br/>현재 시점 할인가 : " + discountPrice + "원 <br/>남은 시간 : " + countTime + "시간",
+		  text: productName + "을 등록 취소하시겠습니까?",
+		  imageUrl: '${app}/resources/product/images/'+productName+'.jpg',
+		  imageWidth: 200,
+		  imageHeight: 200,
+		  showCancelButton: true,
+		  confirmButtonColor: 'rgba(237, 123, 123)',
+		  cancelButtonColor: 'rgba(79, 126, 255, 0.7)',
+		  confirmButtonText: '등록취소',
+		  cancelButtonText: '돌아가기',
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		    Swal.fire(
+		      '취소 완료!',
+		       productName,
+		      'error'
+		    )
+		    location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enrolled";
+		  }
+		})
 }
 </script>
 </head>
@@ -68,16 +82,8 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
-            <div class="brand-logo">
-                <a href="index.html">
-                    <b class="logo-abbr"><img src="${app}/resources/quixlab/themes/quixlab/images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="${app}/resources/quixlab/themes/quixlab/images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <img src="${app}/resources/quixlab/themes/quixlab/images/logo-text.png" alt="">
-                    </span>
-                </a>
-            </div>
+        <div class="nav-header" style="background-color:white">
+			<img src="${app}/resources/logo_copy.png" style='height: 100%; width: 100%; object-fit: contain'alt="">
         </div>
         <!--**********************************
             Nav header end
@@ -116,14 +122,12 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
         <div class="content-body" style="margin-left: 543px;">            
             <!-- row -->
             <div class="container-fluid">
-            
-            
 	            <!-- 검색 창 -->
 		        <form>
 		 		<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<h3>마이 점포 전상품 리스트</h3>
+			    			<span class="list_info">등록된 임박 상품</span>
 			       		</div>
 			       		<div class="col-md-3">
 			    			<div class="input-group icons">
@@ -153,28 +157,30 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 		   		</div>
 		 		</form>
 				<!--리스트  -->
-		   		<hr style="border: solid 3px #1b4af5;">
+		   		<div id ="list_container_box">
+		   		<hr class="list_hr">
 		  		<c:forEach var="product" items="${list}" varStatus="status">
 			    	<div id="list-box">
 			    		<div class="row">
-			    			<div class='col-sm-4'>
-			  					<img src='${app}/resources/product/images/${product.name}.jpg' />
+			    			<div class='col-sm-3'>
+			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' /></div>
 			  				</div>
 			  				<div class='col-sm-6'>
-				    				<h6>상품명 : ${product.name}<br/></h6>
-				    				<h6>상품코드 : ${product.productcode}<br/></h6>
-				    				<h6 style="color:blue">등록여부 : o<br/></h6>
-				    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
-				    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
-				    				<h6 style="color:blue">등록 시점 남은시간 : ${product.enrolledlefttime}시간<br/></h6>
-				    				<h6 style="color:red">현재 남은시간 : ${product.countTime}시간<br/></h6>
-				    				<h6>원가 : ${product.price}원<br/></h6>
-				    				<h6 style="color:blue">등록가 : ${product.enrolledprice}원<br/></h6>
-				    				<h6 style="color:red">현재 할인가 : ${product.discountPrice}원<br/></h6>
-				    				<h6 style="color:red">현재 할인률 : ${product.discountRate}%<br/></h6>
+			  					<div class="control_size">
+				    				<span>${product.name}(${product.productcode})<br/></span>
+				    				<span>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
+				    				<span>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
+				    				<div class="enroll_margin_box"></div>
+				    				<span class="enroll_info">등록가 : ${product.enrolledprice}원<br/></span>
+									<span class="enroll_info">등록 시점 남은시간 : ${product.enrolledlefttime}시간<br/></span>	    				
+				    				<span class="enrollment_yes_info">등록여부 : o<br/></span>
+				    			</div>
 				    		</div>
-				    		<div class='col-sm-2'>
-			    				<input type="button" value="취소" class="btn_cancel" onclick="btn_cancel('${product.no}', '${product.name}','${product.discountPrice}', '${product.countTime}')"/>
+				    		<div class='col-sm-3'>
+								<div class="dDay">D-day(Time) : ${product.countTime}시간</div>		    				
+			    				원가 : <span class="ori_price">${product.price}원</span>
+			    				<div class="discount">${product.discountRate}% <span style="color:black;">${product.discountPrice}원</span></div>
+			    				<input type="button" value="취소" class="btn_cancel" onclick="btn_cancel('${product.no}', '${product.name}','${product.enrolledprice}', '${product.discountPrice}', '${product.countTime}')"/>
 				    		</div>
 			    		</div>
 			   		</div>
@@ -208,6 +214,7 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 						<a href="enrolled?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${pagingDTO.endPage+1}" class="btn btn-default">Next</a>
 						</c:if>
 					</div>
+				</div>
 				</div>
 				
             </div>
