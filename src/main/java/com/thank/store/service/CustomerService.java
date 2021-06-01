@@ -3,6 +3,7 @@ package com.thank.store.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.thank.store.dto.ChartDTO;
 import com.thank.store.dto.CusSearchDTO;
 import com.thank.store.dto.CustomerDTO;
 import com.thank.store.dto.CvsProductDTO;
@@ -50,5 +51,11 @@ public interface CustomerService {
 	List<PurchaseListDTO> getTotalPurchaseList(CusSearchDTO searchDTO) throws Exception;
 
 	String customerIdCheck(String id);
+
+	long getTotalDiscountPrice(long no) throws Exception;
+
+	List<ChartDTO> purchasePerBrand(long customerNo) throws Exception;
+
+	List<ChartDTO> purchasePerCategory(long customerNo) throws Exception;
 
 }

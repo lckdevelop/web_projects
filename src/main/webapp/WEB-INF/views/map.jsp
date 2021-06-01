@@ -416,6 +416,7 @@ function makeCvsInfo(){
 		        	console.log(data.cvstoreDTO.cvsProductList.length);
 		        	var v_loadPage ="";
 
+
 	            		
 	            		v_loadPage += "		<ul class='metismenu' id='menu'>"; 
 	            		v_loadPage += "				<li class='mega-menu mega-menu-sm'>"; 
@@ -423,6 +424,7 @@ function makeCvsInfo(){
 	            		v_loadPage += 						"<i class='icon-globe-alt menu-icon'></i><span class='nav-text'>김밥류</span>"; 
 	            		v_loadPage += "					</a>"; 
            				v_loadPage += "					<ul aria-expanded='false'>"; 
+
 		            	for(var i=0; i<data.cvstoreDTO.cvsProductList.length; i++){
 	            				v_loadPage += "<li>"; 
 	            				v_loadPage += "<img src='${app}/resources/product/images/"+ data.cvstoreDTO.cvsProductList[i].name +".jpg'/><br>"; 
@@ -437,9 +439,6 @@ function makeCvsInfo(){
 		            	
 	            		v_loadPage += " 		 	</ul>"; 
 		            	v_loadPage += " 	</ul>"; 
-		            	
-		            	
-		            	
 
 		            	$("#cvsProductList").html(v_loadPage);
 		        }
