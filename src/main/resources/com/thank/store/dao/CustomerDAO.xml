@@ -70,7 +70,7 @@
 				c.longitude,
 				c.address,
 				c.brand,
-				c.distance
+				calc_distance(#{lat},#{lon},c.latitude,c.longitude) as distance
 		from cvstore c
 		join cvstoreproduct cv on c.no = cv.cvstore_no
 		join productlist p on  p.no = cv.productlist_no
