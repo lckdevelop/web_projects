@@ -13,13 +13,21 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
     <!-- Custom Stylesheet -->
+    <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
 	<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-	<title>로그인 실패</title>
+	<title>로그아웃</title>
+	<script type="text/javascript"
+	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<style>
+	.btn{
+		margin:0 10px 0 10px;
+	}
+	</style>
 </head>
 <body>
-<script>
+<script type="text/javascript">
 const swalWithBootstrapButtons = Swal.mixin({
 	  customClass: {
 	    confirmButton: 'btn btn-success',
@@ -35,13 +43,17 @@ const swalWithBootstrapButtons = Swal.mixin({
 	  showCancelButton: true,
 	  confirmButtonText: '로그아웃 할게요!',
 	  cancelButtonText: '잘못 눌렀어요!',
-	  reverseButtons: true
+	  reverseButtons: true,
+	  allowOutsideClick: false
 	}).then((result) => {
 	  if (result.isConfirmed) {
-	    swalWithBootstrapButtons.fire(
-	      '로그아웃 되었습니다!',
-	      '안녕히 가세요!',
-	      'success'
+	    swalWithBootstrapButtons.fire({
+	    	title:'로그아웃 되었습니다!',
+		     text:'안녕히 가세요!',
+		     icon:'success',
+		      allowOutsideClick: false
+	    }
+	      
 	    ).then(function(){
 			window.location="/store/customer/logoutconfirm"
 		})
@@ -49,10 +61,13 @@ const swalWithBootstrapButtons = Swal.mixin({
 	    /* Read more about handling dismissals below */
 	    result.dismiss === Swal.DismissReason.cancel
 	  ) {
-	    swalWithBootstrapButtons.fire(
-	      '로그아웃이 취소되었습니다!',
-	      '취소됐어요~ :)',
-	      'error'
+	    swalWithBootstrapButtons.fire({
+
+	      title:'로그아웃이 취소되었습니다!',
+	      text:'취소됐어요~ :)',
+	      icon:'error',
+	    	allowOutsideClick: false
+	    }
 	    ).then(function(){
 			window.location="./home"
 		})

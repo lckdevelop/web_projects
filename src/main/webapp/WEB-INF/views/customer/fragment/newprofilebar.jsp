@@ -21,7 +21,11 @@
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<style>
+	.btn{
+		margin:0 10px 0 10px;
+	}
+</style>
 
 <script type="text/javascript">
 	$( function() {
