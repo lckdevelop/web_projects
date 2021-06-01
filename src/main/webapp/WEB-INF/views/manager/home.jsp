@@ -6,7 +6,6 @@
 <c:set var="dto" value="${managerDTO}" />
 <c:set var="list" value="${allList}" />
 <!DOCTYPE html>
-<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -159,7 +158,7 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 		 		<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<h3>나의 점포 전상품</h3>
+			    			<span class="list_info">나의 점포 전상품</span>
 			       		</div>
 			       		<div class="col-md-3">
 			    			<div class="input-group icons">
@@ -190,44 +189,61 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 		 		</form>
 	            
 				<!-- 리스트 -->            
-		   		<hr style="border: solid 3px #1b4af5;">
+	   			<div id ="list_container_box">
+		   		<hr class="list_hr">
 		   		<form>
 			  		<c:forEach var="product" items="${list}" varStatus="status">
+				    	
+				    	
 				    	<div id="list-box">
 				    		<div class="row">
-				    			<div class='col-sm-4'>
-				  					<img src='${app}/resources/product/images/${product.name}.jpg' />
+				    			<div class='col-sm-3'>
+				  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' /></div>
 				  				</div>
-				  				<div class='col-sm-6' style="font-family: 'Gothic A1', sans-serif;">
-					    				<label class="name1">상품명 : ${product.name}<br/></label>
-					    				<h6>상품코드 : ${product.productcode}<br/></h6>
+				  				<div class='col-sm-6'>
+					    			<div class="control_size">
+						    				<span>${product.name}(${product.productcode})<br/></span>
+						    				<span>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
+						    				<span>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
+						    				<c:choose>
+						    					<c:when test='${product.enrollment == 0}'>
+						    						<span style="color:red">등록여부 : x<br/></span>
+						    					</c:when>
+					    						<c:otherwise>
+					    							<span style="color:blue">등록여부 : o<br/></span>
+					    						</c:otherwise>
+						    				</c:choose>
+						    		</div>
+					    		</div>
+					    		<div class='col-sm-3'>
+					    				<div class="dDay">D-day : ${product.leftDay}일 / ${product.leftTime}시간</div>
 					    				<c:choose>
-					    					<c:when test='${product.enrollment == 0}'>
-					    						<h6 style="color:blue">등록여부 : x<br/></h6>
-					    					</c:when>
-				    						<c:otherwise>
-				    							<h6 style="color:blue">등록여부 : o<br/></h6>
-				    						</c:otherwise>
+					    				<c:when test='${product.countTime <= 24}'>
+					    					원가 : <span class="ori_price">${product.price}원</span>
+					    					<div class="discount">${product.discountRate}% <span style="color:black;">${product.discountPrice}원</span></div>
+					    				</c:when>
+					    				<c:otherwise>
+					    					원가 : <span>${product.price}원</span>
+					    				</c:otherwise>
 					    				</c:choose>
-					    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
-					    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
-					    				<h6 style="color:blue">남은일수/남은시간 : ${product.leftDay}일 / ${product.leftTime}시간<br/></h6>
-					    				<h6>원가 : ${product.price}원<br/></h6>
-					    				<c:if test='${product.countTime <= 24}'>
-						    				<h6 style="color:red">할인가 : ${product.discountPrice}원<br/></h6>
-						    				<h6 style="color:red">할인률 : ${product.discountRate}%<br/></h6>
-					    				</c:if>
-					    		</div>
-					    		<div class='col-sm-2'>
-					    			<c:if test='${(product.countTime <= 24) && (product.enrollment == 0)}'>
-					    					<input type="button" value="등록" class="btn_enroll" onclick="btn_enroll('${product.no}', '${product.name}', '${product.discountPrice}', '${product.countTime}')"/>
-					    			</c:if>
-					    			<c:if test='${product.enrollment == 1}'>
-					    				<input type="button" value="취소" class="btn_cancel" onclick="btn_cancel('${product.no}', '${product.name}','${product.discountPrice}', '${product.countTime}')"/>
-					    			</c:if>
-					    		</div>
+						    			<c:if test='${(product.countTime <= 24) && (product.enrollment == 0)}'>
+						    					<input type="button" value="등록" class="btn_enroll" onclick="btn_enroll('${product.no}', '${product.name}', '${product.discountPrice}', '${product.countTime}')"/>
+						    			</c:if>
+						    			<c:if test='${product.enrollment == 1}'>
+						    				<input type="button" value="취소" class="btn_cancel" onclick="btn_cancel('${product.no}', '${product.name}','${product.discountPrice}', '${product.countTime}')"/>
+						    			</c:if>
+					    			</div>
 				    		</div>
 				   		</div>
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
 			    		<hr>
 			    	</c:forEach>
 		   		</form>
@@ -261,6 +277,7 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 						</c:if>
 					</div>
 				</div>
+		    	</div>
 				
             </div>
             <!-- #/ container -->
