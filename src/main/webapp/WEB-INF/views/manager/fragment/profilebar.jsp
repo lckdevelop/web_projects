@@ -78,15 +78,18 @@ $(function() {
 		
 		<div class="row mb-5">
 			<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
+				<%-- <a href="${app}/manager/home" id="allList" class="btn mb-1 btn-warning btn-block">나의 점포 전 상품</a> --%>
 				<button class="btn mb-1 btn-warning btn-block" onclick="location.href='${app}/manager/home'">나의 점포 전 상품</button>
 			</div>
 
 			<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
 				<button class="btn mb-1 btn-warning btn-block" onclick="location.href='${app}/manager/enrolled'">등록된 임박 상품</button>
+				<%-- <a href="${app}/manager/enrolled" class="btn mb-1 btn-warning btn-block">등록된 임박 상품</a> --%>
 			</div>
 
 			<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
 				<button class="btn mb-1 btn-warning btn-block" onclick="location.href='${app}/manager/enroll'">임박상품 등록</button>
+<%-- 				<a href="${app}/manager/enroll" class="btn mb-1 btn-warning btn-block">임박상품 등록</a> --%>
 			</div>
 
 			<div class="footer"

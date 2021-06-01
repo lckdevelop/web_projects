@@ -25,11 +25,8 @@ function message(){
 		  icon: 'error',
 		  title: '이런!',
 		  text: '아이디 혹은 비밀번호가 잘못되었습니다.',
-		  footer: '<a href="./customer/signup"> 회원 가입하기</a>'
-		}).then(function(){
-			window.location="./customer";
-			
-		});
+		  footer: '<a href="${url}">돌아가기</a><a> </a> <a href="./customer/signup"> 회원 가입하기</a>'
+		})
 };
 </script>
 </body>
