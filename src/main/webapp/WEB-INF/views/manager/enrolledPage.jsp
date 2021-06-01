@@ -122,14 +122,12 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
         <div class="content-body" style="margin-left: 543px;">            
             <!-- row -->
             <div class="container-fluid">
-            
-            
 	            <!-- 검색 창 -->
 		        <form>
 		 		<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<h3>등록된 임박 상품</h3>
+			    			<span class="list_info">등록된 임박 상품</span>
 			       		</div>
 			       		<div class="col-md-3">
 			    			<div class="input-group icons">
@@ -159,27 +157,29 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 		   		</div>
 		 		</form>
 				<!--리스트  -->
-		   		<hr style="border: solid 3px #1b4af5;">
+		   		<div id ="list_container_box">
+		   		<hr class="list_hr">
 		  		<c:forEach var="product" items="${list}" varStatus="status">
 			    	<div id="list-box">
 			    		<div class="row">
-			    			<div class='col-sm-4'>
-			  					<img src='${app}/resources/product/images/${product.name}.jpg' />
+			    			<div class='col-sm-3'>
+			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' /></div>
 			  				</div>
 			  				<div class='col-sm-6'>
-				    				<h6>상품명 : ${product.name}<br/></h6>
-				    				<h6>상품코드 : ${product.productcode}<br/></h6>
-				    				<h6 style="color:blue">등록여부 : o<br/></h6>
-				    				<h6>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
-				    				<h6>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></h6>
-				    				<h6 style="color:blue">등록 시점 남은시간 : ${product.enrolledlefttime}시간<br/></h6>
-				    				<h6 style="color:red">현재 남은시간 : ${product.countTime}시간<br/></h6>
-				    				<h6>원가 : ${product.price}원<br/></h6>
-				    				<h6 style="color:blue">등록가 : ${product.enrolledprice}원<br/></h6>
-				    				<h6 style="color:red">현재 할인가 : ${product.discountPrice}원<br/></h6>
-				    				<h6 style="color:red">현재 할인률 : ${product.discountRate}%<br/></h6>
+			  					<div class="control_size">
+				    				<span>${product.name}(${product.productcode})<br/></span>
+				    				<span>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
+				    				<span>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
+				    				<div class="enroll_margin_box"></div>
+				    				<span class="enroll_info">등록가 : ${product.enrolledprice}원<br/></span>
+									<span class="enroll_info">등록 시점 남은시간 : ${product.enrolledlefttime}시간<br/></span>	    				
+				    				<span class="enrollment_yes_info">등록여부 : o<br/></span>
+				    			</div>
 				    		</div>
-				    		<div class='col-sm-2'>
+				    		<div class='col-sm-3'>
+								<div class="dDay">D-day(Time) : ${product.countTime}시간</div>		    				
+			    				원가 : <span class="ori_price">${product.price}원</span>
+			    				<div class="discount">${product.discountRate}% <span style="color:black;">${product.discountPrice}원</span></div>
 			    				<input type="button" value="취소" class="btn_cancel" onclick="btn_cancel('${product.no}', '${product.name}','${product.enrolledprice}', '${product.discountPrice}', '${product.countTime}')"/>
 				    		</div>
 			    		</div>
@@ -214,6 +214,7 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 						<a href="enrolled?searchCondition=${searchDTO.searchCondition}&searchKeyword=${searchDTO.searchKeyword}&pg=${pagingDTO.endPage+1}" class="btn btn-default">Next</a>
 						</c:if>
 					</div>
+				</div>
 				</div>
 				
             </div>
