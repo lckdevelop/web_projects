@@ -228,7 +228,7 @@ $(function() {
             	<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<span class="list_info">${dto.brand}&nbsp;${dto.spot}&nbsp;수익 현황</span>
+			    			<span class="list_info" style="color:#ff8a3d;">${dto.brand}&nbsp;${dto.spot}&nbsp;수익 현황</span>
 			       		</div>
 		     		</div>
    				</div>
