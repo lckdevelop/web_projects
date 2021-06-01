@@ -69,7 +69,8 @@
 				c.latitude,
 				c.longitude,
 				c.address,
-				c.brand
+				c.brand,
+				c.distance
 		from cvstore c
 		join cvstoreproduct cv on c.no = cv.cvstore_no
 		join productlist p on  p.no = cv.productlist_no
