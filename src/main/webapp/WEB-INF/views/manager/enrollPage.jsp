@@ -129,7 +129,7 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
 		 		<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<span class="list_info" style="color:#ff8a3d;">임박 상품 등록</span>
+			    			<span class="list_info">임박 상품 등록</span>
 			       		</div>
 			       		<div class="col-md-3">
 			    			<div class="input-group icons">
