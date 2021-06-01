@@ -43,8 +43,7 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header" style="background-color:white
-        ">
+        <div class="nav-header" style="background-color:white">
 			<img src="${app}/resources/logo_copy.png" style='height: 100%; width: 100%; object-fit: contain'alt="">
         </div>
         <!--**********************************
