@@ -239,3 +239,7 @@ h1, h2, h3, h4, h5, h6 {
 .list_hr{
 	border: solid 3px #ff8a3d;
 }
+
+.profit_search{
+	margin-bottom:50px;
+}
