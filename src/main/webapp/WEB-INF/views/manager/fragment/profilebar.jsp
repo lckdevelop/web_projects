@@ -29,8 +29,6 @@ $(function() {
 
 </head>
 <body>
-
-
 	<div class="card-body">
 		<div class="media align-items-center mb-4">
 			<div class="media-body">
@@ -38,7 +36,6 @@ $(function() {
 				<p class="text-muted mb-0">Manager</p>
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col">
 				<div class="card card-profile text-center">
@@ -72,10 +69,11 @@ $(function() {
 				<p class="text-muted mb-0">${dto.name}점장님 안녕하세요.</p>
 				<p class="text-muted mb-0">${dto.brand}&nbsp;${dto.spot}</p>
 				<p class="text-muted mb-0">편의점 코드 : ${dto.storecode}</p>
-				<p class="text-muted mb-0"><a href="${app}/manager/profit" class="profit_link">수익금 : ${dto.profit} 원</a></p>
+				<div class="profit_margin_box"><p></p></div>
+				<div class="profit_margin_box"><p></p></div>
+				<p class="text-muted mb-0"><a href="${app}/manager/profit" class="profit_link"><b>수익금 : ${dto.profit} 원</b></a></p>
 			</div>
 		</div>
-		
 		<div class="row mb-5">
 			<div class="col-12 text-center" style="margin: 10px 0 10px 0;">
 				<button class="btn mb-1 btn-warning btn-block" onclick="location.href='${app}/manager/home'">나의 점포 전 상품</button>
@@ -97,6 +95,5 @@ $(function() {
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
