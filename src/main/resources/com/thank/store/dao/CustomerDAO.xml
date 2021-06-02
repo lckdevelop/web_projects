@@ -79,6 +79,7 @@
 		and p.subcategory like '%'||#{subCategory}||'%'
 		and cv.enrollment = 1
 		and ROUND((cv.expirationdate - sysdate) * 24) > 0
+		order by distance
 		) A
 			  ) B 
 		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}

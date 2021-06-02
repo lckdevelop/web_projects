@@ -321,7 +321,10 @@ function buyBtn(no){
 	  			 <input class="accordion" type="radio" id="${cvstore.storecode}" name="cvstoreradio" value="${cvstore.name}"
 	  			 <c:if test="${status.first == true}"> checked </c:if>
 	  			 >
-			        <label class="tab-label" for="${cvstore.storecode}">${cvstore.brand} ${cvstore.name}</label>
+			        <label class="tab-label" for="${cvstore.storecode}">${cvstore.brand} ${cvstore.name} (
+			        <c:if test="${cvstore.distance < 1}">${cvstore.distance * 1000}M</c:if>
+			        <c:if test="${cvstore.distance >= 1}">${cvstore.distance}KM</c:if>
+			        )</label>
 			        <div class="tab-content panel" style="overflow:auto;">
 			        	<c:forEach var="cvsproduct" items="${cvstore.cvsProductList}">
 			        		<div id="list-box">
