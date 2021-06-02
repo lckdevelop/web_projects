@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<c:set var="app" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -40,28 +42,29 @@
         </nav> -->
         
         <!-- Services-->
-        <section class="page-section" id="services" style="padding-bottom: 3rem">
-            <div class="container" style="width:800px">
+        <section class="page-section" id="services" style="padding-bottom: 3rem;padding-top:100px;">
+            <div class="container" style="width:1200px">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">서비스</h2>
                     <h3 class="section-subheading text-muted">편의점 마감임박 상품 구매 서비스</h3>
                 </div>
-                <div class="row text-center">
-                    <div class="col-md-4">
+                <div class="row text-center"style="width:1200px;">
+                    <div class="col-md-4" style="width:600px; padding:30px">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-user fa-stack-1x fa-inverse"></i>
+                            
                         </span>
                         <h4 class="my-3">소비자</h4>
-                        <p class="text-muted">소비자가 사용해서 얻을 수 있는 이득 적기.</p>
+                        <p class="text-muted" style="padding:10px">마감 임박 상품을 정가보다 저렴한 가격에    구매할 수 있습니다!</p>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" style="width:600px;padding:30px">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-store fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">편의점</h4>
-                        <p class="text-muted">편의점 점포가 사용해서 얻을 수 있는 이득 적기.</p>
+                        <p class="text-muted" style="padding:10px">마감이 임박한 상품을 판매하여 폐기처분되는 경우를 줄일 수 있습니다!</p>
                     </div>                   
                 </div>
             </div>
