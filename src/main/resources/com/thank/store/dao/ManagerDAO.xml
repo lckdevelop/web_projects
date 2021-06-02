@@ -227,7 +227,7 @@
 	작성자 : 이채경
 	작성일자: 2021/05/29
 	 -->
-	 <select id="profitPerCategory" parameterType="ProfitDTO" resultType="ProfitDTO">
+	 <select id="profitPerMainCategory" parameterType="ProfitDTO" resultType="ProfitDTO">
 	 	SELECT
 		COUNT(p.maincategory) as cntPerCategory, p.maincategory as mainCategory
 		FROM cvstore cvs
@@ -236,6 +236,27 @@
 		WHERE cvsp.cvstore_no = #{cvstoreno}
 		AND to_char(cvsp.sellday, 'yyyy') = #{searchYear}
 		GROUP BY p.mainCategory
+	 </select>
+	 
+	 <!-- 
+	작성자 : 이채경
+	작성일자: 2021/06/01
+	 -->
+	 <select id="sellProfitList" parameterType="ProfitDTO" resultType="ManSellListDTO">
+	 	select p.productcode, 
+		p.name, 
+		p.maincategory, 
+		p.subcategory, 
+		p.price, 
+		cvsp.enrolledprice,
+		cvsp.enrolledlefttime,
+		cvsp.sellday
+		from cvstoreproduct cvsp
+		join productlist p 
+		on cvsp.productlist_no = p.no
+		where cvstore_no = #{cvstoreno}
+		and enrollment = 2
+		and to_char(cvsp.sellday, 'yyyy') = #{searchYear}
 	 </select>
 	 
 	 

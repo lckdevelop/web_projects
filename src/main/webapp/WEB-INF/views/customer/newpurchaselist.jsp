@@ -17,6 +17,10 @@
     <link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
     <!-- Custom Stylesheet -->
     <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
+    
+    <link 
+	href="${app}/resources/customer/css/customer.css" rel="stylesheet">
+	
 <script type="text/javascript"
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 </head>
@@ -105,9 +109,9 @@
                                     <h4>구매상품</h4>
                                 </div>
                                 <div id="list-box">
-						    			<div class='col-sm-3'>
-						  					<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' />
-						  				</div>
+                                		<div class='col-sm-3'>
+	  										<div class="img_resize"><img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' class="product_img"/></div>
+	  									</div>
 						  				<div class='col-sm-3'>
 							   					<img src="https://chart.googleapis.com/chart?chs=80x80&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
 							   			</div>
