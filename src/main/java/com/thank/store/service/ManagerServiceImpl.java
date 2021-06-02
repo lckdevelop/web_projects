@@ -213,6 +213,11 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 	
 	@Override
+	public List<ProfitDTO> profitPerSubCategory(ProfitDTO profitDTO) throws Exception {
+		return managerDAO.profitPerSubCategory(profitDTO);
+	}
+	
+	@Override
 	public List<ManSellListDTO> sellProfitList(ProfitDTO profitDTO) throws SQLException {
 		return managerDAO.sellProfitList(profitDTO);
 	}

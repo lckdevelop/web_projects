@@ -17,6 +17,7 @@ public class PurchaseListDTO {
 	private String productcode;
 	private String name;
 	private String brand;
+	private String cvstorename;
 	private long purchaseprice;
 	private long price;
 	private long discountprice; //할인받은가격

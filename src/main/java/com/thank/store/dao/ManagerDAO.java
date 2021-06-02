@@ -41,6 +41,8 @@ public interface ManagerDAO {
 	List<ProfitDTO> profitPerMonth(ProfitDTO profitDTO) throws SQLException;
 
 	List<ProfitDTO> profitPerMainCategory(ProfitDTO profitDTO) throws SQLException;
+
+	List<ProfitDTO> profitPerSubCategory(ProfitDTO profitDTO) throws SQLException;
 	
 	List<ManSellListDTO> sellProfitList(ProfitDTO profitDTO) throws SQLException;
 

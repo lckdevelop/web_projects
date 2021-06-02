@@ -47,6 +47,8 @@ public interface ManagerService {
 
 	List<ProfitDTO> profitPerMainCategory(ProfitDTO profitDTO) throws Exception;
 	
+	List<ProfitDTO> profitPerSubCategory(ProfitDTO profitDTO) throws Exception;
+	
 	List<ManSellListDTO> sellProfitList(ProfitDTO profitDTO) throws SQLException;
 
 	String managerIdCheck(String id) throws Exception;

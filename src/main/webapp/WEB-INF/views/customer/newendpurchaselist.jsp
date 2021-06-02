@@ -18,6 +18,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
     <!-- Custom Stylesheet -->
     <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
+    
+    <link 
+	href="${app}/resources/customer/css/customer.css" rel="stylesheet">
 <script type="text/javascript"
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 </head>
@@ -91,7 +94,7 @@
           <div id="product-search-box">
    			<div class="row">
 	   			<div class="col-md-11">
-	    			<h3>${dto.name} 회원님의 구매목록</h3>
+	    			<h3>${dto.name} 회원님의 만료상품</h3>
 	       		</div>
 	   		</div>
 	   	</div>
@@ -100,20 +103,20 @@
        <div class="container-fluid">
                 <div class="row">
                 <c:forEach var="purchaseDTO" items="${purchaseList}" varStatus="status">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h4>구매상품</h4>
+                                    <h4>판매처 : ${purchaseDTO.brand} ${purchaseDTO.cvstorename}</h4>
                                 </div>
-                                <div id="list-box">
-						    			<div class='col-sm-3'>
+                                <div id="list-box" style="text-align:center;">
+						    			<div class='img_resize col-lg-12'>
 						  					<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' />
 						  				</div>
-						  				<div class='col-sm-3'>
+						  				<div class='col-lg-12'>
 							   					<img src="https://chart.googleapis.com/chart?chs=80x80&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
 							   			</div>
-						  				<div class='col-sm-6'>
+						  				<div class='col-lg-12'>
 							    				<label class="name1">상품명 : ${purchaseDTO.name}<br/></label>
 							    				<h6>상품코드 : ${purchaseDTO.productcode}<br/></h6>
 							    				<h6>만료일 : <f:formatDate value="${purchaseDTO.expirationdate}" pattern="yyyy-MM-dd HH:mm:ss" /><br/></h6>
