@@ -111,17 +111,18 @@
                                     <h4>판매처 : ${purchaseDTO.brand} ${purchaseDTO.cvstorename}</h4>
                                 </div>
                                 <div id="list-box">
-	  										<div class="img_resize col-lg-6">
+	  										<div class="img_resize col-lg-10">
 	  											<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' class="product_img"/>
 	  										</div>
-						  				
-						  				<div class='col-lg-6'>
-							    				<label class="name1">상품명 : ${purchaseDTO.name}<br/></label>
-							    				<h6>상품코드 : ${purchaseDTO.productcode}<br/></h6>
-							    				<h6 style="color:red">구매금액 : <f:formatNumber value="${purchaseDTO.purchaseprice}" pattern="#,###" />원<br/></h6>
+						  				<div class="col-lg-2"></div>
+						  				<div class='col-lg-10'>
+							    				<label class="name1" style="font-size:20px;">상품명 : ${purchaseDTO.name}<br/></label>
+							    				<h5>상품코드 : ${purchaseDTO.productcode}<br/></h5>
+							    				<h5 style="color:red">구매금액 : <f:formatNumber value="${purchaseDTO.purchaseprice}" pattern="#,###" />원<br/></h5>
 							    		</div>
-							    		<div class='col-lg-12'>
-							   					<img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
+							    		<div class="col-lg-2"></div>
+							    		<div class='col-lg-12' style="text-align:right;">
+							   					<img src="https://chart.googleapis.com/chart?chs=180x180&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
 							   			</div>
 				   				</div>
 	   						</div>
