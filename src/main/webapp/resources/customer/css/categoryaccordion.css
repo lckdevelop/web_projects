@@ -50,13 +50,13 @@ input.mainCategoryradio {
   display: flex;
   justify-content: space-between;
   padding: 1em;
-  background: #2c3e50;
+  background: #ff8a3d;
   font-weight: bold;
   cursor: pointer;
   /* Icon */
 }
 .tab-label:hover {
-  background: #1a252f;
+  background: #ff643d;
 }
 .tab-label::after {
   content: "❯";
@@ -85,7 +85,7 @@ input.mainCategoryradio {
 }
 
 input:checked + .tab-label {
-  background: #1a252f;
+  background: #5cb85c;
 }
 input:checked + .tab-label::after {
   transform: rotate(90deg);
