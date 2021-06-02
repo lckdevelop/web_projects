@@ -166,7 +166,8 @@ public class CustomerController {
 	}
 
 	/*
-	 * 작성자: 김수빈 작성일자: 2021/05/23 23:43
+	 * 작성자: 김수빈
+	 * 작성일자: 2021/05/23 23:43
 	 */
 	@PostMapping()
 	public String login(@ModelAttribute MemberDTO memberDTO, Model model, HttpSession session) {
