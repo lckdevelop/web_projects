@@ -136,8 +136,8 @@ public class CustomerController {
 		log.info(searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		
-		double lat = Double.parseDouble((String) session.getAttribute("lat"));
-		double lon = Double.parseDouble((String) session.getAttribute("lon"));
+		double lat = (Double)session.getAttribute("lat");
+		double lon = (Double)session.getAttribute("lon");
 		
 		List<String> subCategoryList;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
@@ -153,7 +153,7 @@ public class CustomerController {
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), recordCount));
 			subCategoryList = customerService.getSubCategory(searchDTO);
 			log.info("검색기능 : " + searchDTO.toString());
-			/* log.info("거리 : "+cvstoreList.get(0).getDistance()); */
+			log.info("거리 : "+cvstoreList.get(0).getDistance()); 
 			model.addAttribute("customerDTO", customerDTO);
 			model.addAttribute("purchasecount", purchasecount);
 			model.addAttribute("cvstoreList", cvstoreList);
@@ -462,10 +462,24 @@ public class CustomerController {
 				@RequestParam HashMap<String, Double> loc,
 				HttpSession session
 				) {
-		session.setAttribute("lat", loc.get("lat"));
-		session.setAttribute("lon", loc.get("lon"));
+		//log.info("lon", loc.get("lon"));
+		//log.info("lat", loc.get("lat"));
 			return "map";
 	}
+	/*
+	 * @작성자 : 이효범 
+	 * @작성일자 : 0524
+	 */
+	@RequestMapping("/sessionLoc")
+	@ResponseBody
+	public void sessionLoc(
+			@RequestParam Double lat,
+			@RequestParam Double lon,
+			HttpSession session
+			) {
+		session.setAttribute("lat", lat);
+		session.setAttribute("lon", lon);
+	}	
 	
 	/*
 	 * @작성자 : 이효범
@@ -483,9 +497,9 @@ public class CustomerController {
 		session.setAttribute("lat", loc.get("lat"));
 		session.setAttribute("lon", loc.get("lon"));
 		
-		log.info(loc.get("lat") + ": lat");
+//		log.info(loc.get("lat") + ": lat");
 //		log.info(lat + ": lat");
-		log.info(loc.get("lon") + ": lon");
+//		log.info(loc.get("lon") + ": lon");
 //		log.info(lon + ": lon");
 		HashMap<String, List<CvstoreDTO>> hash = new HashMap<String, List<CvstoreDTO>>();
 		//HashMap<String, Double> hash = new HashMap<String, List<CvstoreDTO>>();
