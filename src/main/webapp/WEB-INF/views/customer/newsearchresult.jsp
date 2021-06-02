@@ -33,7 +33,8 @@
 	src="${app}/resources/customer/js/accordion.js"></script>	
 <script type="text/javascript"
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
-
+<script type="text/javascript" 
+	src="${app}/resources/customer/js/selectbar.js"></script>
 <script>
 
 var subCategoryList = new Array();
@@ -252,12 +253,12 @@ function buyBtn(no){
 	    			<span class="list_info" style="color:#ff8a3d;">[${searchDTO.searchKeyword}] 검색결과</span>
 	       		</div>
 	   			</c:if>
-	   			
+	   			<hr class="list_hr">
 	       		
 	       		<!-- 대분류 -->
-	       		<div class="col-md-2">
-	       		<span>대분류</span>
-	       		<select name="mainCategory" id="mainCategory" class="selectpicker" data-style="btn-primary" data-width="120px">
+	       		<div class="col-md-3">
+	       		<span style="font-size:15px;">대분류</span>
+	       		<select name="mainCategory" id="mainCategory" class="custom-select" data-width="120px">
 	       		<option value=""
 					<c:if test="${searchDTO.mainCategory == '' || searchDTO.mainCategory == null}"> selected </c:if>
 				>전체</option>
@@ -283,9 +284,9 @@ function buyBtn(no){
 	       		</div>
 	       		
 	       		<!-- 세분류 -->
-	       		<div class="col-md-2" >
-	       		<span>세분류</span>
-	       		<select name="subCategory" id="subCategory"  data-style="btn-danger" data-width="120px">
+	       		<div class="col-md-3" >
+	       		<span style="font-size:15px;">세분류</span>
+	       		<select name="subCategory" id="subCategory" class="custom-select" data-width="120px">
 	       		<option value=""
 					<c:if test="${searchDTO.subCategory == '' || searchDTO.subCategory == null}"> selected </c:if>
 					>전체</option>
@@ -296,17 +297,17 @@ function buyBtn(no){
 	       		</c:forEach>
 				</select>
 	       		</div>
-	       		
-	       		<div class="col-md-4">
-			    			<div class="input-group icons">
-		                        <div class="input-group-prepend">
-		                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
-		                        </div>
-		                        <input type="search" name="searchKeyword" class="form-control" placeholder="검색" value="${searchDTO.searchKeyword}" aria-label="Search Dashboard">
-                    		</div>
-			    </div>
-	    		<div class="col-md-3">
-			       			<input type="submit" class="btn btn-warning" value="찾기"></input>
+	       		<div class="col-md-6">
+		       		<span style="font-size:15px;margin-left:40px;">검색어</span>
+				    			<div class="input-group icons">
+			                        <div class="input-group-prepend">
+			                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+			                        </div>
+			                        <input type="search" name="searchKeyword" class="form-control" placeholder="검색" value="${searchDTO.searchKeyword}" aria-label="Search Dashboard">
+			                        <span style="margin-left:25px;"></span>
+			                        <input type="submit" class="btn btn-warning" value="찾기"></input>
+	                    		</div>
+				       			
 			    </div>
      		</div>
    		</div>

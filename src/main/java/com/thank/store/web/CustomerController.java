@@ -133,12 +133,12 @@ public class CustomerController {
 	@GetMapping("/searchresult")
 	public String selectMaincategory(@RequestParam(defaultValue = "1") long pg, @ModelAttribute CusSearchDTO searchDTO,
 			@ModelAttribute CustomerDTO customerDTO, Model model, HttpSession session) {
-		log.info(searchDTO.toString());
+		log.info("검색시작:"+searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		
 		double lat = (Double)session.getAttribute("lat");
 		double lon = (Double)session.getAttribute("lon");
-		
+		log.info("내 좌표 가져오기 완료:"+searchDTO.toString());
 		List<String> subCategoryList;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
 		long purchasecount = 0;
