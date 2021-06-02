@@ -56,7 +56,7 @@
                                     	<div class="col-sm-12">
                                     	<table class="table table-striped table-bordered zero-configuration dataTable" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                         	<thead>
-	                                            <tr role="row">
+	                                            <tr role="row" style="text-align:center;">
 	                                            	<th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 168.2px;">
 	                                            		거래번호
 	                                            	</th>
@@ -78,7 +78,7 @@
 	                                            </tr>
                                         	</thead>
                                         	<tbody>
-		                                        <tr role="row" class="odd">
+		                                        <tr role="row" class="odd" >
 		                                                <td class="sorting_1">Airi Satou</td>
 		                                                <td>Accountant</td>
 		                                                <td>Tokyo</td>
