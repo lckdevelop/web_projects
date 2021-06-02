@@ -86,7 +86,7 @@
         Scripts
     ***********************************-->
     <script>
-    	$("#id").blur(function() {
+    	$("#id").keyup(function() {
 		// id = "id_reg" / name = "userId"
 		var id = $('#id').val();
 		var idJ = /^[a-z0-9]{4,12}$/;
@@ -105,7 +105,8 @@
 						
 						if(idJ.test(id)){
 							// 0 : 아이디 길이 / 문자열 검사
-							$("#id_check").text("");
+							$("#id_check").text("사용 가능한 아이디 입니다.");
+							$('#id_check').css('color', 'green');
 							$("#reg_submit").attr("disabled", false);
 				
 						} else if(id == ""){
@@ -128,21 +129,45 @@
 			});
 		});
 
-		$('#secondpassword').blur(function(){
-		   if($('#password').val() != $('#secondpassword').val()){
-		    	if($('#secondpassword').val()!=''){
-		    		$('#pw_check').text('비밀번호가 일치하지 않습니다.');
-					$('#pw_check').css('color', 'red');
-					$("#reg_submit").attr("disabled", true);
+		$('#password').keyup(function(){
+			if($("#secondpassword").val()==''){
+				$("#pw_check").text("비밀번호를 한번 더 입력해주세요.");
+				$("#pw_check").css("color", "red");
+				$("#reg_submit").attr("disabled", true);
+			}
+			else if($("#password").val() == $("#secondpassword").val()){
+
+					$("#pw_check").text("비밀번호가 일치합니다.");
+					$("#pw_check").css("color", "green");
+					$("#reg_submit").attr("disabled", false);
+					
+			}
+		
+		   else{
+			   	$("#pw_check").text("비밀번호가 일치하지 않습니다.");
+				$("#pw_check").css("color", "red");
+				$("#reg_submit").attr("disabled", true);
+				
+		   }
+		   
+		});
+		
+		$('#secondpassword').keyup(function(){
+			if($("#password").val() == $("#secondpassword").val()&&$("#password").val()!=''){
+		    	if($("#secondpassword").val()!=''){
+		    		$("#pw_check").text("비밀번호가 일치합니다.");
+					$("#pw_check").css("color", "green");
+					$("#reg_submit").attr("disabled", false);
 		       }
 		    }
 		   else{
-			   	$('#pw_check').text('비밀번호가 일치합니다.');
-				$('#pw_check').css('color', 'green');
+			   	$("#pw_check").text("비밀번호가 일치하지 않습니다.");
+				$("#pw_check").css("color", "red");
 				$("#reg_submit").attr("disabled", false);
+				
 		   }
 		   
-		});  	   
+		}); 	   
 
 
 	</script>

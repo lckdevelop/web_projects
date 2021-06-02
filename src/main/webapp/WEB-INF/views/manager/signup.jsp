@@ -73,11 +73,9 @@
                                         <input type="text" class="form-control" id="storecode" name="storecode" placeholder="편의점 코드" required>
                                     </div>
                                     
-                                    <div class="check_font" id="storecode_check">
+                                    <div class="check_font" id="storecheck">
                                     </div>
-                                    
-                                    <div class="check_font" id="storecode_occupied_check">
-                                    </div>
+
                                     <button class="btn login-form__btn submit w-100" id="reg_submit" type="submit">가입 하기</button>
                                 </form>
                                     <p class="mt-5 login-form__footer">계정이 있으신가요? <a href="../manager" class="text-primary"> 로그인 </a> 하기</p>
@@ -114,7 +112,8 @@
 						
 						if(idJ.test(id)){
 							// 0 : 아이디 길이 / 문자열 검사
-							$("#id_check").text("");
+							$("#id_check").text("사용 가능한 아이디 입니다.");
+							$('#id_check').css('color', 'green');
 							$("#reg_submit").attr("disabled", false);
 							console.log("아이디 길이/ 문자열 맞는지 확인 완료");
 				
@@ -139,45 +138,46 @@
 				}
 			});
 		});
-
-		$('#secondpassword').blur(function(){
-		   if($('#password').val() != $('#secondpassword').val()){
-		    	if($('#secondpassword').val()!=''){
-		    		$('#pw_check').text('비밀번호가 일치하지 않습니다.');
-					$('#pw_check').css('color', 'red');
-					$("#reg_submit").attr("disabled", true);
+		
+		$('#password').keyup(function(){
+			if($("#secondpassword").val()==''){
+				$("#pw_check").text("비밀번호를 한번 더 입력해주세요.");
+				$("#pw_check").css("color", "red");
+				$("#reg_submit").attr("disabled", true);
+			}
+			else if($("#password").val() == $("#secondpassword").val()){
+				$("#pw_check").text("비밀번호가 일치합니다.");
+				$("#pw_check").css("color", "green");
+				$("#reg_submit").attr("disabled", false);
+			}
+		   else{
+			   	$("#pw_check").text("비밀번호가 일치하지 않습니다.");
+				$("#pw_check").css("color", "red");
+				$("#reg_submit").attr("disabled", false);
+				
+		   }
+		   
+		});
+		
+		$('#secondpassword').keyup(function(){
+			if($("#password").val() == $("#secondpassword").val()&&$("#password").val()!=''){
+		    	if($("#secondpassword").val()!=''){
+		    		$("#pw_check").text("비밀번호가 일치합니다.");
+					$("#pw_check").css("color", "green");
+					$("#reg_submit").attr("disabled", false);
 		       }
 		    }
 		   else{
-			   	$('#pw_check').text('비밀번호가 일치합니다.');
-				$('#pw_check').css('color', 'green');
+			   	$("#pw_check").text("비밀번호가 일치하지 않습니다.");
+				$("#pw_check").css("color", "red");
 				$("#reg_submit").attr("disabled", false);
+				
 		   }
 		   
-		});  	   
+		});
+ 
 		
-		$("#storecode").blur(function() {
-			// id = "id_reg" / name = "userId"
-			var storecode = $('#storecode').val();
-			$.ajax({
-				url : "${pageContext.request.contextPath}/manager/cvstoreCheck?storecode="+ storecode,
-				type : 'get',
-				success : function(data) {
-					console.log("1 = 존재 / 0 = 존재x : "+ data);							
-					console.log("스토어코드: "+storecode);
-					if (data == 0) {
-							// 1 : 아이디가 중복되는 문구
-							$("#storecode_check").text("존재하지 않는 편의점 코드입니다.");
-							$("#storecode_check").css("color", "red");
-							$("#reg_submit").attr("disabled", true);
-						}
-					}, error : function() {
-							console.log("실패");
-					}
-				});
-			});
-		
-		$("#storecode").blur(function() {
+		$("#storecode").keyup(function() {
 
 			var storecode = $('#storecode').val();
 			$.ajax({
@@ -187,11 +187,17 @@
 					console.log("1 = 미등록된 편의점코드 / 0 = 기등록된 편의점코드 : "+ data);							
 					console.log("스토어코드: "+storecode);
 					if (data == 0) {
-
-							$("#storecode_occupied_check").text("기등록된 편의점 코드 입니다. 편의점 코드를 확인 해주세요");
-							$("#storecode_occupied_check").css("color", "red");
+							$("#storecheck").text("");
+							$("#storecheck").text("이미 등록되었거나 존재하지 않는 편의점 코드 입니다.");
+							$("#storecheck").css("color", "red");
 							$("#reg_submit").attr("disabled", true);
 						}
+					else{
+						$("#storecheck").text("사용 가능한 편의점 코드 입니다.");
+						$("#storecheck").css("color", "green");
+						$("#reg_submit").attr("disabled", false);
+					}
+					
 					}, error : function() {
 							console.log("실패");
 					}
