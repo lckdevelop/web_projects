@@ -192,8 +192,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 리스트 폰트 조절 */
 .img_resize{
-	height:14rem;
-	width:14rem;
+	height:8rem; /* 14 */
+	width:8rem;
 	overflow:hidden;
     /* margin:0 auto; */
 	margin-left:15%; 

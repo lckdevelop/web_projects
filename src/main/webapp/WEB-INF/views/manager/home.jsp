@@ -230,13 +230,6 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 				   		</div>
 				    	
 				    	
-				    	
-				    	
-				    	
-				    	
-				    	
-				    	
-				    	
 			    		<hr>
 			    	</c:forEach>
 		   		</form>
