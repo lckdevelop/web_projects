@@ -86,13 +86,16 @@ public class CustomerController {
 		customerDTO = new CustomerDTO();
 		List<PurchaseListDTO> purchaseList;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
-		searchDTO.setCustomer_no(memberInfo.getNo());
+		
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
-			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(customerDTO.getCustomerno());
+			searchDTO.setCustomer_no(customerDTO.getCustomerno());
 			purchaseList = customerService.getPurchaseList(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), purchasecount));
 			log.info(searchDTO.toString());
+			log.info(""+purchasecount);
+			log.info(purchaseList.toString());
 			model.addAttribute("customerDTO", customerDTO);
 			model.addAttribute("purchasecount", purchasecount);
 			model.addAttribute("purchaseList", purchaseList);
@@ -113,7 +116,7 @@ public class CustomerController {
 		long purchasecount = 0;
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
-			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(customerDTO.getCustomerno());
 			log.info(customerDTO.toString());
 			log.info("" + purchasecount);
 			model.addAttribute("customerDTO", customerDTO);
@@ -142,7 +145,7 @@ public class CustomerController {
 		long recordCount = 0;
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
-			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(customerDTO.getCustomerno());
 			searchDTO.setLat(lat);
 			searchDTO.setLat(lon);
 			List<CvstoreDTO> cvstoreList = customerService.searchCvstoreList(searchDTO);
@@ -262,7 +265,7 @@ public class CustomerController {
 		log.info("카테고리 현황 : " + changeSearchDTO.toString());
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
-			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(customerDTO.getCustomerno());
 			subCategoryList = customerService.getSubCategory(changeSearchDTO);
 
 			model.addAttribute("searchDTO", changeSearchDTO);
@@ -342,12 +345,13 @@ public class CustomerController {
 		long totalpurchasecount = 0;
 		long totalDiscountPrice = 0;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
-		searchDTO.setCustomer_no(memberInfo.getNo());
+		
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
-			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
-			totalDiscountPrice = customerService.getTotalDiscountPrice(memberInfo.getNo());
-			totalpurchasecount = customerService.getTotalPurchaseCount(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(customerDTO.getCustomerno());
+			searchDTO.setCustomer_no(customerDTO.getCustomerno());
+			totalDiscountPrice = customerService.getTotalDiscountPrice(customerDTO.getCustomerno());
+			totalpurchasecount = customerService.getTotalPurchaseCount(customerDTO.getCustomerno());
 			purchaseList = customerService.getTotalPurchaseList(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), totalpurchasecount));
 			log.info(searchDTO.toString());
@@ -423,11 +427,12 @@ public class CustomerController {
 		List<PurchaseListDTO> purchaseList;
 		long endpurchasecount;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
-		searchDTO.setCustomer_no(memberInfo.getNo());
+		
 		try {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
-			purchasecount = customerService.getPurchaseCount(memberInfo.getNo());
-			endpurchasecount = customerService.getEndPurchaseCount(memberInfo.getNo());
+			purchasecount = customerService.getPurchaseCount(customerDTO.getCustomerno());
+			searchDTO.setCustomer_no(customerDTO.getCustomerno());
+			endpurchasecount = customerService.getEndPurchaseCount(customerDTO.getCustomerno());
 			purchaseList = customerService.getEndPurchaseList(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), endpurchasecount));
 			log.info(searchDTO.toString());
