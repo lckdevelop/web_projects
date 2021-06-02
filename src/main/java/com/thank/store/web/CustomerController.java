@@ -467,7 +467,7 @@ public class CustomerController {
 			return "map";
 	}
 	/*
-	 * @작성자 : 이효범
+	 * @작성자 : 이효범 
 	 * @작성일자 : 0524
 	 */
 	@RequestMapping("/sessionLoc")
