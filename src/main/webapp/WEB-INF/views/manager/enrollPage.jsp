@@ -181,8 +181,8 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
 				    		</div>
 				    		<div class='col-sm-3'>
 				    			<div class="dDay">D-day(Time) : ${product.countTime}시간</div>
-			    				원가 : <span class="ori_price">${product.price}원</span>
-			    				<div class="discount">${product.discountRate}% <span style="color:black;">${product.discountPrice}원</span></div>
+			    				원가 : <span class="ori_price"><f:formatNumber value="${product.price}" pattern="#,###" />원</span>
+			    				<div class="discount">${product.discountRate}% <span style="color:black;"><f:formatNumber value="${product.discountPrice}" pattern="#,###" />원</span></div>
 								<input type="button" value="등록" class="btn_enroll" onclick="btn_enroll('${product.no}', '${product.name}', '${product.discountPrice}', '${product.countTime}')"/>		    		</div>
 			    		</div>
 			   		</div>

@@ -174,7 +174,7 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 				    				<span>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
 				    				<span>유통만료기한 : <f:formatDate value="${product.expirationdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
 				    				<div class="enroll_margin_box"></div>
-				    				<span class="enroll_info">등록가 : ${product.enrolledprice}원<br/></span>
+				    				<span class="enroll_info">등록가 : <f:formatNumber value="${product.enrolledprice}" pattern="#,###" />원<br/></span>
 									<span class="enroll_info">등록 시점 남은시간 : ${product.enrolledlefttime}시간<br/></span>
 									<div class="enroll_margin_box"></div>    				
 				    				<span class="enrollment_yes_info">등록여부 : o<br/></span>
@@ -182,8 +182,8 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 				    		</div>
 				    		<div class='col-sm-3'>
 								<div class="dDay">D-day(Time) : ${product.countTime}시간</div>		    				
-			    				원가 : <span class="ori_price">${product.price}원</span>
-			    				<div class="discount">${product.discountRate}% <span style="color:black;">${product.discountPrice}원</span></div>
+			    				원가 : <span class="ori_price"><f:formatNumber value="${product.price}" pattern="#,###" />원</span>
+			    				<div class="discount">${product.discountRate}% <span style="color:black;"><f:formatNumber value="${product.discountPrice}" pattern="#,###" />원</span></div>
 			    				<input type="button" value="취소" class="btn_cancel" onclick="btn_cancel('${product.no}', '${product.name}','${product.enrolledprice}', '${product.discountPrice}', '${product.countTime}')"/>
 				    		</div>
 			    		</div>
