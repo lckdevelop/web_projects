@@ -188,14 +188,14 @@ $(document).ready(function(){
             	<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<h3>${dto.name}&nbsp;상품구매 통계</h3>
+			    			<h3>${dto.name} 고객님 &nbsp;상품구매 통계</h3>
 			       		</div>
 		     		</div>
    				</div>
 		   		<hr style="border: solid 3px #1b4af5;">
 		   		<div style="text-align:center;">
 			   		<h1>[ 총 절약한 금액 ]</h1>
-			   		<h1>${totalDiscountPrice}원</h1>
+			   		<h1 style="color:red;">${totalDiscountPrice}원</h1>
 		   		</div>
 		   		<hr style="border: solid 3px #1b4af5;">
 			 	<div class="container">
