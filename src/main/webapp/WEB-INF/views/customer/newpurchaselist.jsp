@@ -97,6 +97,7 @@
 	    				<h3>${dto.name} 회원님의 구매목록</h3>
 	       			</div>
 	   			</div>
+	   		</div>
 	   			<hr style="border: solid 3px #1b4af5;">
 	   			<form>
        <div class="container-fluid">
@@ -106,7 +107,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title">
-                                    <h4>구매상품</h4>
+                                    <h4>판매처 : ${purchaseDTO.brand} ${purchaseDTO.cvstorename}</h4>
                                 </div>
                                 <div id="list-box">
                                 		<div class='col-sm-3'>
