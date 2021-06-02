@@ -111,20 +111,18 @@
                                     <h4>판매처 : ${purchaseDTO.brand} ${purchaseDTO.cvstorename}</h4>
                                 </div>
                                 <div id="list-box">
-                                		
 	  										<div class="img_resize col-lg-6">
 	  											<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' class="product_img"/>
 	  										</div>
-	  										<div class='col-lg-6'  style="margin-right:0px; float:right;">
-							   					<img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
-							   				</div>
-	  									
 						  				
-						  				<div class='col'>
+						  				<div class='col-lg-6'>
 							    				<label class="name1">상품명 : ${purchaseDTO.name}<br/></label>
 							    				<h6>상품코드 : ${purchaseDTO.productcode}<br/></h6>
 							    				<h6 style="color:red">구매금액 : <f:formatNumber value="${purchaseDTO.purchaseprice}" pattern="#,###" />원<br/></h6>
 							    		</div>
+							    		<div class='col-lg-12'>
+							   					<img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
+							   			</div>
 				   				</div>
 	   						</div>
                         </div>
@@ -133,7 +131,7 @@
                         <!-- /# card -->
                     </div>
                 </div>
-            	<input class="btn btn-primary" type="button" value="기간만료 상품보기" onclick="location.href='endpurchaselist'"/>
+            	<input class="btn btn-warning" type="button" value="기간만료 상품보기" onclick="location.href='endpurchaselist'"/>
 	   	   	</form>
 	   
 	   		

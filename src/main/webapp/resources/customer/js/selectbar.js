@@ -166,5 +166,5 @@
 
 
 $(function () {
-	$('.selectpicker').selectpicker();
+	$('.selectbar').selectpicker();
 });
