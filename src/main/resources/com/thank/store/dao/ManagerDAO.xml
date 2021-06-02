@@ -223,7 +223,7 @@
 	      ORDER BY TO_CHAR(b.dt, 'YYYY-MM')
 	 </select>
 	 
-	 <!-- 
+	<!-- 
 	작성자 : 이채경
 	작성일자: 2021/05/29
 	 -->
@@ -238,11 +238,27 @@
 		GROUP BY p.mainCategory
 	 </select>
 	 
-	 <!-- 
+	<!-- 
 	작성자 : 이채경
-	작성일자: 2021/06/01
-	 -->
-	 <select id="sellProfitList" parameterType="ProfitDTO" resultType="ManSellListDTO">
+	작성일자: 2021/06/02
+	-->
+	 <select id="profitPerSubCategory" parameterType="ProfitDTO" resultType="ProfitDTO">
+	 	SELECT
+		COUNT(p.subcategory) as cntPerCategory, p.subcategory as subCategory
+		FROM cvstore cvs
+		JOIN cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+		JOIN productlist p on cvsp.productlist_no = p.no
+		WHERE cvsp.cvstore_no = #{cvstoreno}
+		AND to_char(cvsp.sellday, 'yyyy') = #{searchYear}
+        AND p.maincategory = #{mainCategory}
+		GROUP BY p.subcategory
+	 </select>
+	 
+		<!-- 
+		작성자 : 이채경
+		작성일자: 2021/06/01
+		-->
+	<select id="sellProfitList" parameterType="ProfitDTO" resultType="ManSellListDTO">
 	 	select p.productcode, 
 		p.name, 
 		p.maincategory, 

@@ -1,8 +1,12 @@
 package com.thank.store.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class ProfitDTO {
 	private long cvstoreno;
 	private String searchYear;
@@ -15,4 +19,5 @@ public class ProfitDTO {
 	private long profitpermonth;
 	private long cntPerCategory;
 	private String mainCategory;
+	private String subCategory;
 }

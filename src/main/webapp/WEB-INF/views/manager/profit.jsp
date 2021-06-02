@@ -83,7 +83,92 @@ $(function() {
         });
         
     });
+    
+ // 카테고리별 현황 차트
+ 	let doughnutChart = document.getElementById("categoryProfit").getContext("2d");
+    let chartLabels2 = [];
+    let chartData2 = [];
+    
+    $.getJSON("${app}/manager/category/"+cvsno+"/"+searchYear, function(data){
+        $.each(data, function(key, value) {
+        	chartLabels2.push(value.mainCategory);
+        	chartData2.push(value.cntPerCategory);
+        });
+        
 
+        let categoryChart = new Chart(doughnutChart, {
+        	type : 'doughnut',
+        	data : {
+        		labels : chartLabels2,
+        		datasets: [{
+        		    data: chartData2,
+        		    backgroundColor: [
+        		      'rgb(255, 99, 132)',
+        		      'rgb(54, 162, 235)',
+        		      'rgb(255, 205, 86)',
+        		      'rgb(254, 145, 99)',
+        		      'rgb(145, 99, 254)'
+        		    ],
+        		    hoverOffset: 4
+        		  }]
+        	},
+        	options: {
+        		title: {
+        			display : true,
+        			text : searchYear + "년 메인 카테고리별 현황",
+        			fontSize : 25,
+        			fontColor : '#dc3546', 
+        		}
+        	}
+        });
+        
+    });
+    
+    $('#btn_searchSub').click(function(){
+    	searchYear = $("#searchYear").val();
+    	searchSubCat = $("#searchSubCat").val();
+    	
+    	let doughnutChart2 = document.getElementById("subCatProfit").getContext("2d");
+    	let subLabels = [];
+        let subData = [];
+        
+        $.getJSON("${app}/manager/subCategory/"+cvsno+"/"+searchYear+"/"+searchSubCat, function(data){
+            $.each(data, function(key, value) {
+            	subLabels.push(value.subCategory);
+            	subData.push(value.cntPerCategory);
+            });
+            
+
+            let categoryChart = new Chart(doughnutChart2, {
+            	type : 'doughnut',
+            	data : {
+            		labels : subLabels,
+            		datasets: [{
+            		    data: subData,
+            		    backgroundColor: [
+            		      'rgb(145, 99, 254)',
+            		      'rgb(254, 145, 99)',
+            		      'rgb(255, 205, 86)',
+            		      'rgb(54, 162, 235)',
+            		      'rgb(255, 99, 132)'
+            		    ],
+            		    hoverOffset: 4
+            		  }]
+            	},
+            	options: {
+            		title: {
+            			display : true,
+            			text : searchSubCat + " 세분류 현황",
+            			fontSize : 25,
+            			fontColor : '#dc3546', 
+            		}
+            	}
+            });
+            
+        });
+    	
+    });
+    
     $('#btn_searchYear').click(function(){
     	searchYear = $("#searchYear").val();
     	// 월별 수익 차트 
@@ -283,9 +368,9 @@ $(function() {
 					<!-- 조회 버튼 -->
 		   			<div class="profit_search">
 			   			<div class="row">
-				    		<div class="col-md-1">
+				    		<div class="col-md-9">
 				   			</div>
-				       		<div class="col-md-11">
+				       		<div class="col-md-3">
 				       			<!-- 년도 select박스 -->
 					       		<select name="searchYear" id="searchYear" class="selectpicker" data-style="btn-danger" data-width="100px">
 								<option value="2021"
@@ -299,29 +384,33 @@ $(function() {
 								>2019년</option>
 								</select>
 					       		<!-- sub카테고리 -->
-					       		<%-- <select name="searchSunCat" id="searchSunCat" class="selectpicker" data-style="btn-danger" data-width="100px">
-								<option value="2021"
-									<c:if test="${profitDTO.searchYear == '2021'}"> selected </c:if>
-								>2021년</option>
-								<option value="2020"
-									<c:if test="${profitDTO.searchYear == '2020'}"> selected </c:if>
-								>2020년</option>
-								<option value="2019"
-									<c:if test="${profitDTO.searchYear == '2019'}"> selected </c:if>
-								>2019년</option>
-								</select> --%>
+					       		<select name="searchSubCat" id="searchSubCat" class="select_box_des">
+								<option value="김밥류"
+									<c:if test="${profitDTO.mainCategory == '김밥류'}"> selected </c:if>
+								>김밥류</option>
+								<option value="도시락류"
+									<c:if test="${profitDTO.mainCategory == '도시락류'}"> selected </c:if>
+								>도시락류</option>
+								<option value="유제품류"
+									<c:if test="${profitDTO.mainCategory == '유제품류'}"> selected </c:if>
+								>유제품류</option>
+								</select>
 								<!-- 조회 버튼 -->
 				       			<input type="submit" id="btn_searchYear" class="btn btn-warning" value="조회"></input>
+				       			<input type="submit" id="btn_searchSub" class="btn btn-warning" value="세부 카테고리 조회"></input>
 				     		</div>
 			     		</div>
 					</div>
 					<!-- 그래프 ajax -->
 			 		<div class="row">
-			 			<div class="col-md-7" style="float: none; margin:0 auto;">
+			 			<div class="col-md-6" style="float: none; margin:0 auto;">
 							<canvas id="monthProfit" height="450" width="600"></canvas>
 						</div>
-						<div class="col-md-5" style="float: none; margin:0 auto;">
+						<div class="col-md-3" style="float: none; margin:0 auto;">
 							<canvas id="categoryProfit" height="450" width="600"></canvas>
+						</div>
+						<div class="col-md-3" style="float: none; margin:0 auto;">
+							<canvas id="subCatProfit" height="450" width="600"></canvas>
 						</div>
 					</div>
             		<!-- 년도별 판매 내역 리스트 -->

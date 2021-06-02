@@ -272,8 +272,6 @@ public class ManagerController {
 	@ResponseBody
 	public String getProfitList(@PathVariable long cvstoreNo, @PathVariable String searchYear) {
 		Gson gson = new Gson();
-		log.info(cvstoreNo + ": cvstoreNo");
-		log.info(searchYear + "searchYear");
 
 		List<ProfitDTO> monthList = new ArrayList<>();
 		ProfitDTO profitDTO = new ProfitDTO();
@@ -298,10 +296,8 @@ public class ManagerController {
 	 */
 	@RequestMapping(value = "/category/{cvstoreNo}/{searchYear}", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String getCategoryList(@PathVariable long cvstoreNo, @PathVariable String searchYear) {
+	public String getMainCategoryList(@PathVariable long cvstoreNo, @PathVariable String searchYear) {
 		Gson gson = new Gson();
-		log.info(cvstoreNo + ": cvstoreNo");
-		log.info(searchYear + "searchYear");
 
 		List<ProfitDTO> categoryList = new ArrayList<>();
 		ProfitDTO profitDTO = new ProfitDTO();
@@ -311,6 +307,40 @@ public class ManagerController {
 		
 		try {
 			categoryList = managerService.profitPerMainCategory(profitDTO);
+			
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+		return gson.toJson(categoryList);
+		
+	}
+	
+	/*
+	 * 작성자: 이채경
+	 * 작성일자: 2021/05/29
+	 */
+	@RequestMapping(value = "/subCategory/{cvstoreNo}/{searchYear}/{mainCategory}",
+				    method = RequestMethod.GET, 
+				    produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String getSubCategoryList(@PathVariable long cvstoreNo, 
+									 @PathVariable String searchYear,
+									 @PathVariable String mainCategory) {
+		Gson gson = new Gson();
+		log.info(cvstoreNo + ": cvstoreNo");
+		log.info(searchYear + ": searchYear");
+		log.info(mainCategory + ": mainCategory");
+
+		List<ProfitDTO> categoryList = new ArrayList<>();
+		ProfitDTO profitDTO = new ProfitDTO();
+		
+		profitDTO.setCvstoreno(cvstoreNo);
+		profitDTO.setSearchYear(searchYear);
+		profitDTO.setMainCategory(mainCategory);
+		
+		try {
+			categoryList = managerService.profitPerSubCategory(profitDTO);
 			
 		} catch (Exception e) {
 			e.getMessage();
