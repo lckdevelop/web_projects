@@ -72,7 +72,7 @@ $(document).ready(function(){
         });
         
         
-     // 카테고리별 현황 차트
+     // 카테고리별 현황 차트입니다
         let doughnutChart2 = document.getElementById("categoryPurchase").getContext("2d");
         let chartLabels2 = [];
         let chartData2 = [];
