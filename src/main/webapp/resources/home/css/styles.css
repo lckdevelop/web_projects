@@ -57,6 +57,7 @@ body {
   line-height: 1.5;
   color: #212529;
   background-color: #fff;
+  
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -607,6 +608,18 @@ progress {
   padding-left: var(--bs-gutter-x, 0.75rem);
   margin-right: auto;
   margin-left: auto;
+  
+}
+.container-logo{
+	width: 100%;
+	padding-right: var(--bs-gutter-x, 0.75rem);
+	padding-left: var(--bs-gutter-x, 0.75rem);
+	margin-right: auto;
+	margin-left: auto;
+	background-image:url("mainlogo2.jpg");
+	background-size:100%;
+	padding-bottom: 3rem;
+	padding-top: 100px;
 }
 
 @media (min-width: 576px) {
@@ -10959,7 +10972,9 @@ header.masthead {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-/*   background-image: url("../assets/img/header-bg.jpg"); */
+  background-image: url("../assets/img/mainlogo2.jpg");
+  
+  opacity: .8;
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
