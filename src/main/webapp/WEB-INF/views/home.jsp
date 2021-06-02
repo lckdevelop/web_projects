@@ -40,7 +40,7 @@
         </nav> -->
         
         <!-- Services-->
-        <section class="page-section" id="services">
+        <section class="page-section" id="services" style="padding-bottom: 3rem">
             <div class="container" style="width:800px">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">서비스</h2>
@@ -69,8 +69,8 @@
 		<!-- Masthead-->
         <header class="masthead">
             <div class="container">
-                <div class="masthead-subheading">THANK STORE</div>
-                <div class="masthead-heading text-uppercase">알뜰한 당신을 위한 우리동네 편의점</div>
+                <div class="masthead-subheading"style="color:orange;" >THANK STORE</div>
+                <div class="masthead-heading text-uppercase" style="color:orange; font-size:2rem;">알뜰한 당신을 위한 우리동네 편의점</div>
                 <a class="btn btn-primary btn-xl text-uppercase" href="customer" style="width:240px; height:70px; padding:auto; margin:10px;">회원이신가요?</a>
                 <a class="btn btn-primary btn-xl text-uppercase" href="manager" style="width:240px; height:70px; padding-left:20px; padding-right:20px; margin:10px;">점포 업주이신가요?</a>
             </div>

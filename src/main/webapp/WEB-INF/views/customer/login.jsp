@@ -37,7 +37,7 @@
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
-                                <a class="text-center" href="index.html"> <h4>THANK STORE</h4></a>
+                                <a class="text-center" href="./"> <h4>THANK STORE</h4></a>
         
                                 <form class="mt-5 mb-5 login-input">
                                     <div class="form-group">
@@ -48,7 +48,7 @@
                                     </div>
                                     <button class="btn login-form__btn submit w-100" type="submit">로그인</button>
                                 </form>
-                                <p class="mt-5 login-form__footer">계정이 없으신가요? <a href="./customer/signup" class="text-primary">계정 만들기</a></p> 
+                                <p class="mt-5 login-form__footer">계정이 없으신가요? <a href="./customer/signup" class="text-primary" style="color:#f29d56">계정 만들기</a></p> 
                             </div>
                         </div>
                     </div>
