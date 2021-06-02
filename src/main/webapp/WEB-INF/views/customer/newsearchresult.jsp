@@ -26,6 +26,7 @@
 	<link 
 	href="${app}/resources/customer/css/customer.css" rel="stylesheet">
 	
+	
 	<link 
 	href="${app}/resources/customer/css/categoryaccordion.css" rel="stylesheet">
 <script type="text/javascript" 
@@ -256,7 +257,7 @@ function buyBtn(no){
 	       		<!-- 대분류 -->
 	       		<div class="col-md-2">
 	       		<span>대분류</span>
-	       		<select name="mainCategory" id="mainCategory" data-style="btn-primary" data-width="120px">
+	       		<select name="mainCategory" id="mainCategory" class="selectpicker" data-style="btn-primary" data-width="120px">
 	       		<option value=""
 					<c:if test="${searchDTO.mainCategory == '' || searchDTO.mainCategory == null}"> selected </c:if>
 				>전체</option>

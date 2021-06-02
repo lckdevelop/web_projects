@@ -131,7 +131,7 @@
                         <!-- /# card -->
                     </div>
                 </div>
-            	<input class="btn btn-primary" type="button" value="수령가능 상품보기" onclick="location.href='purchaselist'"/>
+            	<input class="btn btn-warning" type="button" value="수령가능 상품보기" onclick="location.href='purchaselist'"/>
 	   	   	</form>
 	   	
 		

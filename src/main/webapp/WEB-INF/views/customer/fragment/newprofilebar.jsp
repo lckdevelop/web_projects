@@ -62,7 +62,7 @@
 
 	    				swalWithBootstrapButtons.fire({
 	    				  title: "포인트 충전확인",
-	    				  text: point+'원을 등록된 '+accountno+' 계좌에서 충전 하시겠습니까?',
+	    				  text: point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원을 등록된 '+accountno+' 계좌에서 충전 하시겠습니까?',
 	    				  icon: 'warning',
 	    				  showCancelButton: true,
 	    				  confirmButtonText: '충전확인',

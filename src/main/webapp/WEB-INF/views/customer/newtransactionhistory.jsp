@@ -194,8 +194,8 @@ $(document).ready(function(){
    				</div>
 		   		<hr style="border: solid 3px #1b4af5;">
 		   		<div style="text-align:center;">
-			   		<h1>[ 총 절약한 금액 ]</h1>
-			   		<h1 style="color:red;">${totalDiscountPrice}원</h1>
+			   		<h1 style="font-size:25px;color:#ff8a3d;">[ 총 절약한 금액 ]</h1>
+			   		<h1 style="font-size:40px;color:#5cb85c;"><f:formatNumber value="${totalDiscountPrice}" pattern="#,###" />원</h1>
 		   		</div>
 		   		<hr style="border: solid 3px #1b4af5;">
 			 	<div class="container">
