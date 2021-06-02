@@ -212,11 +212,11 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 					    				<div class="dDay">D-day : ${product.leftDay}일 / ${product.leftTime}시간</div>
 					    				<c:choose>
 					    				<c:when test='${product.countTime <= 24}'>
-					    					원가 : <span class="ori_price">${product.price}원</span>
-					    					<div class="discount">${product.discountRate}% <span style="color:black;">${product.discountPrice}원</span></div>
+					    					원가 : <span class="ori_price"><f:formatNumber value="${product.price}" pattern="#,###" /></span>
+					    					<div class="discount">${product.discountRate}% <span style="color:black;"><f:formatNumber value="${product.discountPrice}" pattern="#,###" />원</span></div>
 					    				</c:when>
 					    				<c:otherwise>
-					    					원가 : <span>${product.price}원</span>
+					    					원가 : <span><f:formatNumber value="${product.price}" pattern="#,###" />원</span>
 					    				</c:otherwise>
 					    				</c:choose>
 						    			<c:if test='${(product.countTime <= 24) && (product.enrollment == 0)}'>
