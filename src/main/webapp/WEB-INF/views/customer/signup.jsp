@@ -163,7 +163,7 @@
 		   else{
 			   	$("#pw_check").text("비밀번호가 일치하지 않습니다.");
 				$("#pw_check").css("color", "red");
-				$("#reg_submit").attr("disabled", false);
+				$("#reg_submit").attr("disabled", true);
 				
 		   }
 		   
