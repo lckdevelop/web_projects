@@ -135,9 +135,24 @@ public class CustomerController {
 			@ModelAttribute CustomerDTO customerDTO, Model model, HttpSession session) {
 		log.info("검색시작:"+searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
+		log.info("lat타입 : "+session.getAttribute("lat").getClass().getName());
+		log.info("lon타입 : "+session.getAttribute("lon").getClass().getName());
+		log.info("lat값 : "+session.getAttribute("lat").toString());
+		log.info("lon값 : "+session.getAttribute("lon").toString());
 		
-		double lat = (Double)session.getAttribute("lat");
-		double lon = (Double)session.getAttribute("lon");
+		double lat;
+		double lon;
+		
+		if(session.getAttribute("lat") instanceof String && session.getAttribute("lon") instanceof String) {
+			lat = Double.parseDouble((String)session.getAttribute("lat"));
+			lon = Double.parseDouble((String)session.getAttribute("lon"));
+		}else {
+			lat = (Double)session.getAttribute("lat");
+			lon = (Double)session.getAttribute("lon");
+		}
+
+
+		
 		log.info("내 좌표 가져오기 완료:"+searchDTO.toString());
 		List<String> subCategoryList;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
