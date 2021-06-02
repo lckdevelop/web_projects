@@ -12,7 +12,14 @@
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" 
 	src="${app}/resources/customer/js/accordion.js"></script>	
-
+<script type="text/javascript"
+	src="${app}/resources/quixlab/themes/quixlab/plugins/common/common.min.js"></script>
+	<script type="text/javascript"
+	src="${app}/resources/quixlab/themes/quixlab/plugins/metismenu/css/metisMenu.min.css"></script>	
+	<script type="text/javascript"
+	src="${app}/resources/quixlab/themes/quixlab/icons/material-design-iconic-font/materialdesignicons.min.css"></script>	
+	<script type="text/javascript"
+	src="${app}/resources/customer/css/bootstrap.min.css"></script>		
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet">
