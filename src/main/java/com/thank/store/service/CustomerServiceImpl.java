@@ -1,5 +1,7 @@
 package com.thank.store.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -217,6 +219,11 @@ public class CustomerServiceImpl implements CustomerService{
 	*/
 	@Override
 	public CvstoreDTO searchCvstoreListMap(HashMap<String, String> storecode) throws Exception {
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		
+		String expirationdate = "";
+		String warehousingdate = "";
 		CvstoreDTO cvstore = mapDAO.searchCvstoreListMap(storecode);
 		List<CvsProductDTO> cvsProductList =mapDAO.searchCvsProductListMap(cvstore);
 		log.info("불러온 상품 개수 : "+cvsProductList.size());
@@ -225,6 +232,11 @@ public class CustomerServiceImpl implements CustomerService{
 			int discountRate = getDiscountRate(countTime);
 			cvsProductDTO.setDiscountRate(discountRate);
 			cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
+			expirationdate = dateFormat.format(cvsProductDTO.getExpirationdate());
+			warehousingdate = dateFormat.format(cvsProductDTO.getWarehousingdate());
+			
+			cvsProductDTO.setParseExpirationdate(expirationdate);
+			cvsProductDTO.setParseWarehousingdate(warehousingdate);
 		}
 		cvstore.setCvsProductList(cvsProductList);
 		
