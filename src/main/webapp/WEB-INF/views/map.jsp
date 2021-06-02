@@ -184,6 +184,8 @@ var  overlayArr = new Array();
 var  markerArr = new Array();
 <!-- 변수 선언 영역 END -->
 
+
+
 	// 지도의 확대 레벨 여기서 조정 할 것!
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	mapOption = { 
@@ -200,6 +202,8 @@ var  markerArr = new Array();
 		        
 		        	lat = position.coords.latitude; // 위도
 		            lon = position.coords.longitude; // 경도
+		            
+		            
 		        
 		        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 		            message = '<div style="padding:12px;  background-color: #ff8a3d;"><strong>여기에 계시는군요?</strong></div>'; // 인포윈도우에 표시될 내용입니다
@@ -303,6 +307,8 @@ function makeCvsInfo(){
 		kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 		kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	}
+	
+	sessionLoc();
 	 
 	// 인포윈도우
 	//인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -632,10 +638,28 @@ function makeCvsInfo(){
 	   		    alert("실패");
 	   		 } 
 	   	});
-
-		
 	}
 	<!-- 결제 ajax end -->
+	
+	<!-- Map 뜰때 Start-->
+	
+	window.onload = function(){
+		console.log("찍어라");
+		$.ajax({
+			type:"get",
+	        url:"sessionLoc",
+	        data:{"lat":lat,
+	        	  "lon":lon},
+	        success:function(data){
+	        	console.log("sessionLoc 성공");
+	        }
+        });
+	};
+	
+
+	
+	
+	<!-- Map 뜰때 END-->
 </script>
 
 
