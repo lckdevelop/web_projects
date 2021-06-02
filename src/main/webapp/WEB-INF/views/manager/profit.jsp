@@ -140,8 +140,8 @@ $(function() {
 			        bList += '<td>'+ data[i].name+'</td>';
 			        bList += '<td>'+ data[i].maincategory+'</td>';
 			        bList += '<td>'+ data[i].subcategory+'</td>';
-			        bList += '<td>'+ data[i].price+'</td>';
-			        bList += '<td>'+ data[i].enrolledprice+'원</td>';
+			        bList += '<td>'+ data[i].price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원</td>';
+			        bList += '<td>'+ data[i].enrolledprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+'원</td>';
 			        bList += '<td>'+ data[i].enrolledlefttime+'시간</td>';
 			        bList += '<td>'+ data[i].sellday+'</td>';
 				    bList += '</tr>';

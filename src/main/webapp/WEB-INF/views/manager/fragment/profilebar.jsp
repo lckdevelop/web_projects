@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="app" value="${pageContext.request.contextPath}" />
 <c:set var="dto" value="${managerDTO}" />
 <!DOCTYPE html>
@@ -71,7 +72,7 @@ $(function() {
 				<p class="text-muted mb-0">편의점 코드 : ${dto.storecode}</p>
 				<div class="profit_margin_box"><p></p></div>
 				<div class="profit_margin_box"><p></p></div>
-				<p class="text-muted mb-0"><a href="${app}/manager/profit" class="profit_link"><b>수익금 : ${dto.profit} 원</b></a></p>
+				<p class="text-muted mb-0"><a href="${app}/manager/profit" class="profit_link"><b>수익금 : <f:formatNumber value="${dto.profit}" pattern="#,###" /> 원</b></a></p>
 			</div>
 		</div>
 		<div class="row mb-5">

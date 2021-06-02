@@ -33,7 +33,7 @@
 <script type="text/javascript">
 function btn_enroll(productNo, productName, discountPrice, countTime){
 	Swal.fire({
-		  title: "할인가 : " + discountPrice + "원 <br/>남은 시간 : " + countTime + "시간",
+		  title: "할인가 : " + discountPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원 <br/>남은 시간 : " + countTime + "시간",
 		  text: productName + "를 현재가로 등록하시겠습니까?",
 		  imageUrl: '${app}/resources/product/images/'+productName+'.jpg',
 		  imageWidth: 200,
@@ -57,7 +57,7 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
 
 function btn_cancel(productNo, productName, discountPrice, countTime){
 	Swal.fire({
-		  title: "할인가 : " + discountPrice + "원 <br/>남은 시간 : " + countTime + "시간",
+		  title: "할인가 : " + discountPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원 <br/>남은 시간 : " + countTime + "시간",
 		  text: productName + "를 등록 취소하시겠습니까?",
 		  imageUrl: '${app}/resources/product/images/'+productName+'.jpg',
 		  imageWidth: 200,

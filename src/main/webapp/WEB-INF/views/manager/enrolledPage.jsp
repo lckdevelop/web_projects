@@ -34,7 +34,7 @@ rel="stylesheet">
 <script type="text/javascript">
 function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countTime){
 	Swal.fire({
-		  title: "등록 시점 할인가 : " + enrolledPrice + "<br/>현재 시점 할인가 : " + discountPrice + "원 <br/>남은 시간 : " + countTime + "시간",
+		  title: "등록 시점 할인가 : " + enrolledPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "<br/>현재 시점 할인가 : " + discountPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원 <br/>남은 시간 : " + countTime + "시간",
 		  text: productName + "을 등록 취소하시겠습니까?",
 		  imageUrl: '${app}/resources/product/images/'+productName+'.jpg',
 		  imageWidth: 200,
