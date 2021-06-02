@@ -329,20 +329,21 @@ function buyBtn(no){
 			        			<div class='col-sm-3'>
 	  								<div class="img_resize"><img src='${app}/resources/product/images/${cvsproduct.name}.jpg' class="product_img"/></div>
 	  							</div>
-	  							<div class='col-sm-6'>
-	  								<div class="control_size"></div>
+	  							<div class='col-sm-5'>
+	  								<div class="control_size">
 				        			<span style="font-weight:bold">상품명 : ${cvsproduct.name}<br/></span>
 				        			<div class="enroll_margin_box"></div>
 				        			<span>제조날짜 : <f:formatDate value="${cvsproduct.warehousingdate}" pattern="yyyy/MM/dd HH:mm:ss" /><br/></span>
 				    				<span>유통만료기한 : <f:formatDate value="${cvsproduct.expirationdate}" pattern="yyyy/MM/dd HH:mm:ss" /><br/></span>
 				    				<div class="enroll_margin_box"></div>
 				    			</div>
-				    			<div class='col-sm-3'>
+				    			</div>
+				    			<div class='col-sm-4'>
 				    				<div class="dDay">남은시간 : ${cvsproduct.countTime}시간</div>
-				    				원가 : <span class="ori_price">${cvsproduct.price}원</span>
+				    				<span style="font-size:15px;">원가 : </span><span class="ori_price">${cvsproduct.price}원</span>
 				    				<div class="discount">
-					    				<span style="color:black;">할인가 : ${cvsproduct.discountPrice}원</span><br/>
-					    				할인률 : ${cvsproduct.discountRate}%
+					    				<span style="color:black;">판매가 : ${cvsproduct.discountPrice}원</span>
+					    				<span style="color:black;"> / </span>${cvsproduct.discountRate}% 할인
 					    			</div>
 				    				<input type="button" value="결제" class="btn_enroll" onclick="buyBtn('${cvsproduct.no}')"/>
 			    				</div>
