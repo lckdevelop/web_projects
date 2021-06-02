@@ -72,7 +72,7 @@ $(document).ready(function(){
         });
         
         
-     // 카테고리별 현황 차트
+     // 카테고리별 현황 차트입니다
         let doughnutChart2 = document.getElementById("categoryPurchase").getContext("2d");
         let chartLabels2 = [];
         let chartData2 = [];
@@ -254,9 +254,9 @@ $(document).ready(function(){
 		                                                <td>${purchaseDTO.no}</td>
 		                                                <td class="sorting_1">${purchaseDTO.name}</td>
 		                                                <td><f:formatDate value="${purchaseDTO.purchasedate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-		                                                <td>${purchaseDTO.price}</td>
-		                                                <td>${purchaseDTO.purchaseprice}</td>
-		                                                <td>${purchaseDTO.discountprice}</td>
+		                                                <td><f:formatNumber value="${purchaseDTO.price}" pattern="#,###" />원</td>
+		                                                <td><f:formatNumber value="${purchaseDTO.purchaseprice}" pattern="#,###" />원</td>
+		                                                <td><f:formatNumber value="${purchaseDTO.discountprice}" pattern="#,###" />원</td>
 		                                            </tr>
                                         		</c:forEach>
 		                                    </tbody>

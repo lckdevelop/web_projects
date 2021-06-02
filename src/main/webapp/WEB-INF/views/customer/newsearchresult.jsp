@@ -343,9 +343,9 @@ function buyBtn(no){
 				    			</div>
 				    			<div class='col-sm-4'>
 				    				<div class="dDay">남은시간 : ${cvsproduct.countTime}시간</div>
-				    				<span style="font-size:15px;">원가 : </span><span class="ori_price">${cvsproduct.price}원</span>
+				    				<span style="font-size:15px;">원가 : </span><span class="ori_price"><f:formatNumber value="${cvsproduct.price}" pattern="#,###" />원</span>
 				    				<div class="discount">
-					    				<span style="color:black;">판매가 : ${cvsproduct.discountPrice}원</span>
+					    				<span style="color:black;">판매가 : <f:formatNumber value="${cvsproduct.discountPrice}" pattern="#,###" />원</span>
 					    				<span style="color:black;"> / </span>${cvsproduct.discountRate}% 할인
 					    			</div>
 				    				<input type="button" value="결제" class="btn_enroll" onclick="buyBtn('${cvsproduct.no}')"/>

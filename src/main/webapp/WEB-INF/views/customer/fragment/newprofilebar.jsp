@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="app" value="${pageContext.request.contextPath}" />
 <c:set var="dto" value="${customerDTO}" />
 
@@ -81,7 +82,9 @@
 	    				    				      'success'
 	    				    				      
 	    				    			);
-	    				    	     	$("#point").text(data.point);
+	    				    			 
+	    				    			$("#point").text(data.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+	    				    	     	
 	    				    		 },
 	    				    		 error:function(){
 	    				    		    alert("충전실패");
@@ -154,7 +157,7 @@
 						<p class="text-muted mb-0">${dto.name}고객님 안녕하세요.<br/><br/></p>
 						<p class="text-muted mb-0 profit_link">
 						<a href="transactionhistory">
-                             보유한 폐기머니 : <span id="point">${dto.point}</span> 원
+                             보유한 폐기머니 : <span id="point"><f:formatNumber value="${dto.point}" pattern="#,###" /></span> 원
 						</a></p>
 					</div>
 				</div>
