@@ -43,6 +43,7 @@ rel="stylesheet">
 $(function() {
 	let cvsno = '${dto.cvsno}';
 	let searchYear = $("#searchYear").val();
+	
 	// 월별 수익 차트 
 	let lineChart = document.getElementById("monthProfit").getContext("2d");
     let chartLabels = [];
@@ -84,7 +85,7 @@ $(function() {
         
     });
     
- // 카테고리별 현황 차트
+ 	// 카테고리별 현황 차트
  	let doughnutChart = document.getElementById("categoryProfit").getContext("2d");
     let chartLabels2 = [];
     let chartData2 = [];
@@ -124,6 +125,39 @@ $(function() {
         
     });
     
+    // 리스트
+    $.ajax({
+	        type:"get",
+	        datatype:"json",
+	        url:"${app}/manager/list/"+cvsno+"/"+searchYear,
+	        success:function (data){
+	        	$("#sellYear").text(searchYear +"년 판매 내역");
+		        var bList ="";
+		        
+		        for(var i in data){
+			        bList += '<tr>';
+			        bList += '<td>'+ data[i].productcode+'</td>';
+			        bList += '<td>'+ data[i].name+'</td>';
+			        bList += '<td>'+ data[i].maincategory+'</td>';
+			        bList += '<td>'+ data[i].subcategory+'</td>';
+			        bList += '<td>'+ data[i].price+'</td>';
+			        bList += '<td>'+ data[i].enrolledprice+'원</td>';
+			        bList += '<td>'+ data[i].enrolledlefttime+'시간</td>';
+			        bList += '<td>'+ data[i].sellday+'</td>';
+				    bList += '</tr>';
+		        }
+		        
+		        $("#list_body").html(bList);
+
+		     },
+        error:function(data,textStatus){
+         alert("에러가 발생했습니다.");
+        },
+        complete:function(data,textStatus){
+        }
+     });
+    
+    // 세부카테고리 클릭 시
     $('#btn_searchSub').click(function(){
     	searchYear = $("#searchYear").val();
     	searchSubCat = $("#searchSubCat").val();
@@ -174,7 +208,7 @@ $(function() {
     	// 월별 수익 차트 
     	let lineChart = document.getElementById("monthProfit").getContext("2d");
         let chartLabels = [];
-        let chartData=[];
+        let chartData = [];
         
         $.getJSON("${app}/manager/profit/"+cvsno+"/"+searchYear, function(data){
             $.each(data, function(key, value) {
@@ -368,11 +402,11 @@ $(function() {
 					<!-- 조회 버튼 -->
 		   			<div class="profit_search">
 			   			<div class="row">
-				    		<div class="col-md-9">
+				    		<div class="col-md-10">
 				   			</div>
-				       		<div class="col-md-3">
+				       		<div class="col-md-2">
 				       			<!-- 년도 select박스 -->
-					       		<select name="searchYear" id="searchYear" class="selectpicker" data-style="btn-danger" data-width="100px">
+					       		<select name="searchYear" id="searchYear" class="selectpicker" data-style="btn-danger" data-width="110px">
 								<option value="2021"
 									<c:if test="${profitDTO.searchYear == '2021'}"> selected </c:if>
 								>2021년</option>
@@ -383,8 +417,8 @@ $(function() {
 									<c:if test="${profitDTO.searchYear == '2019'}"> selected </c:if>
 								>2019년</option>
 								</select>
-					       		<!-- sub카테고리 -->
-					       		<select name="searchSubCat" id="searchSubCat" class="select_box_des">
+				       			<!-- sub카테고리 -->
+					       		<select name="searchSubCat" id="searchSubCat" class="selectpicker" data-style="btn-danger" data-width="110px" style="background-color:#212529">
 								<option value="김밥류"
 									<c:if test="${profitDTO.mainCategory == '김밥류'}"> selected </c:if>
 								>김밥류</option>
@@ -395,10 +429,19 @@ $(function() {
 									<c:if test="${profitDTO.mainCategory == '유제품류'}"> selected </c:if>
 								>유제품류</option>
 								</select>
-								<!-- 조회 버튼 -->
-				       			<input type="submit" id="btn_searchYear" class="btn btn-warning" value="조회"></input>
-				       			<input type="submit" id="btn_searchSub" class="btn btn-warning" value="세부 카테고리 조회"></input>
+					       		
 				     		</div>
+			     		</div>
+			     		<div class='profit_margin_box'></div>
+			     		<div class="row">
+			     			<div class="col-md-10">
+				   			</div>
+				       		<div class="col-md-2">
+				       			
+								<!-- 조회 버튼 -->
+								<input type="submit" id="btn_searchYear" class="btn btn-warning" value="연도 조회" style="width:110px; color:white;"></input>
+				       			<input type="submit" id="btn_searchSub" class="btn btn-warning" value="세분류 조회" style="width:110px; color:white;"></input>
+				       		</div>
 			     		</div>
 					</div>
 					<!-- 그래프 ajax -->

@@ -1886,22 +1886,22 @@ fieldset:disabled a.btn {
       box-shadow: 0 0 0 0.2rem rgba(77, 124, 255, 0.5); }
 
 .btn-warning {
-  color: #212529;
+  color: #fff;
   background-color: #f29d56;
   border-color: #f29d56; }
   .btn-warning:hover {
-    color: #212529;
+    color: #fff;
     background-color: #ef8832;
     border-color: #ee8227; }
   .btn-warning:focus, .btn-warning.focus {
     box-shadow: 0 0 0 0.2rem rgba(242, 157, 86, 0.5); }
   .btn-warning.disabled, .btn-warning:disabled {
-    color: #212529;
+    color: #fff;
     background-color: #f29d56;
     border-color: #f29d56; }
   .btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active,
   .show > .btn-warning.dropdown-toggle {
-    color: #212529;
+    color: #fff;
     background-color: #ee8227;
     border-color: #ed7b1b; }
     .btn-warning:not(:disabled):not(.disabled):active:focus, .btn-warning:not(:disabled):not(.disabled).active:focus,
@@ -11082,7 +11082,7 @@ table.dataTable thead .sorting::after {
 
 .btn-warning:active, .btn-warning:focus, .btn-warning:hover {
   background: #ee8227;
-  color: #fff;
+  color: #212529;
   border-color: #ee8227; }
 
 .btn-danger:active, .btn-danger:focus, .btn-danger:hover {

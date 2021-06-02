@@ -236,6 +236,7 @@ td {
 .enroll_margin_box{
 	margin-top:15px;
 }
+
 .enroll_info{
 	font-size:15px;
 	font-weight: bold;
@@ -294,4 +295,8 @@ td {
 	color : white;
 	background-color: #fe5e5e;
 	text-align:center;
+}
+
+.profit_margin_box{
+	margin-top:7px;
 }

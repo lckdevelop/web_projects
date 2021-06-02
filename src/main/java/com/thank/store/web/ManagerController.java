@@ -328,9 +328,6 @@ public class ManagerController {
 									 @PathVariable String searchYear,
 									 @PathVariable String mainCategory) {
 		Gson gson = new Gson();
-		log.info(cvstoreNo + ": cvstoreNo");
-		log.info(searchYear + ": searchYear");
-		log.info(mainCategory + ": mainCategory");
 
 		List<ProfitDTO> categoryList = new ArrayList<>();
 		ProfitDTO profitDTO = new ProfitDTO();
