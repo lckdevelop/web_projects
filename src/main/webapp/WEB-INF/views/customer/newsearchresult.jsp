@@ -48,13 +48,12 @@ $( function() {
    		 success:function(data){
     		$("#subCategory").children().remove();
        		
-    		/* $("#subCategory").append("<span>세분류</span>");
-			$("#subCategory").append("<select name='subCategory' class='selectpicker' data-style='btn-danger' data-width='120px'>"); */
+    	
 			$("#subCategory").append("<option value='' selected>전체</option>");
  			for(let i = 0; i < data.length; i++){
  				$("#subCategory").append("<option value="+data[i]+">"+data[i]+"</option>");
  			}
- 			/* $("#subCategory").append("</select>"); */
+ 			
    		 },
    		 error:function(){
    		    alert("실패");
@@ -257,7 +256,7 @@ function buyBtn(no){
 	       		<!-- 대분류 -->
 	       		<div class="col-md-2">
 	       		<span>대분류</span>
-	       		<select name="mainCategory" id="mainCategory" class="selectpicker" data-style="btn-primary" data-width="120px">
+	       		<select name="mainCategory" id="mainCategory" data-style="btn-primary" data-width="120px">
 	       		<option value=""
 					<c:if test="${searchDTO.mainCategory == '' || searchDTO.mainCategory == null}"> selected </c:if>
 				>전체</option>
@@ -282,10 +281,10 @@ function buyBtn(no){
 				</select>
 	       		</div>
 	       		
-	       		<!-- 세분류 --><!-- 보류 class="selectpicker"  -->
+	       		<!-- 세분류 -->
 	       		<div class="col-md-2" >
 	       		<span>세분류</span>
-	       		<select name="subCategory" id="subCategory" data-style="btn-danger" data-width="120px">
+	       		<select name="subCategory" id="subCategory"  data-style="btn-danger" data-width="120px">
 	       		<option value=""
 					<c:if test="${searchDTO.subCategory == '' || searchDTO.subCategory == null}"> selected </c:if>
 					>전체</option>
@@ -313,7 +312,7 @@ function buyBtn(no){
  	</form>
  	</div>
  	
-    	<div id ="list_container_box">
+    	<!-- <div id ="list_container_box"> -->
 		<hr style="border: solid 3px #1b4af5;">
     	<form>
   		<c:forEach var="cvstore" items="${cvstoreList}" varStatus="status">
@@ -347,54 +346,57 @@ function buyBtn(no){
 					    			</div>
 				    				<input type="button" value="결제" class="btn_enroll" onclick="buyBtn('${cvsproduct.no}')"/>
 			    				</div>
-			    				<hr>
+			    				
 			        		</div>
 			        		</div>
+			        		<hr>
 			        	</c:forEach>
 			        </div>
 	    		</div>
 	   		</div>
     	</c:forEach>
     	</form>
-    	</div>
+    	<!-- </div> -->
     	
     	
-    	<form>
-    	<div class="row" style="margin-top:5px; text-align:center;">
-    		<div class='col-md-5'></div>
-		   		<div class='col-md-5'>
-   			
-				<c:if test="${searchDTO.pagingDTO.startPage == 1}">
-				<a class="btn btn-default">Previous</a>
-				</c:if>
-				<c:if test="${searchDTO.pagingDTO.startPage != 1}">
-				<a href="/store/customer/searchresult?mainCategory=${searchDTO.mainCategory}&subCategory=${searchDTO.subCategory}&searchKeyword=${searchDTO.searchKeyword}&pg=${searchDTO.pagingDTO.startPage-1}" class="btn btn-default">Previous</a>
-				</c:if>
-				
-				<c:forEach var="i" begin="${searchDTO.pagingDTO.startPage}" end="${searchDTO.pagingDTO.endPage}">
-				<c:if test="${searchDTO.pagingDTO.pg == i}">
-				<a href="#" class="btn btn-warning">${i}</a>
-				</c:if>
-				<c:if test="${searchDTO.pagingDTO.pg != i}">
-				<a href="/store/customer/searchresult?mainCategory=${searchDTO.mainCategory}&subCategory=${searchDTO.subCategory}&searchKeyword=${searchDTO.searchKeyword}&pg=${i}" class="btn btn-warning">${i}</a>
-				</c:if>
-				</c:forEach>
-				
-				
-				<c:if test="${searchDTO.pagingDTO.endPage == searchDTO.pagingDTO.totalPage}">
-				<a class="btn btn-default">Next</a>
-				</c:if>
-				<c:if test="${searchDTO.pagingDTO.endPage != searchDTO.pagingDTO.totalPage}">
-				<a href="/store/customer/searchresult?mainCategory=${searchDTO.mainCategory}&subCategory=${searchDTO.subCategory}&searchKeyword=${searchDTO.searchKeyword}&pg=${searchDTO.pagingDTO.endPage+1}" class="btn btn-default">Next</a>
-				</c:if>
+    	<div class="container-fluid">
+	    	<div class="row">
+	    	<div class='col-md-5'></div>
+			   		<div class='col-md-5'>
+	   			
+					<c:if test="${searchDTO.pagingDTO.startPage == 1}">
+					<a class="btn btn-default">Previous</a>
+					</c:if>
+					<c:if test="${searchDTO.pagingDTO.startPage != 1}">
+					<a href="/store/customer/searchresult?mainCategory=${searchDTO.mainCategory}&subCategory=${searchDTO.subCategory}&searchKeyword=${searchDTO.searchKeyword}&pg=${searchDTO.pagingDTO.startPage-1}" class="btn btn-default">Previous</a>
+					</c:if>
+					
+					<c:forEach var="i" begin="${searchDTO.pagingDTO.startPage}" end="${searchDTO.pagingDTO.endPage}">
+					<c:if test="${searchDTO.pagingDTO.pg == i}">
+					<a href="#" class="btn btn-warning">${i}</a>
+					</c:if>
+					<c:if test="${searchDTO.pagingDTO.pg != i}">
+					<a href="/store/customer/searchresult?mainCategory=${searchDTO.mainCategory}&subCategory=${searchDTO.subCategory}&searchKeyword=${searchDTO.searchKeyword}&pg=${i}" class="btn btn-warning">${i}</a>
+					</c:if>
+					</c:forEach>
+					
+					
+					<c:if test="${searchDTO.pagingDTO.endPage == searchDTO.pagingDTO.totalPage}">
+					<a class="btn btn-default">Next</a>
+					</c:if>
+					<c:if test="${searchDTO.pagingDTO.endPage != searchDTO.pagingDTO.totalPage}">
+					<a href="/store/customer/searchresult?mainCategory=${searchDTO.mainCategory}&subCategory=${searchDTO.subCategory}&searchKeyword=${searchDTO.searchKeyword}&pg=${searchDTO.pagingDTO.endPage+1}" class="btn btn-default">Next</a>
+					</c:if>
+				</div>
 			</div>
 		</div>
-		</form>
+		
+    	
         </div>
         <!--**********************************
             Content body end
         ***********************************-->
-
+		
     </div>
     <!--**********************************
         Main wrapper end

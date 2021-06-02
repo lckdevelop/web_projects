@@ -16,6 +16,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Gothic A1', sans-serif;
 }
 
+th, td {
+	text-align:center;
+}
+
 /* 전체 분할 */
 #container {
 	display: flex;
@@ -136,7 +140,6 @@ h1, h2, h3, h4, h5, h6 {
 
 #list-box{
 	padding-left:10px;
-	height:230px;
 }
 
 /* 상품 등록.취소 */
