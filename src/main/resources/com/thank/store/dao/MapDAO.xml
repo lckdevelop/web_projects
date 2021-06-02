@@ -49,13 +49,14 @@
 			select p.name as name,
 					p.no as productcode,
 					p.price as price,
+					c.no as no,
 					c.warehousingdate as warehousingdate,
 					c.expirationdate as expirationdate,
 					ROUND((c.expirationdate - sysdate) * 24) as countTime
 			from cvstoreproduct c
 			join productlist p on c.productlist_no = p.no
 			join cvstore cvs on  c.cvstore_no = cvs.no
-			where cvs.storecode = 'A0001'
+			where cvs.storecode = #{storecode}
 			and c.enrollment = 1
 			
 			and ROUND((c.expirationdate - sysdate) * 24) > 0
