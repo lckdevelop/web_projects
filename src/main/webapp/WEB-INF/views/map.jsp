@@ -139,7 +139,7 @@
 					    <option value="100">100개</option>
 					  </select>
 					  <div class="btn-group btn-group-lg">
-					  <button id ="searchBtn"  type="button"  class="btn btn-primary" style="background-color:#ff8a3d;" >내 위주 편의점보기</button>
+					  <button onclick="nearbyCvStore()"  id ="searchBtn"  type="button"  class="btn btn-primary" style="background-color:#ff8a3d;" >내 위주 편의점보기</button>
 				   </div>
 			  </div>
 		  </div>
@@ -308,7 +308,6 @@ function makeCvsInfo(){
 		kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	}
 	
-	sessionLoc();
 	 
 	// 인포윈도우
 	//인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -417,12 +416,7 @@ function makeCvsInfo(){
 	}
 	
 	<!--내 위주 편의점보기 버튼 이벤트-->
-	window.onload = function () {
-		document.getElementById("searchBtn").onclick = function () {
-			  var cvStoreCnt = document.getElementById("cvStoreCnt").value;
-			  cvsStoreCntAjax(cvStoreCnt);
-			};
-		};
+
 	<!--내 위주 편의점보기 버튼 이벤트 END-->
 
 	<!--etc END -->
@@ -442,6 +436,10 @@ function makeCvsInfo(){
 		        dataType:"json",
 		        success:function (data){
 		        	console.log(data);
+		        	if(data.cvstoreDTO.cvsProductList.length == 0){
+		        		alert("상품이 없습니다.")
+		        		return;
+		        	}
 		        	console.log(data.cvstoreDTO.cvsProductList.length);
 		        	console.log(data.cvstoreDTO.cvsProductList[0].warehousingdate );
 		        	var v_loadPage ="";
@@ -645,6 +643,12 @@ function makeCvsInfo(){
 	
 	window.onload = function(){
 		console.log("찍어라");
+		
+		document.getElementById("searchBtn").onclick = function () {
+			  var cvStoreCnt = document.getElementById("cvStoreCnt").value;
+			  cvsStoreCntAjax(cvStoreCnt);
+			};
+		
 		$.ajax({
 			type:"get",
 	        url:"sessionLoc",
