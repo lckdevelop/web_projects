@@ -284,3 +284,32 @@ th, td {
 	border:0;
 	outline:0;
 }
+
+/* select박스 */
+/* .custom-select{
+   width: 100px;
+   height: 30px;
+   border-radius: 3px;
+   border-style: none;
+   padding:7px, 18px; 
+   color : white;
+   text-align:center;
+}
+
+.custom-select select {
+  display: none; hide original SELECT element:
+}
+
+.select-selected {
+ background-color: #fe5e5e;
+}
+
+style items (options):
+.custom-select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+} */
