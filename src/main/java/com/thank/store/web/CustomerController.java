@@ -147,7 +147,7 @@ public class CustomerController {
 			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
 			purchasecount = customerService.getPurchaseCount(customerDTO.getCustomerno());
 			searchDTO.setLat(lat);
-			searchDTO.setLat(lon);
+			searchDTO.setLon(lon);
 			List<CvstoreDTO> cvstoreList = customerService.searchCvstoreList(searchDTO);
 			recordCount = customerService.getTotalRecord(searchDTO);
 			searchDTO.setPagingDTO(new PagingDTO(searchDTO.getPagingDTO().getPg(), recordCount));

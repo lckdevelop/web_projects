@@ -66,8 +66,8 @@
 		      from (select distinct(c.no),
 				c.name,
 				c.storecode,
-				c.latitude,
-				c.longitude,
+				c.latitude as lat,
+				c.longitude as lon,
 				c.address,
 				c.brand,
 				calc_distance(#{lat},#{lon},c.latitude,c.longitude) as distance
