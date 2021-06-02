@@ -437,7 +437,11 @@ function makeCvsInfo(){
 		        success:function (data){
 		        	console.log(data);
 		        	if(data.cvstoreDTO.cvsProductList.length == 0){
-		        		alert("상품이 없습니다.")
+		        		Swal.fire(
+		        				  '검색결과',
+		        				  '편의점에 등록된 상품이 없습니다',
+		        				  'question'
+		        				);
 		        		return;
 		        	}
 		        	console.log(data.cvstoreDTO.cvsProductList.length);
