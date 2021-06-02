@@ -103,24 +103,26 @@
        <div class="container-fluid">
                 <div class="row">
                 <c:forEach var="purchaseDTO" items="${purchaseList}" varStatus="status">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="card-title">
                                     <h4>판매처 : ${purchaseDTO.brand} ${purchaseDTO.cvstorename}</h4>
                                 </div>
                                 <div id="list-box">
-                                		<div class='col-sm-3'>
-	  										<div class="img_resize"><img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' class="product_img"/></div>
-	  									</div>
-						  				<div class='col-sm-3'>
-							   					<img src="https://chart.googleapis.com/chart?chs=80x80&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
-							   			</div>
-						  				<div class='col-sm-6'>
+                                		
+	  										<div class="img_resize col-lg-6">
+	  											<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' class="product_img"/>
+	  										</div>
+	  										<div class='col-lg-6'  style="margin-right:0px; float:right;">
+							   					<img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
+							   				</div>
+	  									
+						  				
+						  				<div class='col'>
 							    				<label class="name1">상품명 : ${purchaseDTO.name}<br/></label>
 							    				<h6>상품코드 : ${purchaseDTO.productcode}<br/></h6>
 							    				<h6 style="color:red">구매금액 : ${purchaseDTO.purchaseprice}원<br/></h6>
-							    				
 							    		</div>
 				   				</div>
 	   						</div>
