@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class PagingDTO {
 	private long pg;
-	private int pageSize = 4;	
+	private int pageSize = 6;	
 	private long startNum;
 	private long endNum;
 	private int pageBlock = 3;

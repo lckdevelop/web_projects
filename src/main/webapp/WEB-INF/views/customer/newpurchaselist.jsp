@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="app" value="${pageContext.request.contextPath}" />
 <c:set var="dto" value="${customerDTO}" />
 <c:set var="purchaseList" value="${purchaseList}" />
@@ -122,7 +123,7 @@
 						  				<div class='col'>
 							    				<label class="name1">상품명 : ${purchaseDTO.name}<br/></label>
 							    				<h6>상품코드 : ${purchaseDTO.productcode}<br/></h6>
-							    				<h6 style="color:red">구매금액 : ${purchaseDTO.purchaseprice}원<br/></h6>
+							    				<h6 style="color:red">구매금액 : <f:formatNumber value="${purchaseDTO.purchaseprice}" pattern="#,###" />원<br/></h6>
 							    		</div>
 				   				</div>
 	   						</div>

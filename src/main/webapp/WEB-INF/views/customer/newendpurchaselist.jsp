@@ -120,7 +120,7 @@
 							    				<label class="name1">상품명 : ${purchaseDTO.name}<br/></label>
 							    				<h6>상품코드 : ${purchaseDTO.productcode}<br/></h6>
 							    				<h6>만료일 : <f:formatDate value="${purchaseDTO.expirationdate}" pattern="yyyy-MM-dd HH:mm:ss" /><br/></h6>
-							    				<h6 style="color:red">구매금액 : ${purchaseDTO.purchaseprice}원<br/></h6>
+							    				<h6 style="color:red">구매금액 : <f:formatNumber value="${purchaseDTO.purchaseprice}" pattern="#,###" />원<br/></h6>
 							    				
 							    		</div>
 				   				</div>
