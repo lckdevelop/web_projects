@@ -358,10 +358,12 @@ function buyBtn(no){
     	</form>
     	</div>
     	
+    	
     	<form>
     	<div class="row" style="margin-top:5px; text-align:center;">
-    		<!-- <div class='col-md-5'></div> -->
-   			<div class='col'>
+    		<div class='col-md-5'></div>
+		   		<div class='col-md-5'>
+   			
 				<c:if test="${searchDTO.pagingDTO.startPage == 1}">
 				<a class="btn btn-default">Previous</a>
 				</c:if>
