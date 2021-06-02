@@ -136,8 +136,8 @@ public class CustomerController {
 		log.info(searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		
-		double lat = Double.parseDouble((String) session.getAttribute("lat"));
-		double lon = Double.parseDouble((String) session.getAttribute("lon"));
+		double lat = (Double)session.getAttribute("lat");
+		double lon = (Double)session.getAttribute("lon");
 		
 		List<String> subCategoryList;
 		searchDTO.setPagingDTO(new PagingDTO(pg));
