@@ -462,10 +462,24 @@ public class CustomerController {
 				@RequestParam HashMap<String, Double> loc,
 				HttpSession session
 				) {
-		session.setAttribute("lat", loc.get("lat"));
-		session.setAttribute("lon", loc.get("lon"));
+		//log.info("lon", loc.get("lon"));
+		//log.info("lat", loc.get("lat"));
 			return "map";
 	}
+	/*
+	 * @작성자 : 이효범
+	 * @작성일자 : 0524
+	 */
+	@RequestMapping("/sessionLoc")
+	@ResponseBody
+	public void sessionLoc(
+			@RequestParam Double lat,
+			@RequestParam Double lon,
+			HttpSession session
+			) {
+		session.setAttribute("lat", lat);
+		session.setAttribute("lon", lon);
+	}	
 	
 	/*
 	 * @작성자 : 이효범
@@ -483,9 +497,9 @@ public class CustomerController {
 		session.setAttribute("lat", loc.get("lat"));
 		session.setAttribute("lon", loc.get("lon"));
 		
-		log.info(loc.get("lat") + ": lat");
+//		log.info(loc.get("lat") + ": lat");
 //		log.info(lat + ": lat");
-		log.info(loc.get("lon") + ": lon");
+//		log.info(loc.get("lon") + ": lon");
 //		log.info(lon + ": lon");
 		HashMap<String, List<CvstoreDTO>> hash = new HashMap<String, List<CvstoreDTO>>();
 		//HashMap<String, Double> hash = new HashMap<String, List<CvstoreDTO>>();
