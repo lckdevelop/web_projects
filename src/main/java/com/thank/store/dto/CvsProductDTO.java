@@ -29,4 +29,6 @@ public class CvsProductDTO {
 	private long enrolledprice;
 	private long enrolledlefttime;
 	private String from;
+	private String parseExpirationdate;
+	private String parseWarehousingdate;
 }

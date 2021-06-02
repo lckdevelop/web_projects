@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="kakaokey" value="d5d4850376504cbcd111fa1f434f605e"/>
 <c:set var="app" value="${pageContext.request.contextPath}" />
 <c:set var="hash" value="${hash }"></c:set>
 <c:set var="CvstoreDTO" value="${CvstoreDTO }"></c:set>
+<c:set var="dto" value="${customerDTO }"></c:set>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,46 +15,35 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link
-	href="${app}/resources/customer/css/bootstrap.min.css"
-	rel="stylesheet">
+
+<link href="${app}/resources/customer/css/bootstrap.min.css" rel="stylesheet">
+
 <!-- accordion css -->
-<link 
-	href="${app}/resources/customer/css/accordion.css" rel="stylesheet">
+<link  href="${app}/resources/customer/css/accordion.css" rel="stylesheet">
 
 <!-- Custom Stylesheet -->
-    <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
+<link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
+<link href="${app}/resources/manager/css/manager.css" rel="stylesheet">
     	
-	
 <!-- jquery 경로 -->
-<script type="text/javascript"
-	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript"  src="${app}/resources/customer/js/accordion.js"></script>	
 
 <script type="text/javascript">
-<!--내 위주 편의점보기 버튼 이벤트-->
-window.onload = function () {
-	document.getElementById("searchBtn").onclick = function () {
-		  var cvStoreCnt = document.getElementById("cvStoreCnt").value;
-		  cvsStoreCntAjax(cvStoreCnt);
-		};
-	};
-<!--내 위주 편의점보기 버튼 이벤트 END-->	
-	
 <!--아코디언 JS -->
 
 
  // 전체 체크 버튼 클릭시 전체 체크 및 해제
  function checkFunc(){	 
-	 if($("input:radio[id='storeProduct']").attr("checked") == 'checked'){
+	 var temp = $("ul[id='acc_ordion']");
+	 if(($("ul[id='acc_ordion']").attr("class")) === 'Accordion'){
 		 console.log("ture클릭")
-		 console.log($("input:radio[id='storeProduct']").attr("checked"));
-		 $(this).prop('checked', 'unchecked');
+		 $("ul[id='acc_ordion']").prop("class","collapse")
 		 
-		 //$("input:radio[id='storeProduct']").attr('check','unchecked');
 	}else{
 		console.log("false클릭");
-		$(this).prop('checked', true);
-		//$("input:radio[id='storeProduct']").attr('check','checked');
+		$("ul[id='acc_ordion']").prop("class","Accordion")
 	}
  }
 
@@ -92,6 +84,13 @@ window.onload = function () {
     .info .visitStore {position: relative; top:25px; left:25%;}
 <!-- 카카오 CSS END -->
 
+<!--html map button-->
+	#showMarkers{
+		
+	}
+	#hideMarkers{
+	}
+
 <!-- 아코디언 CSS -->
 	  #ac_ul .menu_1 a{
          background-color: #000;
@@ -114,29 +113,41 @@ window.onload = function () {
 </style>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaokey }"></script>
 <body>
+
 	<div id="mainContainer">
 		<div id=container_1>
 			<div id="map" style="width:100%; height:600px;"></div>
 		</div>
 		<div id="contaniner_2">
-			<p>
-			    <button  class = "w3-button w3-black" onclick="hideMarkers()">편의점 감추기</button>
-			    <button  onclick="showMarkers()">검색했던 편의점 모두 보기</button>
-			    <br/>
-			    <br/>
-			    
-				  <label for="cvStore">편의점 개수 지정:</label>
-				  <select name="cvStoreCnt" id="cvStoreCnt">
-				    <option value="10">10</option>
-				    <option value="30">30</option>
-				    <option value="50">50</option>
-				    <option value="100">100</option>
-				  </select>
-				  
-				  <button id ="searchBtn" >내 위주 편의점보기</button>
-			</p> 
+		<div class="row">
+			<div class="col-sm">
+				 <div class="btn-group btn-group-lg">
+					    <button id="hideMarkers" type="button" class="btn btn-primary" style="background-color:#ff8a3d;" onclick="hideMarkers()">편의점 감추기</button>
+					    <button id="showMarkers" type="button" class="btn btn-success" style="position:absolute; left:93%;"  onclick="showMarkers()">검색했던 편의점 모두 보기</button>
+			   
+		    	</div>
+		    </div>
+		    
+		    <div class="col-sm">
+			    <div style="display:flex;margin:auto;">
+			    	
+					  <select class="form-select" name="cvStoreCnt" id="cvStoreCnt">
+					   <strong><label for="cvStore">편의점 개수 지정:</label></strong>
+					    <option value="10">10개</option>
+					    <option value="30">30개</option>
+					    <option value="50">50개</option>
+					    <option value="100">100개</option>
+					  </select>
+					  <div class="btn-group btn-group-lg">
+					  <button id ="searchBtn"  type="button"  class="btn btn-primary" style="background-color:#ff8a3d;" >내 위주 편의점보기</button>
+				   </div>
+			  </div>
+		  </div>
+		  
 		</div>
-		
+		</div>
+		<br/>
+		<br/>
 		<div id="container_3">
 			<div id="cvsProductList">
 				
@@ -393,8 +404,20 @@ function makeCvsInfo(){
 
 	// "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
 	function hideMarkers() {
-	    setMarkers(null);    
+	    setMarkers(null);  
+	    for(var i=0; i<overlayArr.length; i++){
+			overlayArr[i].setMap(null);   
+		}
 	}
+	
+	<!--내 위주 편의점보기 버튼 이벤트-->
+	window.onload = function () {
+		document.getElementById("searchBtn").onclick = function () {
+			  var cvStoreCnt = document.getElementById("cvStoreCnt").value;
+			  cvsStoreCntAjax(cvStoreCnt);
+			};
+		};
+	<!--내 위주 편의점보기 버튼 이벤트 END-->
 
 	<!--etc END -->
 	
@@ -414,31 +437,56 @@ function makeCvsInfo(){
 		        success:function (data){
 		        	console.log(data);
 		        	console.log(data.cvstoreDTO.cvsProductList.length);
+		        	console.log(data.cvstoreDTO.cvsProductList[0].warehousingdate );
 		        	var v_loadPage ="";
 
 
 	            		
-	            		v_loadPage += "		<ul class='metismenu' id='menu'>"; 
-	            		v_loadPage += "				<li class='mega-menu mega-menu-sm'>"; 
-	            		v_loadPage += "					<a class='has-arrow' href='javascript:void()' aria-expanded='false'>"; 
-	            		v_loadPage += 						"<i class='icon-globe-alt menu-icon'></i><span class='nav-text'>김밥류</span>"; 
+	            		v_loadPage += "		<ul class='metismenu' id='menu'>"; // start metismenu
+	            		v_loadPage += "				<li class='mega-menu mega-menu-sm'>"; // start mega-menu mega-menu-sm
+	            		v_loadPage += "				<button type='button' class='btn btn-success' style='width:375px;position:relative; right:11px;' >"; // start mega-menu mega-menu-sm
+	            		v_loadPage += "					<a onclick='checkFunc()' aria-expanded='false' style='font-size:16px;'>"; 
+	            		v_loadPage += 						"<span>"+ data.cvstoreDTO.brand+" "+data.cvstoreDTO.name +" 상품목록"+"</span>";
 	            		v_loadPage += "					</a>"; 
-           				v_loadPage += "					<ul aria-expanded='false'>"; 
-
+	            		v_loadPage += "				</button>"; // start mega-menu mega-menu-sm
+	            		v_loadPage += "					<ul aria-expanded='false' id='acc_ordion' class='Accordion'>";  //start ul
+         				
+         				v_loadPage += "		<div id ='list_container_box'>"; // start list_container_box
+         				v_loadPage += "			<hr class='list_hr'>"; 
+         				v_loadPage += " 			<form>";  //start form
 		            	for(var i=0; i<data.cvstoreDTO.cvsProductList.length; i++){
-	            				v_loadPage += "<li>"; 
-	            				v_loadPage += "<img src='${app}/resources/product/images/"+ data.cvstoreDTO.cvsProductList[i].name +".jpg'/><br>"; 
-	            				v_loadPage += "상품명: " + data.cvstoreDTO.cvsProductList[i].name+"<br>"; 
-	            				v_loadPage += "판매가: " + data.cvstoreDTO.cvsProductList[i].price+" 원 <br>"; 
-	            				v_loadPage += "할인가: " + data.cvstoreDTO.cvsProductList[i].discountPrice + " 원 <br>"; 
-	            				v_loadPage += "할인율: " + data.cvstoreDTO.cvsProductList[i].discountRate+" % <br>"; 
-	            				v_loadPage += "남은시간: " + data.cvstoreDTO.cvsProductList[i].countTime + " 시간<br>"; 
-	            				v_loadPage += "<input type='submit' />"; 
-	            				v_loadPage += "</li>"; 
+	            				
+	            				v_loadPage += "<div id='list-box'>"; //start list-box
+	            				v_loadPage += "		<div class='row'>"; //start row
+	            				v_loadPage += "			<div class='col-sm-3'>"; //start col-sm-3
+	            				v_loadPage += "				<div class='img_resize'><img src='${app}/resources/product/images/"+ data.cvstoreDTO.cvsProductList[i].name +".jpg' class='product_img'/></div>"; 
+	            				v_loadPage += "			</div>"; 	// //end col-sm-3
+	            				v_loadPage += "			<div class='col-sm-6'>"; //start col-sm-6
+	            				v_loadPage += "				<div class='control_size'>"; // start control_size
+	            				v_loadPage += "					<span style='font-weight:bold'>"+ data.cvstoreDTO.cvsProductList[i].name+"<br/></span>"; 
+	            				v_loadPage += "					<div class='enroll_margin_box'></div>"; 
+	            				v_loadPage += "					<span>제조날짜 : "+ data.cvstoreDTO.cvsProductList[i].parseWarehousingdate +"<br/></span>"; 
+	            				v_loadPage += "					<span>유통만료기한 : "+ data.cvstoreDTO.cvsProductList[i].parseExpirationdate + "<br/></span>"; 
+	            				v_loadPage += "					<div class='enroll_margin_box'></div>"; 
+	            				v_loadPage += "				</div>"; //end control_size
+	            				v_loadPage += "			</div>"; //end col-sm-6
+	            				v_loadPage += "			<div class='col-sm-3'>"; //start col-sm-3
+	            				v_loadPage += "				<div class='dDay'>D-day : "+data.cvstoreDTO.cvsProductList[i].countTime+"시간</div>"; 
+	            				
+	            				v_loadPage +="				원가 : <span class='ori_price'>"+data.cvstoreDTO.cvsProductList[i].price+"원</span>";
+	            				v_loadPage +="				<div class='discount'>"+data.cvstoreDTO.cvsProductList[i].discountRate+"% <span style='color:black;''>" + data.cvstoreDTO.cvsProductList[i].discountPrice + "원</span></div>";
+	            				v_loadPage += "				<input type='button' value='결제' class='btn_enroll' onclick='buyBtn(\""+ data.cvstoreDTO.cvsProductList[i].no +"\")' />"; //결제버튼
+	            				v_loadPage += "			</div>"; //end col-sm-3
+	            				v_loadPage += "		</div>"; //end row
+	            				v_loadPage += "</div>"; //end list-box
+	            				v_loadPage += "<hr>"; 
+
 		            	}
-		            	
-	            		v_loadPage += " 		 	</ul>"; 
-		            	v_loadPage += " 	</ul>"; 
+		            	v_loadPage += " 		 			</form>"; //end form
+		            	v_loadPage += "					</div>"; // end list_container_box
+	            		v_loadPage += " 		 	</ul>"; //start ul
+	            		v_loadPage += "			</li>"; // start mega-menu mega-menu-sm
+		            	v_loadPage += " 	</ul>"; // end metismenu
 
 		            	$("#cvsProductList").html(v_loadPage);
 		        }
@@ -487,6 +535,107 @@ function makeCvsInfo(){
 	
 	}
 	<!-- 지도에 받을 편의점 리스트 Ajax END -->
+	
+	<!-- 결제 ajax Start -->
+	function buyBtn(no){
+		var accountno = '${dto.accountno}';
+		$.ajax({
+	   		 url: "onecvsproduct",
+	   		 method: "POST",
+	   		 data: {"no":no},
+	   		 datatype: "json",
+	   		 success:function(cvsProductDTO){
+	   			const swalWithBootstrapButtons = Swal.mixin({
+					  customClass: {
+					    confirmButton: 'btn btn-success',
+					    cancelButton: 'btn btn-danger'
+					  },
+					  buttonsStyling: false
+					})
+
+					swalWithBootstrapButtons.fire({
+					  title: "결제확인",
+					  text: cvsProductDTO.name+'을(를) '+ cvsProductDTO.discountPrice+'원에 구입하시겠습니까?',
+					  icon: 'warning',
+					  showCancelButton: true,
+					  confirmButtonText: '결제요청',
+					  cancelButtonText: '취소'
+					}).then((result) => {
+					  if (result.isConfirmed) {
+						  
+						  $.ajax({
+				   				url: "purchaseproduct",
+				   				method: "POST",
+				   				data: {"no":no},
+								datatype: "json",
+								success:function(data){
+									if(data == null || data==""){
+										Swal.fire(
+					    						  '잔액부족',
+					  	    				      '포인트가 부족합니다. 충전 후에 재시도 부탁드립니다.',
+					  	    				      'error'
+					    						);
+									}
+									else{
+										Swal.fire({
+											  icon: 'success',
+											  title: '성공적으로 물품을 구입했습니다.',
+											  showConfirmButton: false,
+											  timer: 100000
+											});
+						    			
+						    			location.reload();									
+									}
+									
+					    			 
+					    		 },
+					    		 error:function(){
+					    			 Swal.fire(
+				    						  '문제발생',
+				  	    				      '오류가 발생했습니다. 다시 시도해주세요.',
+				  	    				      'error'
+				    						);
+					    		 }
+					    	 });
+					  } else if (
+	    				    /* Read more about handling dismissals below */
+	    				    result.dismiss === Swal.DismissReason.cancel
+	    				  ) {
+	    				    swalWithBootstrapButtons.fire(
+	    				      '결제취소',
+	    				      '결제를 취소했습니다. 처음부터 다시 시도하세요.',
+	    				      'error'
+	    				    );
+	    				  }
+	    				});
+	   			
+	   			/* $.ajax({
+	   				url: "purchaseproduct",
+	   				method: "POST",
+	   				data: {"no":no},
+					datatype: "json",
+					success:function(data){
+						if(data == null || data == ""){
+							alert("잔액부족");
+						}
+						else{
+							alert("구매성공");
+							location.reload();
+						}
+					},
+					error:function(request,status,error){
+				        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+				       }
+	   			});*/
+	   		 },
+	   		 error:function(){
+	   		    alert("실패");
+	   		 } 
+	   	});
+
+		
+	}
+	<!-- 결제 ajax end -->
 </script>
 
 
