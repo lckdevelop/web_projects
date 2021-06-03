@@ -168,7 +168,7 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
 			    	<div id="list-box">
 			    		<div class="row">
 			    			<div class='col-sm-3'>
-			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' /></div>
+			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' class="product_img"/></div>
 			  				</div>
 			  				<div class='col-sm-6'>
 			  					<div class="control_size">
