@@ -558,7 +558,7 @@ public class CustomerController {
 	/*
 	 * @작성자 : 이효범
 	 * @작성일자 : 0527
-	 */
+	 
 	@RequestMapping(value="/productList" , produces="application/json;charset=UTF-8")
 	@ResponseBody
 	public HashMap productList(
@@ -576,12 +576,13 @@ public class CustomerController {
 		
 		return hash;
 	}
+	*/
 	
 	// 작성자 : 이효범
 	// 작성일자: 2021/05/31 12:32
-		@GetMapping(value = "/productList2" , produces="application/json;charset=UTF-8")
+		@GetMapping(value = "/productList" , produces="application/json;charset=UTF-8")
 		@ResponseBody
-		public HashMap<String, CvstoreDTO> productList2 (
+		public HashMap<String, CvstoreDTO> productList (
 				@RequestParam HashMap<String, String> storecode
 			    ) {
 			HashMap<String, CvstoreDTO> hash = new HashMap<String, CvstoreDTO>();

@@ -226,14 +226,17 @@ public class CustomerServiceImpl implements CustomerService{
 		
 		String expirationdate = "";
 		String warehousingdate = "";
+		log.info(storecode.get("endNo"));
 		CvstoreDTO cvstore = mapDAO.searchCvstoreListMap(storecode);
-		List<CvsProductDTO> cvsProductList =mapDAO.searchCvsProductListMap(cvstore);
+		List<CvsProductDTO> cvsProductList = mapDAO.searchCvsProductListMap(cvstore);
+		
 		log.info("불러온 상품 개수 : "+cvsProductList.size());
 		for (CvsProductDTO cvsProductDTO : cvsProductList) {
 			long countTime = (cvsProductDTO.getCountTime());
 			int discountRate = getDiscountRate(countTime);
 			cvsProductDTO.setDiscountRate(discountRate);
 			cvsProductDTO.setDiscountPrice(getDiscountPrice(cvsProductDTO.getPrice(), discountRate));
+			
 			expirationdate = dateFormat.format(cvsProductDTO.getExpirationdate());
 			warehousingdate = dateFormat.format(cvsProductDTO.getWarehousingdate());
 			
