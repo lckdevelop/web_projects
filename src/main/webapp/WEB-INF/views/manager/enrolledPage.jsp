@@ -46,12 +46,13 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 		  cancelButtonText: '돌아가기',
 		}).then((result) => {
 		  if (result.isConfirmed) {
-		    Swal.fire(
-		      '취소 완료!',
-		       productName,
-		      'error'
-		    )
-		    location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enrolled";
+		    Swal.fire({
+		    	title: '취소 완료!',
+		    	text: productName,
+		    	icon: 'error'
+		    }).then((result) => {
+			    location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enrolled";
+		    })
 		  }
 		})
 }
