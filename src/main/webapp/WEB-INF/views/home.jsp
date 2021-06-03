@@ -58,13 +58,13 @@
 	</header>
 
     	<!-- Masthead-->
-        <header class="masthead" style="width:1900px; padding:0px;height:1081px; margin:0;opacity:1">
-        	<p style="width: 1900px;
-				  height: 600px;
+        <header class="masthead" style="padding:0px;height:1300px; margin:0;opacity:1">
+        	<p style="width: 2300px;
+				  height: 800px;
 				  position: absolute;
 				  top: 0;
 				  left: 0;
-				  margin:300px 180px 400px 180px;
+				  margin:320px 180px 400px 220px;
 				  font-size:5rem;
 				  font-weight:bold;
 				  text-align:center;
