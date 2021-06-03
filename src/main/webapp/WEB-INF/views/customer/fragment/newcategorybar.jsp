@@ -96,10 +96,11 @@
                     
                     <li class="mega-menu mega-menu-sm">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">즉석요리</span>
+                            <i class="icon-globe-alt menu-icon"></i><span class="nav-text">즉석조리</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./searchresult?searchKeyword=&mainCategory=즉석요리&subCategory=튀김">튀김</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=즉석조리&subCategory=튀김">튀김</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=즉석조리&subCategory=소시지">소시지</a></li>
                         </ul>
                     </li>
                     
@@ -120,6 +121,7 @@
                             <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=우유">우유</a></li>
                             <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=요거트">요거트</a></li>
                             <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=요구르트">요구르트</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=치즈">치즈</a></li>
                         </ul>                        
                     </li>                      
                 </ul>
