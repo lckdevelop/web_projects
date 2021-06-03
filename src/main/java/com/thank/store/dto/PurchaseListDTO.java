@@ -27,5 +27,6 @@ public class PurchaseListDTO {
 	private Date expirationdate;
 	private Date warehousingdate;
 	private Date purchasedate;
+	private long countTime;
 	
 }

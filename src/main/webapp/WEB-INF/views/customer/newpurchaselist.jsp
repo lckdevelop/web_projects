@@ -118,6 +118,7 @@
 						  				<div class='col-lg-10'>
 							    				<label class="name1" style="font-size:20px;">상품명 : ${purchaseDTO.name}<br/></label>
 							    				<h5>상품코드 : ${purchaseDTO.productcode}<br/></h5>
+							    				<h5>남은시간 : ${purchaseDTO.countTime}<br/></h5>
 							    				<h5 style="color:red">구매금액 : <f:formatNumber value="${purchaseDTO.purchaseprice}" pattern="#,###" />원<br/></h5>
 							    		</div>
 							    		<div class="col-lg-2"></div>

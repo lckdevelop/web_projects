@@ -13,7 +13,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <title>ThankStore 로그인</title>
     <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
 	<script type="text/javascript" src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
 </head>

@@ -136,7 +136,6 @@ public class CustomerController {
 		log.info("검색시작:"+searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		if(session.getAttribute("lat") == null|| session.getAttribute("lon") ==null) {
-			
 			return "redirect:home";
 		}
 		log.info("lat타입 : "+session.getAttribute("lat").getClass().getName());
