@@ -88,8 +88,6 @@ $(function() {
     
  	// 카테고리별 현황 차트
  	let mainCatChart = document.getElementById("categoryProfit");
-    let chartLabels2 = [];
-    let chartData2 = [];
     
     let mainCategoryChart = {
    		type : 'doughnut',
@@ -120,6 +118,9 @@ $(function() {
     var chart2 = new Chart(mainCatChart, mainCategoryChart);
     
     $.getJSON("${app}/manager/category/"+cvsno+"/"+searchYear, function(data){
+    	let chartLabels2 = [];
+        let chartData2 = [];
+        
         $.each(data, function(key, value) {
         	chartLabels2.push(value.mainCategory);
         	chartData2.push(value.cntPerCategory);
@@ -165,88 +166,55 @@ $(function() {
     
     
     $('#btn_searchYear').click(function(){
+    	
     	searchYear = $("#searchYear").val();
     	// 월별 수익 차트 
     	let lineChart = document.getElementById("monthProfit");
-        let chartLabels = [];
-        let chartData = [];
-        
+       
         $.getJSON("${app}/manager/profit/"+cvsno+"/"+searchYear, function(data){
+        	let chartLabels = [];
+            let chartData = [];
+            
             $.each(data, function(key, value) {
             	chartLabels.push(value.month);
                 chartData.push(value.profitpermonth);
+                profitPerMonChart.data.labels = chartLabels;
+                profitPerMonChart.data.datasets[0].data = chartData;
+                profitPerMonChart.options.title.text = searchYear + "년 월별 수익 현황";
             });
             
-            let categoryChart = new Chart(lineChart, {
-            	type : 'line',
-            	data : {
-            		labels : chartLabels,
-            		datasets : [ {
-                        label : "월별 총 수익",
-                        backgroundColor:"#ff8a3d",
-                        borderColor: "#ff643d",
-                        pointBorderColor: "#ffb88a",
-                        pointBackgroundColor: "#ffa163",
-                        pointHoverBackgroundColor: "#dc3546",
-                        pointHoverBorderColor: "#ff643d",
-                        fontSize : 30,
-                        fill: false,
-                        borderWidth: 4,
-                        data : chartData
-                    } ]
-            	},
-            	options: {
-            		title: {
-            			display : true,
-            			text : searchYear + "년 월별 수익 현황",
-            			fontSize : 25,
-            			fontColor : '#dc3546', 
-            		}
-            	}
-            });
+            chart1.update();
             
         });
         
      	// 카테고리별 현황 차트
      	let doughnutChart = document.getElementById("categoryProfit");
-        let chartLabels2 = [];
-        let chartData2 = [];
+        
         
         $.getJSON("${app}/manager/category/"+cvsno+"/"+searchYear, function(data){
+        	let chartLabels2 = [];
+            let chartData2 = [];
+            
+            if (data.length == 0) {
+            	mainCategoryChart.data.labels = [];
+            	mainCategoryChart.data.datasets[0].data = [];
+            	mainCategoryChart.options.title.text = searchYear + "년 메인 카테고리별 현황";
+            }
             $.each(data, function(key, value) {
-            	chartLabels2.push(value.mainCategory);
-            	chartData2.push(value.cntPerCategory);
+            	console.log(value + ": value" + searchYear);
+            		chartLabels2.push(value.mainCategory);
+                	chartData2.push(value.cntPerCategory);
+                	mainCategoryChart.data.labels = chartLabels2;
+                	mainCategoryChart.data.datasets[0].data = chartData2;
+                	mainCategoryChart.options.title.text = searchYear + "년 메인 카테고리별 현황";
+            	
             });
             
-
-            let categoryChart = new Chart(doughnutChart, {
-            	type : 'doughnut',
-            	data : {
-            		labels : chartLabels2,
-            		datasets: [{
-            		    data: chartData2,
-            		    backgroundColor: [
-            		      'rgb(255, 99, 132)',
-            		      'rgb(54, 162, 235)',
-            		      'rgb(255, 205, 86)',
-            		      'rgb(254, 145, 99)',
-            		      'rgb(145, 99, 254)'
-            		    ],
-            		    hoverOffset: 4
-            		  }]
-            	},
-            	options: {
-            		title: {
-            			display : true,
-            			text : searchYear + "년 메인 카테고리별 현황",
-            			fontSize : 25,
-            			fontColor : '#dc3546', 
-            		}
-            	}
-            });
+            chart2.update();
             
         });
         
+        // 여기
         $.ajax({
 	        type:"get",
 	        datatype:"json",
@@ -280,52 +248,67 @@ $(function() {
         
     });
     
- // 세부카테고리 클릭 시
+    let subCatChart = document.getElementById("subCatProfit");
+    
+    let subCategoryChart = {
+   		type : 'doughnut',
+       	data : {
+       		labels : [],
+       		datasets: [{
+       		    data: [],
+       		    backgroundColor: [
+       		      'rgb(145, 99, 254)',
+       		      'rgb(254, 145, 99)',
+       		      'rgb(255, 205, 86)',
+       		      'rgb(54, 162, 235)',
+       		      'rgb(255, 99, 132)'
+       		    ],
+       		    hoverOffset: 4
+       		  }]
+       	},
+       	options: {
+       		title: {
+       			display : true,
+       			text : "",
+       			fontSize : 25,
+       			fontColor : '#dc3546', 
+       		}
+       	}
+    		
+    };
+    
+    var chart3 = new Chart(subCatChart, subCategoryChart);
+    
+ 	// 세부카테고리 클릭 시
     $('#btn_searchSub').click(function(){
+    	let subCatChart = document.getElementById("subCatProfit");
+    	
     	searchYear = $("#searchYear").val();
     	searchSubCat = $("#searchSubCat").val();
     	
-    	let doughnutChart2 = document.getElementById("subCatProfit");
-    	let subLabels = [];
-        let subData = [];
-        
         $.getJSON("${app}/manager/subCategory/"+cvsno+"/"+searchYear+"/"+searchSubCat, function(data){
+        	let subLabels = [];
+            let subData = [];
+            
+            if (data.length == 0) {
+            	subCategoryChart.data.labels = [];
+            	subCategoryChart.data.datasets[0].data = [];
+            	subCategoryChart.options.title.text = searchYear + " " + searchSubCat + "세분류 현황";
+            }
+            
             $.each(data, function(key, value) {
             	subLabels.push(value.subCategory);
             	subData.push(value.cntPerCategory);
+            	subCategoryChart.data.labels = subLabels;
+            	subCategoryChart.data.datasets[0].data = subData;
+            	subCategoryChart.options.title.text = searchYear + " " + searchSubCat + "세분류 현황";
             });
             
-
-            let categoryChart = new Chart(doughnutChart2, {
-            	type : 'doughnut',
-            	data : {
-            		labels : subLabels,
-            		datasets: [{
-            		    data: subData,
-            		    backgroundColor: [
-            		      'rgb(145, 99, 254)',
-            		      'rgb(254, 145, 99)',
-            		      'rgb(255, 205, 86)',
-            		      'rgb(54, 162, 235)',
-            		      'rgb(255, 99, 132)'
-            		    ],
-            		    hoverOffset: 4
-            		  }]
-            	},
-            	options: {
-            		title: {
-            			display : true,
-            			text : searchSubCat + " 세분류 현황",
-            			fontSize : 25,
-            			fontColor : '#dc3546', 
-            		}
-            	}
-            });
-            
+            chart3.update();
         });
     	
     });
- 
+ 	
 });
     
 </script>
