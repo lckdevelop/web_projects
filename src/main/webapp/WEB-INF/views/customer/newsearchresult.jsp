@@ -327,7 +327,7 @@ function buyBtn(no){
 			        <c:if test="${cvstore.distance < 1}">${cvstore.distance * 1000}M</c:if>
 			        <c:if test="${cvstore.distance >= 1}">${cvstore.distance}KM</c:if>
 			        )</label>
-			        <div class="tab-content panel" style="overflow:auto;">
+			        <div class="tab-content panel" style="overflow-y:auto;">
 			        	<c:forEach var="cvsproduct" items="${cvstore.cvsProductList}">
 			        		<div id="list-box">
 			        		<div id="${cvsproduct.no}" class="row">
