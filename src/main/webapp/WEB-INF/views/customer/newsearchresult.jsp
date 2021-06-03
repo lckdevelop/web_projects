@@ -26,6 +26,8 @@
 	<link 
 	href="${app}/resources/customer/css/customer.css" rel="stylesheet">
 	
+	<link 
+	href="${app}/resources/customer/css/selectbar.css" rel="stylesheet">
 	
 	<link 
 	href="${app}/resources/customer/css/categoryaccordion.css" rel="stylesheet">
@@ -33,8 +35,7 @@
 	src="${app}/resources/customer/js/accordion.js"></script>	
 <script type="text/javascript"
 	src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" 
-	src="${app}/resources/customer/js/selectbar.js"></script>
+
 <script>
 
 var subCategoryList = new Array();
@@ -256,9 +257,11 @@ function buyBtn(no){
 	   			<hr class="list_hr">
 	       		
 	       		<!-- 대분류 -->
+	       		
 	       		<div class="col-md-3">
 	       		<span style="font-size:15px;">대분류</span>
-	       		<select name="mainCategory" id="mainCategory" class="custom-select" data-width="120px">
+	       		<div class="select">
+	       		<select name="mainCategory" id="mainCategory" data-width="120px">
 	       		<option value=""
 					<c:if test="${searchDTO.mainCategory == '' || searchDTO.mainCategory == null}"> selected </c:if>
 				>전체</option>
@@ -281,12 +284,15 @@ function buyBtn(no){
 					<c:if test="${searchDTO.mainCategory == '유제품류'}">  selected </c:if>
 				>유제품</option>
 				</select>
+				</div>
 	       		</div>
 	       		
 	       		<!-- 세분류 -->
+	       		
 	       		<div class="col-md-3" >
 	       		<span style="font-size:15px;">세분류</span>
-	       		<select name="subCategory" id="subCategory" class="custom-select" data-width="120px">
+	       		<div class="select" >
+	       		<select name="subCategory" id="subCategory" data-width="120px">
 	       		<option value=""
 					<c:if test="${searchDTO.subCategory == '' || searchDTO.subCategory == null}"> selected </c:if>
 					>전체</option>
@@ -296,6 +302,7 @@ function buyBtn(no){
 					>${subCategory}</option>
 	       		</c:forEach>
 				</select>
+	       		</div>
 	       		</div>
 	       		<div class="col-md-6">
 		       		<span style="font-size:15px;margin-left:40px;">검색어</span>
