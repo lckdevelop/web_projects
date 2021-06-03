@@ -125,6 +125,7 @@
 		and p.subcategory like '%'||#{subCategory}||'%'
 		and c.enrollment = 1
 		and ROUND((c.expirationdate - sysdate) * 24) > 0
+		order by expirationdate 
 	</select>
 	
 	<!-- 
