@@ -276,7 +276,7 @@ function buyBtn(no){
 				>빵류</option>
 				<option value="즉석조리"
 					<c:if test="${searchDTO.mainCategory == '즉석조리'}">  selected </c:if>
-				>즉석요리</option>
+				>즉석조리</option>
 				<option value="완제품"
 					<c:if test="${searchDTO.mainCategory == '완제품'}">  selected </c:if>
 				>완제품</option>
