@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <title>ThankStore 에러</title>
     <!-- Favicon icon -->
     <!-- Favicon icon -->
 	<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/favicon.PNG">
