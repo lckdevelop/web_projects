@@ -13,7 +13,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;500;700;900&display=swap" rel="stylesheet">
 <!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/favicon.PNG">
  <!-- Custom Stylesheet -->
 <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
 
@@ -41,26 +41,7 @@ $(function() {
 			<div class="col">
 				<div class="card card-profile text-center">
 					<span class="mb-1 text-warning">
-						<c:choose>
-			 				<c:when test='${dto.brand eq "GS25"}'>
-						    	<img src="${app}/resources/manager/img/gs_logo.png" alt="Brand" class="img-fluid rounded-circle">
-						    </c:when>
-						    <c:when test='${dto.brand eq "CU"}'>
-						    	<img src="${app}/resources/manager/img/cu_logo.png" alt="Brand" class="img-fluid rounded-circle">
-						    </c:when>
-						    <c:when test='${dto.brand eq "세븐일레븐"}'>
-						    	<img src="${app}/resources/manager/img/seven_logo.png" alt="Brand" class="img-fluid rounded-circle">
-						    </c:when>
-						    <c:when test='${dto.brand eq "미니스톱"}'>
-						    	<img src="${app}/resources/manager/img/mini_logo.png" alt="Brand" class="img-fluid rounded-circle">
-						    </c:when>
-						    <c:when test='${dto.brand eq "emart24"}'>
-						    	<img src="${app}/resources/manager/img/e24_logo.jpg" alt="Brand" class="img-fluid rounded-circle">
-						    </c:when>
-							<c:otherwise>
-								<img src="${app}/resources/manager/img/부산요거트.jpg" alt="Brand" class="img-fluid rounded-circle">
-							</c:otherwise>
-						</c:choose>
+						<img src="${app}/resources/manager/img/${dto.brand}.png" alt="Brand" class="img-fluid rounded-circle">
 					</span>
 				</div>
 			</div>
@@ -72,7 +53,7 @@ $(function() {
 				<p class="text-muted mb-0">편의점 코드 : ${dto.storecode}</p>
 				<div class="profit_margin_box"><p></p></div>
 				<div class="profit_margin_box"><p></p></div>
-				<p class="text-muted mb-0"><a href="${app}/manager/profit" class="profit_link"><b>수익금 : <f:formatNumber value="${dto.profit}" pattern="#,###" /> 원</b></a></p>
+				<p class="text-muted mb-0"><a href="${app}/manager/profit" class="profit_link">수익금 : <f:formatNumber value="${dto.profit}" pattern="#,###" /> 원</a></p>
 			</div>
 		</div>
 		<div class="row mb-5">
