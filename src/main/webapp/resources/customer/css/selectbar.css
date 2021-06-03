@@ -37,6 +37,7 @@ select {
 .select::after {
   content: '\25BC';
   position: absolute;
+  color: white;
   top: 0;
   right: 0;
   padding: 0 1em;
