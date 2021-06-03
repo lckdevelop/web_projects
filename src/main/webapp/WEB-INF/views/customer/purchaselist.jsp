@@ -11,6 +11,8 @@
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>ThankStore 고객 구매목록</title>
+<!-- Favicon icon -->
+<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/favicon.PNG">
 <!-- Google Fonts -->
 
 <!-- *************** CSS START *************** -->

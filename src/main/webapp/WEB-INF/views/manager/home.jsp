@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>지점 관리 화면</title>
 <!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/favicon.PNG">
 <!-- Custom Stylesheet -->
 <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
 
@@ -45,12 +45,13 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
 		  cancelButtonText: '돌아가기',
 		}).then((result) => {
 		  if (result.isConfirmed) {
-		    Swal.fire(
-		      '등록 완료!',
-		       productName,
-		      'success'
-		    )
-		    location.href="enrollAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=home";
+		    Swal.fire({
+		    	title: '등록 완료!',
+		    	text: productName,
+		    	icon: 'success'
+		    }).then((result) => {
+			    location.href="enrollAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=home";
+		    })
 		  }
 		})
 }
@@ -69,14 +70,15 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
 		  cancelButtonText: '돌아가기',
 		}).then((result) => {
 		  if (result.isConfirmed) {
-		    Swal.fire(
-		      '취소 완료!',
-		       productName,
-		      'error'
-		    )
-		    location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=home";
-		  }
-		})
+		    Swal.fire({
+		    	title: '취소 완료!',
+		    	text: productName,
+		    	icon: 'error'
+		    }).then((result) => {
+		    	location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=home";
+		  })
+	  	}
+	})
 }
 </script>
 </head>
@@ -132,7 +134,7 @@ function btn_cancel(productNo, productName, discountPrice, countTime){
             Sidebar start (profilebar.jsp)
         ***********************************-->
 
-		<div class="nk-sidebar" style="height:1297px; width:243px; margin-left:243px; margin-right:0px">
+		<div class="nk-sidebar" style="width:243px; margin-left:243px; margin-right:0px">
 		
  			<jsp:include page="/WEB-INF/views/manager/fragment/profilebar.jsp" flush="true" />
  			

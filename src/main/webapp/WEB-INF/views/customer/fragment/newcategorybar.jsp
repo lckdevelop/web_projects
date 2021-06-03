@@ -43,13 +43,13 @@
             <div class="nk-nav-scroll" style="height: 1297px; width:180px;">
             	<!-- 카테고리 검색창 시작 -->
             	<form action="/store/customer/searchresult">
-            	<input type="submit" style="width:45px; height:45px; margin:2px; float:right;" class="btn btn-warning" value="찾기"></input>
+            	<input type="submit" style="width:45px; height:45px; margin:2px; float:right; padding:0px;" class="btn btn-warning" value="찾기"></input>
 				<div class="col" style="width:190px; margin: 0 0 0 5px; padding:3px">
 						<input type="hidden" name="mainCategory" value=""/>
 						<input type="hidden" name="subCategory" value=""/>
 						
 					<div class="col" style="padding:0px">
-						<input style="margin-top: 0px; padding-top:0px;padding-right:5px; size:relative;" aria-label="Search Dashboard" type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="검색" />
+						<input style="margin-top: 0px;;padding-right:5px; size:relative;" aria-label="Search Dashboard" type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="검색" />
 						
 					</div>
 					
@@ -58,7 +58,7 @@
 				<!-- 카테고리 검색창 끝 -->
 				
 				   	
-				<!-- 카테고리 대/세분류 선택창 -->	
+				<!-- 카테고리 대/세분류 선택창입니다 -->	
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">카테고리</li>
                     <li class="mega-menu mega-menu-sm">
@@ -90,7 +90,7 @@
                             <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=일반빵">일반빵</a></li>
                             <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=핫도그">핫도그</a></li>
                             <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=샌드위치">샌드위치</a></li>
-                            
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=햄버거">햄버거</a></li>
                         </ul>
                     </li>
                     
