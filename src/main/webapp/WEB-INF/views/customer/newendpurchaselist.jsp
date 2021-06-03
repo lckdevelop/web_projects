@@ -111,7 +111,7 @@
                                 </div>
                                 <div id="list-box" style="text-align:center;">
 						    			<div class='img_resize col-lg-12'>
-						  					<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' />
+						  					<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' class="product_img"/>
 						  				</div>
 						  				<div class='col-lg-12'>
 							   					<img src="https://chart.googleapis.com/chart?chs=80x80&cht=qr&chl=${dto.name}+${purchaseDTO.brand}+${purchaseDTO.cvstorename}+${purchaseDTO.name}+${purchaseDTO.productcode}&choe=UTF-8"/>
