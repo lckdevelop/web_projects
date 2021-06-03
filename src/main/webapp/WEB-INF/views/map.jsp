@@ -457,9 +457,6 @@ function productListAjax(storecode, endNo){
 		        	console.log("상품리스트 init length : "+data.cvstoreDTO.cvsProductList.length);
 		        	//console.log(data.cvstoreDTO.cvsProductList[0].warehousingdate );
 		        	var v_loadPage ="";
-						
-
-	            		
 	            		v_loadPage += "		<ul class='metismenu' id='menu'>"; // start metismenu
 	            		v_loadPage += "				<li class='mega-menu mega-menu-sm'>"; // start mega-menu mega-menu-sm
 	            		v_loadPage += "				<button type='button' class='btn btn-success' style='width:375px;position:relative; right:11px;' >"; // start mega-menu mega-menu-sm
@@ -493,7 +490,7 @@ function productListAjax(storecode, endNo){
 	            				
 	            				v_loadPage +="				원가 : <span class='ori_price'>"+data.cvstoreDTO.cvsProductList[i].price+"원</span>";
 	            				v_loadPage +="				<div class='discount'>"+data.cvstoreDTO.cvsProductList[i].discountRate+"% <span style='color:black;''>" + data.cvstoreDTO.cvsProductList[i].discountPrice + "원</span></div>";
-	            				v_loadPage += "				<input type='button' value='결제' class='btn_enroll' onclick='buyBtn(\""+ data.cvstoreDTO.cvsProductList[i].no +"\")' />"; //결제버튼
+	            				v_loadPage += "				<input id = 'buyBtn2' type='button' value='결제' class='btn_enroll' onclick='buyBtn(\""+ data.cvstoreDTO.cvsProductList[i].no +"\")' />"; //결제버튼
 	            				v_loadPage += "			</div>"; //end col-sm-3
 	            				v_loadPage += "		</div>"; //end row
 	            				v_loadPage += "</div>"; //end list-box
@@ -517,25 +514,24 @@ function productListAjax(storecode, endNo){
 	}
 	
 	function infinityScrollFunction() {
-	console.log(code);
-	console.log(endNum);
+	//console.log(code);
+	//console.log(endNum);
         //현재문서의 높이를 구함.
-        var documentHeight  = $(document).height();
-        //console.log("documentHeight : " + documentHeight);
+        var documentHeight  = $("#list_container_box").height();
+        console.log("documentHeight : " + documentHeight);
         
         //scrollTop() 메서드는 선택된 요소의 세로 스크롤 위치를 설정하거나 반환    
         //스크롤바가 맨 위쪽에 있을때 , 위치는 0
-        //console.log("window의 scrollTop() : " + $(window).scrollTop()); 
+        console.log("window의 scrollTop() : " + $(window).scrollTop()); 
         //height() 메서드는 브라우저 창의 높이를 설정하거나 반환
-        //console.log("window의 height() : " + $(window).height());
+        console.log("window의 height() : " + $(window).height());
         
         //세로 스크롤위치 max값과 창의 높이를 더하면 현재문서의 높이를 구할수있음.
         //세로 스크롤위치 값이 max이면 문서의 끝에 도달했다는 의미
         var scrollHeight = $(window).scrollTop()+$(window).height();         
-        //console.log("scrollHeight : " + scrollHeight);
+        console.log("scrollHeight : " + scrollHeight);
             
         if(scrollHeight == documentHeight) { //문서의 맨끝에 도달했을때 내용 추가 
-        	console.log("ajax : " + endNum);
         	$.ajax({
 				type:"get",
 		        url:"productList",
@@ -544,8 +540,9 @@ function productListAjax(storecode, endNo){
 		        },
 		        dataType:"json",
 		        success:function (data2){
+		        	console.log("ajax : " + endNum)
 		        	console.log(data2);
-		        	if(data2.cvstoreDTO.cvsProductList.length == 0){
+		        	if(data2.cvstoreDTO.cvsProductList.length == 3){
 		        		Swal.fire(
 		        				  '검색결과',
 		        				  '모든 상품이 검색되었습니다.',
@@ -557,6 +554,7 @@ function productListAjax(storecode, endNo){
 		        	var v_loadPage2 ="";
 		            	for(var i=0; i<data2.cvstoreDTO.cvsProductList.length; i++){
 		            			endNum += 1;
+		            			console.log(endNum);
 		            			v_loadPage2 += "<div id='list-box'>"; //start list-box
 		            			v_loadPage2 += "		<div class='row'>"; //start row
 		            			v_loadPage2 += "			<div class='col-sm-3'>"; //start col-sm-3
@@ -576,7 +574,7 @@ function productListAjax(storecode, endNo){
 	            				
 		            			v_loadPage2 +="				원가 : <span class='ori_price'>"+data2.cvstoreDTO.cvsProductList[i].price+"원</span>";
 		            			v_loadPage2 +="				<div class='discount'>"+data2.cvstoreDTO.cvsProductList[i].discountRate+"% <span style='color:black;''>" + data2.cvstoreDTO.cvsProductList[i].discountPrice + "원</span></div>";
-		            			v_loadPage2 += "				<input type='button' value='결제' class='btn_enroll' onclick='buyBtn(\""+ data2.cvstoreDTO.cvsProductList[i].no +"\")' />"; //결제버튼
+		            			v_loadPage2 += "				<input type='button' value='결제' class='btn_enroll' onclick='buyBtn(\""+ data2.cvstoreDTO.cvsProductList[i].no +"\")'/>"; //결제버튼
 		            			v_loadPage2 += "			</div>"; //end col-sm-3
 		            			v_loadPage2 += "		</div>"; //end row
 		            			v_loadPage2 += "</div>"; //end list-box
@@ -584,7 +582,7 @@ function productListAjax(storecode, endNo){
 
 		            	}
 		            	$(v_loadPage2).appendTo("#list_container_box");
-		            	alert("추가 업로드")
+		            	
 		            	
 		        }
 	        });
@@ -666,6 +664,8 @@ function productListAjax(storecode, endNo){
 				   				data: {"no":no},
 								datatype: "json",
 								success:function(data){
+									console.log(data);
+									console.log(cvsProductDTO)
 									if(data == null || data==""){
 										Swal.fire(
 					    						  '잔액부족',
@@ -681,7 +681,16 @@ function productListAjax(storecode, endNo){
 											  timer: 100000
 											});
 						    			
-						    			location.reload();									
+						    			//location.reload();	
+						    			
+						    			
+						    			//****** 작업
+										$("#point").text(data.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+										$("#purchaseCnt").text(data.purchaseCnt);
+										$("#buyBtn2").attr('value', '결제완료');
+										$("#buyBtn2").css('background-color','#d9534f');
+										$("#buyBtn2").attr('disabled',true);
+										
 									}
 									
 					    			 
