@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Favicon icon -->
+	<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/favicon.PNG">
     <link href="css/style.css" rel="stylesheet">
     
 </head>

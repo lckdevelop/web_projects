@@ -43,14 +43,16 @@
             <div class="nk-nav-scroll" style="height: 1297px; width:180px;">
             	<!-- 카테고리 검색창 시작 -->
             	<form action="/store/customer/searchresult">
-				<div class="col" style="width:235px; margin: 0 0 0 5px; padding:3px">
-					<input type="hidden" name="mainCategory" value=""/>
-					<input type="hidden" name="subCategory" value=""/>
+            	<input type="submit" style="width:45px; height:45px; margin:2px; float:right; padding:0px;" class="btn btn-warning" value="찾기"></input>
+				<div class="col" style="width:190px; margin: 0 0 0 5px; padding:3px">
+						<input type="hidden" name="mainCategory" value=""/>
+						<input type="hidden" name="subCategory" value=""/>
+						
 					<div class="col" style="padding:0px">
-					<input style="margin-top: 5px; padding-right:5px; size:relative;" aria-label="Search Dashboard" type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="검색" />
-					
+						<input style="margin-top: 0px;;padding-right:5px; size:relative;" aria-label="Search Dashboard" type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchDTO.searchKeyword}" placeholder="검색" />
+						
 					</div>
-
+					
 				</div>
 				</form>     
 				<!-- 카테고리 검색창 끝 -->
