@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>지점 관리 화면</title>
 <!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/favicon.PNG">
 <!-- Custom Stylesheet -->
 <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
 
