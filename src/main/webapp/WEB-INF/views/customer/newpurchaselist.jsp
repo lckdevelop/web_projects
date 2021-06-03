@@ -122,7 +122,7 @@
 							    		</div>
 							    		<div class="col-lg-2"></div>
 							    		<div class='col-lg-12' style="text-align:right;">
-							   					<img src="https://chart.googleapis.com/chart?chs=180x180&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
+							   					<img src="https://chart.googleapis.com/chart?chs=180x180&cht=qr&chl=${dto.name}+${purchaseDTO.brand}+${purchaseDTO.cvstorename}+${purchaseDTO.name}+${purchaseDTO.productcode}&choe=UTF-8"/>
 							   			</div>
 				   				</div>
 	   						</div>
