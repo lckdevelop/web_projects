@@ -114,7 +114,7 @@
 						  					<img src='${app}/resources/product/images/${purchaseDTO.name}.jpg' />
 						  				</div>
 						  				<div class='col-lg-12'>
-							   					<img src="https://chart.googleapis.com/chart?chs=80x80&cht=qr&chl=${dto.name}+${purchaseDTO.productcode}+${purchaseDTO.no}&choe=UTF-8"/>
+							   					<img src="https://chart.googleapis.com/chart?chs=80x80&cht=qr&chl=${dto.name}+${purchaseDTO.brand}+${purchaseDTO.cvstorename}+${purchaseDTO.name}+${purchaseDTO.productcode}&choe=UTF-8"/>
 							   			</div>
 						  				<div class='col-lg-12'>
 							    				<label class="name1">상품명 : ${purchaseDTO.name}<br/></label>
