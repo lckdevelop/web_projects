@@ -52,7 +52,7 @@ public class CustomerController {
 		System.out.println("지금 세션 상태는: " + session.getAttribute("memberInfo"));
 		System.out.println(session.getAttribute("memberInfo"));
 		if (session.getAttribute("memberInfo") != null) {
-			return "/customer/home";
+			return "redirect:/customer/home";
 		} else {
 			return "/customer/login";
 		}
