@@ -12,7 +12,7 @@
 <title>프로필 바입니다.</title>
  	
 <!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/favicon.PNG">
+ <link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
  <!-- Custom Stylesheet -->
  <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
  

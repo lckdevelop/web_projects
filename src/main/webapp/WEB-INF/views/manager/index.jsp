@@ -14,8 +14,10 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 
-<!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/favicon.PNG">
+<!-- Favicons -->
+<link href="${app}/resources/manager/img/favicon.png" rel="icon">
+<link href="${app}/resources/manager/img/apple-touch-icon.png"
+	rel="apple-touch-icon">
 
 <!-- Google Fonts -->
 <link
