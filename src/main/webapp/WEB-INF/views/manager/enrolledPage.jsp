@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>지점 관리 화면</title>
 <!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/favicon.PNG">
 <!-- Custom Stylesheet -->
 <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
 <link
@@ -166,10 +166,10 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 			    	<div id="list-box">
 			    		<div class="row">
 			    			<div class='col-sm-3'>
-			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' /></div>
+			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' class="product_img"/></div>
 			  				</div>
 			  				<div class='col-sm-6'>
-			  					<div class="control_size_ed">
+			  					<div class="control_size">
 				    				<span style="font-weight:bold">${product.name}(${product.productcode})<br/></span>
 				    				<div class="enroll_margin_box"></div>
 				    				<span>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>

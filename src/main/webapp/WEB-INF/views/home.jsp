@@ -10,8 +10,8 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Thank Store</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="resources/home/favicon.ico" />
+        <!-- Favicon icon -->
+		<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/favicon.PNG">
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->

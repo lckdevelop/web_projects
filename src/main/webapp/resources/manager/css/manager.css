@@ -190,7 +190,14 @@ td {
 .profit_link {
 	text-decoration: none;
 	padding-top:20px;
-	color:rgba(237, 123, 123);
+	color:rgb(237, 123, 123);
+	font-size:17px;
+}
+
+.profit_link:hover {
+	text-decoration: none;
+	padding-top:20px;
+	color:rgba(79, 126, 255, 0.7);
 }
 
 /* 리스트 폰트 조절 */

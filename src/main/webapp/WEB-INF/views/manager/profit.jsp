@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>지점 관리 화면</title>
 <!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/quixlab/themes/quixlab/images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="${app}/resources/favicon.PNG">
 <!-- Custom Stylesheet -->
 <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
 <link
@@ -30,16 +30,9 @@ rel="stylesheet">
 	src="${app}/resources/manager/js/jquery-3.6.0.min.js"></script>
 <!-- gson chart -->
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>	
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+	
 <script type="text/javascript">
-
-/* $( function() {
-  $( "#speed" ).selectmenu();
-
-  $( "#files" ).selectmenu();
-
-} ); */
-
 $(function() {
 	let cvsno = '${dto.cvsno}';
 	let searchYear = $("#searchYear").val();
@@ -76,7 +69,7 @@ $(function() {
         	options: {
         		title: {
         			display : true,
-        			text : searchYear + "년 월별 수익",
+        			text : searchYear + "년 월별 수익 현황",
         			fontSize : 25,
         			fontColor : '#dc3546', 
         		}
@@ -237,7 +230,7 @@ $(function() {
             	options: {
             		title: {
             			display : true,
-            			text : searchYear + "년 월별 수익",
+            			text : searchYear + "년 월별 수익 현황",
             			fontSize : 25,
             			fontColor : '#dc3546', 
             		}
@@ -393,7 +386,7 @@ $(function() {
             	<div id="product-search-box">
 		   			<div class="row">
 			   			<div class="col-md-5">
-			    			<span class="list_info" style="color:#ff8a3d;">${dto.brand}&nbsp;${dto.spot}&nbsp;수익 현황</span>
+			    			<span class="list_info" style="color:#ff8a3d;">${dto.brand}&nbsp;${dto.spot}&nbsp;수익 통계</span>
 			       		</div>
 		     		</div>
    				</div>
