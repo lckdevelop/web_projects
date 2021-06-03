@@ -135,6 +135,10 @@ public class CustomerController {
 			@ModelAttribute CustomerDTO customerDTO, Model model, HttpSession session) {
 		log.info("검색시작:"+searchDTO.toString());
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
+		if(session.getAttribute("lat") == null|| session.getAttribute("lon") ==null) {
+			
+			return "redirect:home";
+		}
 		log.info("lat타입 : "+session.getAttribute("lat").getClass().getName());
 		log.info("lon타입 : "+session.getAttribute("lon").getClass().getName());
 		log.info("lat값 : "+session.getAttribute("lat").toString());
