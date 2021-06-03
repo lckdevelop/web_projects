@@ -88,7 +88,7 @@
                             <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=일반빵">일반빵</a></li>
                             <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=핫도그">핫도그</a></li>
                             <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=샌드위치">샌드위치</a></li>
-                            
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=햄버거">햄버거</a></li>
                         </ul>
                     </li>
                     
