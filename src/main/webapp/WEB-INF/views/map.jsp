@@ -182,6 +182,10 @@ var contents = [];
 var  overlayArr = new Array();
 //marker 담는 배열
 var  markerArr = new Array();
+
+
+var endNum;
+var code;
 <!-- 변수 선언 영역 END -->
 
 
@@ -356,7 +360,7 @@ function makeCvsInfo(){
 	    '            <div class="desc">' + 
 	    '                <div class="ellipsis">'+ contents[i].address +'</div>' + 
 	    '                <div class="dist"> 내 위치로 부터 거리 : <a style="color:#ff8a3d;">'+ dist_String + '</a></div>' + 
-	    '                <div class="visitStore"><a onclick="productListAjax(\''+ contents[i].storecode +'\')" class="link" style="color:blue">상품바로가기</a></div>' + 
+	    '                <div class="visitStore"><a onclick="productListAjax(\''+ contents[i].storecode +'\',0)" class="link" style="color:blue">상품바로가기</a></div>' + 
 	    '            </div>' + 
 	    '        </div>' + 
 	    '    </div>' +    
@@ -426,13 +430,19 @@ function makeCvsInfo(){
 
 <!-- ajax 영역 -->
 <script type="text/javascript">
-	function productListAjax(storecode){
+	function productListAjax(storecode, endNo){
+		
 		$(function() {
+			endNum = endNo;
+			code = storecode;
+			
 			$.ajax({
 				type:"get",
-		        url:"productList2",
+		        url:"productList",
 		        //편의점상품리스트테이블 더미데이터생성되면 sql문 바꿔주라!
-		        data:{"storecode" : storecode},
+		        data:{"storecode" : storecode,
+		        	 "endNo" : endNo	
+		        },
 		        dataType:"json",
 		        success:function (data){
 		        	console.log(data);
@@ -447,7 +457,7 @@ function makeCvsInfo(){
 		        	console.log(data.cvstoreDTO.cvsProductList.length);
 		        	console.log(data.cvstoreDTO.cvsProductList[0].warehousingdate );
 		        	var v_loadPage ="";
-
+						
 
 	            		
 	            		v_loadPage += "		<ul class='metismenu' id='menu'>"; // start metismenu
@@ -459,11 +469,11 @@ function makeCvsInfo(){
 	            		v_loadPage += "				</button>"; // start mega-menu mega-menu-sm
 	            		v_loadPage += "					<ul aria-expanded='false' id='acc_ordion' class='Accordion'>";  //start ul
          				
-         				v_loadPage += "		<div id ='list_container_box'>"; // start list_container_box
+         				v_loadPage += "		<div id ='list_container_box' style='height: 700px; overflow-y: scroll;>"; // start list_container_box
          				v_loadPage += "			<hr class='list_hr'>"; 
          				v_loadPage += " 			<form>";  //start form
 		            	for(var i=0; i<data.cvstoreDTO.cvsProductList.length; i++){
-	            				
+		            		endNum += 1;
 	            				v_loadPage += "<div id='list-box'>"; //start list-box
 	            				v_loadPage += "		<div class='row'>"; //start row
 	            				v_loadPage += "			<div class='col-sm-3'>"; //start col-sm-3
@@ -497,10 +507,83 @@ function makeCvsInfo(){
 		            	v_loadPage += " 	</ul>"; // end metismenu
 
 		            	$("#cvsProductList").html(v_loadPage);
+		            	
+		              	if(endNum == 3){
+		            		console.log("endNum");
+		            		$("#list_container_box").bind("scroll",infinityScrollFunction);
+		            	}
 		        }
 	        });
 	    });
 	}
+	
+	function infinityScrollFunction() {
+	console.log(code);
+	console.log(endNum);
+        //현재문서의 높이를 구함.
+        var documentHeight  = $(document).height();
+        console.log("documentHeight : " + documentHeight);
+        
+        //scrollTop() 메서드는 선택된 요소의 세로 스크롤 위치를 설정하거나 반환    
+        //스크롤바가 맨 위쪽에 있을때 , 위치는 0
+        console.log("window의 scrollTop() : " + $(window).scrollTop()); 
+        //height() 메서드는 브라우저 창의 높이를 설정하거나 반환
+        console.log("window의 height() : " + $(window).height());
+        
+        //세로 스크롤위치 max값과 창의 높이를 더하면 현재문서의 높이를 구할수있음.
+        //세로 스크롤위치 값이 max이면 문서의 끝에 도달했다는 의미
+        var scrollHeight = $(window).scrollTop()+$(window).height();         
+        console.log("scrollHeight : " + scrollHeight);
+            
+        if(scrollHeight == documentHeight) { //문서의 맨끝에 도달했을때 내용 추가 
+        	$.ajax({
+				type:"get",
+		        url:"productList",
+		        //편의점상품리스트테이블 더미데이터생성되면 sql문 바꿔주라!
+		        data:{"storecode" : code,
+		        	 "endNo" : endNum	
+		        },
+		        dataType:"json",
+		        success:function (data2){
+		        	console.log(data2);
+		        	console.log(data2.cvstoreDTO.cvsProductList.length);
+		        	console.log(data2.cvstoreDTO.cvsProductList[0].warehousingdate );
+		        	var v_loadPage2 ="";
+		            	for(var i=0; i<data2.cvstoreDTO.cvsProductList.length; i++){
+		            			endNum += 1;
+		            			v_loadPage2 += "<div id='list-box'>"; //start list-box
+		            			v_loadPage2 += "		<div class='row'>"; //start row
+		            			v_loadPage2 += "			<div class='col-sm-3'>"; //start col-sm-3
+		            			v_loadPage2 += "				<div class='img_resize'><img src='${app}/resources/product/images/"+ data2.cvstoreDTO.cvsProductList[i].name +".jpg' class='product_img'/></div>"; 
+		            			v_loadPage2 += "			</div>"; 	// //end col-sm-3
+		            			v_loadPage2 += "			<div class='col-sm-6'>"; //start col-sm-6
+		            			v_loadPage2 += "				<div class='control_size'>"; // start control_size
+		            			v_loadPage2 += "					<span style='font-weight:bold'>"+ data2.cvstoreDTO.cvsProductList[i].name+"<br/></span>"; 
+		            			v_loadPage2 += "					<div class='enroll_margin_box'></div>"; 
+		            			v_loadPage2 += "					<span>제조날짜 : "+ data2.cvstoreDTO.cvsProductList[i].parseWarehousingdate +"<br/></span>"; 
+		            			v_loadPage2 += "					<span>유통만료기한 : "+ data2.cvstoreDTO.cvsProductList[i].parseExpirationdate + "<br/></span>"; 
+		            			v_loadPage2 += "					<div class='enroll_margin_box'></div>"; 
+		            			v_loadPage2 += "				</div>"; //end control_size
+		            			v_loadPage2 += "			</div>"; //end col-sm-6
+		            			v_loadPage2 += "			<div class='col-sm-3'>"; //start col-sm-3
+		            			v_loadPage2 += "				<div class='dDay'>D-day : "+data2.cvstoreDTO.cvsProductList[i].countTime+"시간</div>"; 
+	            				
+		            			v_loadPage2 +="				원가 : <span class='ori_price'>"+data2.cvstoreDTO.cvsProductList[i].price+"원</span>";
+		            			v_loadPage2 +="				<div class='discount'>"+data2.cvstoreDTO.cvsProductList[i].discountRate+"% <span style='color:black;''>" + data2.cvstoreDTO.cvsProductList[i].discountPrice + "원</span></div>";
+		            			v_loadPage2 += "				<input type='button' value='결제' class='btn_enroll' onclick='buyBtn(\""+ data2.cvstoreDTO.cvsProductList[i].no +"\")' />"; //결제버튼
+		            			v_loadPage2 += "			</div>"; //end col-sm-3
+		            			v_loadPage2 += "		</div>"; //end row
+		            			v_loadPage2 += "</div>"; //end list-box
+		            			v_loadPage2 += "<hr>"; 
+
+		            	}
+		            	$(v_loadPage2).appendTo("#list_container_box");
+		            	alert("추가 업로드")
+		            	
+		        }
+	        });
+        }
+    }//function infinityScrollFunction()
 
 	
 	
@@ -646,8 +729,6 @@ function makeCvsInfo(){
 	<!-- Map 뜰때 Start-->
 	
 	window.onload = function(){
-		console.log("찍어라");
-		
 		document.getElementById("searchBtn").onclick = function () {
 			  var cvStoreCnt = document.getElementById("cvStoreCnt").value;
 			  cvsStoreCntAjax(cvStoreCnt);

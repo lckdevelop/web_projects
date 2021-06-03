@@ -25,5 +25,6 @@ public class CvstoreDTO {
 	private String InfoContent;
 	private String latlng;
 	private double distance;
+	private long endNo;
 	private List<CvsProductDTO> cvsProductList;
 }

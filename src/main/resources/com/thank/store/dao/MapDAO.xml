@@ -56,10 +56,11 @@
 			from cvstoreproduct c
 			join productlist p on c.productlist_no = p.no
 			join cvstore cvs on  c.cvstore_no = cvs.no
-			where cvs.storecode = #{storecode}
+			where cvs.storecode = 'A0001'
 			and c.enrollment = 1
 			
 			and ROUND((c.expirationdate - sysdate) * 24) > 0
+			offset #{endNo} rows fetch first 3 rows only
 		]]>
 	</select>
 	
