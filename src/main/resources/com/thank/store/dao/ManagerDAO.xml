@@ -273,6 +273,7 @@
 		where cvstore_no = #{cvstoreno}
 		and enrollment = 2
 		and to_char(cvsp.sellday, 'yyyy') = #{searchYear}
+		order by cvsp.sellday desc
 	 </select>
 	 
 	 

@@ -58,7 +58,7 @@
 				<!-- 카테고리 검색창 끝 -->
 				
 				   	
-				<!-- 카테고리 대/세분류 선택창 -->	
+				<!-- 카테고리 대/세분류 선택창입니다 -->	
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">카테고리</li>
                     <li class="mega-menu mega-menu-sm">
@@ -90,7 +90,7 @@
                             <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=일반빵">일반빵</a></li>
                             <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=핫도그">핫도그</a></li>
                             <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=샌드위치">샌드위치</a></li>
-                            
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=빵류&subCategory=햄버거">햄버거</a></li>
                         </ul>
                     </li>
                     

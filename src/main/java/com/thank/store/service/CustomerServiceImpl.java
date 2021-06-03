@@ -223,7 +223,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public CvstoreDTO searchCvstoreListMap(HashMap<String, String> storecode) throws Exception {
 		
 		System.out.println("===============================================");
-		System.out.println(storecode.get("endNo"));
+		System.out.println("ServiceImpl endNo : " + storecode.get("endNo"));
 		System.out.println("===============================================");
 		
 		

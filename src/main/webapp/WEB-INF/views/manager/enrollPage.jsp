@@ -46,12 +46,13 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
 		  cancelButtonText: '돌아가기',
 		}).then((result) => {
 		  if (result.isConfirmed) {
-		    Swal.fire(
-		      '등록 완료!',
-		       productName,
-		      'success'
-		    )
-		    location.href="enrollAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enroll";
+		    Swal.fire({
+		    	title: '등록 완료!',
+		    	text: productName,
+		    	icon: 'success'
+		    }).then((result) => {
+			    location.href="enrollAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enroll";
+		    })
 		  }
 		})
 }
@@ -167,7 +168,7 @@ function btn_enroll(productNo, productName, discountPrice, countTime){
 			    	<div id="list-box">
 			    		<div class="row">
 			    			<div class='col-sm-3'>
-			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' /></div>
+			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' class="product_img"/></div>
 			  				</div>
 			  				<div class='col-sm-6'>
 			  					<div class="control_size">

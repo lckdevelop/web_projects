@@ -407,27 +407,36 @@ $(function() {
 				       		<div class="col-md-2">
 				       			<!-- 년도 select박스 -->
 					       		<select name="searchYear" id="searchYear" class="selectpicker" data-style="btn-danger" data-width="110px">
-								<option value="2021"
-									<c:if test="${profitDTO.searchYear == '2021'}"> selected </c:if>
-								>2021년</option>
-								<option value="2020"
-									<c:if test="${profitDTO.searchYear == '2020'}"> selected </c:if>
-								>2020년</option>
-								<option value="2019"
-									<c:if test="${profitDTO.searchYear == '2019'}"> selected </c:if>
-								>2019년</option>
-								</select>
-				       			<!-- sub카테고리 -->
-					       		<select name="searchSubCat" id="searchSubCat" class="selectpicker" data-style="btn-danger" data-width="110px" style="background-color:#212529">
-								<option value="김밥류"
-									<c:if test="${profitDTO.mainCategory == '김밥류'}"> selected </c:if>
-								>김밥류</option>
-								<option value="도시락류"
-									<c:if test="${profitDTO.mainCategory == '도시락류'}"> selected </c:if>
-								>도시락류</option>
-								<option value="유제품류"
-									<c:if test="${profitDTO.mainCategory == '유제품류'}"> selected </c:if>
-								>유제품류</option>
+									<option value="2021"
+										<c:if test="${profitDTO.searchYear == '2021'}"> selected </c:if>
+									>2021년</option>
+									<option value="2020"
+										<c:if test="${profitDTO.searchYear == '2020'}"> selected </c:if>
+									>2020년</option>
+									<option value="2019"
+										<c:if test="${profitDTO.searchYear == '2019'}"> selected </c:if>
+									>2019년</option>
+									</select>
+					       			<!-- sub카테고리 -->
+						       		<select name="searchSubCat" id="searchSubCat" class="selectpicker" data-style="btn-danger" data-width="110px">
+									<option value="김밥류"
+										<c:if test="${profitDTO.mainCategory == '김밥류'}"> selected </c:if>
+									>김밥류</option>
+									<option value="도시락류"
+										<c:if test="${profitDTO.mainCategory == '도시락류'}"> selected </c:if>
+									>도시락류</option>
+									<option value="유제품류"
+										<c:if test="${profitDTO.mainCategory == '유제품류'}"> selected </c:if>
+									>유제품류</option>
+									<option value="빵류"
+										<c:if test="${profitDTO.mainCategory == '빵류'}"> selected </c:if>
+									>빵류</option>
+									<option value="즉석조리"
+										<c:if test="${profitDTO.mainCategory == '즉석조리'}"> selected </c:if>
+									>즉석조리</option>
+									<option value="완제품"
+										<c:if test="${profitDTO.mainCategory == '완제품'}"> selected </c:if>
+									>완제품</option>
 								</select>
 					       		
 				     		</div>

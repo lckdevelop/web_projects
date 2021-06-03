@@ -17,5 +17,6 @@ public class CustomerDTO extends MemberDTO{
 	private long point;
 	private long purchasePrice;
 	private long cvsproductno;
+	private long purchaseCnt;
 	//private List<PurchaseListDTO> purchaselist;
 }

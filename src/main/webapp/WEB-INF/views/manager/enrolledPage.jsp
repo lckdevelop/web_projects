@@ -46,12 +46,13 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 		  cancelButtonText: '돌아가기',
 		}).then((result) => {
 		  if (result.isConfirmed) {
-		    Swal.fire(
-		      '취소 완료!',
-		       productName,
-		      'error'
-		    )
-		    location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enrolled";
+		    Swal.fire({
+		    	title: '취소 완료!',
+		    	text: productName,
+		    	icon: 'error'
+		    }).then((result) => {
+			    location.href="cancelAction?pg=${pagingDTO.pg}&no="+productNo+ "&discountPrice=" + discountPrice + "&countTime=" +countTime + "&from=enrolled";
+		    })
 		  }
 		})
 }
@@ -165,10 +166,10 @@ function btn_cancel(productNo, productName, enrolledPrice, discountPrice, countT
 			    	<div id="list-box">
 			    		<div class="row">
 			    			<div class='col-sm-3'>
-			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' /></div>
+			  					<div class="img_resize"><img src='${app}/resources/product/images/${product.name}.jpg' class="product_img"/></div>
 			  				</div>
 			  				<div class='col-sm-6'>
-			  					<div class="control_size_ed">
+			  					<div class="control_size">
 				    				<span style="font-weight:bold">${product.name}(${product.productcode})<br/></span>
 				    				<div class="enroll_margin_box"></div>
 				    				<span>제조날짜 : <f:formatDate value="${product.warehousingdate}" pattern="yyyy-MM-dd HH:00:00" /><br/></span>
