@@ -168,7 +168,7 @@
                          </div>
                          
                          <div class="col-12 text-center" style="margin: 10px 0 10px 0;">
-                             <button class="btn mb-1 btn-warning btn-block" onclick="location.href='/store/customer/purchaselist'">나의 구매목록 (${purchasecount})</button>
+                             <button class="btn mb-1 btn-warning btn-block" onclick="location.href='/store/customer/purchaselist'">나의 구매목록 (<span id = 'purchaseCnt'>${purchasecount}</span>)</button>
                          </div>
                          
                          <div class="col-12 text-center" style="margin: 10px 0 10px 0;">

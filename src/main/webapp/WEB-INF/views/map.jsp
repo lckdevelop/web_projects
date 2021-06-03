@@ -36,13 +36,11 @@
 
  // 전체 체크 버튼 클릭시 전체 체크 및 해제
  function checkFunc(){	 
-	 var temp = $("ul[id='acc_ordion']");
 	 if(($("ul[id='acc_ordion']").attr("class")) === 'Accordion'){
-		 console.log("ture클릭")
+		 console.log("accordion 접힙")
 		 $("ul[id='acc_ordion']").prop("class","collapse")
-		 
 	}else{
-		console.log("false클릭");
+		console.log("accordion 열림");
 		$("ul[id='acc_ordion']").prop("class","Accordion")
 	}
  }
@@ -459,14 +457,14 @@ function productListAjax(storecode, endNo){
 		        	var v_loadPage ="";
 	            		v_loadPage += "		<ul class='metismenu' id='menu'>"; // start metismenu
 	            		v_loadPage += "				<li class='mega-menu mega-menu-sm'>"; // start mega-menu mega-menu-sm
-	            		v_loadPage += "				<button type='button' class='btn btn-success' style='width:375px;position:relative; right:11px;' >"; // start mega-menu mega-menu-sm
-	            		v_loadPage += "					<a onclick='checkFunc()' aria-expanded='false' style='font-size:16px;'>"; 
+	            		v_loadPage += "				<button id = 'acc_ordion_btn' onclick='checkFunc()' type='button' class='btn btn-success' style='width:375px;position:relative; right:11px;' >"; // start mega-menu mega-menu-sm
+	            		v_loadPage += "					<a  aria-expanded='false' style='font-size:16px;'>"; 
 	            		v_loadPage += 						"<span>"+ data.cvstoreDTO.brand+" "+data.cvstoreDTO.name +" 상품목록"+"</span>";
 	            		v_loadPage += "					</a>"; 
 	            		v_loadPage += "				</button>"; // start mega-menu mega-menu-sm
 	            		v_loadPage += "					<ul aria-expanded='false' id='acc_ordion' class='Accordion'>";  //start ul
          				
-         				v_loadPage += "		<div id ='list_container_box' style='height: 700px; overflow-y: scroll;>"; // start list_container_box
+         				v_loadPage += "		<div id ='list_container_box' style='height: 700px; overflow: auto; overflow-x:hidden' >"; // start list_container_box
          				v_loadPage += "			<hr class='list_hr'>"; 
          				v_loadPage += " 			<form>";  //start form
 		            	for(var i=0; i<data.cvstoreDTO.cvsProductList.length; i++){
@@ -490,7 +488,7 @@ function productListAjax(storecode, endNo){
 	            				
 	            				v_loadPage +="				원가 : <span class='ori_price'>"+data.cvstoreDTO.cvsProductList[i].price+"원</span>";
 	            				v_loadPage +="				<div class='discount'>"+data.cvstoreDTO.cvsProductList[i].discountRate+"% <span style='color:black;''>" + data.cvstoreDTO.cvsProductList[i].discountPrice + "원</span></div>";
-	            				v_loadPage += "				<input id = 'buyBtn2' type='button' value='결제' class='btn_enroll' onclick='buyBtn(\""+ data.cvstoreDTO.cvsProductList[i].no +"\")' />"; //결제버튼
+	            				v_loadPage += "				<input id = 'buyInputBtn"+i+"' type='button' value='결제' class='btn_enroll' onclick='buyBtn(\""+ data.cvstoreDTO.cvsProductList[i].no +"\","+ i +")' />"; //결제버튼
 	            				v_loadPage += "			</div>"; //end col-sm-3
 	            				v_loadPage += "		</div>"; //end row
 	            				v_loadPage += "</div>"; //end list-box
@@ -505,89 +503,13 @@ function productListAjax(storecode, endNo){
 
 		            	$("#cvsProductList").html(v_loadPage);
 		            	
-		              	if(endNum == 3){
-		            		$("#list_container_box").bind("scroll",infinityScrollFunction);
-		            	}
+		              
 		        }
 	        });
 	    });
 	}
 	
-	function infinityScrollFunction() {
-	//console.log(code);
-	//console.log(endNum);
-        //현재문서의 높이를 구함.
-        var documentHeight  = $("#list_container_box").height();
-        console.log("documentHeight : " + documentHeight);
-        
-        //scrollTop() 메서드는 선택된 요소의 세로 스크롤 위치를 설정하거나 반환    
-        //스크롤바가 맨 위쪽에 있을때 , 위치는 0
-        console.log("window의 scrollTop() : " + $(window).scrollTop()); 
-        //height() 메서드는 브라우저 창의 높이를 설정하거나 반환
-        console.log("window의 height() : " + $(window).height());
-        
-        //세로 스크롤위치 max값과 창의 높이를 더하면 현재문서의 높이를 구할수있음.
-        //세로 스크롤위치 값이 max이면 문서의 끝에 도달했다는 의미
-        var scrollHeight = $(window).scrollTop()+$(window).height();         
-        console.log("scrollHeight : " + scrollHeight);
-            
-        if(scrollHeight == documentHeight) { //문서의 맨끝에 도달했을때 내용 추가 
-        	$.ajax({
-				type:"get",
-		        url:"productList",
-		        data:{"storecode" : code,
-		        	 "endNo" : endNum	
-		        },
-		        dataType:"json",
-		        success:function (data2){
-		        	console.log("ajax : " + endNum)
-		        	console.log(data2);
-		        	if(data2.cvstoreDTO.cvsProductList.length == 3){
-		        		Swal.fire(
-		        				  '검색결과',
-		        				  '모든 상품이 검색되었습니다.',
-		        				  'question'
-		        				);
-		        		return;
-		        	}
-		        	console.log("무한스크롤ajax 상품목록 length : " + data2.cvstoreDTO.cvsProductList.length);
-		        	var v_loadPage2 ="";
-		            	for(var i=0; i<data2.cvstoreDTO.cvsProductList.length; i++){
-		            			endNum += 1;
-		            			console.log(endNum);
-		            			v_loadPage2 += "<div id='list-box'>"; //start list-box
-		            			v_loadPage2 += "		<div class='row'>"; //start row
-		            			v_loadPage2 += "			<div class='col-sm-3'>"; //start col-sm-3
-		            			v_loadPage2 += "				<div class='img_resize'><img src='${app}/resources/product/images/"+ data2.cvstoreDTO.cvsProductList[i].name +".jpg' class='product_img'/></div>"; 
-		            			v_loadPage2 += "			</div>"; 	// //end col-sm-3
-		            			v_loadPage2 += "			<div class='col-sm-6'>"; //start col-sm-6
-		            			v_loadPage2 += "				<div class='control_size'>"; // start control_size
-		            			v_loadPage2 += "					<span style='font-weight:bold'>"+ data2.cvstoreDTO.cvsProductList[i].name+"<br/></span>"; 
-		            			v_loadPage2 += "					<div class='enroll_margin_box'></div>"; 
-		            			v_loadPage2 += "					<span>제조날짜 : "+ data2.cvstoreDTO.cvsProductList[i].parseWarehousingdate +"<br/></span>"; 
-		            			v_loadPage2 += "					<span>유통만료기한 : "+ data2.cvstoreDTO.cvsProductList[i].parseExpirationdate + "<br/></span>"; 
-		            			v_loadPage2 += "					<div class='enroll_margin_box'></div>"; 
-		            			v_loadPage2 += "				</div>"; //end control_size
-		            			v_loadPage2 += "			</div>"; //end col-sm-6
-		            			v_loadPage2 += "			<div class='col-sm-3'>"; //start col-sm-3
-		            			v_loadPage2 += "				<div class='dDay'>D-day : "+data2.cvstoreDTO.cvsProductList[i].countTime+"시간</div>"; 
-	            				
-		            			v_loadPage2 +="				원가 : <span class='ori_price'>"+data2.cvstoreDTO.cvsProductList[i].price+"원</span>";
-		            			v_loadPage2 +="				<div class='discount'>"+data2.cvstoreDTO.cvsProductList[i].discountRate+"% <span style='color:black;''>" + data2.cvstoreDTO.cvsProductList[i].discountPrice + "원</span></div>";
-		            			v_loadPage2 += "				<input type='button' value='결제' class='btn_enroll' onclick='buyBtn(\""+ data2.cvstoreDTO.cvsProductList[i].no +"\")'/>"; //결제버튼
-		            			v_loadPage2 += "			</div>"; //end col-sm-3
-		            			v_loadPage2 += "		</div>"; //end row
-		            			v_loadPage2 += "</div>"; //end list-box
-		            			v_loadPage2 += "<hr>"; 
-
-		            	}
-		            	$(v_loadPage2).appendTo("#list_container_box");
-		            	
-		            	
-		        }
-	        });
-        }
-    }//function infinityScrollFunction()
+	
 
 	
 	
@@ -632,7 +554,7 @@ function productListAjax(storecode, endNo){
 	<!-- 지도에 받을 편의점 리스트 Ajax END -->
 	
 	<!-- 결제 ajax Start -->
-	function buyBtn(no){
+	function buyBtn(no,i){
 		var accountno = '${dto.accountno}';
 		$.ajax({
 	   		 url: "onecvsproduct",
@@ -684,12 +606,17 @@ function productListAjax(storecode, endNo){
 						    			//location.reload();	
 						    			
 						    			
-						    			//****** 작업
+						    			//****** 구매후 작업
+						    			// 포인트 최신화
 										$("#point").text(data.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+						    			// 구매목록 최신화
 										$("#purchaseCnt").text(data.purchaseCnt);
-										$("#buyBtn2").attr('value', '결제완료');
-										$("#buyBtn2").css('background-color','#d9534f');
-										$("#buyBtn2").attr('disabled',true);
+										
+						    			// 구매버튼 -> 구매완료로 바꿔주기
+						    			console.log("#buyInputBtn"+i);
+										$("#buyInputBtn"+i).attr('value', '결제완료');
+										$("#buyInputBtn"+i).css('background-color','#d9534f');
+										$("#buyInputBtn"+i).attr('disabled',true);
 										
 									}
 									

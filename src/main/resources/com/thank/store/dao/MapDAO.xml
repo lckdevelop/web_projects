@@ -52,7 +52,6 @@
 					c.no as no,
 					c.warehousingdate as warehousingdate,
 					c.expirationdate as expirationdate,
-					c. enrollment,
 					ROUND((c.expirationdate - sysdate) * 24) as countTime
 			from cvstoreproduct c
 			join productlist p on c.productlist_no = p.no
@@ -61,7 +60,7 @@
 			and c.enrollment = 1
 			
 			and ROUND((c.expirationdate - sysdate) * 24) > 0
-			offset #{endNo} rows fetch first 3 rows only
+			
 		]]>
 	</select>
 	
