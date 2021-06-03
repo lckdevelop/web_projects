@@ -343,6 +343,9 @@ public class CustomerController {
 			customerService.addPurchaseProduct(customerDTO);// 구매목록에 등록
 			customerService.updatePurchaseProduct(cvsProductDTO);// 상품 상태 변경 enrollment = 2
 			customerService.updateCvstorePoint(cvsProductDTO);// 판매자 수익금 추가
+			
+			customerDTO = customerService.getCustomerInfo(memberInfo.getNo());
+			customerDTO.setPurchaseCnt(customerService.getPurchaseCount(customerDTO.getCustomerno()));
 
 		} catch (Exception e) {
 			log.info(e.getMessage());
@@ -516,6 +519,8 @@ public class CustomerController {
 		session.setAttribute("lat", loc.get("lat"));
 		session.setAttribute("lon", loc.get("lon"));
 		
+		
+		
 //		log.info(loc.get("lat") + ": lat");
 //		log.info(lat + ": lat");
 //		log.info(loc.get("lon") + ": lon");
@@ -585,6 +590,9 @@ public class CustomerController {
 		public HashMap<String, CvstoreDTO> productList (
 				@RequestParam HashMap<String, String> storecode
 			    ) {
+			System.out.println("===============================================");
+			System.out.println( "cusController endNo : " + storecode.get("endNo"));
+			System.out.println("===============================================");
 			HashMap<String, CvstoreDTO> hash = new HashMap<String, CvstoreDTO>();
 			try {
 				CvstoreDTO cvstoreDTO = customerService.searchCvstoreListMap(storecode);
