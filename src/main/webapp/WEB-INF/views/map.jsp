@@ -430,7 +430,7 @@ function makeCvsInfo(){
 
 <!-- ajax 영역 -->
 <script type="text/javascript">
-	function productListAjax(storecode, endNo){
+function productListAjax(storecode, endNo){
 		
 		$(function() {
 			endNum = endNo;
@@ -454,8 +454,8 @@ function makeCvsInfo(){
 		        				);
 		        		return;
 		        	}
-		        	console.log(data.cvstoreDTO.cvsProductList.length);
-		        	console.log(data.cvstoreDTO.cvsProductList[0].warehousingdate );
+		        	console.log("상품리스트 init length : "+data.cvstoreDTO.cvsProductList.length);
+		        	//console.log(data.cvstoreDTO.cvsProductList[0].warehousingdate );
 		        	var v_loadPage ="";
 						
 
@@ -509,7 +509,6 @@ function makeCvsInfo(){
 		            	$("#cvsProductList").html(v_loadPage);
 		            	
 		              	if(endNum == 3){
-		            		console.log("endNum");
 		            		$("#list_container_box").bind("scroll",infinityScrollFunction);
 		            	}
 		        }
@@ -522,32 +521,39 @@ function makeCvsInfo(){
 	console.log(endNum);
         //현재문서의 높이를 구함.
         var documentHeight  = $(document).height();
-        console.log("documentHeight : " + documentHeight);
+        //console.log("documentHeight : " + documentHeight);
         
         //scrollTop() 메서드는 선택된 요소의 세로 스크롤 위치를 설정하거나 반환    
         //스크롤바가 맨 위쪽에 있을때 , 위치는 0
-        console.log("window의 scrollTop() : " + $(window).scrollTop()); 
+        //console.log("window의 scrollTop() : " + $(window).scrollTop()); 
         //height() 메서드는 브라우저 창의 높이를 설정하거나 반환
-        console.log("window의 height() : " + $(window).height());
+        //console.log("window의 height() : " + $(window).height());
         
         //세로 스크롤위치 max값과 창의 높이를 더하면 현재문서의 높이를 구할수있음.
         //세로 스크롤위치 값이 max이면 문서의 끝에 도달했다는 의미
         var scrollHeight = $(window).scrollTop()+$(window).height();         
-        console.log("scrollHeight : " + scrollHeight);
+        //console.log("scrollHeight : " + scrollHeight);
             
         if(scrollHeight == documentHeight) { //문서의 맨끝에 도달했을때 내용 추가 
+        	console.log("ajax : " + endNum);
         	$.ajax({
 				type:"get",
 		        url:"productList",
-		        //편의점상품리스트테이블 더미데이터생성되면 sql문 바꿔주라!
 		        data:{"storecode" : code,
 		        	 "endNo" : endNum	
 		        },
 		        dataType:"json",
 		        success:function (data2){
 		        	console.log(data2);
-		        	console.log(data2.cvstoreDTO.cvsProductList.length);
-		        	console.log(data2.cvstoreDTO.cvsProductList[0].warehousingdate );
+		        	if(data2.cvstoreDTO.cvsProductList.length == 0){
+		        		Swal.fire(
+		        				  '검색결과',
+		        				  '모든 상품이 검색되었습니다.',
+		        				  'question'
+		        				);
+		        		return;
+		        	}
+		        	console.log("무한스크롤ajax 상품목록 length : " + data2.cvstoreDTO.cvsProductList.length);
 		        	var v_loadPage2 ="";
 		            	for(var i=0; i<data2.cvstoreDTO.cvsProductList.length; i++){
 		            			endNum += 1;
@@ -729,6 +735,7 @@ function makeCvsInfo(){
 	<!-- Map 뜰때 Start-->
 	
 	window.onload = function(){
+		
 		document.getElementById("searchBtn").onclick = function () {
 			  var cvStoreCnt = document.getElementById("cvStoreCnt").value;
 			  cvsStoreCntAjax(cvStoreCnt);
