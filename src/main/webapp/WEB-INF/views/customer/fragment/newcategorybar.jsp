@@ -119,6 +119,7 @@
                             <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=우유">우유</a></li>
                             <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=요거트">요거트</a></li>
                             <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=요구르트">요구르트</a></li>
+                            <li><a href="./searchresult?searchKeyword=&mainCategory=유제품류&subCategory=치즈">치즈</a></li>
                         </ul>                        
                     </li>                      
                 </ul>
