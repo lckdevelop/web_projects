@@ -222,6 +222,11 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public CvstoreDTO searchCvstoreListMap(HashMap<String, String> storecode) throws Exception {
 		
+		System.out.println("===============================================");
+		System.out.println(storecode.get("endNo"));
+		System.out.println("===============================================");
+		
+		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
 		String expirationdate = "";
