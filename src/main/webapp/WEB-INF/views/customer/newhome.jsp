@@ -44,7 +44,7 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header" style="background-color:white">
+        <div class="nav-header" style="background-color:white; border-right: solid 2px #f29d56">
 			<img src="${app}/resources/logo_copy.png" style='height: 100%; width: 100%; object-fit: contain'alt="">
         </div>
         <!--**********************************
@@ -66,7 +66,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar" style="height: 880px;  width: 243px; padding-bottom:0px">         
+        <div class="nk-sidebar" style="height: 100%;  width: 243px; padding-bottom:0px" >         
 			<jsp:include page="/WEB-INF/views/customer/fragment/newcategorybar.jsp" flush="true" />			
         </div>
         <!--**********************************

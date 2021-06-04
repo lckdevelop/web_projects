@@ -40,7 +40,7 @@
 </head>
 <body>
 			
-            <div class="nk-nav-scroll" style="height: 1297px; width:180px;">
+            <div class="nk-nav-scroll" style="height: 100%; width:180px; border-right: solid 2px #f29d56">
             	<!-- 카테고리 검색창 시작 -->
             	<form action="/store/customer/searchresult">
             	<input type="submit" style="width:45px; height:45px; margin:2px; float:right; padding:0px;" class="btn btn-warning" value="찾기"></input>
