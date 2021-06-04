@@ -162,7 +162,7 @@ $(document).ready(function(){
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar" style="height: 880px;  width: 243px; padding-bottom:0px">         
+        <div class="nk-sidebar" style="height: 100%;  width: 243px; padding-bottom:0px">         
 			<jsp:include page="/WEB-INF/views/customer/fragment/newcategorybar.jsp" flush="true" />			
         </div>
         <!--**********************************
