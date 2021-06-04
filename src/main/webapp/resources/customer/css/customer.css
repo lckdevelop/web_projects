@@ -285,31 +285,15 @@ th, td {
 	outline:0;
 }
 
-/* select박스 */
-/* .custom-select{
-   width: 100px;
-   height: 30px;
-   border-radius: 3px;
-   border-style: none;
-   padding:7px, 18px; 
-   color : white;
-   text-align:center;
+.profit_link {
+   text-decoration: none;
+   padding-top:20px;
+   color:rgb(237, 123, 123);
+   font-size:17px;
 }
 
-.custom-select select {
-  display: none; hide original SELECT element:
+.profit_link:hover {
+   text-decoration: none;
+   padding-top:20px;
+   color:rgba(79, 126, 255, 0.7);
 }
-
-.select-selected {
- background-color: #fe5e5e;
-}
-
-style items (options):
-.custom-select-items {
-  position: absolute;
-  background-color: DodgerBlue;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
-} */
