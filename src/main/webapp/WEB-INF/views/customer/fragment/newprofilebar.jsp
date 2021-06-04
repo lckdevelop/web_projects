@@ -156,7 +156,7 @@
 					<div class="profile_info" >
 						<p class="text-muted mb-0">${dto.name}고객님 안녕하세요.<br/><br/></p>
 						<p class="text-muted mb-0 profit_link">
-						<a href="transactionhistory">
+						<a href="transactionhistory" class="profit_link">
                              보유한 폐기머니 : <span id="point"><f:formatNumber value="${dto.point}" pattern="#,###" /></span> 원
 						</a></p>
 					</div>
