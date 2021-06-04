@@ -58,9 +58,8 @@
 			join cvstore cvs on  c.cvstore_no = cvs.no
 			where cvs.storecode = #{storecode}
 			and c.enrollment = 1
-			
 			and ROUND((c.expirationdate - sysdate) * 24) > 0
-			
+			order by countTime
 		]]>
 	</select>
 	

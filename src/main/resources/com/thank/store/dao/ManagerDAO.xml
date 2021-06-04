@@ -67,7 +67,11 @@
 	<select id="getEnrolledProductList" parameterType="ManSearchDTO" resultType="CvsProductDTO">
 		select B.*
 			from (select rownum as rnum, A.*
-		    	  from (select  cvsp.no, p.productcode, p.name, p.price, cvsp.enrolledprice, cvsp.enrolledlefttime, cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate, 
+		    	  from (select  
+		    	  		cvsp.no, p.productcode, 
+		    	  		p.name, p.price, 
+		    	  		cvsp.enrolledprice, cvsp.enrolledlefttime, 
+		    	  		cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate, 
 		      		    ROUND((cvsp.expirationdate - sysdate) * 24) as countTime
 					    from cvstore cvs
 					    join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
@@ -200,27 +204,28 @@
 	작성일자: 2021/05/29
 	 -->
 	 <select id="profitPerMonth" parameterType="ProfitDTO" resultType="ProfitDTO">
-	 	SELECT TO_CHAR(b.dt, 'YYYY-MM') AS month
-     	,NVL(SUM(a.profitpermonth), 0) profitpermonth, NVL(SUM(a.cnt), 0) cnt
-  		FROM ( select to_char(cvsp.sellday, 'YYYY-MM-DD') as m,
-    	COUNT(*) cnt, sum(cvsp.enrolledprice) as profitpermonth
-		from cvstore cvs
-		join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
-		join productlist p on cvsp.productlist_no = p.no
-        WHERE cvsp.cvstore_no = #{cvstoreno}
-        and to_char(cvsp.sellday, 'yyyy') = #{searchYear} 
-        GROUP BY to_char(cvsp.sellday, 'YYYY-MM-DD')
-        ) a right outer join
-      	( SELECT TO_DATE(#{searchYear} || '-01-01','YYYY-MM-DD') + LEVEL - 1 AS dt
-          FROM dual
+	 	SELECT 
+ 		TO_CHAR(b.dt, 'YYYY-MM') AS month,
+ 		NVL(SUM(a.profitpermonth), 0) profitpermonth, 
+ 		NVL(SUM(a.cnt), 0) cnt
+  		FROM (select to_char(cvsp.sellday, 'YYYY-MM-DD') as m,
+    		  COUNT(*) cnt, sum(cvsp.enrolledprice) as profitpermonth
+			  FROM cvstore cvs
+			  JOIN cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+			  JOIN productlist p on cvsp.productlist_no = p.no
+	          WHERE cvsp.cvstore_no = #{cvstoreno}
+	          AND to_char(cvsp.sellday, 'yyyy') = #{searchYear} 
+        	  GROUP BY to_char(cvsp.sellday, 'YYYY-MM-DD')
+        	  ) a right outer join
+      			(SELECT TO_DATE(#{searchYear} || '-01-01','YYYY-MM-DD') + LEVEL - 1 AS dt
+          		 FROM dual
      <![CDATA[
-          CONNECT BY LEVEL <= (TO_DATE(#{searchYear} || '-12-31','YYYY-MM-DD') 
-                            - TO_DATE(#{searchYear} || '-01-01','YYYY-MM-DD') + 1)
+          		 CONNECT BY LEVEL <= (TO_DATE(#{searchYear} || '-12-31','YYYY-MM-DD') 
+                                   - TO_DATE(#{searchYear} || '-01-01','YYYY-MM-DD') + 1)
      ]]>
-        ) b
-	      on b.dt = a.m
-	      GROUP BY TO_CHAR(b.dt, 'YYYY-MM')
-	      ORDER BY TO_CHAR(b.dt, 'YYYY-MM')
+                 ) b ON b.dt = a.m
+	     GROUP BY TO_CHAR(b.dt, 'YYYY-MM')
+	     ORDER BY TO_CHAR(b.dt, 'YYYY-MM')
 	 </select>
 	 
 	<!-- 
