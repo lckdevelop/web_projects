@@ -12,18 +12,17 @@
 <html>
 <head>
 <link rel="icon" type="image/png" sizes="" href="">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link href="${app}/resources/customer/css/bootstrap.min.css" rel="stylesheet">
-
+<link 
+	href="${app}/resources/customer/css/customer.css" rel="stylesheet">
 <!-- accordion css -->
 <link  href="${app}/resources/customer/css/accordion.css" rel="stylesheet">
 
 <!-- Custom Stylesheet -->
 <link href="${app}/resources/quixlab/themes/quixlab/css/style.css" rel="stylesheet">
-<link href="${app}/resources/manager/css/manager.css" rel="stylesheet">
     	
 <!-- jquery 경로 -->
 <script type="text/javascript" src="${app}/resources/customer/js/jquery-3.6.0.min.js"></script>
@@ -353,7 +352,7 @@ function makeCvsInfo(){
 	    '        </div>' + 
 	    '        <div class="body">' + 
 	    '            <div class="img">' +
-	    '                <img src="https://cdn1.iconfinder.com/data/icons/set-4/92/shop-512.png" width="73" height="70">' +
+	    '                <img src="${app}/resources/manager/img/'+contents[i].brand+ '.png" width="73" height="70">' +
 	    '           </div>' + 
 	    '            <div class="desc">' + 
 	    '                <div class="ellipsis">'+ contents[i].address +'</div>' + 

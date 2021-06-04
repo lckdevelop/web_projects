@@ -7328,7 +7328,7 @@ body {
   color: #333333; }
 
 a {
-  transition: all 0.4s ease-in-out;
+  transition : all 0.4s ease-in-out;  
   color: #76838f; }
 
 a:focus,
