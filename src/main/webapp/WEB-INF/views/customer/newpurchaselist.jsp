@@ -82,7 +82,7 @@
         <!--**********************************
             profile start
         ***********************************-->
-		<div class="nk-sidebar" style="height:1297px; width:243px; margin-left:243px; margin-right:0px">
+		<div class="nk-sidebar" style="height:100%; width:243px; margin-left:243px; margin-right:0px">
  			<jsp:include page="/WEB-INF/views/customer/fragment/newprofilebar.jsp" flush="true" />
 		</div>
  		 <!--**********************************

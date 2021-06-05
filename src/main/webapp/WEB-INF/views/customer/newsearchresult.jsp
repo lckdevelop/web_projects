@@ -216,7 +216,7 @@ function buyBtn(no){
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar" style="height: 1297px;  width: 243px; padding-bottom:0px">         
+        <div class="nk-sidebar" style="height: 100%;  width: 243px; padding-bottom:0px">         
 			<jsp:include page="/WEB-INF/views/customer/fragment/newcategorybar.jsp" flush="true" />			
         </div>
         <!--**********************************
@@ -225,7 +225,7 @@ function buyBtn(no){
         <!--**********************************
             profile start
         ***********************************-->
-		<div class="nk-sidebar" style="height:1297px; width:243px; margin-left:243px; margin-right:0px">
+		<div class="nk-sidebar" style="height:100%; width:243px; margin-left:243px; margin-right:0px">
  			<jsp:include page="/WEB-INF/views/customer/fragment/newprofilebar.jsp" flush="true" />
 		</div>
  		 <!--**********************************
