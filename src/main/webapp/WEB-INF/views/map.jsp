@@ -136,7 +136,7 @@
 					    <option value="100">100개</option>
 					  </select>
 					  <div class="btn-group btn-group-lg">
-					  <button onclick="nearbyCvStore()"  id ="searchBtn"  type="button"  class="btn btn-primary" style="background-color:#ff8a3d;" >내 위주 편의점보기</button>
+					  <button onclick="nearbyCvStore()"  id ="searchBtn"  type="button"  class="btn btn-primary" style="background-color:#ff8a3d;" >내 근처 편의점보기</button>
 				   </div>
 			  </div>
 		  </div>
