@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<body>
+	<div class="container">
+	<div th:replace="fragments/bodyHeader :: bodyHeader" />
+	<div class="jumbotron" style="text-align: left">
+
+	<div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>상품명</th>
+					<th>가격</th>
+					<th>재고수량</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item : ${items}">
+					<td th:text="${item.id}"></td>
+					<td th:text="${item.name}"></td>
+					<td th:text="${#numbers.formatInteger(item.price, 0, 'COMMA')}"></td>
+					<td th:text="${item.stockQuantity}"></td>
+					<!-- 수정버튼을 누르면  -->
+					<td><a href="#"
+						th:href="@{/items/{id}/edit (id=${item.id})}"
+						class="btn btn-warning" role="button"
+						style="padding: 5px 10px; font-size: 14px">수정</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<nav style="text-align: center;">
+		<ul class="pagination"
+			th:with="start=${T(Math).floor(items.number/10)*10 + 1},
+                  last=(${start + 9 < items.totalPages ? start + 9 : items.totalPages})">
+			<li><a th:href="@{/items(page=1)}" aria-label="First"> <span
+					aria-hidden="true">First</span>
+			</a></li>
+
+			<li th:class="${items.first} ? 'disabled'"><a
+				th:href="${items.first} ? '#' :@{/items(page=${items.number})}"
+				aria-label="Previous"> <span aria-hidden="true">&lt;</span>
+			</a></li>
+
+			<li th:each="page: ${#numbers.sequence(start, last)}"
+				th:class="${page == items.number + 1} ? 'active'"><a
+				th:text="${page}" th:href="@{/items(page=${page})}"></a></li>
+
+			<li th:class="${items.last} ? 'disabled'"><a
+				th:href="${items.last} ? '#' : @{/items(page=${items.number + 2})}"
+				aria-label="Next"> <span aria-hidden="true">&gt;</span>
+			</a></li>
+
+			<li><a th:href="@{/items(page=${items.totalPages})}"
+				aria-label="Last"> <span aria-hidden="true">Last</span>
+			</a></li>
+		</ul>
+	</nav>
+
+	<div th:replace="fragments/footer :: footer" />
+	</div>
+	<!-- /container -->
+</body>
+</html>

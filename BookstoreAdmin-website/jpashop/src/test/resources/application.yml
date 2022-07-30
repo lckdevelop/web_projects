@@ -1,0 +1,7 @@
+logging:
+  level:
+    # 로그를 통해서 디버그 출력
+    # hibernate가 생성하는 sql이 다보임
+    org.hibernate.SQL: debug
+    #콘솔에서 쿼리문 데이터 출력
+    org.hibernate.type: trace
