@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+		
+<mapper namespace="com.thank.store.dao.MapDAO">
+
+	<select id="getTotalCvStore" resultType="CvStoreDTO">
+		select storecode,name,latitude,longitude,address,brand
+		from cvstore
+	</select>
+
+	
+	<select id="getCvStore"  parameterType="hashmap" resultType="CvStoreDTO">
+		<![CDATA[
+			select storecode,name,latitude,longitude,address,brand,distance
+			from
+			    (
+			    select storecode, name,latitude,longitude,address,brand,CALC_DISTANCE( #{lat},#{lon},LATITUDE,LONGITUDE) as distance
+			    from cvstore
+			    order by distance
+			)
+			where rownum <= #{cvStoreCnt}
+		]]>
+	</select>
+
+
+	
+	
+	<select id="getProductList"  parameterType="hashmap" resultType="ProductListDTO">
+		<![CDATA[
+			select p.name, p.imgurl, p.price, cvs.storecode, cvs.brand, cvs.name as storeName
+			from cvstore cvs
+				join cvstoreproduct cvsp 
+				  on    cvs.no = cvsp.cvstore_no
+				join productlist p 
+				  on cvsp.productlist_no = p.no
+			where cvs.storecode = #{storecode}
+		]]>
+	</select>
+	
+	
+	<!-- 
+	작성자 : 이효범
+	작성일자: 2021/05/31 14:41
+	 -->
+	<select id="searchCvsProductListMap" parameterType="CvstoreDTO" resultType="CvsProductDTO">
+		<![CDATA[
+			select p.name as name,
+					p.no as productcode,
+					p.price as price,
+					c.no as no,
+					c.warehousingdate as warehousingdate,
+					c.expirationdate as expirationdate,
+					ROUND((c.expirationdate - sysdate) * 24) as countTime
+			from cvstoreproduct c
+			join productlist p on c.productlist_no = p.no
+			join cvstore cvs on  c.cvstore_no = cvs.no
+			where cvs.storecode = #{storecode}
+			and c.enrollment = 1
+			and ROUND((c.expirationdate - sysdate) * 24) > 0
+			order by countTime
+		]]>
+	</select>
+	
+		<!-- 
+	작성자 : 이효범
+	작성일자: 2021/05/31 14:41
+	 -->
+	<select id="searchCvstoreListMap" parameterType="hashmap" resultType="CvstoreDTO">
+		<![CDATA[
+			select  c.no,
+					c.name,
+					c.storecode,
+					c.address,
+					c.brand
+			from cvstore c
+			WHERE c.storecode = #{storecode}
+		]]>
+	</select>
+</mapper>

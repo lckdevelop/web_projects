@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thank.store.dao.ManagerDAO">
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/22
+	 -->
+	<sql id="searchType">
+		<choose>
+			<when test="searchCondition == 'name'">
+				and p.name like '%' || #{searchKeyword} || '%'
+			</when>
+			<when test="searchCondition == 'maincategory'">
+				and p.maincategory like '%' || #{searchKeyword} || '%'
+			</when>
+			<when test="searchCondition == 'subcategory'">
+				and p.subcategory like '%' || #{searchKeyword} || '%'
+			</when>
+		</choose>
+	</sql>
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/22
+	 -->
+	<select id="getManagerInfo" parameterType="long" resultType="ManagerDTO" >		
+		select ma.no as managerno, 
+			   c.no as cvsno, 
+			   me.name, 
+			   c.name as spot, 
+			   c.brand, 
+			   c.storecode, 
+			   c.profit
+		from manager ma 
+		join member me on ma.member_no = me.no 
+		join cvstore c on ma.no = c.manager_no
+		where ma.no = #{no}
+	</select>
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/22
+	 -->
+	<select id="getAllProductList" parameterType="ManSearchDTO" resultType="CvsProductDTO">
+		select B.*
+			from (select rownum as rnum, A.*
+			      from (select  cvsp.no, p.productcode, p.name, p.price , cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate,
+			      		ROUND((cvsp.expirationdate - sysdate) * 24) as countTime
+						from cvstore cvs
+						join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+						join productlist p on cvsp.productlist_no = p.no
+		                where cvsp.cvstore_no = #{cvstore_no}
+		                and cvsp.enrollment != 2
+		                and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
+		                <include refid="searchType" />
+	              order by countTime) A
+			) B 
+		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
+	</select>
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/25
+	 -->
+	<select id="getEnrolledProductList" parameterType="ManSearchDTO" resultType="CvsProductDTO">
+		select B.*
+			from (select rownum as rnum, A.*
+		    	  from (select  
+		    	  		cvsp.no, p.productcode, 
+		    	  		p.name, p.price, 
+		    	  		cvsp.enrolledprice, cvsp.enrolledlefttime, 
+		    	  		cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate, 
+		      		    ROUND((cvsp.expirationdate - sysdate) * 24) as countTime
+					    from cvstore cvs
+					    join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+					    join productlist p on cvsp.productlist_no = p.no
+					    where cvsp.cvstore_no = #{cvstore_no}
+					    and cvsp.enrollment = 1
+				<![CDATA[
+					    and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
+					    and ROUND((cvsp.expirationdate - sysdate) * 24) <= 24
+				]]>
+						<include refid="searchType" />
+                  order by countTime) A 
+		    ) B
+		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
+	</select>
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/25
+	 -->
+	<select id="getEnrolAvaiProductList" parameterType="ManSearchDTO" resultType="CvsProductDTO">
+		select B.*
+			from (select rownum as rnum, A.*
+		    	from (select  cvsp.no, p.productcode, p.name, p.price , cvsp.enrollment, cvsp.expirationdate, cvsp.warehousingdate, 
+		      		  ROUND((cvsp.expirationdate - sysdate) * 24) as countTime
+					  from cvstore cvs
+					  join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+					  join productlist p on cvsp.productlist_no = p.no
+					  where cvsp.cvstore_no = #{cvstore_no}
+					  and cvsp.enrollment = 0
+		<![CDATA[
+					  and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
+					  and ROUND((cvsp.expirationdate - sysdate) * 24) <= 24
+		]]>
+					  <include refid="searchType" />
+                order by countTime) A 
+		   ) B
+		where rnum between #{pagingDTO.startNum} and #{pagingDTO.endNum}
+	</select>
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/26
+	 -->
+	<select id="enrollAction" parameterType="CvsProductDTO" resultType="_int">
+		update cvstoreproduct
+		set enrollment = 1
+		, enrolledprice = #{discountPrice}
+		, enrolledlefttime = #{countTime}
+		where no = #{no}
+	</select>
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/26
+	 -->
+	<select id="cancelAction" parameterType="CvsProductDTO" resultType="_int">
+		update cvstoreproduct
+		set enrollment = 0
+		, enrolledprice = null
+		, enrolledlefttime = null
+		where no = #{no}
+	</select>
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/22
+	 -->
+	<select id="getTotalRecord" parameterType="ManSearchDTO" resultType="long">
+		select count(*) as cnt
+		from cvstore cvs
+		join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+		join productlist p on cvsp.productlist_no = p.no
+		where cvsp.cvstore_no = #{cvstore_no}
+		and cvsp.enrollment != 2
+	<![CDATA[
+		and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
+	]]>
+		<include refid="searchType" />
+	</select>
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/25
+	 -->
+	<select id="getTotalEnrolledRecord" parameterType="ManSearchDTO" resultType="long">
+		select count(*) as cnt
+		from cvstore cvs
+		join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+		join productlist p on cvsp.productlist_no = p.no
+        where cvsp.cvstore_no = #{cvstore_no}
+		and cvsp.enrollment = 1
+	<![CDATA[
+		and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
+        and ROUND((cvsp.expirationdate - sysdate) * 24) <= 24
+    ]]>
+    	<include refid="searchType" />
+	</select>
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/25
+	 -->
+	<select id="getTotalAvailRecord" parameterType="ManSearchDTO" resultType="long">
+		select count(*) as cnt
+		from cvstore cvs
+		join cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+		join productlist p on cvsp.productlist_no = p.no
+        where cvsp.cvstore_no = #{cvstore_no}
+		and cvsp.enrollment = 0
+	<![CDATA[
+		and ROUND((cvsp.expirationdate - sysdate) * 24) > 0
+        and ROUND((cvsp.expirationdate - sysdate) * 24) <= 24
+    ]]>
+    	<include refid="searchType" />
+	</select>
+	
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/29
+	 -->
+	 <select id="enrollmentCheck" parameterType="long" resultType="_int">
+	 	select enrollment
+		from cvstoreproduct
+		where no = #{no}
+	 </select>
+	 
+	 <!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/29
+	 -->
+	 <select id="profitPerMonth" parameterType="ProfitDTO" resultType="ProfitDTO">
+	 	SELECT 
+ 		TO_CHAR(b.dt, 'YYYY-MM') AS month,
+ 		NVL(SUM(a.profitpermonth), 0) profitpermonth, 
+ 		NVL(SUM(a.cnt), 0) cnt
+  		FROM (select to_char(cvsp.sellday, 'YYYY-MM-DD') as m,
+    		  COUNT(*) cnt, sum(cvsp.enrolledprice) as profitpermonth
+			  FROM cvstore cvs
+			  JOIN cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+			  JOIN productlist p on cvsp.productlist_no = p.no
+	          WHERE cvsp.cvstore_no = #{cvstoreno}
+	          AND to_char(cvsp.sellday, 'yyyy') = #{searchYear} 
+        	  GROUP BY to_char(cvsp.sellday, 'YYYY-MM-DD')
+        	  ) a right outer join
+      			(SELECT TO_DATE(#{searchYear} || '-01-01','YYYY-MM-DD') + LEVEL - 1 AS dt
+          		 FROM dual
+     <![CDATA[
+          		 CONNECT BY LEVEL <= (TO_DATE(#{searchYear} || '-12-31','YYYY-MM-DD') 
+                                   - TO_DATE(#{searchYear} || '-01-01','YYYY-MM-DD') + 1)
+     ]]>
+                 ) b ON b.dt = a.m
+	     GROUP BY TO_CHAR(b.dt, 'YYYY-MM')
+	     ORDER BY TO_CHAR(b.dt, 'YYYY-MM')
+	 </select>
+	 
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/05/29
+	 -->
+	 <select id="profitPerMainCategory" parameterType="ProfitDTO" resultType="ProfitDTO">
+	 	SELECT
+		COUNT(p.maincategory) as cntPerCategory, p.maincategory as mainCategory
+		FROM cvstore cvs
+		JOIN cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+		JOIN productlist p on cvsp.productlist_no = p.no
+		WHERE cvsp.cvstore_no = #{cvstoreno}
+		AND to_char(cvsp.sellday, 'yyyy') = #{searchYear}
+		GROUP BY p.mainCategory
+	 </select>
+	 
+	<!-- 
+	작성자 : 이채경
+	작성일자: 2021/06/02
+	-->
+	 <select id="profitPerSubCategory" parameterType="ProfitDTO" resultType="ProfitDTO">
+	 	SELECT
+		COUNT(p.subcategory) as cntPerCategory, p.subcategory as subCategory
+		FROM cvstore cvs
+		JOIN cvstoreproduct cvsp on cvs.no = cvsp.cvstore_no
+		JOIN productlist p on cvsp.productlist_no = p.no
+		WHERE cvsp.cvstore_no = #{cvstoreno}
+		AND to_char(cvsp.sellday, 'yyyy') = #{searchYear}
+        AND p.maincategory = #{mainCategory}
+		GROUP BY p.subcategory
+	 </select>
+	 
+		<!-- 
+		작성자 : 이채경
+		작성일자: 2021/06/01
+		-->
+	<select id="sellProfitList" parameterType="ProfitDTO" resultType="ManSellListDTO">
+	 	select p.productcode, 
+		p.name, 
+		p.maincategory, 
+		p.subcategory, 
+		p.price, 
+		cvsp.enrolledprice,
+		cvsp.enrolledlefttime,
+		cvsp.sellday
+		from cvstoreproduct cvsp
+		join productlist p 
+		on cvsp.productlist_no = p.no
+		where cvstore_no = #{cvstoreno}
+		and enrollment = 2
+		and to_char(cvsp.sellday, 'yyyy') = #{searchYear}
+		order by cvsp.sellday desc
+	 </select>
+	 
+	 
+	<!-- 
+	작성자 : 김수빈
+	작성일자 : 2021/05/25 12:28
+	작성내용 : 로그인 시 manager의 no 를 세션으로 전달하기 위한 sql
+	-->
+	<select id= "getManagerNoFromMember" parameterType="MemberDTO" resultType="long">
+	select
+	no
+	from manager
+	where manager.member_no= (select no from member where id=#{id})
+	</select>
+	
+	<!-- 
+	작성자 : 김수빈
+	작성일자 : 2021/05/25 12:28
+	작성내용 : 매니저 회원 가입 시 입력한 storecode로 manager의 storecode 를 업데이트
+	-->
+	<update id="updateStorecode" parameterType="ManagerDTO">
+	update manager set storecode=#{storecode} where no=#{managerno}
+	</update>
+	
+	<!-- 
+	작성자 : 김수빈
+	작성일자 : 2021/05/27 09:50
+	작성내용 : 매니저 회원 가입 시 입력한 storecode를 갖고 있는 cvstore의 manager_no 를 업데이트
+	-->
+	<update id="updateCVstoreFromManager" parameterType="ManagerDTO">
+	update cvstore set manager_no=#{managerno} where storecode=#{storecode}
+	</update>
+	
+	<select id="managerIdCheck" parameterType="String" resultType="String">
+	select count(*) from member where id=#{id} and accountType=1
+	</select>
+	
+	<select id="managerStoreCodeCheck" parameterType="String" resultType="String">
+	select count(*) from cvstore where storecode=#{storecode}
+	</select>
+	
+	<select id="storeCodeRegisteredCheck" parameterType="String" resultType="String">
+	select COUNT(*) from cvstore where STORECODE=#{storecode} and MANAGER_NO IS NULL
+	</select>
+</mapper>
