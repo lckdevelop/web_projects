@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.developia.h.model.ReservationDAO">
+	<select id="getMemResvList" parameterType="long" resultType="memberReservationDTO">
+		select rs.id, rs.roomid, rs.strdate, rs.enddate, rm.kinds, rm.roomNo, rm.pcapacity, rm.areasize, rm.floor, rm.prospect, rm.wifi 
+	 		from member m, reservation rs, room rm
+	 		where m.id = rs.memberId
+	 		and rs.roomid = rm.id
+	 		and rs.memberid = #{memberId}
+	 </select>
+	 <delete id="deleteResv" parameterType="long">
+		delete reservation
+		where id = #{resvId}
+	 </delete>
+  
+	 <select id="getResvAvaiList" parameterType="ResvCalendarDTO" resultType="roomDTO">
+	 <![CDATA[
+		  select id, kinds, roomno, pcapacity, areasize, floor, prospect, wifi 
+		  from room
+		  where id not in(select distinct roomid
+		  from reservation
+		  where not (#{checkIn} >= (SELECT TO_CHAR(SYSDATE, 'YYYYMMDD') FROM DUAL)
+		  and #{checkIn} >= enddate
+		  or #{checkOut} <= strdate))
+	 ]]>
+	 </select>
+  
+	 <select id="getResvDetial" parameterType="long" resultType="roomDTO">
+	 <![CDATA[
+	 	select 
+  		*  
+  		from room
+  		where id = #{id}
+	 ]]>
+	 </select>
+	 
+	 <insert id="insetReservation" parameterType="ResvCalendarDTO">
+	 	insert into reservation
+		values
+		(resv_id_seq.nextval
+		, #{roomId}
+		, #{checkIn}
+		, #{checkOut}
+		, #{memberId})
+	 </insert>
+</mapper>
